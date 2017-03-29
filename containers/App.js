@@ -16,8 +16,8 @@ class App extends Component {
     } = this.props
 
     return (
-      <div className='container'>
-        <div>
+      <div className='__sw-container__'>
+        <div className='container'>
           <Form></Form>
           {
             this.props.query.data &&

@@ -14,7 +14,7 @@ export default class Drawer extends Component {
     return(
       _.map(_.toPairs(cells), (cell, index) => (
         <tr key={index}>
-          <td>{ cell[0] }</td>
+          <td>{ _.startCase(cell[0]) }</td>
           <td>{ cell[1] }</td>
         </tr>
       ))

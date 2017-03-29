@@ -30,7 +30,7 @@ export function updatePageNum(pageNum) {
 }
 
 function fetchApi({ keyword, offset}) {
-  let dummy = ''
+  let dummy = 'http://rrsoft.apib.dev/search/sample_api'
   return axios.get(
     dummy,
     { params:

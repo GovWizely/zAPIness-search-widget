@@ -9,5 +9,11 @@ export function categories(data) {
 }
 
 export function paginationTotal(data, countPerPage) {
-  return _.floor(totalCount(data) / countPerPage)
+  let fraction = totalCount(data) / countPerPage
+
+  if(fraction < 1) {
+    return 1
+  } else {
+    return _.floor(fraction)
+  }
 }

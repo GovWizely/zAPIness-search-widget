@@ -1,1 +1,75 @@
+$maroon: #39ac9b;
+$grey: #f9f9f9;
+$light-grey: #f0efe7;
+$white: #fff;
 
+.__sw-container__ {
+  padding: 20px;
+  width: 600px;
+}
+
+// .btn {
+//   background-color: $maroon;
+//   color: #fff;
+// }
+
+.input {
+  height: 46px;
+}
+
+.__sw-input__ {
+  width: 100%;
+
+  .__input-wrapper__ {
+    height: 46px;
+    width: 75%;
+  }
+
+  .__input__ {
+    border: 1px solid $light-grey;
+    box-shadow: none;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 300;
+    height: 100%;
+    padding: 8px 10px;
+    width: 100%;
+  }
+
+  .__input-wrapper__, .btn {
+    display: inline-block;
+  }
+}
+
+.__sw-advanced-search__ {
+  border: none;
+  background-color: $grey;
+  height: 46px;
+  margin-left: 10px;
+  overflow: hidden;
+  vertical-align: top;
+
+  span {
+    display: inline-block;
+    vertical-align: middle
+  }
+
+  .text {
+    max-width: 0;
+    overflow: hidden;
+    transition: max-width 0.3s ease-in-out;
+  }
+
+  .glyphicon {
+    padding: 0 5px;
+  }
+
+  &:hover {
+    background: $grey;
+
+    .text {
+      max-width: 150px;
+      transition: max-width 0.3s ease-in-out;
+    }
+  }
+}
