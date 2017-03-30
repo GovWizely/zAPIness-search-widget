@@ -27,17 +27,20 @@ export default class Result extends Component {
           ))
         }
 
-        <Pagination
-         prev
-         next
-         first
-         last
-         ellipsis
-         boundaryLinks
-         items={paginationTotal(query.data, 10)}
-         maxButtons={3}
-         activePage={activePage}
-         onSelect={paginationHandleSelect} />
+        {
+          query.data.results.length > 0 &&
+            <Pagination
+             prev
+             next
+             first
+             last
+             ellipsis
+             boundaryLinks
+             items={paginationTotal(query.data, 10)}
+             maxButtons={3}
+             activePage={activePage}
+             onSelect={paginationHandleSelect} />
+        }
       </div>
     )
   }

@@ -9,24 +9,38 @@ import { paginationTotal, categories } from '../actions/elasticsearch';
 import * as QueryActions from '../actions/QueryActions';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentWillMount() {
+    this.props.getCategories();
+  }
+
   render() {
     const {
       query,
       handleSelect
     } = this.props
 
+    const result = query.get('data')
+
     return (
       <div className='__sw-container__'>
         <div className='container'>
           <Form></Form>
           {
-            this.props.query.data &&
+            result &&
             <Result
-              query={this.props.query.data}
+              query={result}
               paginationHandleSelect={handleSelect}
-              activePage={query.pageNum}
+              activePage={query.get('pageNum')}
             >
             </Result>
+          }
+          {
+            (!_.isUndefined(result) && result.length === 0) &&
+            <div>No Result</div>
           }
         </div>
       </div>
@@ -38,7 +52,11 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     handleSelect: (eventKey) => {
       dispatch(QueryActions.updatePageNum(eventKey));
-      dispatch(QueryActions.requestApi(eventKey));
+      dispatch(QueryActions.requestApi());
+    },
+
+    getCategories: () => {
+      dispatch(QueryActions.getCategories());
     }
   };
 }

@@ -1,14 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, FieldArray, reduxForm } from 'redux-form';
 
-import * as QueryActions from '../actions/QueryActions'
+import * as QueryActions from '../actions/QueryActions';
+import Filter from './Filter';
 
 class Form extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showFilter: false
+    };
+  }
+
+  toggleFilter() {
+    this.setState({
+      showFilter: !this.state.showFilter
+    })
+  }
+
   render() {
     const {
       handleSubmit,
+      query,
       reset,
       submitting,
       submitHandler
@@ -16,22 +30,33 @@ class Form extends Component {
 
     return(
       <form className='__sw-input__' onSubmit={(e) => e.preventDefault()}>
-          <div className='__input-wrapper__'>
-            <Field
-              name="keyword"
-              component="input"
-              type='text'
-              className='__input__'
-              placeholder='Search for keyword...'
-              onChange={ _.debounce(submitHandler, 1000) }
-            />
-          </div>
-          <button type='button'
-            className='btn btn-default __sw-advanced-search__'
-          >
-            <span className='glyphicon glyphicon-cog'></span>
-            <span className='text'>Advanced Filters</span>
-          </button>
+        <div className='__input-wrapper__'>
+          <Field
+            name="keyword"
+            component="input"
+            type='text'
+            className='__input__'
+            placeholder='Search for keyword...'
+            onChange={ _.debounce(submitHandler, 1000) }
+          />
+        </div>
+
+        <button
+          type='button'
+          className='btn btn-default __sw-advanced-search__'
+          onClick={ this.toggleFilter.bind(this) }
+        >
+          <span className='glyphicon glyphicon-cog'></span>
+          <span className='text'>Advanced Filters</span>
+        </button>
+
+        {
+          this.state.showFilter &&
+          <FieldArray
+          name="filters"
+          component={ Filter }
+          />
+        }
       </form>
     )
   }
@@ -49,7 +74,7 @@ function mapDispatchToProps(dispatch) {
       let keyword = data.target.value
 
       dispatch(QueryActions.updateKeyword(keyword))
-      dispatch(QueryActions.requestApi(keyword))
+      dispatch(QueryActions.requestApi())
     }
   }
 }
@@ -58,7 +83,7 @@ const connected = connect(mapStateToProps, mapDispatchToProps)(Form)
 
 export default reduxForm({
   form: 'form',
-  fields: ['keyword']
+  fields: ['keyword', 'filters[].type', 'filters[].value']
 }, state => ({
   initialValues: {}
 }))(connected)
