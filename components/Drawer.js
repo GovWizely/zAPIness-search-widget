@@ -13,9 +13,9 @@ export default class Drawer extends Component {
   renderTable(cells) {
     return(
       _.map(_.toPairs(cells), (cell, index) => (
-        <tr key={index}>
-          <td>{ _.startCase(cell[0]) }</td>
-          <td>{ cell[1] }</td>
+        <tr key={index} onClick={ () => this.toggleDetails() }>
+          <td><b>{ _.startCase(cell[0]) }</b></td>
+          <td><i>{ cell[1] }</i></td>
         </tr>
       ))
     )
@@ -35,13 +35,13 @@ export default class Drawer extends Component {
 
     return (
       <div>
-        <div className="__sw_link__" onClick={ () => this.toggleDetails() }>
+        <div className="__sw-link__" onClick={ () => this.toggleDetails() }>
           { cells[label] }
         </div>
 
         {
           this.state.showDetails &&
-          <div className="__sw_details__">
+          <div className="__sw-details__">
             <table>
               <tbody>
               { this.renderTable(cells) }

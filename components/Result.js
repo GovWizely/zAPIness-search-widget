@@ -18,10 +18,15 @@ export default class Result extends Component {
     const label = _.keys(categories(query.data))[0]
 
     return(
-      <div className='__sw_result__'>
+      <div className='__sw-result__'>
+        { query.data.results.length === 0 &&
+          <div className='__sw-no-result__'>
+            No result found. Please try again.
+          </div>
+        }
         {
           _.map(query.data.results, (result, index) => (
-            <div key={index}>
+            <div key={index} className='__result-container__'>
               <Drawer cells={result} label={label}></Drawer>
             </div>
           ))

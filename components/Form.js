@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 
 import * as QueryActions from '../actions/QueryActions';
+import validate from '../actions/validate'
+
 import Filter from './Filter';
 
 class Form extends Component {
@@ -29,7 +31,7 @@ class Form extends Component {
     } = this.props
 
     return(
-      <form className='__sw-input__' onSubmit={(e) => e.preventDefault()}>
+      <form className='__sw-input__' onSubmit={(e) => e.preventDefault() }>
         <div className='__input-wrapper__'>
           <Field
             name="keyword"
@@ -53,8 +55,8 @@ class Form extends Component {
         {
           this.state.showFilter &&
           <FieldArray
-          name="filters"
-          component={ Filter }
+            name="filters"
+            component={ Filter }
           />
         }
       </form>
@@ -83,6 +85,7 @@ const connected = connect(mapStateToProps, mapDispatchToProps)(Form)
 
 export default reduxForm({
   form: 'form',
+  validate,
   fields: ['keyword', 'filters[].type', 'filters[].value']
 }, state => ({
   initialValues: {}

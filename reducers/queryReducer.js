@@ -6,7 +6,8 @@ const initialState = Map({
   offset: 0,
   pageNum: 1,
   filters: [],
-  data: undefined
+  data: undefined,
+  error: []
 });
 
 export default function queryReducer(state = initialState, action) {
@@ -14,7 +15,7 @@ export default function queryReducer(state = initialState, action) {
 
   switch (action.type) {
     case 'LOAD_RESULT':
-      return state.set('data', action.data)
+      return state.set('data', action.data).set('error', [])
     case 'LOAD_ERROR':
       return state.set('error', action.error)
     case 'UPDATE_KEYWORD':
@@ -33,7 +34,7 @@ export default function queryReducer(state = initialState, action) {
 
       return state.setIn(['filters'], newState)
     case 'REMOVE_ALL_FILTERS':
-      return state.set('filters', [])
+      return state.set('filters', []).set('error', [])
     case 'UPDATE_SELECTED_FILTER':
       availableValues = state.get('categories')[action.selectedFilter]
 
