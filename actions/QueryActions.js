@@ -1,7 +1,9 @@
-import axios from 'axios';
 import rootReducer from '../reducers';
 import { map, fromPairs } from 'lodash';
 import { buildParams } from './elasticsearch';
+import { post } from './api';
+
+let data = null;
 
 function loadResult(data) {
   return {
@@ -93,14 +95,6 @@ export function removeAllFilters() {
   }
 }
 
-function fetchApi(data) {
-  let dummy = 'http://rrsoft.apib.dev/search/sample_api'
-
-  let params = buildParams(data)
-
-  return axios.post(dummy, params)
-}
-
 export function requestApi() {
   return (dispatch, getState) => {
     let error = getState().form.form.syncErrors;
@@ -108,7 +102,9 @@ export function requestApi() {
     if(error) {
       return dispatch(loadError(error))
     } else {
-      return fetchApi(getState().query).then(
+      data = buildParams(getState().query)
+
+      return post(data).then(
         data => dispatch(loadResult(data)),
         error => dispatch(loadError(error))
       );
@@ -118,7 +114,9 @@ export function requestApi() {
 
 export function getCategories() {
   return (dispatch, getState) => {
-    return fetchApi(getState().query).then(
+    data = buildParams(getState().query)
+
+    return post(data).then(
       data => dispatch(updateCategories(data))
     )
   }
