@@ -7,5 +7,5 @@ export function configureAPI(endpoint) {
 }
 
 export function post(data) {
-  return axios.post(masterEndpoint, data);
+  return axios.get(masterEndpoint, data);
 }

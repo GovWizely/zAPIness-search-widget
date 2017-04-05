@@ -9,7 +9,7 @@
     "deploy": "gh-pages -d build"
   },
   "license": "MIT",
-  "homepage": "https://yih-en.github.io/yihen.github.io/",
+  "homepage": "https://govwizely.github.io/zAPIness-search-widget",
   "dependencies": {
     "axios": "^0.15.3",
     "babel-runtime": "^6.11.6",
