@@ -4,10 +4,12 @@
   "description": "zAPIness search widget",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "react-scripts build",
+    "deploy": "gh-pages -d build"
   },
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://yih-en.github.io/yihen.github.io/",
   "dependencies": {
     "axios": "^0.15.3",
     "babel-runtime": "^6.11.6",
@@ -40,6 +42,7 @@
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.8.0",
     "raw-loader": "^0.5.1",
+    "react-scripts": "^0.9.5",
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.2",
