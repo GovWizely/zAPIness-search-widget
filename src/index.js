@@ -4,7 +4,6 @@ import { AppContainer } from 'react-hot-loader';
 import configureStore from './store/configureStore';
 import { configureAPI } from './actions/api';
 import Root from './containers/Root';
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
 require('./stylesheets/main.scss');
 

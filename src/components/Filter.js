@@ -8,13 +8,6 @@ import * as QueryActions from '../actions/QueryActions';
 var _ = require('lodash');
 
 class Filter extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      filterValues: []
-    }
-  }
-
   getAvailableValues(index) {
     let target = this.props.query.get('filters')[index]
 

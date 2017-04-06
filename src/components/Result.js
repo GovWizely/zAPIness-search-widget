@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Pagination } from 'react-bootstrap';
+//import { Pagination } from 'react-bootstrap';
+import Pagination from './Pagination';
 import { paginationTotal, categories } from '../actions/elasticsearch';
 
 import Drawer from './Drawer';
@@ -31,22 +32,50 @@ export default class Result extends Component {
             </div>
           ))
         }
-
         {
           query.data.results.length > 0 &&
-            <Pagination
-             prev
-             next
-             first
-             last
-             ellipsis
-             boundaryLinks
-             items={paginationTotal(query.data, 10)}
-             maxButtons={3}
-             activePage={activePage}
-             onSelect={paginationHandleSelect} />
+          <Pagination
+             totalPage={ paginationTotal(query.data, 10) }
+             totalNumButton={ 3 }
+             activePage={ activePage }
+             onSelect={ paginationHandleSelect } />
         }
       </div>
     )
   }
 }
+
+
+
+
+
+
+
+
+
+// {
+//   query.data.results.length > 0 &&
+//     <Pagination
+//      prev
+//      next
+//      first
+//      last
+//      ellipsis
+//      boundaryLinks
+//      items={ paginationTotal(query.data, 10) }
+//      maxButtons={ 3 }
+//      activePage={ activePage }
+//      onSelect={ paginationHandleSelect } />
+// }
+
+
+// {
+//   query.data.results.length > 0 &&
+//   <Pagination
+//     //  items={ paginationTotal(query.data, 10) }
+//     items={7}
+//      maxButtons={ 3 }
+//      //activePage={ activePage }
+//      activePage={4}
+//      onSelect={ paginationHandleSelect } />
+// }
