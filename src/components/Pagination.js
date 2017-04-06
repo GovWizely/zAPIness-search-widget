@@ -6,19 +6,19 @@ var _ = require('lodash');
 export default class Pagination extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      renderPage: page(this.props.activePage, this.props.onSelect),
-      buildTrailing: trailing(this.props.activePage)
-    }
+
+    this.renderPage = this.renderPage.bind(this)
+  }
+  componentWillMount() {
+    this.renderPage(this.props);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.renderPage(nextProps)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(this.props != nextProps) {
-      this.setState({
-        renderPage: page(nextProps.activePage, nextProps.onSelect),
-        buildTrailing: trailing(nextProps.activePage)
-      })
-    }
+  renderPage(props) {
+    this.page = page(props.activePage, props.onSelect);
+    this.trailing = trailing(props.activePage);
   }
 
   buildPageBetween() {
@@ -28,15 +28,15 @@ export default class Pagination extends React.Component {
       this.props.totalNumButton
     );
 
-    return _.map(range, (num, index) => ( this.state.renderPage(num) ));
+    return _.map(range, (num, index) => ( this.page(num) ));
   }
 
   buildFrontTrailing(havePrev) {
-    return this.state.buildTrailing(havePrev);
+    return this.trailing(havePrev);
   }
 
   buildBackTrailing(haveNext) {
-    return this.state.buildTrailing(haveNext);
+    return this.trailing(haveNext);
   }
 
   render() {
@@ -61,11 +61,11 @@ export default class Pagination extends React.Component {
               onClick={ () => onSelect(activePage - 1) }
           > &lt; </a>
           </li>
-          { this.state.renderPage(1) }
+          { this.page(1) }
           { this.buildFrontTrailing(havePrev) }
           { this.buildPageBetween() }
           { this.buildBackTrailing(haveNext) }
-          { this.state.renderPage(totalPage) }
+          { this.page(totalPage) }
           <li className=''>
             <a
               href='#'
