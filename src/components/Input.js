@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import { map, startCase } from 'lodash';
 
-export const selectInput = ({ changeHandler, list, fieldName, name, error }) => (
-
+export const selectInput = ({ changeHandler, error, fieldName, list }) => (
   <Field
     name={fieldName}
     component="select"
@@ -20,3 +19,10 @@ export const selectInput = ({ changeHandler, list, fieldName, name, error }) => 
     }
   </Field>
 )
+
+selectInput.PropTypes = {
+  changeHandler: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  fieldname: PropTypes.string.isRequired,
+  list: PropTypes.array.isRequired
+}

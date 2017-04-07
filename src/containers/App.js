@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Form from '../components/Form';
 import Result from '../components/Result';
@@ -63,6 +63,11 @@ function mapStateToProps(state) {
   return {
     query: state.query
   }
+}
+
+App.propTypes = {
+  query: PropTypes.object.isRequired,
+  handleSelect: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

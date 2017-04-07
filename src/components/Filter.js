@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 import { selectInput } from './Input';
@@ -157,6 +157,18 @@ function mapDispatchToProps(dispatch) {
       dispatch(QueryActions.requestApi())
     }
   }
+}
+
+Filter.propTypes = {
+  addFilter: PropTypes.func.isRequired,
+  fields: PropTypes.any.isRequired,
+  form: PropTypes.object.isRequired,
+  query: PropTypes.object.isRequired,
+  removeFilter: PropTypes.func.isRequired,
+  removeAllFilters: PropTypes.func.isRequired,
+  selectFilterHandler: PropTypes.func.isRequired,
+  selectFilterValueHandler: PropTypes.func.isRequired,
+  submitHandler: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter)

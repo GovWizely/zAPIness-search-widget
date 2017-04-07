@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-//import { Pagination } from 'react-bootstrap';
+import React, { Component, PropTypes } from 'react';
 import Pagination from './Pagination';
 import { paginationTotal, categories } from '../actions/elasticsearch';
 
@@ -45,37 +44,8 @@ export default class Result extends Component {
   }
 }
 
-
-
-
-
-
-
-
-
-// {
-//   query.data.results.length > 0 &&
-//     <Pagination
-//      prev
-//      next
-//      first
-//      last
-//      ellipsis
-//      boundaryLinks
-//      items={ paginationTotal(query.data, 10) }
-//      maxButtons={ 3 }
-//      activePage={ activePage }
-//      onSelect={ paginationHandleSelect } />
-// }
-
-
-// {
-//   query.data.results.length > 0 &&
-//   <Pagination
-//     //  items={ paginationTotal(query.data, 10) }
-//     items={7}
-//      maxButtons={ 3 }
-//      //activePage={ activePage }
-//      activePage={4}
-//      onSelect={ paginationHandleSelect } />
-// }
+Result.PropTypes = {
+  activePage: PropTypes.number.isRequired,
+  paginationHandleSelect: PropTypes.func.isRequired,
+  query: PropTypes.object.isRequired
+}

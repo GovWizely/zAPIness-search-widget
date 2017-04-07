@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 var _ = require('lodash');
 
@@ -52,4 +52,9 @@ export default class Drawer extends Component {
       </div>
     )
   }
+}
+
+Drawer.PropTypes = {
+  cells: PropTypes.array.isRequired,
+  label: PropTypes.any.isRequired
 }

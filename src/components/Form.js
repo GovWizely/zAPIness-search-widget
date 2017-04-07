@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 
@@ -29,7 +29,7 @@ class Form extends Component {
     } = this.props
 
     return(
-      <form className='__sw-input__' onSubmit={(e) => e.preventDefault() }>
+      <form className='__sw-input__' onSubmit={ (e) => e.preventDefault() }>
         <div className='__input-wrapper__'>
           <Field
             name="keyword"
@@ -63,9 +63,7 @@ class Form extends Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    query: state.query
-  }
+  return {}
 }
 
 function mapDispatchToProps(dispatch) {
@@ -77,6 +75,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(QueryActions.requestApi())
     }
   }
+}
+
+Form.propTypes = {
+  submitHandler: PropTypes.func.isRequired
 }
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(Form)
