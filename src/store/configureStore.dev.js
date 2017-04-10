@@ -1,9 +1,9 @@
-import { createStore, compose, applyMiddleware } from 'redux';
-import { persistState } from 'redux-devtools';
-import rootReducer from '../reducers';
-import thunk from 'redux-thunk';
+import thunk from 'redux-thunk'
+import { createStore, compose, applyMiddleware } from 'redux'
+import { persistState } from 'redux-devtools'
+import rootReducer from '../reducers'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const enhancer = composeEnhancers(
   applyMiddleware(thunk),
@@ -12,16 +12,16 @@ const enhancer = composeEnhancers(
       /[?&]debug_session=([^&#]+)\b/
     )
   )
-);
+)
 
 export default function configureStore(initialState) {
-  const store = createStore(rootReducer, initialState, enhancer);
+  const store = createStore(rootReducer, initialState, enhancer)
 
   if (module.hot) {
     module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers').default)
-    );
+      store.replaceReducer(rootReducer.default)
+    )
   }
 
-  return store;
+  return store
 }

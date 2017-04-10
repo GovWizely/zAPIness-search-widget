@@ -1,59 +1,44 @@
-import React from 'react';
-var _ = require('lodash');
+import React from 'react'
 
-export const page = (activePage, clickHandler) => {
-  return (num) => (
-    <li
-      key={num}
-      className={ num === activePage ? 'active' : '' }
-      onClick={ () => clickHandler(num) }
+const _ = require('lodash')
+
+const noPrev = (current, max) => current - max <= 1
+
+const noNext = (current, totalPage, max) => current + max >= totalPage
+
+export const page = (activePage, clickHandler) => num => (
+  <li
+    key={num}
+    className={num === activePage ? 'active' : ''}
+  >
+    <a
+      href="{undefined}"
+      onClick={() => clickHandler(num)}
     >
-    { num }
-    </li>
-  )
-}
-
-export const trailing = (activePage) => {
-  return (condition) => {
-    if (condition) {
-      return <li>...</li>
-    }
-  }
-}
+      { num }
+    </a>
+  </li>
+)
 
 export const getRange = (activePage, totalPage, totalNumButton) => {
-  let limit = _.floor(totalNumButton / 2);
-  let initial = activePage - limit;
-  let last = activePage + limit + 1;
-  let numRange = [];
+  const limit = _.floor(totalNumButton / 2)
+  let initial = activePage - limit
+  let last = activePage + limit + 1
+  let numRange = []
 
   if (totalPage > totalNumButton) {
-
-    if(noPrev(activePage, limit)) {
-      initial = 2;
+    if (noPrev(activePage, limit)) {
+      initial = 2
     }
 
-    if(noNext(activePage, totalPage, limit)) {
-      last = totalPage;
+    if (noNext(activePage, totalPage, limit)) {
+      last = totalPage
     }
-
-    console.log(initial);
-    console.log(last);
 
     numRange = _.range(initial, last)
   } else {
-    numRange = _.range(1, totalPage + 1);
+    numRange = _.range(1, totalPage + 1)
   }
 
-  console.log(numRange);
-
   return numRange
-}
-
-const noPrev = (current, max) => {
-  return current - max <= 1;
-}
-
-const noNext = (current, totalPage, max) => {
-  return current + max >= totalPage;
 }

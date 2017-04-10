@@ -1,17 +1,20 @@
-const { Map } = require('immutable');
+const { Map } = require('immutable')
 
 const initialState = Map({
   categories: [],
-  keyword: "",
+  keyword: '',
   offset: 0,
   pageNum: 1,
   filters: [],
   data: undefined,
   error: []
-});
+})
 
 export default function queryReducer(state = initialState, action) {
-  let newState, availableValues, target, newType;
+  let newState
+  let availableValues
+  let target
+  let newType
 
   switch (action.type) {
     case 'LOAD_RESULT':
@@ -22,9 +25,9 @@ export default function queryReducer(state = initialState, action) {
       return state.set('keyword', action.keyword)
     case 'ADD_FILTER':
       newState = state.get('filters').concat(Map({
-        type: "",
+        type: '',
         availableValues: [],
-        value: ""
+        value: ''
       }))
       return state.setIn(['filters'], newState)
     case 'REMOVE_SELECTED_FILTER':
@@ -43,7 +46,7 @@ export default function queryReducer(state = initialState, action) {
       newType = Map({
         type: action.selectedFilter,
         availableValues: availableValues || [],
-        value: target.value || ""
+        value: target.value || ''
       })
 
       newState = state.get('filters')
@@ -56,7 +59,7 @@ export default function queryReducer(state = initialState, action) {
       target = state.get('filters')[action.index]
 
       newType = Map({
-        type: target.get('type') || "",
+        type: target.get('type') || '',
         availableValues: target.get('availableValues') || [],
         value: action.selectedValue
       })

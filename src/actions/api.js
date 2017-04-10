@@ -1,11 +1,11 @@
-import axios from 'axios';
+import axios from 'axios'
 
-let masterEndpoint = null;
+let masterEndpoint = null
 
 export function configureAPI(endpoint) {
-  return masterEndpoint = endpoint;
+  masterEndpoint = endpoint
 }
 
 export function post(data) {
-  return axios.get(masterEndpoint, data);
+  return axios.get(masterEndpoint, data)
 }

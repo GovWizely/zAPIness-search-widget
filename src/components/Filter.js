@@ -1,23 +1,17 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Field } from 'redux-form';
-import { selectInput } from './Input';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { Field } from 'redux-form'
+import SelectInput from './SelectInput'
 
-import * as QueryActions from '../actions/QueryActions';
+import * as QueryActions from '../actions/QueryActions'
 
-var _ = require('lodash');
+const _ = require('lodash')
 
 class Filter extends Component {
   getAvailableValues(index) {
-    let target = this.props.query.get('filters')[index]
+    const target = this.props.query.get('filters')[index]
 
     return target.get('availableValues') || []
-  }
-
-  renderErrors(errors) {
-    return(
-      <div className='__sw-error__'>Value is required</div>
-    )
   }
 
   render() {
@@ -31,66 +25,65 @@ class Filter extends Component {
       selectFilterHandler,
       selectFilterValueHandler,
       submitHandler,
-      handleSubmit,
       ...rest
     } = this.props
 
+    return (
+      <div className="__sw-filter__">
 
-    return(
-      <div className='__sw-filter__'>
-      {form.syncErrors && <li className="error">{form.syncErrors}</li>}
+        {
+          fields.length === 0 &&
+          <div>
+            <button
+              className="btn btn-default wide-btn"
+              type="button"
+              onClick={() => addFilter(fields)}
+            >Add New Filter
+            </button>
+          </div>
+        }
 
-      {
-        fields.length === 0 &&
-        <div>
-          <button
-            className='btn btn-default wide-btn'
-            type='button'
-            onClick={ () => addFilter(fields) }
-          >Add New Filter
-          </button>
-        </div>
-      }
-
-      { !_.isEmpty(query.get('error')) && this.renderErrors(query.get('error')) }
+        { !_.isEmpty(query.get('error')) && <div className="__sw-error__">Value is required</div> }
 
         <ul>
           {fields.map((member, index) =>
             <li key={index}>
-              <div className='list-container'>
-              <span>Filtered By:</span>
-              <Field
-                name={`${member}.type`}
-                list={ _.keys(query.get('categories')) }
-                changeHandler={(data) => selectFilterHandler(data, index)}
-                component={selectInput}
-                fieldName={`${member}.type`}
-                {...rest}
-              />
-              <span>Value:</span>
-              <Field
-                name={`${member}.value`}
-                list={this.getAvailableValues(index)}
-                changeHandler={(data) => selectFilterValueHandler(data, index)}
-                component={selectInput}
-                fieldName={`${member}.value`}
-                {...rest}
-              />
+              <div className="list-container">
+                <span>Filtered By:</span>
+                <Field
+                  name={`${member}.type`}
+                  list={_.keys(query.get('categories'))}
+                  changeHandler={data => selectFilterHandler(data, index)}
+                  component={SelectInput}
+                  fieldName={`${member}.type`}
+                  {...rest}
+                />
+                <span>Value:</span>
+                <Field
+                  name={`${member}.value`}
+                  list={this.getAvailableValues(index)}
+                  changeHandler={data => selectFilterValueHandler(data, index)}
+                  component={SelectInput}
+                  fieldName={`${member}.value`}
+                  {...rest}
+                />
               </div>
 
-              <div className='btn-container'>
-              <button
-                className='btn btn-default'
-                type="button"
-                onClick={() => addFilter(fields) }>
-                <span className='glyphicon glyphicon-plus'></span>
-              </button>
-              <button
-                className='btn btn-default'
-                type="button"
-                onClick={() => removeFilter(fields, index) }>
-                <span className='glyphicon glyphicon-trash'></span>
-              </button>
+              <div className="btn-container">
+                <button
+                  className="btn btn-default"
+                  type="button"
+                  onClick={() => addFilter(fields)}
+                >
+                  <span className="glyphicon glyphicon-plus" />
+                </button>
+                <button
+                  className="btn btn-default"
+                  type="button"
+                  onClick={() => removeFilter(fields, index)}
+                >
+                  <span className="glyphicon glyphicon-trash" />
+                </button>
               </div>
             </li>
           )}
@@ -98,17 +91,18 @@ class Filter extends Component {
 
         {
           fields.length > 0 &&
-          <div className='action-btn'>
+          <div className="action-btn">
             <button
-              className='btn btn-default'
-              type='button'
-              onClick={ () =>  removeAllFilters(fields) }>
+              className="btn btn-default"
+              type="button"
+              onClick={() => removeAllFilters(fields)}
+            >
               Remove All Filters
             </button>
             <button
-              type='button'
-              className='btn btn-default'
-              onClick={ () => submitHandler() }
+              type="button"
+              className="btn btn-default"
+              onClick={() => submitHandler()}
             >
               Submit
             </button>
@@ -129,12 +123,12 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     selectFilterHandler: (data, index) => {
-      let selectedCategory = data.target.value
+      const selectedCategory = data.target.value
       dispatch(QueryActions.updateSelectedFilter(selectedCategory, index))
     },
 
     selectFilterValueHandler: (data, index) => {
-      let selectedValue = data.target.value
+      const selectedValue = data.target.value
       dispatch(QueryActions.updateSelectedValue(selectedValue, index))
     },
 
@@ -153,7 +147,7 @@ function mapDispatchToProps(dispatch) {
       return fields.removeAll()
     },
 
-    submitHandler: (fields, form) => {
+    submitHandler: () => {
       dispatch(QueryActions.requestApi())
     }
   }
@@ -161,14 +155,18 @@ function mapDispatchToProps(dispatch) {
 
 Filter.propTypes = {
   addFilter: PropTypes.func.isRequired,
-  fields: PropTypes.any.isRequired,
-  form: PropTypes.object.isRequired,
-  query: PropTypes.object.isRequired,
+  fields: PropTypes.shape({
+    component: PropTypes.func
+  }).isRequired,
+  form: PropTypes.shape({}).isRequired,
+  query: PropTypes.shape({
+    get: PropTypes.func.isRequired
+  }).isRequired,
   removeFilter: PropTypes.func.isRequired,
   removeAllFilters: PropTypes.func.isRequired,
   selectFilterHandler: PropTypes.func.isRequired,
   selectFilterValueHandler: PropTypes.func.isRequired,
-  submitHandler: PropTypes.func.isRequired,
+  submitHandler: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter)

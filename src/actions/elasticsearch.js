@@ -1,4 +1,4 @@
-var _ = require('lodash');
+const _ = require('lodash')
 
 export function totalCount(data) {
   return data.metadata.total
@@ -9,38 +9,37 @@ export function categories(data) {
 }
 
 export function paginationTotal(data, countPerPage) {
-  let fraction = totalCount(data) / countPerPage
+  const fraction = totalCount(data) / countPerPage
 
-  if(fraction < 1) {
+  if (fraction < 1) {
     return 1
-  } else {
-    return _.floor(fraction)
   }
+
+  return _.floor(fraction)
 }
 
-export function buildParams(data) {
-  let filters = _.map(data.get('filters'), (filter) => filter.toJS())
+// Example
+// params = {
+//   "q": "office",
+//   "filter": {
+//     agency: ['ausaid', 'australian national audit office (anao)'],
+//     category: ['architectural engineering']
+//   }
+// }
 
-  let filter = _.chain(filters)
+export function buildParams(data) {
+  const filters = _.map(data.get('filters'), filter => filter.toJS())
+
+  const filter = _.chain(filters)
     .groupBy('type')
-    .mapValues((value) => {
-      return _.map(value, 'value')
-    })
+    .mapValues(value => _.map(value, 'value'))
     .value()
 
-  let params = {
+  const params = {
     q: data.get('keyword'),
     offset: data.get('offset'),
-    filter: filter
+    filter
   }
-
-  // params = {
-  //   "q": "office",
-  //   "filter": {
-  //     agency: ['ausaid', 'australian national audit office (anao)'],
-  //     category: ['architectural engineering']
-  //   }
-  // }
 
   return params
 }

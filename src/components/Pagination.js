@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
-import { page, getRange, trailing } from '../actions/page';
+import React, { PropTypes } from 'react'
+import { page, getRange } from '../actions/page'
 
-var _ = require('lodash');
+const _ = require('lodash')
 
 export default class Pagination extends React.Component {
   constructor(props) {
@@ -10,33 +10,24 @@ export default class Pagination extends React.Component {
     this.renderPage = this.renderPage.bind(this)
   }
   componentWillMount() {
-    this.renderPage(this.props);
+    this.renderPage(this.props)
   }
   componentWillReceiveProps(nextProps) {
     this.renderPage(nextProps)
   }
 
-  renderPage(props) {
-    this.page = page(props.activePage, props.onSelect);
-    this.trailing = trailing(props.activePage);
-  }
-
   buildPageBetween() {
-    let range = getRange(
+    const range = getRange(
       this.props.activePage,
       this.props.totalPage,
       this.props.totalNumButton
-    );
+    )
 
-    return _.map(range, (num, index) => ( this.page(num) ));
+    return _.map(range, num => (this.page(num)))
   }
 
-  buildFrontTrailing(havePrev) {
-    return this.trailing(havePrev);
-  }
-
-  buildBackTrailing(haveNext) {
-    return this.trailing(haveNext);
+  renderPage(props) {
+    this.page = page(props.activePage, props.onSelect)
   }
 
   render() {
@@ -47,32 +38,31 @@ export default class Pagination extends React.Component {
       onSelect
     } = this.props
 
-    const haveNext = totalPage - activePage - totalNumButton >= 0;
-    const havePrev = activePage - 1 - totalNumButton >= 0;
+    const haveNext = totalPage - activePage - totalNumButton >= 0
+    const havePrev = activePage - 1 - totalNumButton >= 0
 
-    return(
-      <div className='containerClass'>
-        <ul className='pagination'>
-          <li className=''>
-            <a
-              href='#'
-              className='previous-page'
-              title='Previous page'
-              onClick={ () => onSelect(activePage - 1) }
-          > &lt; </a>
+    return (
+      <div className="containerClass">
+        <ul className="pagination">
+          <li>
+            <button
+              type="button"
+              className="previous-page"
+              onClick={() => onSelect(activePage - 1)}
+            > &lt; </button>
           </li>
           { this.page(1) }
-          { this.buildFrontTrailing(havePrev) }
+          { havePrev && <li>...</li> }
           { this.buildPageBetween() }
-          { this.buildBackTrailing(haveNext) }
+          { haveNext && <li>...</li> }
           { this.page(totalPage) }
-          <li className=''>
-            <a
-              href='#'
-              className='next-page'
-              title='Next page'
-              onClick={ () => onSelect(activePage + 1) }
-          > &gt; </a>
+          <li>
+            <button
+              type="button"
+              className="next-page"
+              title="Next page"
+              onClick={() => onSelect(activePage + 1)}
+            > &gt; </button>
           </li>
         </ul>
       </div>
@@ -85,4 +75,4 @@ Pagination.propTypes = {
   totalNumButton: PropTypes.number.isRequired,
   activePage: PropTypes.number.isRequired,
   onSelect: PropTypes.func.isRequired
-};
+}

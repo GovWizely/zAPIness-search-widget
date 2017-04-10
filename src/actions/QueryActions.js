@@ -1,26 +1,23 @@
-import rootReducer from '../reducers';
-import { map, fromPairs } from 'lodash';
-import { buildParams } from './elasticsearch';
-import { post } from './api';
-
-let data = null;
+import { map, fromPairs } from 'lodash'
+import { buildParams } from './elasticsearch'
+import { post } from './api'
 
 function loadResult(data) {
   return {
-    type: "LOAD_RESULT",
+    type: 'LOAD_RESULT',
     data
   }
 }
 
 function loadError(error) {
   return {
-    type: "LOAD_ERROR",
+    type: 'LOAD_ERROR',
     error
   }
 }
 
 function generateCategories(data) {
-  let categories = []
+  const categories = []
 
   map(data, (value, key) => {
     categories.push(
@@ -32,9 +29,9 @@ function generateCategories(data) {
 }
 
 function updateCategories(data) {
-  let categories;
+  let categories
 
-  if(data.data) {
+  if (data.data) {
     categories = generateCategories(data.data.aggregations)
   } else {
     categories = []
@@ -97,27 +94,26 @@ export function removeAllFilters() {
 
 export function requestApi() {
   return (dispatch, getState) => {
-    let error = getState().form.form.syncErrors;
+    const error = getState().form.form.syncErrors
 
-    if(error) {
+    if (error) {
       return dispatch(loadError(error))
-    } else {
-      data = buildParams(getState().query)
-
-      return post(data).then(
-        data => dispatch(loadResult(data)),
-        error => dispatch(loadError(error))
-      );
     }
-  };
+    const data = buildParams(getState().query)
+
+    return post(data).then(
+        response => dispatch(loadResult(response)),
+        error => dispatch(loadError(error)),
+      )
+  }
 }
 
 export function getCategories() {
   return (dispatch, getState) => {
-    data = buildParams(getState().query)
+    const data = buildParams(getState().query)
 
     return post(data).then(
-      data => dispatch(updateCategories(data))
+      response => dispatch(updateCategories(response)),
     )
   }
 }

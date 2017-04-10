@@ -1,30 +1,40 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 
-var _ = require('lodash');
+const _ = require('lodash')
 
 export default class Drawer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showDetails: false
-    };
+  propTypes = {
+    cells: PropTypes.shape({}).isRequired,
+    label: PropTypes.string.isRequired
   }
 
-  renderTable(cells) {
-    return(
-      _.map(_.toPairs(cells), (cell, index) => (
-        <tr key={index} onClick={ () => this.toggleDetails() }>
-          <td><b>{ _.startCase(cell[0]) }</b></td>
-          <td><i>{ cell[1] }</i></td>
-        </tr>
-      ))
-    )
+  constructor(props) {
+    super(props)
+    this.state = {
+      showDetails: false
+    }
   }
 
   toggleDetails() {
     this.setState({
       showDetails: !this.state.showDetails
     })
+  }
+
+  renderTable(cells) {
+    return (
+      _.map(_.toPairs(cells), (cell, index) => (
+        <tr key={index} >
+          <button
+            type="button"
+            onClick={() => this.toggleDetails()}
+          >
+            <td><b>{ _.startCase(cell[0]) }</b></td>
+            <td><i>{ cell[1] }</i></td>
+          </button>
+        </tr>
+      ))
+    )
   }
 
   render() {
@@ -35,8 +45,10 @@ export default class Drawer extends Component {
 
     return (
       <div>
-        <div className="__sw-link__" onClick={ () => this.toggleDetails() }>
-          { cells[label] }
+        <div className="__sw-link__" >
+          <button type="button"onClick={() => this.toggleDetails()}>
+            { cells[label] }
+          </button>
         </div>
 
         {
@@ -44,7 +56,7 @@ export default class Drawer extends Component {
           <div className="__sw-details__">
             <table>
               <tbody>
-              { this.renderTable(cells) }
+                { this.renderTable(cells) }
               </tbody>
             </table>
           </div>
@@ -52,9 +64,4 @@ export default class Drawer extends Component {
       </div>
     )
   }
-}
-
-Drawer.PropTypes = {
-  cells: PropTypes.array.isRequired,
-  label: PropTypes.any.isRequired
 }
