@@ -4,8 +4,12 @@ import { Field, FieldArray, reduxForm } from 'redux-form'
 
 import * as QueryActions from '../actions/QueryActions'
 import validate from '../actions/validate'
+import styles from '../stylesheets/styles'
 
 import Filter from './Filter'
+import Button from './Button'
+
+const settings = require('../settings.png')
 
 const _ = require('lodash')
 
@@ -30,26 +34,29 @@ class Form extends Component {
     } = this.props
 
     return (
-      <form className="__sw-input__" onSubmit={e => e.preventDefault()}>
-        <div className="__input-wrapper__">
+      <form className="__sw-input__" style={styles.form.container} onSubmit={e => e.preventDefault()}>
+        <div style={styles.form.inputWrapper}>
           <Field
             name="keyword"
             component="input"
             type="text"
+            style={styles.form.input}
             className="__input__"
             placeholder="Search for keyword..."
             onChange={_.debounce(submitHandler, 1000)}
           />
         </div>
 
-        <button
+        <Button
           type="button"
-          className="btn btn-default __sw-advanced-search__"
-          onClick={this.toggleFilter}
+          kind="buttons.primary"
+          clickHandler={this.toggleFilter}
+          className="__sw-advanced-search__"
         >
-          <span className="glyphicon glyphicon-cog" />
-          <span className="text">Advanced Filters</span>
-        </button>
+          <span>
+            <img style={styles.img} src={settings} alt="Add" />
+          </span>
+        </Button>
 
         {
           this.state.showFilter &&

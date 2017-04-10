@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Form from '../components/Form'
 import Result from '../components/Result'
 import * as QueryActions from '../actions/QueryActions'
+import styles from '../stylesheets/styles'
 
 const _ = require('lodash')
 
@@ -20,7 +21,7 @@ class App extends Component {
     const result = query.get('data')
 
     return (
-      <div className="__sw-container__">
+      <div className="__sw-container__" style={styles.container}>
         <div className="container">
           <Form />
           {

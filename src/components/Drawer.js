@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
+import styles from '../stylesheets/styles'
 
 const _ = require('lodash')
 
-export default class Drawer extends Component {
-  propTypes = {
+class Drawer extends Component {
+  static propTypes = {
     cells: PropTypes.shape({}).isRequired,
     label: PropTypes.string.isRequired
   }
@@ -15,26 +16,12 @@ export default class Drawer extends Component {
     }
   }
 
-  toggleDetails() {
+  toggleDetails(e) {
+    e.preventDefault()
+
     this.setState({
       showDetails: !this.state.showDetails
     })
-  }
-
-  renderTable(cells) {
-    return (
-      _.map(_.toPairs(cells), (cell, index) => (
-        <tr key={index} >
-          <button
-            type="button"
-            onClick={() => this.toggleDetails()}
-          >
-            <td><b>{ _.startCase(cell[0]) }</b></td>
-            <td><i>{ cell[1] }</i></td>
-          </button>
-        </tr>
-      ))
-    )
   }
 
   render() {
@@ -44,24 +31,30 @@ export default class Drawer extends Component {
     } = this.props
 
     return (
-      <div>
-        <div className="__sw-link__" >
-          <button type="button"onClick={() => this.toggleDetails()}>
-            { cells[label] }
-          </button>
-        </div>
-
+      <a
+        href="{undefined}"
+        onClick={e => this.toggleDetails(e)}
+        style={styles.result.link}
+      >
+        <div>{ cells[label] }</div>
         {
           this.state.showDetails &&
-          <div className="__sw-details__">
-            <table>
+          <div className="__sw-details__" style={styles.result.details}>
+            <table style={styles.result.table}>
               <tbody>
-                { this.renderTable(cells) }
+                { _.map(_.toPairs(cells), (cell, index) => (
+                  <tr key={index} style={styles.result.tr}>
+                    <td><b style={{ fontWeight: 400 }}>{ _.startCase(cell[0]) }</b></td>
+                    <td><i>{ cell[1] }</i></td>
+                  </tr>
+                  ))}
               </tbody>
             </table>
           </div>
         }
-      </div>
+      </a>
     )
   }
 }
+
+export default Drawer

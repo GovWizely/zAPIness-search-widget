@@ -5,6 +5,9 @@ import SelectInput from './SelectInput'
 
 import * as QueryActions from '../actions/QueryActions'
 
+const plus = require('../plus.png')
+const trash = require('../trash.png')
+
 const _ = require('lodash')
 
 class Filter extends Component {
@@ -75,14 +78,14 @@ class Filter extends Component {
                   type="button"
                   onClick={() => addFilter(fields)}
                 >
-                  <span className="glyphicon glyphicon-plus" />
+                  <span><img src={plus} alt="Add" /></span>
                 </button>
                 <button
                   className="btn btn-default"
                   type="button"
                   onClick={() => removeFilter(fields, index)}
                 >
-                  <span className="glyphicon glyphicon-trash" />
+                  <span><img src={trash} alt="Delete" /></span>
                 </button>
               </div>
             </li>

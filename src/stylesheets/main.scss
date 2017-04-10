@@ -8,123 +8,122 @@ $slate: #89877b;
 $dark-slate: darken($slate, 5%);
 
 .btn:focus, select:focus, input:focus {
-  outline: none;
 }
 
-.__sw-container__ {
-  padding: 20px;
-  width: 600px;
-}
+// .__sw-container__ {
+//   padding: 20px;
+//   width: 600px;
+// }
 
-.input {
-  height: 46px;
-}
+// .input {
+//   height: 46px;
+// }
 
 .__sw-input__ {
   width: 100%;
 
-  .__input-wrapper__ {
-    height: 46px;
-    width: 50%;
-  }
+  // .__input-wrapper__ {
+  //   height: 46px;
+  //   width: 50%;
+  // }
 
-  .__input__ {
-    border: 1px solid $light-grey;
-    box-shadow: none;
-    border-radius: 3px;
-    font-size: 15px;
-    font-weight: 300;
-    height: 100%;
-    padding: 8px 10px;
-    width: 100%;
-  }
+  // .__input__ {
+  //   border: 1px solid $light-grey;
+  //   box-shadow: none;
+  //   border-radius: 3px;
+  //   font-size: 15px;
+  //   font-weight: 300;
+  //   height: 100%;
+  //   padding: 8px 10px;
+  //   width: 100%;
+  // }
 
-  .__input-wrapper__, .btn {
-    display: inline-block;
-  }
+  // .__input-wrapper__, .btn {
+  //   display: inline-block;
+  // }
 }
 
-.__sw-advanced-search__ {
-  border: none;
-  background-color: $grey;
-  color: $xdark-grey;
-  height: 46px;
-  margin-left: 10px;
-  overflow: hidden;
-  vertical-align: top;
-
-  span {
-    display: inline-block;
-    vertical-align: middle
-  }
-
-  .text {
-    max-width: 0;
-    overflow: hidden;
-    transition: max-width 0.3s ease-in-out;
-  }
-
-  .glyphicon {
-    padding: 0 5px;
-  }
-
-  &:hover {
-    background: $grey;
-    color: $xdark-grey;
-
-    .text {
-      max-width: 150px;
-      transition: max-width 0.3s ease-in-out;
-    }
-  }
-}
+// .__sw-advanced-search__ {
+//   border: none;
+//   background-color: $grey;
+//   color: $xdark-grey;
+//   height: 46px;
+//   margin-left: 10px;
+//   overflow: hidden;
+//   vertical-align: top;
+//
+//   span {
+//     display: inline-block;
+//     vertical-align: middle
+//   }
+//
+//   .text {
+//     max-width: 0;
+//     overflow: hidden;
+//     transition: max-width 0.3s ease-in-out;
+//   }
+//
+//   .glyphicon {
+//     padding: 0 5px;
+//   }
+//
+//   &:hover {
+//     background: $grey;
+//     color: $xdark-grey;
+//
+//     .text {
+//       max-width: 150px;
+//       transition: max-width 0.3s ease-in-out;
+//     }
+//   }
+// }
 
 .__sw-result__{
-  margin-top: 20px;
-  width: 55%;
+  // margin-top: 20px;
+  // width: 55%;
 
-  .__result-container__{
-    border-bottom: 1px solid $light-grey;
-    border-radius: 3px;
-    color: $xdark-grey;
-    padding: 10px 20px;
-    width: 100%;
+  // .__result-container__{
+  //   border-bottom: 1px solid $light-grey;
+  //   border-radius: 3px;
+  //   color: $xdark-grey;
+  //   padding: 10px 20px;
+  //   width: 100%;
+  //
+  //   &:hover {
+  //     background-color: $grey;
+  //     cursor: pointer;
+  //   }
+  // }
 
-    &:hover {
-      background-color: $grey;
-      cursor: pointer;
-    }
-  }
+  // .__result-container__:last-child {
+  //   border-bottom: none;
+  // }
 
-  .__result-container__:last-child {
-    border-bottom: none;
-  }
-
-  .__sw-link__{
-    font-size: 15px;
-    font-weight: 500;
-  }
-
-  .__sw-details__{
-    color: $dark-grey;
-    font-size: 15px;
-    font-weight: 300;
-    padding: 10px;
-
-    table {
-      tr {
-        color: $xdark-grey;
-        font-size: 15px;
-        font-weight: 300;
-        width: 120px;
-        height: 25px;
-
-        b {
-          font-weight: 400;
-        }
-      }
-    }
-  }
+  // .__sw-link__{
+  //   font-size: 15px;
+  //   font-weight: 500;
+  // }
+  //
+  // .__sw-details__{
+  //   color: $dark-grey;
+  //   font-size: 15px;
+  //   font-weight: 300;
+  //   padding: 10px;
+  //
+  //   table {
+  //     tr {
+  //       color: $xdark-grey;
+  //       font-size: 15px;
+  //       font-weight: 300;
+  //       width: 120px;
+  //       height: 25px;
+  //
+  //       b {
+  //         font-weight: 400;
+  //       }
+  //     }
+  //   }
+  // }
 
   .pagination {
     margin: 20px;
@@ -220,8 +219,8 @@ $dark-slate: darken($slate, 5%);
   font-weight: 500;
 }
 
-.__sw-no-result__{
-  color: $dark-grey;
-  font-style: italic;
-  font-weight: 500;
-}
+// .__sw-no-result__{
+//   color: $dark-grey;
+//   font-style: italic;
+//   font-weight: 500;
+// }
