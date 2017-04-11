@@ -3,7 +3,7 @@ import List from './List'
 
 import styles from '../stylesheets/styles'
 
-export const Grid = (activePage, clickHandler) => num => (
+const Grid = (activePage, clickHandler) => num => (
   <List
     key={num}
     className={num === activePage ? 'active' : ''}

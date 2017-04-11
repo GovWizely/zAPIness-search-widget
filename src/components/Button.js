@@ -7,7 +7,7 @@ const Button = props => (
   <button
     style={[
       styles.buttons.base,
-      styles[props.kind]
+      styles.buttons[props.kind]
     ]}
     className={props.className}
     onClick={props.clickHandler}
@@ -18,7 +18,10 @@ const Button = props => (
 )
 
 Button.propTypes = {
-  children: React.PropTypes.shape({}).isRequired,
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.shape({}),
+    React.PropTypes.string
+  ]).isRequired,
   className: React.PropTypes.string.isRequired,
   clickHandler: React.PropTypes.func.isRequired,
   kind: React.PropTypes.string.isRequired,

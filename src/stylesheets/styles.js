@@ -4,6 +4,7 @@ import form from './form'
 import result from './result'
 import pagination from './pagination'
 import list from './list'
+import filter from './filter'
 
 const styles = {
   buttons,
@@ -11,6 +12,7 @@ const styles = {
   result,
   pagination,
   list,
+  filter,
 
   container: {
     padding: '20px',
@@ -26,6 +28,11 @@ const styles = {
   link: {
     color: colors.darkGrey,
     textDecoration: 'none'
+  },
+
+  error: {
+    color: colors.red,
+    fontWeight: 500
   }
 }
 

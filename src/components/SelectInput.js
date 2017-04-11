@@ -7,6 +7,7 @@ const SelectInput = props => (
     name={props.fieldName}
     component="select"
     onChange={props.changeHandler}
+    style={props.styles}
   >
     <option>SELECT ONE</option>
     {
@@ -19,10 +20,15 @@ const SelectInput = props => (
   </Field>
 )
 
+SelectInput.defaultProps = {
+  styles: {}
+}
+
 SelectInput.propTypes = {
   fieldName: PropTypes.string.isRequired,
   changeHandler: PropTypes.func.isRequired,
-  list: PropTypes.arrayOf(String).isRequired
+  list: PropTypes.arrayOf(String).isRequired,
+  styles: PropTypes.shape({})
 }
 
 export default SelectInput

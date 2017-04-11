@@ -1,6 +1,6 @@
 import { map, fromPairs } from 'lodash'
 import { buildParams } from './elasticsearch'
-import { post } from './api'
+import { get } from './api'
 
 function loadResult(data) {
   return {
@@ -101,7 +101,7 @@ export function requestApi() {
     }
     const data = buildParams(getState().query)
 
-    return post(data).then(
+    return get(data).then(
         response => dispatch(loadResult(response)),
         error => dispatch(loadError(error)),
       )
@@ -112,7 +112,7 @@ export function getCategories() {
   return (dispatch, getState) => {
     const data = buildParams(getState().query)
 
-    return post(data).then(
+    return get(data).then(
       response => dispatch(updateCategories(response)),
     )
   }

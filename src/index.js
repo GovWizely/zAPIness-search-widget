@@ -5,8 +5,6 @@ import configureStore from './store/configureStore'
 import { configureAPI } from './actions/api'
 import Root from './containers/Root'
 
-require('./stylesheets/main.scss')
-
 const renderApp = ({ endpoint }) => {
   const store = configureStore()
   configureAPI(endpoint)

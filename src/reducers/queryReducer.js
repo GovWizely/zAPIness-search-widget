@@ -73,7 +73,7 @@ export default function queryReducer(state = initialState, action) {
     case 'UPDATE_PAGE_NUM':
       return state.merge({
         pageNum: action.pageNum,
-        offset: action.pageNum * 10
+        offset: (action.pageNum - 1) * 10
       })
     case 'UPDATE_CATEGORIES':
       return state.set('categories', action.categories)

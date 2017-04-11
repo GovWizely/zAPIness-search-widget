@@ -12,23 +12,20 @@ const form = {
     borderColor: colors.lightGrey,
     borderRadius: 3,
     borderStyle: 'solid',
-    boxShadow: 'none',
-    fontFamily: fontFamily,
+    display: 'inline-block',
+    fontFamily,
     fontSize: '15px',
     fontWeight: 300,
     height: '100%',
     padding: '8px 10px',
-    width: '100%',
-
-    ':focus': {
-      outline: 'none'
-    }
+    width: '100%'
   },
 
   inputWrapper: {
     display: 'inline-block',
     height: '46px',
-    width: '50%'
+    verticalAlign: 'top',
+    width: '90%'
   }
 }
 

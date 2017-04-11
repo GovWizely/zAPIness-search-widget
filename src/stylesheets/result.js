@@ -22,11 +22,9 @@ const result = {
 
   noResult: {
     color: colors.darkGrey,
+    fontFamily,
     fontStyle: 'italic',
     fontWeight: 500
-  },
-
-  linkContainer: {
   },
 
   link: {
@@ -43,6 +41,7 @@ const result = {
     fontFamily,
     fontSize: '15px',
     fontWeight: 300,
+    marginTop: '10px',
     textDecoration: 'none'
   },
 

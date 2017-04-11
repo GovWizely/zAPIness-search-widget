@@ -35,7 +35,7 @@ List.propTypes = {
   ]).isRequired,
   className: React.PropTypes.string.isRequired,
   clickHandler: React.PropTypes.func.isRequired,
-  key: React.PropTypes.number,
+  key: React.PropTypes.string,
   styles: React.PropTypes.shape({})
 }
 

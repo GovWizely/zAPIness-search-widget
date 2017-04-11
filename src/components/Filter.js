@@ -2,8 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Field } from 'redux-form'
 import SelectInput from './SelectInput'
+import Button from './Button'
 
 import * as QueryActions from '../actions/QueryActions'
+import styles from '../stylesheets/styles'
 
 const plus = require('../plus.png')
 const trash = require('../trash.png')
@@ -32,61 +34,67 @@ class Filter extends Component {
     } = this.props
 
     return (
-      <div className="__sw-filter__">
+      <div className="__sw-filter__" style={styles.filter.container}>
 
         {
           fields.length === 0 &&
-          <div>
-            <button
-              className="btn btn-default wide-btn"
-              type="button"
-              onClick={() => addFilter(fields)}
-            >Add New Filter
-            </button>
-          </div>
+          <Button
+            className="add-filter"
+            clickHandler={() => addFilter(fields)}
+            kind="wide"
+            type="button"
+          >
+            Add New Filter
+          </Button>
         }
 
-        { !_.isEmpty(query.get('error')) && <div className="__sw-error__">Value is required</div> }
+        { !_.isEmpty(query.get('error')) &&
+          <div className="__sw-error__" style={styles.error}>Field/Value is required</div>
+        }
 
-        <ul>
+        <ul style={styles.filter.ul}>
           {fields.map((member, index) =>
-            <li key={index}>
-              <div className="list-container">
-                <span>Filtered By:</span>
+            <li key={index} style={styles.filter.li}>
+              <div className="list-container" style={styles.filter.listContainer}>
+                <span style={styles.filter.span}>Filtered By:</span>
                 <Field
                   name={`${member}.type`}
                   list={_.keys(query.get('categories'))}
                   changeHandler={data => selectFilterHandler(data, index)}
                   component={SelectInput}
                   fieldName={`${member}.type`}
+                  styles={styles.filter.select}
                   {...rest}
                 />
-                <span>Value:</span>
+                <span style={styles.filter.span}>Value:</span>
                 <Field
                   name={`${member}.value`}
                   list={this.getAvailableValues(index)}
                   changeHandler={data => selectFilterValueHandler(data, index)}
                   component={SelectInput}
                   fieldName={`${member}.value`}
+                  styles={styles.filter.select}
                   {...rest}
                 />
-              </div>
+                <div className="btn-container" style={styles.filter.btnContainer}>
+                  <Button
+                    className="add-filter"
+                    clickHandler={() => addFilter(fields)}
+                    kind="small"
+                    type="button"
+                  >
+                    <span><img src={plus} alt="Add" style={styles.img} /></span>
+                  </Button>
 
-              <div className="btn-container">
-                <button
-                  className="btn btn-default"
-                  type="button"
-                  onClick={() => addFilter(fields)}
-                >
-                  <span><img src={plus} alt="Add" /></span>
-                </button>
-                <button
-                  className="btn btn-default"
-                  type="button"
-                  onClick={() => removeFilter(fields, index)}
-                >
-                  <span><img src={trash} alt="Delete" /></span>
-                </button>
+                  <Button
+                    className="remove-filter"
+                    clickHandler={() => removeFilter(fields, index)}
+                    kind="small"
+                    type="button"
+                  >
+                    <span><img src={trash} alt="Delete" style={styles.img} /></span>
+                  </Button>
+                </div>
               </div>
             </li>
           )}
@@ -94,21 +102,23 @@ class Filter extends Component {
 
         {
           fields.length > 0 &&
-          <div className="action-btn">
-            <button
-              className="btn btn-default"
+          <div className="action-btn" style={styles.filter.actionBtn}>
+            <Button
+              className="remove-all-filter"
+              clickHandler={() => removeAllFilters(fields)}
+              kind="small"
               type="button"
-              onClick={() => removeAllFilters(fields)}
             >
               Remove All Filters
-            </button>
-            <button
+            </Button>
+            <Button
+              className="submit"
+              clickHandler={() => submitHandler()}
+              kind="small"
               type="button"
-              className="btn btn-default"
-              onClick={() => submitHandler()}
             >
               Submit
-            </button>
+            </Button>
           </div>
         }
       </div>

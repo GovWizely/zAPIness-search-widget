@@ -21,12 +21,12 @@ export function paginationTotal(data, countPerPage) {
 // Example
 // params = {
 //   "q": "office",
+//   "offset": 0,
 //   "filter": {
 //     agency: ['ausaid', 'australian national audit office (anao)'],
 //     category: ['architectural engineering']
 //   }
 // }
-
 export function buildParams(data) {
   const filters = _.map(data.get('filters'), filter => filter.toJS())
 
@@ -37,8 +37,11 @@ export function buildParams(data) {
 
   const params = {
     q: data.get('keyword'),
-    offset: data.get('offset'),
-    filter
+    offset: data.get('offset')
+  }
+
+  if (!_.isEmpty(filter)) {
+    _.merge(params, filter)
   }
 
   return params

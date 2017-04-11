@@ -8,6 +8,7 @@ import styles from '../stylesheets/styles'
 
 import Filter from './Filter'
 import Button from './Button'
+import Input from './Input'
 
 const settings = require('../settings.png')
 
@@ -36,20 +37,16 @@ class Form extends Component {
     return (
       <form className="__sw-input__" style={styles.form.container} onSubmit={e => e.preventDefault()}>
         <div style={styles.form.inputWrapper}>
-          <Field
+          <Input
             name="keyword"
-            component="input"
-            type="text"
-            style={styles.form.input}
-            className="__input__"
             placeholder="Search for keyword..."
-            onChange={_.debounce(submitHandler, 1000)}
+            changeHandler={_.debounce(submitHandler, 1000)}
           />
         </div>
 
         <Button
           type="button"
-          kind="buttons.primary"
+          kind="primary"
           clickHandler={this.toggleFilter}
           className="__sw-advanced-search__"
         >
