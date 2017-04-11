@@ -125,23 +125,23 @@ $dark-slate: darken($slate, 5%);
   //   }
   // }
 
-  .pagination {
-    margin: 20px;
-
-    li a {
-      border-color: $dark-grey;
-      color: $dark-grey;
-    }
-
-    li.active {
-      a {
-        background-color: $dark-slate;
-        border-color: $slate;
-        color: $white;
-        font-weight: 500;
-      }
-    }
-  }
+  // .pagination {
+  //   margin: 20px;
+  //
+  //   li a {
+  //     border-color: $dark-grey;
+  //     color: $dark-grey;
+  //   }
+  //
+  //   li.active {
+  //     a {
+  //       background-color: $dark-slate;
+  //       border-color: $slate;
+  //       color: $white;
+  //       font-weight: 500;
+  //     }
+  //   }
+  // }
 }
 
 .__sw-filter__ {

@@ -1,5 +1,10 @@
 import React, { PropTypes } from 'react'
-import { page, getRange } from '../actions/page'
+import getRange from '../actions/range'
+
+import List from './List'
+import Grid from './Grid'
+
+import styles from '../stylesheets/styles'
 
 const _ = require('lodash')
 
@@ -9,9 +14,11 @@ export default class Pagination extends React.Component {
 
     this.renderPage = this.renderPage.bind(this)
   }
+
   componentWillMount() {
     this.renderPage(this.props)
   }
+
   componentWillReceiveProps(nextProps) {
     this.renderPage(nextProps)
   }
@@ -27,7 +34,7 @@ export default class Pagination extends React.Component {
   }
 
   renderPage(props) {
-    this.page = page(props.activePage, props.onSelect)
+    this.page = Grid(props.activePage, props.onSelect)
   }
 
   render() {
@@ -38,32 +45,74 @@ export default class Pagination extends React.Component {
       onSelect
     } = this.props
 
-    const haveNext = totalPage - activePage - totalNumButton >= 0
-    const havePrev = activePage - 1 - totalNumButton >= 0
+    const haveTrailingNext = totalPage - activePage - totalNumButton >= 0
+    const haveTrailingPrev = activePage - 1 - totalNumButton >= 0
+    const havePrev = activePage !== 1
+    const haveNext = activePage !== totalPage
 
     return (
-      <div className="containerClass">
-        <ul className="pagination">
-          <li>
-            <button
-              type="button"
+      <div style={styles.pagination.container}>
+        <ul className="pagination" style={styles.pagination.base}>
+          <List
+            className="previous-page"
+            styles={styles.list.first}
+            clickHandler={(e) => {
+              e.preventDefault()
+              onSelect(1)
+            }}
+          >
+            « First
+          </List>
+
+          { havePrev &&
+            <List
               className="previous-page"
-              onClick={() => onSelect(activePage - 1)}
-            > &lt; </button>
-          </li>
+              clickHandler={(e) => {
+                e.preventDefault()
+                onSelect(activePage - 1)
+              }}
+            >
+              ‹ Prev
+            </List>
+          }
           { this.page(1) }
-          { havePrev && <li>...</li> }
+          { haveTrailingPrev &&
+            <List
+              className="trailing"
+              clickHandler={e => e.preventDefault()}
+            >...</List>
+          }
           { this.buildPageBetween() }
-          { haveNext && <li>...</li> }
+          { haveTrailingNext &&
+            <List
+              className="trailing"
+              clickHandler={e => e.preventDefault()}
+            >...</List>
+          }
           { this.page(totalPage) }
-          <li>
-            <button
-              type="button"
+
+          { haveNext &&
+            <List
               className="next-page"
-              title="Next page"
-              onClick={() => onSelect(activePage + 1)}
-            > &gt; </button>
-          </li>
+              clickHandler={(e) => {
+                e.preventDefault()
+                onSelect(activePage + 1)
+              }}
+            >
+              Next ›
+            </List>
+          }
+
+          <List
+            className="previous-page"
+            styles={styles.list.last}
+            clickHandler={(e) => {
+              e.preventDefault()
+              onSelect(totalPage)
+            }}
+          >
+            Last »
+          </List>
         </ul>
       </div>
     )

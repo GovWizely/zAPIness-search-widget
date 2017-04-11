@@ -4,8 +4,7 @@ const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif'
 
 const result = {
   base: {
-    marginTop: '20px',
-    width: '55%'
+    marginTop: '20px'
   },
 
   container: {
@@ -45,10 +44,6 @@ const result = {
     fontSize: '15px',
     fontWeight: 300,
     textDecoration: 'none'
-  },
-
-  table: {
-
   },
 
   tr: {

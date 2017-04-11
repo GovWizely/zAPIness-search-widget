@@ -40,7 +40,7 @@ class Drawer extends Component {
         {
           this.state.showDetails &&
           <div className="__sw-details__" style={styles.result.details}>
-            <table style={styles.result.table}>
+            <table>
               <tbody>
                 { _.map(_.toPairs(cells), (cell, index) => (
                   <tr key={index} style={styles.result.tr}>
