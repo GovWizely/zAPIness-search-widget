@@ -82,14 +82,14 @@ export default class Pagination extends React.Component {
               clickHandler={e => e.preventDefault()}
             >...</List>
           }
-          { this.buildPageBetween() }
+          { this.props.totalPage !== 1 && this.buildPageBetween() }
           { haveTrailingNext &&
             <List
               className="trailing"
               clickHandler={e => e.preventDefault()}
             >...</List>
           }
-          { this.page(totalPage) }
+          { totalPage !== 1 && this.page(totalPage) }
 
           { haveNext &&
             <List

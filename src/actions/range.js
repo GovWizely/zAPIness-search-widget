@@ -21,7 +21,7 @@ const getRange = (activePage, totalPage, totalNumButton) => {
 
     numRange = _.range(initial, last)
   } else {
-    numRange = _.range(1, totalPage + 1)
+    numRange = _.range(2, totalPage)
   }
 
   return numRange

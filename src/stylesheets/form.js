@@ -11,14 +11,15 @@ const form = {
     borderWidth: 1,
     borderColor: colors.lightGrey,
     borderRadius: 3,
+    boxSizing: 'border-box',
     borderStyle: 'solid',
     display: 'inline-block',
     fontFamily,
     fontSize: '15px',
     fontWeight: 300,
-    height: '100%',
+    lineHeight: '28px',
     padding: '8px 10px',
-    width: '100%'
+    width: '540px'
   },
 
   inputWrapper: {
