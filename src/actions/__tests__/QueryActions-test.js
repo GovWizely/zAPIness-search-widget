@@ -5,7 +5,6 @@ import { configureAPI, get } from '../api'
 
 const { Map } = require('immutable')
 
-
 const axios = require('axios')
 const MockAdapter = require('axios-mock-adapter')
 

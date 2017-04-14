@@ -12,7 +12,7 @@ const trash = require('../trash.png')
 
 const _ = require('lodash')
 
-class Filter extends Component {
+export class Filter extends Component {
   getAvailableValues(index) {
     const target = this.props.query.get('filters')[index]
 
@@ -33,6 +33,8 @@ class Filter extends Component {
       ...rest
     } = this.props
 
+    debugger
+
     return (
       <div className="__sw-filter__" style={styles.filter.container}>
 
@@ -48,10 +50,10 @@ class Filter extends Component {
           </Button>
         }
 
+
         { !_.isEmpty(query.get('error')) &&
           <div className="__sw-error__" style={styles.error}>Field/Value is required</div>
         }
-
         <ul style={styles.filter.ul}>
           {fields.map((member, index) =>
             <li key={index} style={styles.filter.li}>
@@ -62,6 +64,7 @@ class Filter extends Component {
                   list={_.keys(query.get('categories'))}
                   changeHandler={data => selectFilterHandler(data, index)}
                   component={SelectInput}
+                  className="select-type"
                   fieldName={`${member}.type`}
                   styles={styles.filter.select}
                   {...rest}

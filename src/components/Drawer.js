@@ -35,6 +35,7 @@ class Drawer extends Component {
         href="{undefined}"
         onClick={e => this.toggleDetails(e)}
         style={styles.result.link}
+        className="__sw-data__"
       >
         <div>{ cells[label] }</div>
         {

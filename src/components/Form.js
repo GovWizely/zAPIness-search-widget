@@ -14,7 +14,7 @@ const settings = require('../settings.png')
 
 const _ = require('lodash')
 
-class Form extends Component {
+export class Form extends Component {
   constructor(props) {
     super(props)
     this.state = {

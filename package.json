@@ -4,7 +4,11 @@
   "description": "zAPIness search widget",
   "main": "server.js",
   "jest": {
-    "verbose": true
+    "verbose": true,
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
   },
   "scripts": {
     "lint": "eslint src",
@@ -55,6 +59,7 @@
     "file-loader": "^0.10.1",
     "flow-bin": "^0.43.1",
     "gh-pages": "^0.12.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^19.0.2",
     "jest-environment-node-debug": "^2.0.0",
     "node-libs-browser": "^0.5.2",
