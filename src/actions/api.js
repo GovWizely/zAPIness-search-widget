@@ -7,9 +7,9 @@ export function configureAPI(endpoint) {
 }
 
 export function get(data) {
-  return axios({
-    method: 'get',
-    url: masterEndpoint,
-    params: data
-  })
+  return axios.get(masterEndpoint, { params: data })
+}
+
+export function getEndpoint() {
+  return masterEndpoint
 }
