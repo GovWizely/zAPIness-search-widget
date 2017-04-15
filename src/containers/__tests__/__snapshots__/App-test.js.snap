@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`containers/App renders correctly 1`] = `
+<div
+  className="__sw-container__"
+  style={
+    Object {
+      "padding": "20px",
+      "width": "600px",
+    }
+  }
+>
+  <div
+    className="container"
+  >
+    <form
+      className="__sw-input__"
+      onSubmit={[Function]}
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "inline-block",
+            "height": "46px",
+            "verticalAlign": "top",
+            "width": "90%",
+          }
+        }
+      >
+        <input
+          className="__input__"
+          name="keyword"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onDragStart={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          placeholder="Search for keyword..."
+          style={
+            Object {
+              "borderColor": "#f9f9f9",
+              "borderRadius": 3,
+              "borderStyle": "solid",
+              "borderWidth": 1,
+              "boxSizing": "border-box",
+              "display": "inline-block",
+              "fontFamily": "\\"Helvetica Neue\\",Helvetica,Arial,sans-serif",
+              "fontSize": "15px",
+              "fontWeight": 300,
+              "lineHeight": "28px",
+              "padding": "8px 10px",
+              "width": "540px",
+            }
+          }
+          type="text"
+          value=""
+        />
+      </div>
+      <button
+        className="__sw-advanced-search__"
+        data-radium={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "background": "#f9f9f9",
+            "border": "none",
+            "borderRadius": 3,
+            "color": "#7c7c7c",
+            "display": "inline-block",
+            "flex": 1,
+            "height": "46px",
+            "justifyContent": "center",
+            "marginLeft": "10px",
+            "overflow": "hidden",
+            "padding": "0 5px",
+            "width": "46px",
+          }
+        }
+        type="button"
+      >
+        <span
+          data-radium={true}
+        >
+          <img
+            alt="Add"
+            data-radium={true}
+            src="test-file-stub"
+            style={
+              Object {
+                "color": "#BDBDBD",
+                "height": "20px",
+                "width": "20px",
+              }
+            }
+          />
+        </span>
+      </button>
+    </form>
+  </div>
+</div>
+`;

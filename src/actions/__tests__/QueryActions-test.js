@@ -8,7 +8,7 @@ const { Map } = require('immutable')
 const axios = require('axios')
 const MockAdapter = require('axios-mock-adapter')
 
-const middlewares = [ thunk ]
+const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
 describe('actions/QueryActions', () => {

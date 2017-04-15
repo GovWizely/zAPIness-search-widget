@@ -7,7 +7,7 @@ import styles from '../stylesheets/styles'
 
 const _ = require('lodash')
 
-class App extends Component {
+export class App extends Component {
   componentWillMount() {
     this.props.getCategories()
   }
