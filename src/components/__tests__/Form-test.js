@@ -14,8 +14,6 @@ describe('components/Form', () => {
   })
 
   it('renders successfully', () => {
-    jest.useFakeTimers()
-
     const form = shallow(
       <Form
         submitHandler={submitHandler}
