@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import styles from '../stylesheets/styles'
 
 const Radium = require('radium')
@@ -18,14 +19,14 @@ const Button = props => (
 )
 
 Button.propTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.shape({}),
-    React.PropTypes.string
+  children: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.string
   ]).isRequired,
-  className: React.PropTypes.string.isRequired,
-  clickHandler: React.PropTypes.func.isRequired,
-  kind: React.PropTypes.string.isRequired,
-  type: React.PropTypes.string.isRequired
+  className: PropTypes.string.isRequired,
+  clickHandler: PropTypes.func.isRequired,
+  kind: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
 }
 
 export default Radium(Button)

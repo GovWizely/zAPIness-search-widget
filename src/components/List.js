@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import styles from '../stylesheets/styles'
 
 const Radium = require('radium')
@@ -28,15 +29,15 @@ List.defaultProps = {
 }
 
 List.propTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
-    React.PropTypes.shape({})
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.shape({})
   ]).isRequired,
-  className: React.PropTypes.string.isRequired,
-  clickHandler: React.PropTypes.func.isRequired,
-  key: React.PropTypes.string,
-  styles: React.PropTypes.shape({})
+  className: PropTypes.string.isRequired,
+  clickHandler: PropTypes.func.isRequired,
+  key: PropTypes.string,
+  styles: PropTypes.shape({})
 }
 
 export default Radium(List)

@@ -1,12 +1,12 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import nock from 'nock'
+import sinon from 'sinon'
 import * as QueryActions from '../QueryActions'
-import { configureAPI, get } from '../api'
+import * as actionTypes from '../../constants/ActionTypes'
+import { configureAPI } from '../api'
 
 const { Map } = require('immutable')
-
-const axios = require('axios')
-const MockAdapter = require('axios-mock-adapter')
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -19,10 +19,9 @@ describe('actions/QueryActions', () => {
 
   describe('updateKeyword', () => {
     it('creates action to update keyword', () => {
-      const keyword = 'Interstellar'
       expect(QueryActions.updateKeyword(keyword)).toEqual(
         {
-          type: 'UPDATE_KEYWORD',
+          type: actionTypes.UPDATE_KEYWORD,
           keyword
         }
       )
@@ -34,7 +33,7 @@ describe('actions/QueryActions', () => {
       const pageNum = 9
       expect(QueryActions.updatePageNum(pageNum)).toEqual(
         {
-          type: 'UPDATE_PAGE_NUM',
+          type: actionTypes.UPDATE_PAGE_NUM,
           pageNum
         }
       )
@@ -47,7 +46,7 @@ describe('actions/QueryActions', () => {
 
       expect(QueryActions.updateSelectedFilter(selectedFilter, index)).toEqual(
         {
-          type: 'UPDATE_SELECTED_FILTER',
+          type: actionTypes.UPDATE_SELECTED_FILTER,
           index,
           selectedFilter
         }
@@ -61,7 +60,7 @@ describe('actions/QueryActions', () => {
 
       expect(QueryActions.updateSelectedValue(selectedValue, index)).toEqual(
         {
-          type: 'UPDATE_SELECTED_FILTER_VALUE',
+          type: actionTypes.UPDATE_SELECTED_FILTER_VALUE,
           index,
           selectedValue
         }
@@ -73,7 +72,7 @@ describe('actions/QueryActions', () => {
     it('creates action to remove selected filter', () => {
       expect(QueryActions.removeSelectedFilter(index)).toEqual(
         {
-          type: 'REMOVE_SELECTED_FILTER',
+          type: actionTypes.REMOVE_SELECTED_FILTER,
           index
         }
       )
@@ -83,13 +82,42 @@ describe('actions/QueryActions', () => {
   describe('removeAllFilters', () => {
     it('creates action to remove all filters', () => {
       expect(QueryActions.removeAllFilters()).toEqual(
-        { type: 'REMOVE_ALL_FILTERS' }
+        { type: actionTypes.REMOVE_ALL_FILTERS }
       )
     })
   })
 
   describe('requestApi', () => {
-    it('get successfully', () => {
+    const store = mockStore({
+      form: {
+        form: {}
+      },
+      query: Map({ keyword, offset })
+    })
+
+    const results = [1, 2, 3]
+
+    it('get results successfully', () => {
+      const expectedActions = {
+        type: actionTypes.LOAD_RESULT,
+        results
+      }
+
+      configureAPI(endpoint)
+
+      nock('endpoint').get('/').reply(200, { results })
+
+      const dispatch = sinon.spy(store, 'dispatch')
+      const fn = QueryActions.requestApi()
+
+      fn(dispatch, store.getState)
+
+      expect(dispatch.calledWith(expectedActions))
+    })
+  })
+
+  describe('getCategories', () => {
+    it('gets categories', () => {
       const store = mockStore({
         form: {
           form: {}
@@ -97,26 +125,21 @@ describe('actions/QueryActions', () => {
         query: Map({ keyword, offset })
       })
 
-      const results = [1, 2, 3]
-      const mock = new MockAdapter(axios)
-      const data = { params: { q: 'ok' } }
       const expectedActions = {
-        type: 'LOAD_RESULT',
-        results
+        type: actionTypes.UPDATE_CATEGORIES,
+        categories: ['type', 'Agent']
       }
 
       configureAPI(endpoint)
 
-      mock.onGet(endpoint, data).reply(200, { response: { results } })
+      nock('endpoint').get('/').reply(404, { aggregations: [{ type: 'Agent' }] })
 
-      get(data).then((response) => {
-        expect(response.result).toEqual([1, 2, 3])
-      })
+      const dispatch = sinon.spy(store, 'dispatch')
+      const fn = QueryActions.getCategories()
 
-      // return store.dispatch(QueryActions.requestApi())
-      //   .then(() => {
-      //     expect(store.getActions()).toEqual(expectedActions)
-      //   })
+      fn(dispatch, store.getState)
+
+      expect(dispatch.calledWith(expectedActions))
     })
   })
 })

@@ -93,7 +93,6 @@ export function removeAllFilters() {
 }
 
 export function requestApi() {
-  debugger
   return (dispatch, getState) => {
     const error = getState().form.form.syncErrors
 

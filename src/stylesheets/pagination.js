@@ -1,5 +1,3 @@
-import colors from './colors'
-
 const pagination = {
   container: {
     margin: '20px 10px'

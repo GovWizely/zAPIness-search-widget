@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Field, FieldArray, reduxForm } from 'redux-form'
+import { FieldArray, reduxForm } from 'redux-form'
 
 import * as QueryActions from '../actions/QueryActions'
 import validate from '../actions/validate'

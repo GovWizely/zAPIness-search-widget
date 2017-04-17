@@ -5,6 +5,9 @@
     "jsx": true,
     "modules": true
   },
+  "settings": {
+    "import/core-modules": [ "color" ]
+  },
   "env": {
     "browser": true,
     "node": true,
@@ -17,6 +20,7 @@
     "comma-dangle": ["error", "never"],
     "no-shadow": [2, {"allow": ["error"]}],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/no-named-as-default": [0, "never"],
     "import/no-extraneous-dependencies": ["error",
       {"devDependencies": [
         "**/*-test.js",

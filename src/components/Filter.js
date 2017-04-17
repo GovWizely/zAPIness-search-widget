@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Field } from 'redux-form'
 import SelectInput from './SelectInput'
@@ -33,8 +34,6 @@ export class Filter extends Component {
       ...rest
     } = this.props
 
-    debugger
-
     return (
       <div className="__sw-filter__" style={styles.filter.container}>
 
@@ -56,7 +55,7 @@ export class Filter extends Component {
         }
         <ul style={styles.filter.ul}>
           {fields.map((member, index) =>
-            <li key={index} style={styles.filter.li}>
+            <li key={`filter-${index + 1}`} style={styles.filter.li}>
               <div className="list-container" style={styles.filter.listContainer}>
                 <span style={styles.filter.span}>Filtered By:</span>
                 <Field

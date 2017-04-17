@@ -6,7 +6,7 @@ const { Map } = require('immutable')
 describe('queryReducer', () => {
   const data = [1, 2, 3]
 
-  const filter = (index) => Map({
+  const filter = index => Map({
     type: `type-${index}`,
     availableValues: [`value-${index}`],
     value: index
