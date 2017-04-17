@@ -1,3 +1,5 @@
+import * as actionTypes from '../constants/ActionTypes'
+
 const { Map } = require('immutable')
 
 const initialState = Map({
@@ -17,28 +19,28 @@ export default function queryReducer(state = initialState, action) {
   let newType
 
   switch (action.type) {
-    case 'LOAD_RESULT':
+    case actionTypes.LOAD_RESULT:
       return state.set('data', action.data).set('error', [])
-    case 'LOAD_ERROR':
+    case actionTypes.LOAD_ERROR:
       return state.set('error', action.error)
-    case 'UPDATE_KEYWORD':
+    case actionTypes.UPDATE_KEYWORD:
       return state.set('keyword', action.keyword)
-    case 'ADD_FILTER':
+    case actionTypes.ADD_FILTER:
       newState = state.get('filters').concat(Map({
         type: '',
         availableValues: [],
         value: ''
       }))
       return state.setIn(['filters'], newState)
-    case 'REMOVE_SELECTED_FILTER':
+    case actionTypes.REMOVE_SELECTED_FILTER:
       newState = state.get('filters')
         .slice(0, action.index)
         .concat(state.get('filters').slice(action.index + 1))
 
       return state.setIn(['filters'], newState)
-    case 'REMOVE_ALL_FILTERS':
+    case actionTypes.REMOVE_ALL_FILTERS:
       return state.set('filters', []).set('error', [])
-    case 'UPDATE_SELECTED_FILTER':
+    case actionTypes.UPDATE_SELECTED_FILTER:
       availableValues = state.get('categories')[action.selectedFilter]
 
       target = state.get('filters')[action.index]
@@ -55,7 +57,7 @@ export default function queryReducer(state = initialState, action) {
         .concat(state.get('filters').slice(action.index + 1))
 
       return state.setIn(['filters'], newState)
-    case 'UPDATE_SELECTED_FILTER_VALUE':
+    case actionTypes.UPDATE_SELECTED_FILTER_VALUE:
       target = state.get('filters')[action.index]
 
       newType = Map({
@@ -70,12 +72,12 @@ export default function queryReducer(state = initialState, action) {
         .concat(state.get('filters').slice(action.index + 1))
 
       return state.setIn(['filters'], newState)
-    case 'UPDATE_PAGE_NUM':
+    case actionTypes.UPDATE_PAGE_NUM:
       return state.merge({
         pageNum: action.pageNum,
         offset: (action.pageNum - 1) * 10
       })
-    case 'UPDATE_CATEGORIES':
+    case actionTypes.UPDATE_CATEGORIES:
       return state.set('categories', action.categories)
     default:
       return state
