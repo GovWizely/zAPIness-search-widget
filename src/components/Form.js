@@ -12,7 +12,7 @@ import Button from './Button'
 import Input from './Input'
 
 const settings = require('../settings.png')
-const loadingIcon = require('../loading.png')
+const loadingIcon = require('../spin.gif')
 
 const _ = require('lodash')
 
