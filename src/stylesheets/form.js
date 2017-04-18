@@ -25,6 +25,7 @@ const form = {
   inputWrapper: {
     display: 'inline-block',
     height: '46px',
+    position: 'relative',
     verticalAlign: 'top',
     width: '90%'
   }

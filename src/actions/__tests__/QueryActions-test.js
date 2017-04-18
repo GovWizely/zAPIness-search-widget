@@ -92,16 +92,22 @@ describe('actions/QueryActions', () => {
       form: {
         form: {}
       },
-      query: Map({ keyword, offset })
+      query: Map({ keyword, offset }),
+      isFetching: false
     })
 
     const results = [1, 2, 3]
 
     it('get results successfully', () => {
-      const expectedActions = {
-        type: actionTypes.LOAD_RESULT,
-        results
-      }
+      const expectedActions = [
+        {
+          type: actionTypes.RECEIVE_DATA
+        },
+        {
+          type: actionTypes.LOAD_RESULT,
+          results
+        }
+      ]
 
       configureAPI(endpoint)
 
@@ -122,7 +128,8 @@ describe('actions/QueryActions', () => {
         form: {
           form: {}
         },
-        query: Map({ keyword, offset })
+        query: Map({ keyword, offset }),
+        isFetching: false
       })
 
       const expectedActions = {

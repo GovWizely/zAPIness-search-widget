@@ -25,7 +25,8 @@ describe('containers/App', () => {
       keyword: '',
       offset: 0,
       filters: []
-    })
+    }),
+    isFetching: false
   })
 
   const store = mockStore(initialState)

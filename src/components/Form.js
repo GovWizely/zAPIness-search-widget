@@ -12,6 +12,7 @@ import Button from './Button'
 import Input from './Input'
 
 const settings = require('../settings.png')
+const loadingIcon = require('../loading.png')
 
 const _ = require('lodash')
 
@@ -32,6 +33,7 @@ export class Form extends Component {
 
   render() {
     const {
+      isFetching,
       submitHandler
     } = this.props
 
@@ -43,6 +45,14 @@ export class Form extends Component {
             placeholder="Search for keyword..."
             changeHandler={_.debounce(submitHandler, 1000)}
           />
+          {
+            isFetching &&
+            <div style={styles.loadingIconWrapper}>
+              <span>
+                <img src={loadingIcon} alt="Loading" style={styles.loadingIcon} />
+              </span>
+            </div>
+          }
         </div>
 
         <Button
@@ -68,8 +78,10 @@ export class Form extends Component {
   }
 }
 
-function mapStateToProps() {
-  return {}
+function mapStateToProps(state) {
+  return {
+    isFetching: state.isFetching
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -84,6 +96,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 Form.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
   submitHandler: PropTypes.func.isRequired
 }
 

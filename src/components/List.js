@@ -7,7 +7,7 @@ const React = require('react')
 const List = props => (
   <li
     style={styles.list.container}
-    key={props.key}
+    key={props.id}
     className={props.className}
   >
     <a
@@ -24,7 +24,7 @@ const List = props => (
 )
 
 List.defaultProps = {
-  key: '',
+  id: '',
   styles: styles.list.normal
 }
 
@@ -36,7 +36,7 @@ List.propTypes = {
   ]).isRequired,
   className: PropTypes.string.isRequired,
   clickHandler: PropTypes.func.isRequired,
-  key: PropTypes.string,
+  id: PropTypes.string,
   styles: PropTypes.shape({})
 }
 

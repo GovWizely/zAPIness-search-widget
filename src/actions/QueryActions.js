@@ -1,17 +1,21 @@
 import { map, fromPairs } from 'lodash'
+
+import * as actionTypes from '../constants/ActionTypes'
+
+import { requestData, receiveData } from './LoadingActions'
 import { buildParams } from './elasticsearch'
 import { get } from './api'
 
 function loadResult(data) {
   return {
-    type: 'LOAD_RESULT',
+    type: actionTypes.LOAD_RESULT,
     data
   }
 }
 
 function loadError(error) {
   return {
-    type: 'LOAD_ERROR',
+    type: actionTypes.LOAD_ERROR,
     error
   }
 }
@@ -38,28 +42,28 @@ function updateCategories(data) {
   }
 
   return {
-    type: 'UPDATE_CATEGORIES',
+    type: actionTypes.UPDATE_CATEGORIES,
     categories
   }
 }
 
 export function updateKeyword(keyword) {
   return {
-    type: 'UPDATE_KEYWORD',
+    type: actionTypes.UPDATE_KEYWORD,
     keyword
   }
 }
 
 export function updatePageNum(pageNum) {
   return {
-    type: 'UPDATE_PAGE_NUM',
+    type: actionTypes.UPDATE_PAGE_NUM,
     pageNum
   }
 }
 
 export function updateSelectedFilter(selectedFilter, index) {
   return {
-    type: 'UPDATE_SELECTED_FILTER',
+    type: actionTypes.UPDATE_SELECTED_FILTER,
     index,
     selectedFilter
   }
@@ -67,7 +71,7 @@ export function updateSelectedFilter(selectedFilter, index) {
 
 export function updateSelectedValue(selectedValue, index) {
   return {
-    type: 'UPDATE_SELECTED_FILTER_VALUE',
+    type: actionTypes.UPDATE_SELECTED_FILTER_VALUE,
     index,
     selectedValue
   }
@@ -75,36 +79,45 @@ export function updateSelectedValue(selectedValue, index) {
 
 export function addFilter() {
   return {
-    type: 'ADD_FILTER'
+    type: actionTypes.ADD_FILTER
   }
 }
 
 export function removeSelectedFilter(index) {
   return {
-    type: 'REMOVE_SELECTED_FILTER',
+    type: actionTypes.REMOVE_SELECTED_FILTER,
     index
   }
 }
 
 export function removeAllFilters() {
   return {
-    type: 'REMOVE_ALL_FILTERS'
+    type: actionTypes.REMOVE_ALL_FILTERS
   }
 }
 
 export function requestApi() {
   return (dispatch, getState) => {
+    dispatch(requestData())
+
     const error = getState().form.form.syncErrors
 
     if (error) {
+      dispatch(receiveData())
       return dispatch(loadError(error))
     }
+
     const data = buildParams(getState().query)
 
-    return get(data).then(
-        response => dispatch(loadResult(response)),
-        error => dispatch(loadError(error)),
-      )
+    return get(data)
+      .then((response) => {
+        dispatch(receiveData())
+        dispatch(loadResult(response))
+      },
+      (error) => {
+        dispatch(receiveData())
+        dispatch(loadError(error))
+      })
   }
 }
 

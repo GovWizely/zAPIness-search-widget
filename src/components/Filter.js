@@ -170,9 +170,12 @@ function mapDispatchToProps(dispatch) {
 
 Filter.propTypes = {
   addFilter: PropTypes.func.isRequired,
-  fields: PropTypes.shape({
-    component: PropTypes.func
-  }).isRequired,
+  fields: PropTypes.oneOfType([
+    PropTypes.shape({
+      component: PropTypes.func
+    }),
+    PropTypes.arrayOf(PropTypes.shape({}))
+  ]).isRequired,
   form: PropTypes.shape({}).isRequired,
   query: PropTypes.shape({
     get: PropTypes.func.isRequired

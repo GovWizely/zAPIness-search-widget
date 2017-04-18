@@ -15,7 +15,7 @@ describe('components/Filter', () => {
 
   const filter = shallow(<Filter
     addFilter={addFilter}
-    fields={[]}
+    fields={[{}]}
     form={{}}
     query={Map({
       filters: [
@@ -31,7 +31,11 @@ describe('components/Filter', () => {
   />)
 
   it('renders successfully', () => {
-    expect(filter.find('div').is('.__sw-filter__')).toBe(true)
-    expect(filter.find('Button').length).toBe(1)
+    expect(filter.find('.__sw-filter__').length).toBe(1)
+    expect(filter.find('.add-filter').length).toBe(1)
+
+    filter.find('.add-filter').simulate('click')
+
+    expect(filter.find('Button').length).toBe(4)
   })
 })

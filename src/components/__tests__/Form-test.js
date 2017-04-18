@@ -10,13 +10,15 @@ describe('components/Form', () => {
   const mockStore = configureMockStore()
   const store = mockStore({
     categories: [],
-    filters: []
+    filters: [],
+    isFetching: false
   })
 
   it('renders successfully', () => {
     const form = shallow(
       <Form
         submitHandler={submitHandler}
+        isFetching={false}
       />
     )
 

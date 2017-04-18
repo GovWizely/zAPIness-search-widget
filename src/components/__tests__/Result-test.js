@@ -12,7 +12,11 @@ describe('components/Result', () => {
         total: 3
       },
       aggregations: { type: 1 },
-      results: [1, 2, 3]
+      results: [
+        { address: 'Boston' },
+        { address: 'Seattle' },
+        { address: 'New York' }
+      ]
     }
   }
 

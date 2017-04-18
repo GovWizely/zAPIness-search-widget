@@ -33,6 +33,19 @@ const styles = {
   error: {
     color: colors.red,
     fontWeight: 500
+  },
+
+  loadingIcon: {
+    height: '40px',
+    opacity: 0.7,
+    width: '40px'
+  },
+
+  loadingIconWrapper: {
+    position: 'absolute',
+    marginTop: '2px',
+    right: 0,
+    top: 0
   }
 }
 
