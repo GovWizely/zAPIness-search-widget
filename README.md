@@ -2,7 +2,7 @@
 
 A search widget that allows users to search a given zAPIness endpoint.
 
-<img width="638" alt="screen shot 2017-04-17 at 4 13 43 pm" src="https://cloud.githubusercontent.com/assets/21019282/25083294/dd33c8d2-2388-11e7-9cb7-18e6a25736b4.png">
+<img width="722" alt="screen shot 2017-04-18 at 3 31 37 pm" src="https://cloud.githubusercontent.com/assets/21019282/25119298/2bbd6b3e-244c-11e7-874b-310ddff36431.png">
 ____
 
 
