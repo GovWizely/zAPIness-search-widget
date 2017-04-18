@@ -4,6 +4,10 @@ export function totalCount(data) {
   return data.metadata.total
 }
 
+export function count(data) {
+  return data.metadata.count
+}
+
 export function categories(data) {
   return data.aggregations
 }

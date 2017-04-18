@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Pagination from './Pagination'
-import { paginationTotal, categories } from '../actions/elasticsearch'
+import { paginationTotal, categories, totalCount, count } from '../actions/elasticsearch'
 
 import Drawer from './Drawer'
 import styles from '../stylesheets/styles'
@@ -28,12 +28,17 @@ const Result = props => (
     }
     {
       props.query.data.results.length > 0 &&
-      <Pagination
-        totalPage={paginationTotal(props.query.data, 10)}
-        totalNumButton={3}
-        activePage={props.activePage}
-        onSelect={props.paginationHandleSelect}
-      />
+      <div>
+        <span style={styles.pagination.total}>
+          { count(props.query.data) } of { totalCount(props.query.data) } results shown
+        </span>
+        <Pagination
+          totalPage={paginationTotal(props.query.data, 10)}
+          totalNumButton={3}
+          activePage={props.activePage}
+          onSelect={props.paginationHandleSelect}
+        />
+      </div>
     }
   </div>
 )
