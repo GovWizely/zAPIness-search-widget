@@ -1,4 +1,4 @@
-import { map, fromPairs } from 'lodash'
+import { each, map, mapValues, fromPairs } from 'lodash'
 
 import * as actionTypes from '../constants/ActionTypes'
 
@@ -21,25 +21,11 @@ function loadError(error) {
 }
 
 function generateCategories(data) {
-  const categories = []
-
-  map(data, (value, key) => {
-    categories.push(
-      [key, map(value, 'key')]
-    )
-  })
-
-  return fromPairs(categories)
+  return mapValues(data, val => map(val, 'key'))
 }
 
 function updateCategories(data) {
-  let categories
-
-  if (data.data) {
-    categories = generateCategories(data.data.aggregations)
-  } else {
-    categories = []
-  }
+  const categories = data.data ? generateCategories(data.data.aggregations) : []
 
   return {
     type: actionTypes.UPDATE_CATEGORIES,
