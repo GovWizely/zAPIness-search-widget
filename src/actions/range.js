@@ -1,11 +1,11 @@
-const _ = require('lodash')
+import { floor, range } from 'lodash'
 
 const noPrev = (current, max) => current - max <= 1
 
 const noNext = (current, totalPage, max) => current + max >= totalPage
 
 const getRange = (activePage, totalPage, totalNumButton) => {
-  const limit = _.floor(totalNumButton / 2)
+  const limit = floor(totalNumButton / 2)
   let initial = activePage - limit
   let last = activePage + limit + 1
   let numRange = []
@@ -19,9 +19,9 @@ const getRange = (activePage, totalPage, totalNumButton) => {
       last = totalPage
     }
 
-    numRange = _.range(initial, last)
+    numRange = range(initial, last)
   } else {
-    numRange = _.range(2, totalPage)
+    numRange = range(2, totalPage)
   }
 
   return numRange

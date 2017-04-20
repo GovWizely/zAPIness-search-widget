@@ -25,7 +25,7 @@ describe('action/api', () => {
 
       api.configureAPI(endpoint)
 
-      api.get(data).then((response) => {
+      api.getData(data).then((response) => {
         expect(response.result).toEqual([1, 2, 3])
       })
     })

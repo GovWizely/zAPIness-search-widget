@@ -15,7 +15,7 @@ zAPIness-search-widget will be loaded in any webpage by embedding the following 
 ```javascript
 <script type="text/javascript">
   var script = document.createElement('script');
-  script.src = "https://govwizely.github.io/zAPIness-search-widget/static/js/main.fdfe92ee.js";
+  script.src = "https://govwizely.github.io/zAPIness-search-widget/static/js/main.7285011e.js";
   document.getElementsByTagName('head')[0].appendChild(script);
 
   window.onload = function() {

@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FieldArray, reduxForm } from 'redux-form'
+import { debounce } from 'lodash'
 
-import * as QueryActions from '../actions/QueryActions'
+import {
+  requestApi,
+  updateKeyword
+} from '../actions/QueryActions'
+
 import validate from '../actions/validate'
 import styles from '../stylesheets/styles'
 
@@ -13,8 +18,6 @@ import Input from './Input'
 
 const settings = require('../settings.png')
 const loadingIcon = require('../spin.gif')
-
-const _ = require('lodash')
 
 export class Form extends Component {
   constructor(props) {
@@ -43,7 +46,7 @@ export class Form extends Component {
           <Input
             name="keyword"
             placeholder="Search for keyword..."
-            changeHandler={_.debounce(submitHandler, 1000)}
+            changeHandler={debounce(submitHandler, 1000)}
           />
           {
             isFetching &&
@@ -89,8 +92,8 @@ function mapDispatchToProps(dispatch) {
     submitHandler: (data) => {
       const keyword = data.target.value
 
-      dispatch(QueryActions.updateKeyword(keyword))
-      dispatch(QueryActions.requestApi())
+      dispatch(updateKeyword(keyword))
+      dispatch(requestApi())
     }
   }
 }

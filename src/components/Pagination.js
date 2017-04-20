@@ -1,13 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { map } from 'lodash'
 import getRange from '../actions/range'
 
 import List from './List'
 import Grid from './Grid'
 
 import styles from '../stylesheets/styles'
-
-const _ = require('lodash')
 
 export default class Pagination extends React.Component {
   constructor(props) {
@@ -31,7 +30,7 @@ export default class Pagination extends React.Component {
       this.props.totalNumButton
     )
 
-    return _.map(range, num => (this.page(num)))
+    return map(range, num => (this.page(num)))
   }
 
   renderPage(props) {

@@ -1,10 +1,10 @@
-import { each, map, mapValues, fromPairs } from 'lodash'
+import { map, mapValues } from 'lodash'
 
 import * as actionTypes from '../constants/ActionTypes'
 
 import { requestData, receiveData } from './LoadingActions'
 import { buildParams } from './elasticsearch'
-import { get } from './api'
+import { getData } from './api'
 
 function loadResult(data) {
   return {
@@ -95,7 +95,7 @@ export function requestApi() {
 
     const data = buildParams(getState().query)
 
-    return get(data)
+    return getData(data)
       .then((response) => {
         dispatch(receiveData())
         dispatch(loadResult(response))
@@ -111,7 +111,7 @@ export function getCategories() {
   return (dispatch, getState) => {
     const data = buildParams(getState().query)
 
-    return get(data).then(
+    return getData(data).then(
       response => dispatch(updateCategories(response)),
     )
   }

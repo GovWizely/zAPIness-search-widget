@@ -1,4 +1,11 @@
-const _ = require('lodash')
+import {
+  floor,
+  map,
+  mapValues,
+  groupBy,
+  isEmpty,
+  merge
+} from 'lodash'
 
 export function totalCount(data) {
   return data.metadata.total
@@ -19,7 +26,7 @@ export function paginationTotal(data, countPerPage) {
     return 1
   }
 
-  return _.floor(fraction)
+  return floor(fraction)
 }
 
 // Example
@@ -32,20 +39,17 @@ export function paginationTotal(data, countPerPage) {
 //   }
 // }
 export function buildParams(data) {
-  const filters = _.map(data.get('filters'), filter => filter.toJS())
+  const filters = map(data.get('filters'), filter => filter.toJS())
 
-  const filter = _.chain(filters)
-    .groupBy('type')
-    .mapValues(value => _.map(value, 'value'))
-    .value()
+  const filter = mapValues(groupBy(filters, 'type'), val => map(val, 'value'))
 
   const params = {
     q: data.get('keyword'),
     offset: data.get('offset')
   }
 
-  if (!_.isEmpty(filter)) {
-    _.merge(params, filter)
+  if (!isEmpty(filter)) {
+    merge(params, filter)
   }
 
   return params

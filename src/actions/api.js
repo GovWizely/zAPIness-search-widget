@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { get } from 'axios'
 
 let masterEndpoint = null
 
@@ -6,8 +6,8 @@ export function configureAPI(endpoint) {
   masterEndpoint = endpoint
 }
 
-export function get(data) {
-  return axios.get(masterEndpoint, { params: data })
+export function getData(data) {
+  return get(masterEndpoint, { params: data })
 }
 
 export function getEndpoint() {

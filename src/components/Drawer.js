@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { map, toPairs, startCase } from 'lodash'
 import styles from '../stylesheets/styles'
-
-const _ = require('lodash')
 
 class Drawer extends Component {
   static propTypes = {
@@ -44,9 +43,9 @@ class Drawer extends Component {
           <div className="__sw-details__" style={styles.result.details}>
             <table>
               <tbody>
-                { _.map(_.toPairs(cells), (cell, index) => (
+                { map(toPairs(cells), (cell, index) => (
                   <tr key={index} style={styles.result.tr}>
-                    <td><b style={{ fontWeight: 400 }}>{ _.startCase(cell[0]) }</b></td>
+                    <td><b style={{ fontWeight: 400 }}>{ startCase(cell[0]) }</b></td>
                     <td><i>{ cell[1] }</i></td>
                   </tr>
                   ))}

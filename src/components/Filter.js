@@ -2,16 +2,23 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Field } from 'redux-form'
+import { isEmpty, keys } from 'lodash'
 import SelectInput from './SelectInput'
 import Button from './Button'
 
-import * as QueryActions from '../actions/QueryActions'
+import {
+  addFilter,
+  updateSelectedValue,
+  updateSelectedFilter,
+  removeAllFilters,
+  removeSelectedFilter,
+  requestApi
+} from '../actions/QueryActions'
+
 import styles from '../stylesheets/styles'
 
 const plus = require('../plus.png')
 const trash = require('../trash.png')
-
-const _ = require('lodash')
 
 export class Filter extends Component {
   getAvailableValues(index) {
@@ -22,12 +29,12 @@ export class Filter extends Component {
 
   render() {
     const {
-      addFilter,
       fields,
       form,
       query,
-      removeFilter,
+      addFilter,
       removeAllFilters,
+      removeFilter,
       selectFilterHandler,
       selectFilterValueHandler,
       submitHandler,
@@ -50,7 +57,7 @@ export class Filter extends Component {
         }
 
 
-        { !_.isEmpty(query.get('error')) &&
+        { !isEmpty(query.get('error')) &&
           <div className="__sw-error__" style={styles.error}>Field/Value is required</div>
         }
         <ul style={styles.filter.ul}>
@@ -60,7 +67,7 @@ export class Filter extends Component {
                 <span style={styles.filter.span}>Filtered By:</span>
                 <Field
                   name={`${member}.type`}
-                  list={_.keys(query.get('categories'))}
+                  list={keys(query.get('categories'))}
                   changeHandler={data => selectFilterHandler(data, index)}
                   component={SelectInput}
                   className="select-type"
@@ -139,31 +146,31 @@ function mapDispatchToProps(dispatch) {
   return {
     selectFilterHandler: (data, index) => {
       const selectedCategory = data.target.value
-      dispatch(QueryActions.updateSelectedFilter(selectedCategory, index))
+      dispatch(updateSelectedFilter(selectedCategory, index))
     },
 
     selectFilterValueHandler: (data, index) => {
       const selectedValue = data.target.value
-      dispatch(QueryActions.updateSelectedValue(selectedValue, index))
+      dispatch(updateSelectedValue(selectedValue, index))
     },
 
     addFilter: (fields) => {
-      dispatch(QueryActions.addFilter())
+      dispatch(addFilter())
       return fields.push({})
     },
 
     removeFilter: (fields, index) => {
-      dispatch(QueryActions.removeSelectedFilter(index))
+      dispatch(removeSelectedFilter(index))
       return fields.remove(index)
     },
 
     removeAllFilters: (fields) => {
-      dispatch(QueryActions.removeAllFilters())
+      dispatch(removeAllFilters())
       return fields.removeAll()
     },
 
     submitHandler: () => {
-      dispatch(QueryActions.requestApi())
+      dispatch(requestApi())
     }
   }
 }

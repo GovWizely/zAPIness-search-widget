@@ -1,12 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { map, keys } from 'lodash'
 import Pagination from './Pagination'
-import { paginationTotal, categories, totalCount, count } from '../actions/elasticsearch'
+import {
+  categories,
+  count,
+  paginationTotal,
+  totalCount
+} from '../actions/elasticsearch'
 
 import Drawer from './Drawer'
 import styles from '../stylesheets/styles'
 
-const _ = require('lodash')
 const Radium = require('radium')
 
 const Result = props => (
@@ -17,11 +22,11 @@ const Result = props => (
       </div>
     }
     {
-      _.map(props.query.data.results, (result, index) => (
+      map(props.query.data.results, (result, index) => (
         <div key={index} className="__result-container__" style={styles.result.container}>
           <Drawer
             cells={result}
-            label={_.keys(categories(props.query.data))[0]}
+            label={keys(categories(props.query.data))[0]}
           />
         </div>
       ))

@@ -1,8 +1,5 @@
-const rootProd = require('./Root.prod')
-const rootDev = require('./Root.dev')
-
 if (process.env.NODE_ENV === 'production') {
-  module.exports = rootProd
+  module.exports = require('./Root.prod')
 } else {
-  module.exports = rootDev
+  module.exports = require('./Root.dev')
 }

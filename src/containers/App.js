@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { isUndefined } from 'lodash'
 import Form from '../components/Form'
 import Result from '../components/Result'
-import * as QueryActions from '../actions/QueryActions'
-import styles from '../stylesheets/styles'
+import {
+  getCategories,
+  updatePageNum,
+  requestApi
+} from '../actions/QueryActions'
 
-const _ = require('lodash')
+import styles from '../stylesheets/styles'
 
 export class App extends Component {
   componentWillMount() {
@@ -34,7 +38,7 @@ export class App extends Component {
             />
           }
           {
-            (!_.isUndefined(result) && result.length === 0) &&
+            (!isUndefined(result) && result.length === 0) &&
             <div>No Result</div>
           }
         </div>
@@ -46,12 +50,12 @@ export class App extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     handleSelect: (eventKey) => {
-      dispatch(QueryActions.updatePageNum(eventKey))
-      dispatch(QueryActions.requestApi())
+      dispatch(updatePageNum(eventKey))
+      dispatch(requestApi())
     },
 
     getCategories: () => {
-      dispatch(QueryActions.getCategories())
+      dispatch(getCategories())
     }
   }
 }
