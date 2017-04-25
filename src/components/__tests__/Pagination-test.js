@@ -75,7 +75,7 @@ describe('components/Pagination', () => {
       <div>
         <ul>
           <li><a>« First</a></li>
-          <li><a>« Prev</a></li>
+          <li><a>‹ Prev</a></li>
           <li><a>1</a></li>
           <li><a>...</a></li>
           <li><a>3</a></li>

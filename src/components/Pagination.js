@@ -104,7 +104,7 @@ export default class Pagination extends React.Component {
           }
 
           <List
-            className="previous-page"
+            className="next-page"
             styles={styles.list.last}
             clickHandler={(e) => {
               e.preventDefault()
