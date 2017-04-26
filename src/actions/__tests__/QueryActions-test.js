@@ -12,7 +12,6 @@ const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
 describe('actions/QueryActions', () => {
-  const index = 2
   const keyword = 'Earth'
   const offset = 10
   const endpoint = 'sample-endpoint/1'
@@ -40,52 +39,6 @@ describe('actions/QueryActions', () => {
     })
   })
 
-  describe('updateSelectedFilter', () => {
-    it('creates action to update selected filter', () => {
-      const selectedFilter = { type: 'star', value: 'Sun' }
-
-      expect(QueryActions.updateSelectedFilter(selectedFilter, index)).toEqual(
-        {
-          type: actionTypes.UPDATE_SELECTED_FILTER,
-          index,
-          selectedFilter
-        }
-      )
-    })
-  })
-
-  describe('updateSelectedValue', () => {
-    it('creates action to update selected value', () => {
-      const selectedValue = 'Earth'
-
-      expect(QueryActions.updateSelectedValue(selectedValue, index)).toEqual(
-        {
-          type: actionTypes.UPDATE_SELECTED_FILTER_VALUE,
-          index,
-          selectedValue
-        }
-      )
-    })
-  })
-
-  describe('removeSelectedFilter', () => {
-    it('creates action to remove selected filter', () => {
-      expect(QueryActions.removeSelectedFilter(index)).toEqual(
-        {
-          type: actionTypes.REMOVE_SELECTED_FILTER,
-          index
-        }
-      )
-    })
-  })
-
-  describe('removeAllFilters', () => {
-    it('creates action to remove all filters', () => {
-      expect(QueryActions.removeAllFilters()).toEqual(
-        { type: actionTypes.REMOVE_ALL_FILTERS }
-      )
-    })
-  })
 
   describe('requestApi', () => {
     const store = mockStore({
@@ -115,34 +68,6 @@ describe('actions/QueryActions', () => {
 
       const dispatch = sinon.spy(store, 'dispatch')
       const fn = QueryActions.requestApi()
-
-      fn(dispatch, store.getState)
-
-      expect(dispatch.calledWith(expectedActions))
-    })
-  })
-
-  describe('getCategories', () => {
-    it('gets categories', () => {
-      const store = mockStore({
-        form: {
-          form: {}
-        },
-        query: Map({ keyword, offset }),
-        isFetching: false
-      })
-
-      const expectedActions = {
-        type: actionTypes.UPDATE_CATEGORIES,
-        categories: ['type', 'Agent']
-      }
-
-      configureAPI(endpoint)
-
-      nock('endpoint').get('/').reply(404, { aggregations: [{ type: 'Agent' }] })
-
-      const dispatch = sinon.spy(store, 'dispatch')
-      const fn = QueryActions.getCategories()
 
       fn(dispatch, store.getState)
 
