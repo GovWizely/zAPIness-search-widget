@@ -8,6 +8,9 @@ import {
   paginationTotal,
   totalCount
 } from '../actions/elasticsearch'
+import {
+  filterResult
+} from '../actions/QueryActions'
 
 import Drawer from './Drawer'
 import styles from '../stylesheets/styles'
@@ -22,7 +25,7 @@ const Result = props => (
       </div>
     }
     {
-      map(props.query.data.results, (result, index) => (
+      map(filterResult(props.query.data.results), (result, index) => (
         <div key={index} className="__result-container__" style={styles.result.container}>
           <Drawer
             cells={result}

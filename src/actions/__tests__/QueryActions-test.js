@@ -74,4 +74,44 @@ describe('actions/QueryActions', () => {
       expect(dispatch.calledWith(expectedActions))
     })
   })
+
+  describe('filterResult', () => {
+    it('returns on the selected fields', () => {
+      const fields = ['title', 'director']
+      const data = [
+        {
+          title: 'Harry Potter',
+          director: 'David Yates',
+          year: '2006'
+        },
+        {
+          title: 'Interstellar',
+          director: 'Christopher Nolan',
+          year: '2015'
+        },
+        {
+          title: 'Avatar',
+          director: 'James Cameron',
+          year: '2009'
+        }
+      ]
+
+      configureApp(endpoint, fields)
+
+      expect(QueryActions.filterResult(data)).toEqual([
+        {
+          title: 'Harry Potter',
+          director: 'David Yates'
+        },
+        {
+          title: 'Interstellar',
+          director: 'Christopher Nolan'
+        },
+        {
+          title: 'Avatar',
+          director: 'James Cameron'
+        }
+      ])
+    })
+  })
 })

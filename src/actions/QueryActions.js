@@ -1,8 +1,14 @@
+import {
+  map,
+  isEmpty,
+  pick
+} from 'lodash'
+
 import * as actionTypes from '../constants/ActionTypes'
 
 import { requestData, receiveData } from './LoadingActions'
 import { buildParams } from './elasticsearch'
-import { getData } from './api'
+import { getData, getSelectableFields } from './api'
 
 function loadResult(data) {
   return {
@@ -36,6 +42,14 @@ export function updatePageNum(pageNum) {
     type: actionTypes.UPDATE_PAGE_NUM,
     pageNum
   }
+}
+
+export function filterResult(data) {
+  const selectableFields = getSelectableFields()
+
+  if (isEmpty(selectableFields)) { return data }
+
+  return map(data, d => pick(d, selectableFields))
 }
 
 export function requestApi() {
