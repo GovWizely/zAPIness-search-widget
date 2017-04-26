@@ -4,7 +4,7 @@ import nock from 'nock'
 import sinon from 'sinon'
 import * as FilterActions from '../FilterActions'
 import * as actionTypes from '../../constants/ActionTypes'
-import { configureAPI } from '../api'
+import { configureApp } from '../api'
 
 const { Map } = require('immutable')
 
@@ -79,7 +79,7 @@ describe('actions/FilterActions', () => {
         categories: ['type', 'Agent']
       }
 
-      configureAPI(endpoint)
+      configureApp(endpoint)
 
       nock('endpoint').get('/').reply(404, { aggregations: [{ type: 'Agent' }] })
 

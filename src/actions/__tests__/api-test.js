@@ -5,12 +5,14 @@ const MockAdapter = require('axios-mock-adapter')
 
 describe('action/api', () => {
   const endpoint = 'sample-endpoint/1'
+  const fields = ['some', 'selected', 'fields']
 
-  describe('configureAPI', () => {
+  describe('configureApp', () => {
     it('stores the endpoint as instance variable', () => {
-      api.configureAPI(endpoint)
+      api.configureApp(endpoint, fields)
 
       expect(api.getEndpoint()).toEqual(endpoint)
+      expect(api.getSelectableFields()).toEqual(fields)
     })
   })
 
@@ -23,7 +25,7 @@ describe('action/api', () => {
         results: [1, 2, 3]
       })
 
-      api.configureAPI(endpoint)
+      api.configureApp(endpoint)
 
       api.getData(data).then((response) => {
         expect(response.result).toEqual([1, 2, 3])

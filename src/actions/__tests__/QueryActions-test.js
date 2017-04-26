@@ -4,7 +4,7 @@ import nock from 'nock'
 import sinon from 'sinon'
 import * as QueryActions from '../QueryActions'
 import * as actionTypes from '../../constants/ActionTypes'
-import { configureAPI } from '../api'
+import { configureApp } from '../api'
 
 const { Map } = require('immutable')
 
@@ -62,7 +62,7 @@ describe('actions/QueryActions', () => {
         }
       ]
 
-      configureAPI(endpoint)
+      configureApp(endpoint)
 
       nock('endpoint').get('/').reply(200, { results })
 

@@ -1,12 +1,12 @@
 import React from 'react'
 import { render } from 'react-dom'
 import configureStore from './store/configureStore'
-import { configureAPI } from './actions/api'
+import { configureApp } from './actions/api'
 import Root from './containers/Root'
 
-const renderApp = ({ endpoint }) => {
+const renderApp = ({ endpoint, fields }) => {
   const store = configureStore()
-  configureAPI(endpoint)
+  configureApp(endpoint, fields)
 
   render(
     <Root store={store} />,
