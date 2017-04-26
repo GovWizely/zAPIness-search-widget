@@ -14,10 +14,12 @@ const renderApp = ({ endpoint }) => {
   )
 }
 
-window.SearchWidget = Object.assign(
-  {},
-  window.SearchWidget,
-  { new: renderApp }
-)
+const zAPI = {
+  SearchWidget: {
+    new: renderApp
+  }
+}
+
+window.zAPI = Object.assign({}, zAPI)
 
 export default render
