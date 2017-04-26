@@ -1,5 +1,6 @@
 export const LOAD_RESULT = 'LOAD_RESULT'
 export const LOAD_ERROR = 'LOAD_ERROR'
+export const CLEAR_ERROR = 'CLEAR_ERROR'
 export const UPDATE_KEYWORD = 'UPDATE_KEYWORD'
 export const ADD_FILTER = 'ADD_FILTER'
 export const REMOVE_SELECTED_FILTER = 'REMOVE_SELECTED_FILTER'
