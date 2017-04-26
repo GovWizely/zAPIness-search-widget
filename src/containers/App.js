@@ -5,10 +5,10 @@ import { isUndefined } from 'lodash'
 import Form from '../components/Form'
 import Result from '../components/Result'
 import {
-  getCategories,
   updatePageNum,
   requestApi
 } from '../actions/QueryActions'
+import { getCategories } from '../actions/FilterActions'
 
 import styles from '../stylesheets/styles'
 

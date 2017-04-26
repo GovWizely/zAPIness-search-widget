@@ -17,10 +17,13 @@ describe('components/Filter', () => {
     addFilter={addFilter}
     fields={[{}]}
     form={{}}
-    query={Map({
+    filters={Map({
       filters: [
         Map({ type: '', value: '', availableValues: [1, 2, 3] })
       ],
+      categories: [1, 2, 3]
+    })}
+    query={Map({
       errors: []
     })}
     removeFilter={removeFilter}

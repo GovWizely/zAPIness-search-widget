@@ -1,5 +1,3 @@
-import { map, mapValues } from 'lodash'
-
 import * as actionTypes from '../constants/ActionTypes'
 
 import { requestData, receiveData } from './LoadingActions'
@@ -17,6 +15,12 @@ function loadError(error) {
   return {
     type: actionTypes.LOAD_ERROR,
     error
+  }
+}
+
+export function clearError() {
+  return {
+    type: actionTypes.CLEAR_ERROR
   }
 }
 
@@ -50,6 +54,7 @@ export function requestApi() {
     return getData(data)
       .then((response) => {
         dispatch(receiveData())
+        dispatch(clearError())
         dispatch(loadResult(response))
       },
       (error) => {

@@ -13,7 +13,7 @@ const initialState = Map({
 export default function queryReducer(state = initialState, action) {
   switch (action.type) {
     case actionTypes.LOAD_RESULT:
-      return state.set('data', action.data).set('error', [])
+      return state.set('data', action.data)
     case actionTypes.LOAD_ERROR:
       return state.set('error', action.error)
     case actionTypes.CLEAR_ERROR:

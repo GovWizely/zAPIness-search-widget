@@ -7,13 +7,17 @@ import SelectInput from './SelectInput'
 import Button from './Button'
 
 import {
+  clearError,
+  requestApi
+} from '../actions/QueryActions'
+
+import {
   addFilter,
   updateSelectedValue,
   updateSelectedFilter,
   removeAllFilters,
-  removeSelectedFilter,
-  requestApi
-} from '../actions/QueryActions'
+  removeSelectedFilter
+} from '../actions/FilterActions'
 
 import styles from '../stylesheets/styles'
 
@@ -22,7 +26,7 @@ const trash = require('../trash.png')
 
 export class Filter extends Component {
   getAvailableValues(index) {
-    const target = this.props.query.get('filters')[index]
+    const target = this.props.filters.get('filters')[index]
 
     return target.get('availableValues') || []
   }
@@ -30,6 +34,7 @@ export class Filter extends Component {
   render() {
     const {
       fields,
+      filters,
       form,
       query,
       addFilter,
@@ -67,7 +72,7 @@ export class Filter extends Component {
                 <span style={styles.filter.span}>Filtered By:</span>
                 <Field
                   name={`${member}.type`}
-                  list={keys(query.get('categories'))}
+                  list={keys(filters.get('categories'))}
                   changeHandler={data => selectFilterHandler(data, index)}
                   component={SelectInput}
                   className="select-type"
@@ -138,7 +143,8 @@ export class Filter extends Component {
 function mapStateToProps(state) {
   return {
     query: state.query,
-    form: state.form
+    form: state.form,
+    filters: state.filters
   }
 }
 
@@ -166,6 +172,7 @@ function mapDispatchToProps(dispatch) {
 
     removeAllFilters: (fields) => {
       dispatch(removeAllFilters())
+      dispatch(clearError())
       return fields.removeAll()
     },
 
@@ -183,6 +190,9 @@ Filter.propTypes = {
     }),
     PropTypes.arrayOf(PropTypes.shape({}))
   ]).isRequired,
+  filters: PropTypes.shape({
+    get: PropTypes.func.isRequired
+  }).isRequired,
   form: PropTypes.shape({}).isRequired,
   query: PropTypes.shape({
     get: PropTypes.func.isRequired
