@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { map, keys } from 'lodash'
+
+import map from 'lodash/map'
+import keys from 'lodash/keys'
+
 import Pagination from './Pagination'
 import {
   categories,

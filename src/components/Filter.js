@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Field } from 'redux-form'
-import { isEmpty, keys } from 'lodash'
+
+import isEmpty from 'lodash/isEmpty'
+import keys from 'lodash/keys'
 import SelectInput from './SelectInput'
+
 import Button from './Button'
 
 import {

@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const CompressionPlugin = require("compression-webpack-plugin")
 
 process.env.NODE_ENV = 'production'
@@ -19,7 +18,6 @@ module.exports = {
   },
   plugins:
   [
-    new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
@@ -64,7 +62,8 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         include: [__dirname],
-        query: {
+        options: {
+          babelrc: false,
           presets: [['es2015', { modules: false }], 'stage-0', 'react']
         }
       },

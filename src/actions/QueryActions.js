@@ -1,8 +1,6 @@
-import {
-  map,
-  isEmpty,
-  pick
-} from 'lodash'
+import map from 'lodash/map'
+import isEmpty from 'lodash/isEmpty'
+import pick from 'lodash/pick'
 
 import * as actionTypes from '../constants/ActionTypes'
 

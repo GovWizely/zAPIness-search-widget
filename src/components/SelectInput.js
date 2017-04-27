@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field } from 'redux-form'
-import { map, startCase } from 'lodash'
+
+import map from 'lodash/map'
+import startCase from 'lodash/startCase'
 
 const SelectInput = props => (
   <Field

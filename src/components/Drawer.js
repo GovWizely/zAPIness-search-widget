@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { map, toPairs, startCase } from 'lodash'
+
+import map from 'lodash/map'
+import toPairs from 'lodash/toPairs'
+import startCase from 'lodash/startCase'
+
 import styles from '../stylesheets/styles'
 
 class Drawer extends Component {

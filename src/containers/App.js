@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { isUndefined } from 'lodash'
+
+import isUndefined from 'lodash/isUndefined'
+
 import Form from '../components/Form'
 import Result from '../components/Result'
 import {

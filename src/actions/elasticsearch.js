@@ -1,11 +1,9 @@
-import {
-  floor,
-  map,
-  mapValues,
-  groupBy,
-  isEmpty,
-  merge
-} from 'lodash'
+import floor from 'lodash/floor'
+import map from 'lodash/map'
+import mapValues from 'lodash/mapValues'
+import groupBy from 'lodash/groupBy'
+import isEmpty from 'lodash/isEmpty'
+import merge from 'lodash/merge'
 
 export function totalCount(data) {
   return data.metadata.total

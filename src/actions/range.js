@@ -1,4 +1,5 @@
-import { floor, range } from 'lodash'
+import floor from 'lodash/floor'
+import range from 'lodash/range'
 
 const noPrev = (current, max) => current - max <= 1
 

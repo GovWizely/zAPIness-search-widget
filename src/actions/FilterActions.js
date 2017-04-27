@@ -1,4 +1,5 @@
-import { map, mapValues } from 'lodash'
+import map from 'lodash/map'
+import mapValues from 'lodash/mapValues'
 
 import * as actionTypes from '../constants/ActionTypes'
 import { buildParams } from './elasticsearch'
