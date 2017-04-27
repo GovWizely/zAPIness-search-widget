@@ -39,7 +39,6 @@ describe('actions/QueryActions', () => {
     })
   })
 
-
   describe('requestApi', () => {
     const store = mockStore({
       form: {
