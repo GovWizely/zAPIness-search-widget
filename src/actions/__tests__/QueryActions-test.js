@@ -76,6 +76,7 @@ describe('actions/QueryActions', () => {
 
   describe('filterResult', () => {
     it('returns on the selected fields', () => {
+      const host = 'http://sample-host'
       const fields = ['title', 'director']
       const data = [
         {
@@ -95,7 +96,7 @@ describe('actions/QueryActions', () => {
         }
       ]
 
-      configureApp(endpoint, fields)
+      configureApp(host, endpoint, fields)
 
       expect(QueryActions.filterResult(data)).toEqual([
         {

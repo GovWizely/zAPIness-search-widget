@@ -2,8 +2,7 @@ import map from 'lodash/map'
 import mapValues from 'lodash/mapValues'
 
 import * as actionTypes from '../constants/ActionTypes'
-import { buildParams } from './elasticsearch'
-import { getData } from './api'
+import { getStats } from './api'
 
 function generateCategories(data) {
   return mapValues(data, val => map(val, 'key'))
@@ -55,9 +54,7 @@ export function removeAllFilters() {
 
 export function getCategories() {
   return (dispatch, getState) => {
-    const data = buildParams(getState().query)
-
-    return getData(data).then(
+    return getStats().then(
       response => dispatch(updateCategories(response)),
     )
   }

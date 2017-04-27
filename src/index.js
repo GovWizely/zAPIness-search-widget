@@ -4,9 +4,9 @@ import configureStore from './store/configureStore'
 import { configureApp } from './actions/api'
 import Root from './containers/Root'
 
-const renderApp = ({ endpoint, fields }) => {
+const renderApp = ({ host, endpoint, fields }) => {
   const store = configureStore()
-  configureApp(endpoint, fields)
+  configureApp(host, endpoint, fields)
 
   render(
     <Root store={store} />,

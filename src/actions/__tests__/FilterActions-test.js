@@ -16,6 +16,7 @@ describe('actions/FilterActions', () => {
   const keyword = 'Earth'
   const offset = 10
   const endpoint = 'sample-endpoint/1'
+  const host = 'http://sample-host'
 
   describe('updateSelectedFilter', () => {
     it('creates action to update selected filter', () => {
@@ -79,7 +80,7 @@ describe('actions/FilterActions', () => {
         categories: ['type', 'Agent']
       }
 
-      configureApp(endpoint)
+      configureApp(host, endpoint)
 
       nock('endpoint').get('/').reply(404, { aggregations: [{ type: 'Agent' }] })
 
