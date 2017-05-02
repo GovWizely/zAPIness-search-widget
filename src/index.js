@@ -10,7 +10,7 @@ const renderApp = ({ host, endpoint, fields }) => {
 
   render(
     <Root store={store} />,
-    document.getElementById('root')
+    document.getElementById('zAPI-sw-root')
   )
 }
 
