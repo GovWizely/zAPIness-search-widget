@@ -61,7 +61,7 @@ export function requestApi() {
       return dispatch(loadError(error))
     }
 
-    const data = buildParams(getState().query)
+    const data = buildParams(getState().query, getState().filters)
 
     return getData(data)
       .then((response) => {
