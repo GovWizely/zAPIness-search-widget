@@ -1,16 +1,20 @@
 import React from 'react'
 import { render } from 'react-dom'
+import replace from 'lodash/replace'
 import configureStore from './store/configureStore'
-import { configureApp } from './actions/api'
+import { configureApp, createMountPoint } from './actions/api'
 import Root from './containers/Root'
 
-const renderApp = ({ host, endpoint, fields }) => {
+const renderApp = ({ mountPoint, host, endpoint, fields }) => {
   const store = configureStore()
+  const id = replace(mountPoint, '#', '')
+
+  createMountPoint(id)
   configureApp(host, endpoint, fields)
 
   render(
     <Root store={store} />,
-    document.getElementById('zAPI-sw-root')
+    document.getElementById(id)
   )
 }
 

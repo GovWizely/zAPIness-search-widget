@@ -37,3 +37,13 @@ export function getSelectableFields() {
 export function getInstance() {
   return instance
 }
+
+export function createMountPoint(id) {
+  if (document.getElementById(id)) {
+    return
+  }
+
+  const div = document.createElement('div')
+  div.id = id
+  document.body.appendChild(div)
+}

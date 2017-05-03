@@ -33,4 +33,12 @@ describe('action/api', () => {
       })
     })
   })
+
+  describe('createMountPoint', () => {
+    it('creates div with the given id', () => {
+      api.createMountPoint('special-id')
+
+      expect(document.getElementById('special-id')).not.toBe(null)
+    })
+  })
 })
