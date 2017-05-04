@@ -14,6 +14,14 @@ describe('action/api', () => {
 
       expect(api.getEndpoint()).toEqual(endpoint)
       expect(api.getSelectableFields()).toEqual(fields)
+      expect(api.getPreviewMode()).toEqual(false)
+    })
+
+    it('set app as preview mode if preview is set to true', () => {
+      const preview = true
+      api.configureApp(host, endpoint, fields, preview)
+
+      expect(api.getPreviewMode()).toEqual(true)
     })
   })
 

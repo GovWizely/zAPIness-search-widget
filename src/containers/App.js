@@ -6,9 +6,12 @@ import isUndefined from 'lodash/isUndefined'
 
 import Form from '../components/Form'
 import Result from '../components/Result'
+
+import { getPreviewMode } from '../actions/api'
+
 import {
-  updatePageNum,
-  requestApi
+  requestApi,
+  updatePageNum
 } from '../actions/QueryActions'
 import { getCategories } from '../actions/FilterActions'
 import toggleResult from '../actions/ToggleActions'
@@ -18,6 +21,10 @@ import styles from '../stylesheets/styles'
 export class App extends Component {
   componentWillMount() {
     this.props.getCategories()
+
+    if (getPreviewMode()) {
+      this.props.previewResult()
+    }
   }
 
   render() {
@@ -70,6 +77,12 @@ function mapDispatchToProps(dispatch) {
 
     toggleResultHandler: (key) => {
       dispatch(toggleResult(key))
+    },
+
+    previewResult: () => {
+      dispatch(requestApi()).then(() => {
+        dispatch(toggleResult(0))
+      })
     }
   }
 }
@@ -88,7 +101,8 @@ App.propTypes = {
   toggle: PropTypes.shape({}).isRequired,
   handleSelect: PropTypes.func.isRequired,
   getCategories: PropTypes.func.isRequired,
-  toggleResultHandler: PropTypes.func.isRequired
+  toggleResultHandler: PropTypes.func.isRequired,
+  previewResult: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

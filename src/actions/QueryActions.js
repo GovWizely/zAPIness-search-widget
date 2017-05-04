@@ -54,7 +54,7 @@ export function requestApi() {
   return (dispatch, getState) => {
     dispatch(requestData())
 
-    const error = getState().form.form.syncErrors
+    const error = getState().form.form ? getState().form.form.syncErrors : false
 
     if (error) {
       dispatch(receiveData())

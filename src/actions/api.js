@@ -3,14 +3,16 @@ import axios from 'axios'
 let masterEndpoint = null
 let selectableFields = []
 let instance = null
+let previewMode = null
 
-export function configureApp(host, endpoint, fields = []) {
+export function configureApp(host, endpoint, fields = [], preview = false) {
   instance = axios.create({
     baseURL: host
   })
 
   masterEndpoint = endpoint
   selectableFields = fields
+  previewMode = preview
 }
 
 export function getData(data) {
@@ -36,6 +38,10 @@ export function getSelectableFields() {
 
 export function getInstance() {
   return instance
+}
+
+export function getPreviewMode() {
+  return previewMode
 }
 
 export function createMountPoint(id) {
