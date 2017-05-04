@@ -33,6 +33,11 @@ const Result = props => (
           <Drawer
             cells={result}
             label={keys(categories(props.query.data))[0]}
+            id={index}
+            toggleHandler={props.toggleHandler}
+            showDetails={
+              index === props.toggleStatus.key && props.toggleStatus.show
+            }
           />
         </div>
       ))
@@ -57,6 +62,8 @@ const Result = props => (
 Result.propTypes = {
   activePage: PropTypes.number.isRequired,
   paginationHandleSelect: PropTypes.func.isRequired,
+  toggleHandler: PropTypes.func.isRequired,
+  toggleStatus: PropTypes.shape({}).isRequired,
   query: PropTypes.shape(
     { get: PropTypes.func,
       data: PropTypes.shape({

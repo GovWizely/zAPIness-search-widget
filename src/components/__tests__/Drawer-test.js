@@ -8,10 +8,15 @@ describe('components/Drawer', () => {
     author: 'J.K Rowling',
     year: '1996'
   }
+  const toggleHandler = jest.fn()
+
   const wrapper = shallow(
     <Drawer
       cells={results}
       label="name"
+      showDetails={false}
+      id={1}
+      toggleHandler={toggleHandler}
     />
   )
 
@@ -21,14 +26,22 @@ describe('components/Drawer', () => {
   })
 
   it('shows details when click', () => {
-    expect(wrapper.state('showDetails')).toBe(false)
     wrapper.simulate('click', { preventDefault() {} })
-    expect(wrapper.state('showDetails')).toBe(true)
+    expect(toggleHandler).toHaveBeenCalledTimes(1)
   })
 
   it('renders details correctly', () => {
-    wrapper.simulate('click', { preventDefault() {} })
-    expect(wrapper.containsMatchingElement(
+    const showDetailsWrapper = shallow(
+      <Drawer
+        cells={results}
+        label="name"
+        showDetails
+        id={1}
+        toggleHandler={toggleHandler}
+      />
+    )
+
+    expect(showDetailsWrapper.containsMatchingElement(
       <table>
         <tbody>
           <tr>

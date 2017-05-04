@@ -11,6 +11,7 @@ import {
   requestApi
 } from '../actions/QueryActions'
 import { getCategories } from '../actions/FilterActions'
+import toggleResult from '../actions/ToggleActions'
 
 import styles from '../stylesheets/styles'
 
@@ -22,7 +23,9 @@ export class App extends Component {
   render() {
     const {
       query,
-      handleSelect
+      handleSelect,
+      toggle,
+      toggleResultHandler
     } = this.props
 
     const result = query.get('data')
@@ -37,6 +40,11 @@ export class App extends Component {
               query={result}
               paginationHandleSelect={handleSelect}
               activePage={query.get('pageNum')}
+              toggleHandler={toggleResultHandler}
+              toggleStatus={{
+                key: toggle.get('key'),
+                show: toggle.get('show')
+              }}
             />
           }
           {
@@ -58,13 +66,18 @@ function mapDispatchToProps(dispatch) {
 
     getCategories: () => {
       dispatch(getCategories())
+    },
+
+    toggleResultHandler: (key) => {
+      dispatch(toggleResult(key))
     }
   }
 }
 
 function mapStateToProps(state) {
   return {
-    query: state.query
+    query: state.query,
+    toggle: state.toggle
   }
 }
 
@@ -72,8 +85,10 @@ App.propTypes = {
   query: PropTypes.shape({
     get: PropTypes.func
   }).isRequired,
+  toggle: PropTypes.shape({}).isRequired,
   handleSelect: PropTypes.func.isRequired,
-  getCategories: PropTypes.func.isRequired
+  getCategories: PropTypes.func.isRequired,
+  toggleResultHandler: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

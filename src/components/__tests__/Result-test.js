@@ -5,6 +5,7 @@ import Result from '../Result'
 describe('components/Result', () => {
   const activePage = 1
   const paginationHandleSelect = jest.fn()
+  const toggleHandler = jest.fn()
   const query = {
     get: jest.fn(),
     data: {
@@ -26,6 +27,11 @@ describe('components/Result', () => {
         activePage={activePage}
         paginationHandleSelect={paginationHandleSelect}
         query={query}
+        toggleHandler={toggleHandler}
+        toggleStatus={{
+          key: 1,
+          show: false
+        }}
       />
     )
 
