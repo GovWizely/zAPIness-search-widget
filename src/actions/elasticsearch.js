@@ -1,11 +1,9 @@
-import {
-  floor,
-  map,
-  mapValues,
-  groupBy,
-  isEmpty,
-  merge
-} from 'lodash'
+import floor from 'lodash/floor'
+import map from 'lodash/map'
+import mapValues from 'lodash/mapValues'
+import groupBy from 'lodash/groupBy'
+import isEmpty from 'lodash/isEmpty'
+import merge from 'lodash/merge'
 
 export function totalCount(data) {
   return data.metadata.total
@@ -38,17 +36,15 @@ export function paginationTotal(data, countPerPage) {
 //     category: ['architectural engineering']
 //   }
 // }
-export function buildParams(data) {
-  const filters = map(data.get('filters'), filter => filter.toJS())
-
-  const filter = mapValues(groupBy(filters, 'type'), val => map(val, 'value'))
-
+export function buildParams(query, filters) {
   const params = {
-    q: data.get('keyword'),
-    offset: data.get('offset')
+    q: query.get('keyword'),
+    offset: query.get('offset')
   }
 
-  if (!isEmpty(filter)) {
+  if (filters) {
+    const filterData = map(filters.get('filters'), filter => filter.toJS())
+    const filter = mapValues(groupBy(filterData, 'type'), val => map(val, 'value'))
     merge(params, filter)
   }
 

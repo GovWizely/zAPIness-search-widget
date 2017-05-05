@@ -1,23 +1,27 @@
 import React from 'react'
 import { render } from 'react-dom'
 import configureStore from './store/configureStore'
-import { configureAPI } from './actions/api'
+import { configureApp, createMountPoint } from './actions/api'
 import Root from './containers/Root'
 
-const renderApp = ({ endpoint }) => {
+const renderApp = ({ mountPoint, host, endpoint, fields, preview = false }) => {
   const store = configureStore()
-  configureAPI(endpoint)
+
+  createMountPoint(mountPoint)
+  configureApp(host, endpoint, fields, preview)
 
   render(
     <Root store={store} />,
-    document.getElementById('root')
+    document.querySelector(mountPoint)
   )
 }
 
-window.SearchWidget = Object.assign(
-  {},
-  window.SearchWidget,
-  { new: renderApp }
-)
+const zAPI = {
+  SearchWidget: {
+    new: renderApp
+  }
+}
+
+window.zAPI = Object.assign({}, zAPI)
 
 export default render

@@ -1,8 +1,11 @@
-import { floor, range } from 'lodash'
+import floor from 'lodash/floor'
+import range from 'lodash/range'
 
 const noPrev = (current, max) => current - max <= 1
 
 const noNext = (current, totalPage, max) => current + max >= totalPage
+
+const upperLimit = 2
 
 const getRange = (activePage, totalPage, totalNumButton) => {
   if (activePage < 0 || totalPage < 0 || totalNumButton < 0) {
@@ -17,16 +20,17 @@ const getRange = (activePage, totalPage, totalNumButton) => {
 
   if (totalPage > totalNumButton) {
     if (noPrev(activePage, limit)) {
-      initial = 2
+      initial = upperLimit
     }
 
     if (noNext(activePage, totalPage, limit)) {
       last = totalPage
     }
-
     numRange = range(initial, last)
+  } else if (totalPage === 1) {
+    numRange = range(1, 1)
   } else {
-    numRange = range(2, totalPage)
+    numRange = range(2, totalPage + 1)
   }
 
   return numRange

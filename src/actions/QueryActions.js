@@ -1,10 +1,12 @@
-import { map, mapValues } from 'lodash'
+import map from 'lodash/map'
+import isEmpty from 'lodash/isEmpty'
+import pick from 'lodash/pick'
 
 import * as actionTypes from '../constants/ActionTypes'
 
 import { requestData, receiveData } from './LoadingActions'
 import { buildParams } from './elasticsearch'
-import { getData } from './api'
+import { getData, getSelectableFields } from './api'
 
 function loadResult(data) {
   return {
@@ -20,16 +22,9 @@ function loadError(error) {
   }
 }
 
-function generateCategories(data) {
-  return mapValues(data, val => map(val, 'key'))
-}
-
-function updateCategories(data) {
-  const categories = data.data ? generateCategories(data.data.aggregations) : []
-
+export function clearError() {
   return {
-    type: actionTypes.UPDATE_CATEGORIES,
-    categories
+    type: actionTypes.CLEAR_ERROR
   }
 }
 
@@ -47,72 +42,36 @@ export function updatePageNum(pageNum) {
   }
 }
 
-export function updateSelectedFilter(selectedFilter, index) {
-  return {
-    type: actionTypes.UPDATE_SELECTED_FILTER,
-    index,
-    selectedFilter
-  }
-}
+export function filterResult(data) {
+  const selectableFields = getSelectableFields()
 
-export function updateSelectedValue(selectedValue, index) {
-  return {
-    type: actionTypes.UPDATE_SELECTED_FILTER_VALUE,
-    index,
-    selectedValue
-  }
-}
+  if (isEmpty(selectableFields)) { return data }
 
-export function addFilter() {
-  return {
-    type: actionTypes.ADD_FILTER
-  }
-}
-
-export function removeSelectedFilter(index) {
-  return {
-    type: actionTypes.REMOVE_SELECTED_FILTER,
-    index
-  }
-}
-
-export function removeAllFilters() {
-  return {
-    type: actionTypes.REMOVE_ALL_FILTERS
-  }
+  return map(data, d => pick(d, selectableFields))
 }
 
 export function requestApi() {
   return (dispatch, getState) => {
     dispatch(requestData())
 
-    const error = getState().form.form.syncErrors
+    const error = getState().form.form ? getState().form.form.syncErrors : false
 
     if (error) {
       dispatch(receiveData())
       return dispatch(loadError(error))
     }
 
-    const data = buildParams(getState().query)
+    const data = buildParams(getState().query, getState().filters)
 
     return getData(data)
       .then((response) => {
         dispatch(receiveData())
+        dispatch(clearError())
         dispatch(loadResult(response))
       },
       (error) => {
         dispatch(receiveData())
         dispatch(loadError(error))
       })
-  }
-}
-
-export function getCategories() {
-  return (dispatch, getState) => {
-    const data = buildParams(getState().query)
-
-    return getData(data).then(
-      response => dispatch(updateCategories(response)),
-    )
   }
 }

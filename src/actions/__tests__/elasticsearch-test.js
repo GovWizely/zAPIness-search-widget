@@ -57,8 +57,9 @@ describe('actions/elasticsearch', () => {
 
     it('returns q, offset and filters in the params', () => {
       data = Map({ keyword, offset, filters })
+      const filterData = Map({ filters })
 
-      expect(es.buildParams(data)).toEqual({
+      expect(es.buildParams(data, filterData)).toEqual({
         q: keyword,
         offset,
         home: ['Earth'],

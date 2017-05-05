@@ -1,33 +1,33 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { map, toPairs, startCase } from 'lodash'
+
+import map from 'lodash/map'
+import toPairs from 'lodash/toPairs'
+import startCase from 'lodash/startCase'
+
 import styles from '../stylesheets/styles'
 
 class Drawer extends Component {
   static propTypes = {
     cells: PropTypes.shape({}).isRequired,
-    label: PropTypes.string.isRequired
-  }
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      showDetails: false
-    }
+    label: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    toggleHandler: PropTypes.func.isRequired,
+    showDetails: PropTypes.bool.isRequired
   }
 
   toggleDetails(e) {
     e.preventDefault()
 
-    this.setState({
-      showDetails: !this.state.showDetails
-    })
+    this.props.toggleHandler(this.props.id)
   }
 
   render() {
     const {
       cells,
-      label
+      label,
+      showDetails,
+      id
     } = this.props
 
     return (
@@ -36,10 +36,11 @@ class Drawer extends Component {
         onClick={e => this.toggleDetails(e)}
         style={styles.result.link}
         className="__sw-data__"
+        data-id={id}
       >
         <div>{ cells[label] }</div>
         {
-          this.state.showDetails &&
+          showDetails &&
           <div className="__sw-details__" style={styles.result.details}>
             <table>
               <tbody>

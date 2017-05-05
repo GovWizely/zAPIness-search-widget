@@ -4,7 +4,7 @@ import nock from 'nock'
 import sinon from 'sinon'
 import * as QueryActions from '../QueryActions'
 import * as actionTypes from '../../constants/ActionTypes'
-import { configureAPI } from '../api'
+import { configureApp } from '../api'
 
 const { Map } = require('immutable')
 
@@ -12,7 +12,6 @@ const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
 describe('actions/QueryActions', () => {
-  const index = 2
   const keyword = 'Earth'
   const offset = 10
   const endpoint = 'sample-endpoint/1'
@@ -40,53 +39,6 @@ describe('actions/QueryActions', () => {
     })
   })
 
-  describe('updateSelectedFilter', () => {
-    it('creates action to update selected filter', () => {
-      const selectedFilter = { type: 'star', value: 'Sun' }
-
-      expect(QueryActions.updateSelectedFilter(selectedFilter, index)).toEqual(
-        {
-          type: actionTypes.UPDATE_SELECTED_FILTER,
-          index,
-          selectedFilter
-        }
-      )
-    })
-  })
-
-  describe('updateSelectedValue', () => {
-    it('creates action to update selected value', () => {
-      const selectedValue = 'Earth'
-
-      expect(QueryActions.updateSelectedValue(selectedValue, index)).toEqual(
-        {
-          type: actionTypes.UPDATE_SELECTED_FILTER_VALUE,
-          index,
-          selectedValue
-        }
-      )
-    })
-  })
-
-  describe('removeSelectedFilter', () => {
-    it('creates action to remove selected filter', () => {
-      expect(QueryActions.removeSelectedFilter(index)).toEqual(
-        {
-          type: actionTypes.REMOVE_SELECTED_FILTER,
-          index
-        }
-      )
-    })
-  })
-
-  describe('removeAllFilters', () => {
-    it('creates action to remove all filters', () => {
-      expect(QueryActions.removeAllFilters()).toEqual(
-        { type: actionTypes.REMOVE_ALL_FILTERS }
-      )
-    })
-  })
-
   describe('requestApi', () => {
     const store = mockStore({
       form: {
@@ -109,7 +61,7 @@ describe('actions/QueryActions', () => {
         }
       ]
 
-      configureAPI(endpoint)
+      configureApp(endpoint)
 
       nock('endpoint').get('/').reply(200, { results })
 
@@ -122,31 +74,44 @@ describe('actions/QueryActions', () => {
     })
   })
 
-  describe('getCategories', () => {
-    it('gets categories', () => {
-      const store = mockStore({
-        form: {
-          form: {}
+  describe('filterResult', () => {
+    it('returns on the selected fields', () => {
+      const host = 'http://sample-host'
+      const fields = ['title', 'director']
+      const data = [
+        {
+          title: 'Harry Potter',
+          director: 'David Yates',
+          year: '2006'
         },
-        query: Map({ keyword, offset }),
-        isFetching: false
-      })
+        {
+          title: 'Interstellar',
+          director: 'Christopher Nolan',
+          year: '2015'
+        },
+        {
+          title: 'Avatar',
+          director: 'James Cameron',
+          year: '2009'
+        }
+      ]
 
-      const expectedActions = {
-        type: actionTypes.UPDATE_CATEGORIES,
-        categories: ['type', 'Agent']
-      }
+      configureApp(host, endpoint, fields)
 
-      configureAPI(endpoint)
-
-      nock('endpoint').get('/').reply(404, { aggregations: [{ type: 'Agent' }] })
-
-      const dispatch = sinon.spy(store, 'dispatch')
-      const fn = QueryActions.getCategories()
-
-      fn(dispatch, store.getState)
-
-      expect(dispatch.calledWith(expectedActions))
+      expect(QueryActions.filterResult(data)).toEqual([
+        {
+          title: 'Harry Potter',
+          director: 'David Yates'
+        },
+        {
+          title: 'Interstellar',
+          director: 'Christopher Nolan'
+        },
+        {
+          title: 'Avatar',
+          director: 'James Cameron'
+        }
+      ])
     })
   })
 })
