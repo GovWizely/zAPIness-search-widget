@@ -16,7 +16,6 @@
   },
   "plugins": ["babel", "react"],
   "rules": {
-    "semi": [2, "never"],
     "comma-dangle": ["error", "never"],
     "no-shadow": [2, {"allow": ["error"]}],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],

@@ -1,6 +1,6 @@
-import colors from './colors'
+import colors from './colors';
 
-const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif'
+const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const result = {
   base: {
@@ -52,6 +52,6 @@ const result = {
     height: '25px',
     width: '120px'
   }
-}
+};
 
-export default result
+export default result;

@@ -1,26 +1,26 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import map from 'lodash/map'
-import getRange from '../actions/range'
+import React from 'react';
+import PropTypes from 'prop-types';
+import map from 'lodash/map';
+import getRange from '../actions/range';
 
-import List from './List'
-import Grid from './Grid'
+import List from './List';
+import Grid from './Grid';
 
-import styles from '../stylesheets/styles'
+import styles from '../stylesheets/styles';
 
 export default class Pagination extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.renderPage = this.renderPage.bind(this)
+    this.renderPage = this.renderPage.bind(this);
   }
 
   componentWillMount() {
-    this.renderPage(this.props)
+    this.renderPage(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.renderPage(nextProps)
+    this.renderPage(nextProps);
   }
 
   buildPageBetween() {
@@ -28,13 +28,13 @@ export default class Pagination extends React.Component {
       this.props.activePage,
       this.props.totalPage,
       this.props.totalNumButton
-    )
+    );
 
-    return map(range, num => (this.page(num)))
+    return map(range, num => (this.page(num)));
   }
 
   renderPage(props) {
-    this.page = Grid(props.activePage, props.onSelect)
+    this.page = Grid(props.activePage, props.onSelect);
   }
 
   render() {
@@ -43,12 +43,12 @@ export default class Pagination extends React.Component {
       totalNumButton,
       activePage,
       onSelect
-    } = this.props
+    } = this.props;
 
-    const haveTrailingNext = totalPage - activePage - totalNumButton >= 0
-    const haveTrailingPrev = activePage - 1 - totalNumButton >= 0
-    const havePrev = activePage !== 1
-    const haveNext = activePage !== totalPage
+    const haveTrailingNext = totalPage - activePage - totalNumButton >= 0;
+    const haveTrailingPrev = activePage - 1 - totalNumButton >= 0;
+    const havePrev = activePage !== 1;
+    const haveNext = activePage !== totalPage;
 
     return (
       <div style={styles.pagination.container}>
@@ -57,8 +57,8 @@ export default class Pagination extends React.Component {
             className="previous-page"
             styles={styles.list.first}
             clickHandler={(e) => {
-              e.preventDefault()
-              onSelect(1)
+              e.preventDefault();
+              onSelect(1);
             }}
           >
             « First
@@ -68,8 +68,8 @@ export default class Pagination extends React.Component {
             <List
               className="previous-page"
               clickHandler={(e) => {
-                e.preventDefault()
-                onSelect(activePage - 1)
+                e.preventDefault();
+                onSelect(activePage - 1);
               }}
             >
               ‹ Prev
@@ -95,8 +95,8 @@ export default class Pagination extends React.Component {
             <List
               className="next-page"
               clickHandler={(e) => {
-                e.preventDefault()
-                onSelect(activePage + 1)
+                e.preventDefault();
+                onSelect(activePage + 1);
               }}
             >
               Next ›
@@ -107,15 +107,15 @@ export default class Pagination extends React.Component {
             className="next-page"
             styles={styles.list.last}
             clickHandler={(e) => {
-              e.preventDefault()
-              onSelect(totalPage)
+              e.preventDefault();
+              onSelect(totalPage);
             }}
           >
             Last »
           </List>
         </ul>
       </div>
-    )
+    );
   }
 }
 
@@ -124,4 +124,4 @@ Pagination.propTypes = {
   totalNumButton: PropTypes.number.isRequired,
   activePage: PropTypes.number.isRequired,
   onSelect: PropTypes.func.isRequired
-}
+};

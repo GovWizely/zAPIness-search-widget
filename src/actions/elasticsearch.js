@@ -1,30 +1,29 @@
-import floor from 'lodash/floor'
-import map from 'lodash/map'
-import mapValues from 'lodash/mapValues'
-import groupBy from 'lodash/groupBy'
-import isEmpty from 'lodash/isEmpty'
-import merge from 'lodash/merge'
+import floor from 'lodash/floor';
+import map from 'lodash/map';
+import mapValues from 'lodash/mapValues';
+import groupBy from 'lodash/groupBy';
+import merge from 'lodash/merge';
 
 export function totalCount(data) {
-  return data.metadata.total
+  return data.metadata.total;
 }
 
 export function count(data) {
-  return data.metadata.count
+  return data.metadata.count;
 }
 
 export function categories(data) {
-  return data.aggregations
+  return data.aggregations;
 }
 
 export function paginationTotal(data, countPerPage) {
-  const fraction = totalCount(data) / countPerPage
+  const fraction = totalCount(data) / countPerPage;
 
   if (fraction < 1) {
-    return 1
+    return 1;
   }
 
-  return floor(fraction)
+  return floor(fraction);
 }
 
 // Example
@@ -40,13 +39,13 @@ export function buildParams(query, filters) {
   const params = {
     q: query.get('keyword'),
     offset: query.get('offset')
-  }
+  };
 
   if (filters) {
-    const filterData = map(filters.get('filters'), filter => filter.toJS())
-    const filter = mapValues(groupBy(filterData, 'type'), val => map(val, 'value'))
-    merge(params, filter)
+    const filterData = map(filters.get('filters'), filter => filter.toJS());
+    const filter = mapValues(groupBy(filterData, 'type'), val => map(val, 'value'));
+    merge(params, filter);
   }
 
-  return params
+  return params;
 }

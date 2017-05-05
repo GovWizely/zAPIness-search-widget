@@ -1,12 +1,12 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import Input from '../Input'
+import React from 'react';
+import { shallow } from 'enzyme';
+import Input from '../Input';
 
 describe('components/Input', () => {
   it('renders successfully', () => {
-    const changeHandler = jest.fn()
-    const nameProp = 'ok'
-    const placeholderProp = 'Super cool'
+    const changeHandler = jest.fn();
+    const nameProp = 'ok';
+    const placeholderProp = 'Super cool';
 
     const input = shallow(
       <Input
@@ -14,17 +14,17 @@ describe('components/Input', () => {
         changeHandler={changeHandler}
         placeholder={placeholderProp}
       />
-    )
+    );
 
-    const { name, component, type, className, placeholder } = input.props()
+    const { name, component, type, className, placeholder } = input.props();
 
-    expect(name).toBe(nameProp)
-    expect(component).toBe('input')
-    expect(type).toBe('text')
-    expect(className).toBe('__input__')
-    expect(placeholder).toBe(placeholderProp)
+    expect(name).toBe(nameProp);
+    expect(component).toBe('input');
+    expect(type).toBe('text');
+    expect(className).toBe('__input__');
+    expect(placeholder).toBe(placeholderProp);
 
-    input.simulate('change')
-    expect(changeHandler).toHaveBeenCalledTimes(1)
-  })
-})
+    input.simulate('change');
+    expect(changeHandler).toHaveBeenCalledTimes(1);
+  });
+});

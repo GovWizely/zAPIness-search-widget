@@ -1,14 +1,14 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import Drawer from '../Drawer'
+import React from 'react';
+import { shallow } from 'enzyme';
+import Drawer from '../Drawer';
 
 describe('components/Drawer', () => {
   const results = {
     name: 'Harry Potter',
     author: 'J.K Rowling',
     year: '1996'
-  }
-  const toggleHandler = jest.fn()
+  };
+  const toggleHandler = jest.fn();
 
   const wrapper = shallow(
     <Drawer
@@ -18,17 +18,17 @@ describe('components/Drawer', () => {
       id={1}
       toggleHandler={toggleHandler}
     />
-  )
+  );
 
   it('renders successfully', () => {
-    expect(wrapper.find('a').is('.__sw-data__')).toBe(true)
-    expect(wrapper.contains(<div>Harry Potter</div>)).toBe(true)
-  })
+    expect(wrapper.find('a').is('.__sw-data__')).toBe(true);
+    expect(wrapper.contains(<div>Harry Potter</div>)).toBe(true);
+  });
 
   it('shows details when click', () => {
-    wrapper.simulate('click', { preventDefault() {} })
-    expect(toggleHandler).toHaveBeenCalledTimes(1)
-  })
+    wrapper.simulate('click', { preventDefault() {} });
+    expect(toggleHandler).toHaveBeenCalledTimes(1);
+  });
 
   it('renders details correctly', () => {
     const showDetailsWrapper = shallow(
@@ -39,7 +39,7 @@ describe('components/Drawer', () => {
         id={1}
         toggleHandler={toggleHandler}
       />
-    )
+    );
 
     expect(showDetailsWrapper.containsMatchingElement(
       <table>
@@ -58,6 +58,6 @@ describe('components/Drawer', () => {
           </tr>
         </tbody>
       </table>
-    ))
-  })
-})
+    ));
+  });
+});

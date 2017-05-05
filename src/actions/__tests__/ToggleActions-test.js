@@ -1,5 +1,5 @@
-import toggleResult from '../ToggleActions'
-import { TOGGLE_WHICH } from '../../constants/ActionTypes'
+import toggleResult from '../ToggleActions';
+import { TOGGLE_WHICH } from '../../constants/ActionTypes';
 
 describe('actions/LoadingActions', () => {
   describe('requestData', () => {
@@ -9,7 +9,7 @@ describe('actions/LoadingActions', () => {
           type: TOGGLE_WHICH,
           key: 2
         }
-      )
-    })
-  })
-})
+      );
+    });
+  });
+});

@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Field } from 'redux-form'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Field } from 'redux-form';
 
-import styles from '../stylesheets/styles'
+import styles from '../stylesheets/styles';
 
-const Radium = require('radium')
+const Radium = require('radium');
 
 const Input = props => (
   <Field
@@ -16,12 +16,12 @@ const Input = props => (
     placeholder={props.placeholder}
     onChange={props.changeHandler}
   />
-)
+);
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
   changeHandler: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired
-}
+};
 
-export default Radium(Input)
+export default Radium(Input);

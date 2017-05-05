@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Field } from 'redux-form'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Field } from 'redux-form';
 
-import map from 'lodash/map'
-import startCase from 'lodash/startCase'
+import map from 'lodash/map';
+import startCase from 'lodash/startCase';
 
 const SelectInput = props => (
   <Field
@@ -21,17 +21,17 @@ const SelectInput = props => (
         ))
       }
   </Field>
-)
+);
 
 SelectInput.defaultProps = {
   styles: {}
-}
+};
 
 SelectInput.propTypes = {
   fieldName: PropTypes.string.isRequired,
   changeHandler: PropTypes.func.isRequired,
   list: PropTypes.arrayOf(String).isRequired,
   styles: PropTypes.shape({})
-}
+};
 
-export default SelectInput
+export default SelectInput;

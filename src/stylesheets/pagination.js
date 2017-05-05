@@ -1,4 +1,4 @@
-import colors from './colors'
+import colors from './colors';
 
 const pagination = {
   container: {
@@ -16,6 +16,6 @@ const pagination = {
     fontSize: '11px',
     fontStyle: 'italic'
   }
-}
+};
 
-export default pagination
+export default pagination;

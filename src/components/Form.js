@@ -1,45 +1,45 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { FieldArray, reduxForm } from 'redux-form'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { FieldArray, reduxForm } from 'redux-form';
 
-import debounce from 'lodash/debounce'
+import debounce from 'lodash/debounce';
 
 import {
   requestApi,
   updateKeyword
-} from '../actions/QueryActions'
+} from '../actions/QueryActions';
 
-import validate from '../actions/validate'
-import styles from '../stylesheets/styles'
+import validate from '../actions/validate';
+import styles from '../stylesheets/styles';
 
-import Filter from './Filter'
-import Button from './Button'
-import Input from './Input'
+import Filter from './Filter';
+import Button from './Button';
+import Input from './Input';
 
-const settings = require('../settings.png')
-const loadingIcon = require('../spin.gif')
+const settings = require('../settings.png');
+const loadingIcon = require('../spin.gif');
 
 export class Form extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       showFilter: false
-    }
-    this.toggleFilter = this.toggleFilter.bind(this)
+    };
+    this.toggleFilter = this.toggleFilter.bind(this);
   }
 
   toggleFilter() {
     this.setState({
       showFilter: !this.state.showFilter
-    })
+    });
   }
 
   render() {
     const {
       isFetching,
       submitHandler
-    } = this.props
+    } = this.props;
 
     return (
       <form className="__sw-input__" style={styles.form.container} onSubmit={e => e.preventDefault()}>
@@ -78,33 +78,33 @@ export class Form extends Component {
           />
         }
       </form>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
     isFetching: state.isFetching
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     submitHandler: (data) => {
-      const keyword = data.target.value
+      const keyword = data.target.value;
 
-      dispatch(updateKeyword(keyword))
-      dispatch(requestApi())
+      dispatch(updateKeyword(keyword));
+      dispatch(requestApi());
     }
-  }
+  };
 }
 
 Form.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   submitHandler: PropTypes.func.isRequired
-}
+};
 
-const connected = connect(mapStateToProps, mapDispatchToProps)(Form)
+const connected = connect(mapStateToProps, mapDispatchToProps)(Form);
 
 export default reduxForm({
   form: 'form',
@@ -112,4 +112,4 @@ export default reduxForm({
   fields: ['keyword', 'filters[].type', 'filters[].value']
 }, () => ({
   initialValues: {}
-}))(connected)
+}))(connected);

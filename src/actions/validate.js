@@ -1,26 +1,26 @@
 const validate = (values) => {
-  const errors = {}
+  const errors = {};
 
-  if (!values.filters) { return {} }
+  if (!values.filters) { return {}; }
 
-  const filterArrayErrors = []
+  const filterArrayErrors = [];
 
   values.filters.forEach((filter, index) => {
-    const filterErrors = {}
+    const filterErrors = {};
 
     if (!filter.value || !filter.type) {
-      filterErrors.value = 'Required'
-      filterArrayErrors[index] = filterErrors
+      filterErrors.value = 'Required';
+      filterArrayErrors[index] = filterErrors;
     }
 
-    return filterErrors
-  })
+    return filterErrors;
+  });
 
   if (filterArrayErrors.length) {
-    errors.filters = filterArrayErrors
+    errors.filters = filterArrayErrors;
   }
 
-  return errors
-}
+  return errors;
+};
 
-export default validate
+export default validate;

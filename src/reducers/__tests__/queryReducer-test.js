@@ -1,10 +1,10 @@
-import queryReducer from '../queryReducer'
-import * as actionTypes from '../../constants/ActionTypes'
+import queryReducer from '../queryReducer';
+import * as actionTypes from '../../constants/ActionTypes';
 
-const { Map } = require('immutable')
+const { Map } = require('immutable');
 
 describe('queryReducer', () => {
-  const data = [1, 2, 3]
+  const data = [1, 2, 3];
 
   const initialState = Map({
     keyword: '',
@@ -13,7 +13,7 @@ describe('queryReducer', () => {
     data: undefined,
     error: [],
     fields: []
-  })
+  });
 
   it('returns initialState', () => {
     expect(
@@ -25,8 +25,8 @@ describe('queryReducer', () => {
      data: undefined,
      error: [],
      fields: []
-   }))
-  })
+   }));
+  });
 
   it('handles load result', () => {
     expect(
@@ -41,8 +41,8 @@ describe('queryReducer', () => {
       data,
       error: [],
       fields: []
-    }))
-  })
+    }));
+  });
 
   it('handles load error', () => {
     expect(
@@ -57,8 +57,8 @@ describe('queryReducer', () => {
       data: undefined,
       error: 'Some Error',
       fields: []
-    }))
-  })
+    }));
+  });
 
   it('handles update keywords', () => {
     expect(
@@ -73,8 +73,8 @@ describe('queryReducer', () => {
       data: undefined,
       error: [],
       fields: []
-    }))
-  })
+    }));
+  });
 
   it('handles update page num', () => {
     expect(
@@ -89,11 +89,11 @@ describe('queryReducer', () => {
       data: undefined,
       error: [],
       fields: []
-    }))
-  })
+    }));
+  });
 
   it('clears error', () => {
-    initialState.set('error', ['Some Error'])
+    initialState.set('error', ['Some Error']);
 
     expect(
       queryReducer(initialState, {
@@ -106,8 +106,8 @@ describe('queryReducer', () => {
       data: undefined,
       error: [],
       fields: []
-    }))
-  })
+    }));
+  });
 
   it('handles update fields', () => {
     expect(
@@ -122,6 +122,6 @@ describe('queryReducer', () => {
       data: undefined,
       error: [],
       fields: ['some', 'random', 'fields']
-    }))
-  })
-})
+    }));
+  });
+});

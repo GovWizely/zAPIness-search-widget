@@ -1,4 +1,4 @@
-const color = require('color')
+const color = require('color');
 
 const colors = {
   black: '#000000',
@@ -11,6 +11,6 @@ const colors = {
   chalk: '#89877b',
   darkChalk: '#7f7d71',
   red: '#d9534f'
-}
+};
 
-export default colors
+export default colors;

@@ -1,5 +1,5 @@
-import * as LoadingActions from '../LoadingActions'
-import * as actionTypes from '../../constants/ActionTypes'
+import * as LoadingActions from '../LoadingActions';
+import * as actionTypes from '../../constants/ActionTypes';
 
 describe('actions/LoadingActions', () => {
   describe('requestData', () => {
@@ -8,9 +8,9 @@ describe('actions/LoadingActions', () => {
         {
           type: actionTypes.REQUEST_DATA
         }
-      )
-    })
-  })
+      );
+    });
+  });
 
   describe('receiveData', () => {
     it('creates action to receive data', () => {
@@ -18,7 +18,7 @@ describe('actions/LoadingActions', () => {
         {
           type: actionTypes.RECEIVE_DATA
         }
-      )
-    })
-  })
-})
+      );
+    });
+  });
+});

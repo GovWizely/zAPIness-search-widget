@@ -1,6 +1,6 @@
-import colors from './colors'
+import colors from './colors';
 
-const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif'
+const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const filter = {
   container: {
@@ -49,6 +49,6 @@ const filter = {
   actionBtn: {
     textAlign: 'right'
   }
-}
+};
 
-export default filter
+export default filter;

@@ -1,4 +1,4 @@
-import colors from './colors'
+import colors from './colors';
 
 const list = {
   container: {
@@ -38,6 +38,6 @@ const list = {
     border: `1px solid ${colors.darkGrey}`,
     color: colors.darkGrey
   }
-}
+};
 
-export default list
+export default list;
