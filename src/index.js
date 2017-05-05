@@ -1,20 +1,18 @@
 import React from 'react'
 import { render } from 'react-dom'
-import replace from 'lodash/replace'
 import configureStore from './store/configureStore'
 import { configureApp, createMountPoint } from './actions/api'
 import Root from './containers/Root'
 
 const renderApp = ({ mountPoint, host, endpoint, fields, preview = false }) => {
-  createMountPoint(id)
-  configureApp(host, endpoint, fields, preview)
-
   const store = configureStore()
-  const id = replace(mountPoint, '#', '')
+
+  createMountPoint(mountPoint)
+  configureApp(host, endpoint, fields, preview)
 
   render(
     <Root store={store} />,
-    document.getElementById(id)
+    document.querySelector(mountPoint)
   )
 }
 

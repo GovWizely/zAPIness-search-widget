@@ -11,9 +11,16 @@
   <script type="text/javascript">
     zAPI.SearchWidget.new({
       mountPoint: "#zAPI-sw-root",
-      host: "http://rrsoft.apib.dev",
+      host: "http://rrsoft3.apib.tech",
       endpoint: "sample_api",
-      preview: true
+      fields: [
+        "agency",
+        "description",
+        "end_date",
+        "supplier_name",
+        "supplier_country",
+        "supplier_city"
+      ]
     })
   </script>
 </html>

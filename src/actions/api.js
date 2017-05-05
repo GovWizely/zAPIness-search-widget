@@ -1,4 +1,5 @@
 import axios from 'axios'
+import replace from 'lodash/replace'
 
 let masterEndpoint = null
 let selectableFields = []
@@ -44,10 +45,12 @@ export function getPreviewMode() {
   return previewMode
 }
 
-export function createMountPoint(id) {
-  if (document.getElementById(id)) {
+export function createMountPoint(mountPoint) {
+  if (document.querySelector(mountPoint)) {
     return
   }
+
+  const id = replace(mountPoint, '#', '')
 
   const div = document.createElement('div')
   div.id = id
