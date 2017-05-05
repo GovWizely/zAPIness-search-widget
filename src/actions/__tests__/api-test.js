@@ -7,19 +7,21 @@ describe('action/api', () => {
   const host = 'http://sample-host'
   const endpoint = 'sample-endpoint/1'
   const fields = ['some', 'selected', 'fields']
+  const label = 'some'
 
   describe('configureApp', () => {
     it('stores the endpoint as instance variable', () => {
-      api.configureApp(host, endpoint, fields)
+      api.configureApp(host, endpoint, fields, label)
 
       expect(api.getEndpoint()).toEqual(endpoint)
       expect(api.getSelectableFields()).toEqual(fields)
       expect(api.getPreviewMode()).toEqual(false)
+      expect(api.getResultLabel()).toEqual(label)
     })
 
     it('set app as preview mode if preview is set to true', () => {
       const preview = true
-      api.configureApp(host, endpoint, fields, preview)
+      api.configureApp(host, endpoint, fields, label, preview)
 
       expect(api.getPreviewMode()).toEqual(true)
     })

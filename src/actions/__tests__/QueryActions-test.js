@@ -39,6 +39,28 @@ describe('actions/QueryActions', () => {
     })
   })
 
+  describe('updateFields', () => {
+    it('creates action to update fields', () => {
+      const fields = ['a', 'b', 'c']
+      expect(QueryActions.updateFields(fields)).toEqual(
+        {
+          type: actionTypes.UPDATE_FIELDS,
+          fields
+        }
+      )
+    })
+  })
+
+  describe('clearError', () => {
+    it('creates action to clear errors', () => {
+      expect(QueryActions.clearError()).toEqual(
+        {
+          type: actionTypes.CLEAR_ERROR
+        }
+      )
+    })
+  })
+
   describe('requestApi', () => {
     const store = mockStore({
       form: {
@@ -76,7 +98,6 @@ describe('actions/QueryActions', () => {
 
   describe('filterResult', () => {
     it('returns on the selected fields', () => {
-      const host = 'http://sample-host'
       const fields = ['title', 'director']
       const data = [
         {
@@ -96,9 +117,7 @@ describe('actions/QueryActions', () => {
         }
       ]
 
-      configureApp(host, endpoint, fields)
-
-      expect(QueryActions.filterResult(data)).toEqual([
+      expect(QueryActions.filterResult(data, fields)).toEqual([
         {
           title: 'Harry Potter',
           director: 'David Yates'

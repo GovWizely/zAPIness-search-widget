@@ -24,9 +24,11 @@ describe('components/Result', () => {
   it('renders successfully', () => {
     const result = shallow(
       <Result
-        activePage={activePage}
-        paginationHandleSelect={paginationHandleSelect}
         query={query}
+        fields={['address']}
+        label={'address'}
+        paginationHandleSelect={paginationHandleSelect}
+        activePage={activePage}
         toggleHandler={toggleHandler}
         toggleStatus={{
           key: 1,
@@ -41,7 +43,7 @@ describe('components/Result', () => {
 
     result.find('Drawer').forEach((node, index) => {
       expect(node.props().cells).toEqual(query.data.results[index])
-      expect(node.props().label).toEqual('type')
+      expect(node.props().label).toEqual('address')
     })
   })
 

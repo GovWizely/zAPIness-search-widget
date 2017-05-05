@@ -4,11 +4,18 @@ import configureStore from './store/configureStore'
 import { configureApp, createMountPoint } from './actions/api'
 import Root from './containers/Root'
 
-const renderApp = ({ mountPoint, host, endpoint, fields, preview = false }) => {
+const renderApp = ({
+  mountPoint,
+  host,
+  endpoint,
+  label,
+  fields,
+  preview = false
+}) => {
   const store = configureStore()
 
   createMountPoint(mountPoint)
-  configureApp(host, endpoint, fields, preview)
+  configureApp(host, endpoint, fields, label, preview)
 
   render(
     <Root store={store} />,

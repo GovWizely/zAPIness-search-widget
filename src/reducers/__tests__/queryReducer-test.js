@@ -11,7 +11,8 @@ describe('queryReducer', () => {
     offset: 0,
     pageNum: 1,
     data: undefined,
-    error: []
+    error: [],
+    fields: []
   })
 
   it('returns initialState', () => {
@@ -22,7 +23,8 @@ describe('queryReducer', () => {
      offset: 0,
      pageNum: 1,
      data: undefined,
-     error: []
+     error: [],
+     fields: []
    }))
   })
 
@@ -37,7 +39,8 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data,
-      error: []
+      error: [],
+      fields: []
     }))
   })
 
@@ -52,7 +55,8 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: 'Some Error'
+      error: 'Some Error',
+      fields: []
     }))
   })
 
@@ -67,7 +71,8 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: []
+      error: [],
+      fields: []
     }))
   })
 
@@ -82,7 +87,8 @@ describe('queryReducer', () => {
       offset: 10,
       pageNum: 2,
       data: undefined,
-      error: []
+      error: [],
+      fields: []
     }))
   })
 
@@ -98,7 +104,24 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: []
+      error: [],
+      fields: []
+    }))
+  })
+
+  it('handles update fields', () => {
+    expect(
+      queryReducer(initialState, {
+        type: actionTypes.UPDATE_FIELDS,
+        fields: ['some', 'random', 'fields']
+      })
+    ).toEqual(Map({
+      keyword: '',
+      offset: 0,
+      pageNum: 1,
+      data: undefined,
+      error: [],
+      fields: ['some', 'random', 'fields']
     }))
   })
 })

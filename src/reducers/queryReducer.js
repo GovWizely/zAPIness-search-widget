@@ -7,7 +7,8 @@ const initialState = Map({
   offset: 0,
   pageNum: 1,
   data: undefined,
-  error: []
+  error: [],
+  fields: []
 })
 
 export default function queryReducer(state = initialState, action) {
@@ -25,6 +26,8 @@ export default function queryReducer(state = initialState, action) {
         pageNum: action.pageNum,
         offset: (action.pageNum - 1) * 10
       })
+    case actionTypes.UPDATE_FIELDS:
+      return state.set('fields', action.fields)
     default:
       return state
   }

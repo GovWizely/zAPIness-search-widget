@@ -2,11 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import map from 'lodash/map'
-import keys from 'lodash/keys'
 
 import Pagination from './Pagination'
 import {
-  categories,
   count,
   paginationTotal,
   totalCount
@@ -28,11 +26,11 @@ const Result = props => (
       </div>
     }
     {
-      map(filterResult(props.query.data.results), (result, index) => (
+      map(filterResult(props.query.data.results, props.fields), (result, index) => (
         <div key={index} className="__result-container__" style={styles.result.container}>
           <Drawer
             cells={result}
-            label={keys(categories(props.query.data))[0]}
+            label={props.label}
             id={index}
             toggleHandler={props.toggleHandler}
             showDetails={
@@ -64,6 +62,7 @@ Result.propTypes = {
   paginationHandleSelect: PropTypes.func.isRequired,
   toggleHandler: PropTypes.func.isRequired,
   toggleStatus: PropTypes.shape({}).isRequired,
+  fields: PropTypes.arrayOf(PropTypes.string).isRequired,
   query: PropTypes.shape(
     { get: PropTypes.func,
       data: PropTypes.shape({

@@ -3,18 +3,25 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import isUndefined from 'lodash/isUndefined'
+import keys from 'lodash/keys'
 
 import Form from '../components/Form'
 import Result from '../components/Result'
 
-import { getPreviewMode } from '../actions/api'
+import {
+  getPreviewMode,
+  getSelectableFields,
+  getResultLabel
+} from '../actions/api'
 
 import {
   requestApi,
-  updatePageNum
+  updatePageNum,
+  updateFields
 } from '../actions/QueryActions'
 import { getCategories } from '../actions/FilterActions'
 import toggleResult from '../actions/ToggleActions'
+import { categories } from '../actions/elasticsearch'
 
 import styles from '../stylesheets/styles'
 
@@ -45,6 +52,8 @@ export class App extends Component {
             result &&
             <Result
               query={result}
+              fields={query.get('fields')}
+              label={getResultLabel() || keys(categories(result.data))[0]}
               paginationHandleSelect={handleSelect}
               activePage={query.get('pageNum')}
               toggleHandler={toggleResultHandler}
@@ -72,7 +81,12 @@ function mapDispatchToProps(dispatch) {
     },
 
     getCategories: () => {
-      dispatch(getCategories())
+      dispatch(getCategories()).then((response) => {
+        const selectableFields = getSelectableFields()
+
+        const fields = keys(response.categories).concat(selectableFields)
+        dispatch(updateFields(fields))
+      })
     },
 
     toggleResultHandler: (key) => {

@@ -53,9 +53,7 @@ export function removeAllFilters() {
 }
 
 export function getCategories() {
-  return (dispatch, getState) => {
-    return getStats().then(
+  return dispatch => getStats().then(
       response => dispatch(updateCategories(response)),
     )
-  }
 }
