@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types'
-import styles from '../stylesheets/styles'
+import PropTypes from 'prop-types';
+import styles from '../stylesheets/styles';
 
-const Radium = require('radium')
-const React = require('react')
+const Radium = require('radium');
+const React = require('react');
 
 const List = props => (
   <li
@@ -21,12 +21,12 @@ const List = props => (
       {props.children}
     </a>
   </li>
-)
+);
 
 List.defaultProps = {
   id: '',
   styles: styles.list.normal
-}
+};
 
 List.propTypes = {
   children: PropTypes.oneOfType([
@@ -38,6 +38,6 @@ List.propTypes = {
   clickHandler: PropTypes.func.isRequired,
   id: PropTypes.string,
   styles: PropTypes.shape({})
-}
+};
 
-export default Radium(List)
+export default Radium(List);

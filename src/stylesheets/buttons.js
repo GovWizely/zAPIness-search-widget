@@ -1,4 +1,4 @@
-import colors from './colors'
+import colors from './colors';
 
 const buttons = {
   base: {
@@ -49,6 +49,6 @@ const buttons = {
     color: colors.xDarkGrey,
     marginLeft: '5px'
   }
-}
+};
 
-export default buttons
+export default buttons;

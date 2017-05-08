@@ -1,19 +1,19 @@
-import filterReducer from '../filterReducer'
-import * as actionTypes from '../../constants/ActionTypes'
+import filterReducer from '../filterReducer';
+import * as actionTypes from '../../constants/ActionTypes';
 
-const { Map } = require('immutable')
+const { Map } = require('immutable');
 
 describe('filterReducer', () => {
   const filter = index => Map({
     type: `type-${index}`,
     availableValues: [`value-${index}`],
     value: index
-  })
+  });
 
   const initialState = Map({
     categories: [],
     filters: [filter(0), filter(1)]
-  })
+  });
 
   it('handles add filter', () => {
     expect(
@@ -27,8 +27,8 @@ describe('filterReducer', () => {
         availableValues: [],
         value: ''
       })]
-    }))
-  })
+    }));
+  });
 
   it('handles remove selected filter', () => {
     expect(
@@ -39,8 +39,8 @@ describe('filterReducer', () => {
     ).toEqual(Map({
       categories: [],
       filters: [filter(0)]
-    }))
-  })
+    }));
+  });
 
   it('handles remove all filters', () => {
     expect(
@@ -50,8 +50,8 @@ describe('filterReducer', () => {
     ).toEqual(Map({
       categories: [],
       filters: []
-    }))
-  })
+    }));
+  });
 
   it('handles update selected filter', () => {
     expect(
@@ -70,8 +70,8 @@ describe('filterReducer', () => {
           value: ''
         })
       ]
-    }))
-  })
+    }));
+  });
 
   it('handles update selected filter value ', () => {
     expect(
@@ -90,8 +90,8 @@ describe('filterReducer', () => {
           value: '1'
         })
       ]
-    }))
-  })
+    }));
+  });
 
   it('handles update categories', () => {
     expect(
@@ -102,6 +102,6 @@ describe('filterReducer', () => {
     ).toEqual(Map({
       categories: ['1', '2', '3'],
       filters: [filter(0), filter(1)]
-    }))
-  })
-})
+    }));
+  });
+});

@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { Field } from 'redux-form'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Field } from 'redux-form';
 
-import isEmpty from 'lodash/isEmpty'
-import keys from 'lodash/keys'
-import SelectInput from './SelectInput'
+import isEmpty from 'lodash/isEmpty';
+import keys from 'lodash/keys';
+import SelectInput from './SelectInput';
 
-import Button from './Button'
+import Button from './Button';
 
 import {
   clearError,
   requestApi
-} from '../actions/QueryActions'
+} from '../actions/QueryActions';
 
 import {
   addFilter,
@@ -20,18 +20,18 @@ import {
   updateSelectedFilter,
   removeAllFilters,
   removeSelectedFilter
-} from '../actions/FilterActions'
+} from '../actions/FilterActions';
 
-import styles from '../stylesheets/styles'
+import styles from '../stylesheets/styles';
 
-const plus = require('../plus.png')
-const trash = require('../trash.png')
+const plus = require('../plus.png');
+const trash = require('../trash.png');
 
 export class Filter extends Component {
   getAvailableValues(index) {
-    const target = this.props.filters.get('filters')[index]
+    const target = this.props.filters.get('filters')[index];
 
-    return target.get('availableValues') || []
+    return target.get('availableValues') || [];
   }
 
   render() {
@@ -47,7 +47,7 @@ export class Filter extends Component {
       selectFilterValueHandler,
       submitHandler,
       ...rest
-    } = this.props
+    } = this.props;
 
     return (
       <div className="__sw-filter__" style={styles.filter.container}>
@@ -139,7 +139,7 @@ export class Filter extends Component {
           </div>
         }
       </div>
-    )
+    );
   }
 }
 
@@ -148,41 +148,41 @@ function mapStateToProps(state) {
     query: state.query,
     form: state.form,
     filters: state.filters
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     selectFilterHandler: (data, index) => {
-      const selectedCategory = data.target.value
-      dispatch(updateSelectedFilter(selectedCategory, index))
+      const selectedCategory = data.target.value;
+      dispatch(updateSelectedFilter(selectedCategory, index));
     },
 
     selectFilterValueHandler: (data, index) => {
-      const selectedValue = data.target.value
-      dispatch(updateSelectedValue(selectedValue, index))
+      const selectedValue = data.target.value;
+      dispatch(updateSelectedValue(selectedValue, index));
     },
 
     addFilter: (fields) => {
-      dispatch(addFilter())
-      return fields.push({})
+      dispatch(addFilter());
+      return fields.push({});
     },
 
     removeFilter: (fields, index) => {
-      dispatch(removeSelectedFilter(index))
-      return fields.remove(index)
+      dispatch(removeSelectedFilter(index));
+      return fields.remove(index);
     },
 
     removeAllFilters: (fields) => {
-      dispatch(removeAllFilters())
-      dispatch(clearError())
-      return fields.removeAll()
+      dispatch(removeAllFilters());
+      dispatch(clearError());
+      return fields.removeAll();
     },
 
     submitHandler: () => {
-      dispatch(requestApi())
+      dispatch(requestApi());
     }
-  }
+  };
 }
 
 Filter.propTypes = {
@@ -205,6 +205,6 @@ Filter.propTypes = {
   selectFilterHandler: PropTypes.func.isRequired,
   selectFilterValueHandler: PropTypes.func.isRequired,
   submitHandler: PropTypes.func.isRequired
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter)
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

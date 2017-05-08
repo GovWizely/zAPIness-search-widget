@@ -1,20 +1,20 @@
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import nock from 'nock'
-import sinon from 'sinon'
-import * as QueryActions from '../QueryActions'
-import * as actionTypes from '../../constants/ActionTypes'
-import { configureApp } from '../api'
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import nock from 'nock';
+import sinon from 'sinon';
+import * as QueryActions from '../QueryActions';
+import * as actionTypes from '../../constants/ActionTypes';
+import { configureApp } from '../api';
 
-const { Map } = require('immutable')
+const { Map } = require('immutable');
 
-const middlewares = [thunk]
-const mockStore = configureMockStore(middlewares)
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 describe('actions/QueryActions', () => {
-  const keyword = 'Earth'
-  const offset = 10
-  const endpoint = 'sample-endpoint/1'
+  const keyword = 'Earth';
+  const offset = 10;
+  const endpoint = 'sample-endpoint/1';
 
   describe('updateKeyword', () => {
     it('creates action to update keyword', () => {
@@ -23,21 +23,43 @@ describe('actions/QueryActions', () => {
           type: actionTypes.UPDATE_KEYWORD,
           keyword
         }
-      )
-    })
-  })
+      );
+    });
+  });
 
   describe('updatePageNum', () => {
     it('creates action to update page number', () => {
-      const pageNum = 9
+      const pageNum = 9;
       expect(QueryActions.updatePageNum(pageNum)).toEqual(
         {
           type: actionTypes.UPDATE_PAGE_NUM,
           pageNum
         }
-      )
-    })
-  })
+      );
+    });
+  });
+
+  describe('updateFields', () => {
+    it('creates action to update fields', () => {
+      const fields = ['a', 'b', 'c'];
+      expect(QueryActions.updateFields(fields)).toEqual(
+        {
+          type: actionTypes.UPDATE_FIELDS,
+          fields
+        }
+      );
+    });
+  });
+
+  describe('clearError', () => {
+    it('creates action to clear errors', () => {
+      expect(QueryActions.clearError()).toEqual(
+        {
+          type: actionTypes.CLEAR_ERROR
+        }
+      );
+    });
+  });
 
   describe('requestApi', () => {
     const store = mockStore({
@@ -46,9 +68,9 @@ describe('actions/QueryActions', () => {
       },
       query: Map({ keyword, offset }),
       isFetching: false
-    })
+    });
 
-    const results = [1, 2, 3]
+    const results = [1, 2, 3];
 
     it('get results successfully', () => {
       const expectedActions = [
@@ -59,25 +81,24 @@ describe('actions/QueryActions', () => {
           type: actionTypes.LOAD_RESULT,
           results
         }
-      ]
+      ];
 
-      configureApp(endpoint)
+      configureApp(endpoint);
 
-      nock('endpoint').get('/').reply(200, { results })
+      nock('endpoint').get('/').reply(200, { results });
 
-      const dispatch = sinon.spy(store, 'dispatch')
-      const fn = QueryActions.requestApi()
+      const dispatch = sinon.spy(store, 'dispatch');
+      const fn = QueryActions.requestApi();
 
-      fn(dispatch, store.getState)
+      fn(dispatch, store.getState);
 
-      expect(dispatch.calledWith(expectedActions))
-    })
-  })
+      expect(dispatch.calledWith(expectedActions));
+    });
+  });
 
   describe('filterResult', () => {
     it('returns on the selected fields', () => {
-      const host = 'http://sample-host'
-      const fields = ['title', 'director']
+      const fields = ['title', 'director'];
       const data = [
         {
           title: 'Harry Potter',
@@ -94,11 +115,9 @@ describe('actions/QueryActions', () => {
           director: 'James Cameron',
           year: '2009'
         }
-      ]
+      ];
 
-      configureApp(host, endpoint, fields)
-
-      expect(QueryActions.filterResult(data)).toEqual([
+      expect(QueryActions.filterResult(data, fields)).toEqual([
         {
           title: 'Harry Potter',
           director: 'David Yates'
@@ -111,7 +130,7 @@ describe('actions/QueryActions', () => {
           title: 'Avatar',
           director: 'James Cameron'
         }
-      ])
-    })
-  })
-})
+      ]);
+    });
+  });
+});

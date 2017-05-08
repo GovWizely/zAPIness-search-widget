@@ -1,18 +1,19 @@
-import queryReducer from '../queryReducer'
-import * as actionTypes from '../../constants/ActionTypes'
+import queryReducer from '../queryReducer';
+import * as actionTypes from '../../constants/ActionTypes';
 
-const { Map } = require('immutable')
+const { Map } = require('immutable');
 
 describe('queryReducer', () => {
-  const data = [1, 2, 3]
+  const data = [1, 2, 3];
 
   const initialState = Map({
     keyword: '',
     offset: 0,
     pageNum: 1,
     data: undefined,
-    error: []
-  })
+    error: [],
+    fields: []
+  });
 
   it('returns initialState', () => {
     expect(
@@ -22,9 +23,10 @@ describe('queryReducer', () => {
      offset: 0,
      pageNum: 1,
      data: undefined,
-     error: []
-   }))
-  })
+     error: [],
+     fields: []
+   }));
+  });
 
   it('handles load result', () => {
     expect(
@@ -37,9 +39,10 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data,
-      error: []
-    }))
-  })
+      error: [],
+      fields: []
+    }));
+  });
 
   it('handles load error', () => {
     expect(
@@ -52,9 +55,10 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: 'Some Error'
-    }))
-  })
+      error: 'Some Error',
+      fields: []
+    }));
+  });
 
   it('handles update keywords', () => {
     expect(
@@ -67,9 +71,10 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: []
-    }))
-  })
+      error: [],
+      fields: []
+    }));
+  });
 
   it('handles update page num', () => {
     expect(
@@ -82,12 +87,13 @@ describe('queryReducer', () => {
       offset: 10,
       pageNum: 2,
       data: undefined,
-      error: []
-    }))
-  })
+      error: [],
+      fields: []
+    }));
+  });
 
   it('clears error', () => {
-    initialState.set('error', ['Some Error'])
+    initialState.set('error', ['Some Error']);
 
     expect(
       queryReducer(initialState, {
@@ -98,7 +104,24 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: []
-    }))
-  })
-})
+      error: [],
+      fields: []
+    }));
+  });
+
+  it('handles update fields', () => {
+    expect(
+      queryReducer(initialState, {
+        type: actionTypes.UPDATE_FIELDS,
+        fields: ['some', 'random', 'fields']
+      })
+    ).toEqual(Map({
+      keyword: '',
+      offset: 0,
+      pageNum: 1,
+      data: undefined,
+      error: [],
+      fields: ['some', 'random', 'fields']
+    }));
+  });
+});

@@ -1,6 +1,6 @@
-import colors from './colors'
+import colors from './colors';
 
-const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif'
+const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const form = {
   container: {
@@ -29,6 +29,6 @@ const form = {
     verticalAlign: 'top',
     width: '90%'
   }
-}
+};
 
-export default form
+export default form;

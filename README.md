@@ -19,14 +19,16 @@ zAPIness-search-widget will be loaded in any webpage by embedding the following 
   document.getElementsByTagName('head')[0].appendChild(script);
 
   window.onload = function() {
-    //Create div element
-    var div = document.createElement("div");
-    div.setAttribute("id", "root");
-    document.body.appendChild(div);
-
     // Initiate the search widget with endpoint
-    SearchWidget.new({
-      endpoint: "[zAPIness endpoint]"
+    zAPI.SearchWidget.new({
+      mountPoint: "#root",
+      host: "http://rrsoft3.apib.tech",
+      endpoint: "sample_api",
+      label: "agency",
+      fields: [
+        "agency",
+        "description"
+      ]
     });
   }
 </script>
@@ -34,10 +36,22 @@ zAPIness-search-widget will be loaded in any webpage by embedding the following 
 
 ---
 
+### Configurations
+
+* __mountPoint__: Selector of the div to embed on the page. The app will create the div with the mountPoint if none is found on the page
+* __host__: Host of your endpoint from zAPIness app
+* __endpoint__: Name of your endpoint
+* __label__: The main title you want to show in the search result, i.e Department of Immigration and Citizenship in the screenshot above. Default to first element in the aggregations
+* __fields__: By default, it will show all searchable fields from the endpoint. You may set the fields you want to show in the search result. The fields will be combinded with all the searchable fields.
+* __preview__: Default to false. If true, perform a search with ```q=''``` on first load and show all the details of the first result.
+
+---
+
 ### Features
 
 * __Search with Keyword__: Perform search when users type
 * __Additional Filters__: Allow user to add filterings on the search
+* __Customization fields to be shown in the search results__
 * __Basic Pagination__
 
 ___

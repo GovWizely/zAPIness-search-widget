@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import map from 'lodash/map'
-import toPairs from 'lodash/toPairs'
-import startCase from 'lodash/startCase'
+import map from 'lodash/map';
+import toPairs from 'lodash/toPairs';
+import startCase from 'lodash/startCase';
 
-import styles from '../stylesheets/styles'
+import styles from '../stylesheets/styles';
 
 class Drawer extends Component {
   static propTypes = {
@@ -17,9 +17,9 @@ class Drawer extends Component {
   }
 
   toggleDetails(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    this.props.toggleHandler(this.props.id)
+    this.props.toggleHandler(this.props.id);
   }
 
   render() {
@@ -28,7 +28,7 @@ class Drawer extends Component {
       label,
       showDetails,
       id
-    } = this.props
+    } = this.props;
 
     return (
       <a
@@ -55,8 +55,8 @@ class Drawer extends Component {
           </div>
         }
       </a>
-    )
+    );
   }
 }
 
-export default Drawer
+export default Drawer;

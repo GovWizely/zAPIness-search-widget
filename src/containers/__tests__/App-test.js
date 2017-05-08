@@ -1,17 +1,17 @@
-import React from 'react'
-import renderer from 'react-test-renderer'
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+import React from 'react';
+import renderer from 'react-test-renderer';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
-import { Provider } from 'react-redux'
-import { shallow } from 'enzyme'
-import ConnectedApp, { App } from '../App'
+import { Provider } from 'react-redux';
+import { shallow } from 'enzyme';
+import ConnectedApp, { App } from '../App';
 
-const { Map } = require('immutable')
+const { Map } = require('immutable');
 
 describe('containers/App', () => {
-  const middlewares = [thunk]
-  const mockStore = configureMockStore(middlewares)
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
 
   const initialState = Map({
     categories: [],
@@ -27,12 +27,12 @@ describe('containers/App', () => {
       filters: []
     }),
     isFetching: false
-  })
+  });
 
-  const store = mockStore(initialState)
+  const store = mockStore(initialState);
 
-  const handleSelect = jest.fn()
-  const getCategories = jest.fn()
+  const handleSelect = jest.fn();
+  const getCategories = jest.fn();
 
   it('renders correctly', () => {
     const tree = renderer.create(
@@ -43,9 +43,9 @@ describe('containers/App', () => {
           getCategories={getCategories}
         />
       </Provider>
-    ).toJSON()
-    expect(tree).toMatchSnapshot()
-  })
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
   it('dispatch actions to store', () => {
     shallow(
@@ -56,8 +56,8 @@ describe('containers/App', () => {
           getCategories={getCategories}
         />
       </Provider>
-    )
+    );
 
-    expect(store.getActions().length).toEqual(1)
-  })
-})
+    expect(store.getActions().length).toEqual(1);
+  });
+});
