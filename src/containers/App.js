@@ -1,36 +1,36 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import isUndefined from 'lodash/isUndefined'
-import keys from 'lodash/keys'
+import isUndefined from 'lodash/isUndefined';
+import keys from 'lodash/keys';
 
-import Form from '../components/Form'
-import Result from '../components/Result'
+import Form from '../components/Form';
+import Result from '../components/Result';
 
 import {
   getPreviewMode,
   getSelectableFields,
   getResultLabel
-} from '../actions/api'
+} from '../actions/api';
 
 import {
   requestApi,
   updatePageNum,
   updateFields
-} from '../actions/QueryActions'
-import { getCategories } from '../actions/FilterActions'
-import toggleResult from '../actions/ToggleActions'
-import { categories } from '../actions/elasticsearch'
+} from '../actions/QueryActions';
+import { getCategories } from '../actions/FilterActions';
+import toggleResult from '../actions/ToggleActions';
+import { categories } from '../actions/elasticsearch';
 
-import styles from '../stylesheets/styles'
+import styles from '../stylesheets/styles';
 
 export class App extends Component {
   componentWillMount() {
-    this.props.getCategories()
+    this.props.getCategories();
 
     if (getPreviewMode()) {
-      this.props.previewResult()
+      this.props.previewResult();
     }
   }
 
@@ -40,9 +40,9 @@ export class App extends Component {
       handleSelect,
       toggle,
       toggleResultHandler
-    } = this.props
+    } = this.props;
 
-    const result = query.get('data')
+    const result = query.get('data');
 
     return (
       <div className="__sw-container__" style={styles.container}>
@@ -69,43 +69,43 @@ export class App extends Component {
           }
         </div>
       </div>
-    )
+    );
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     handleSelect: (eventKey) => {
-      dispatch(updatePageNum(eventKey))
-      dispatch(requestApi())
+      dispatch(updatePageNum(eventKey));
+      dispatch(requestApi());
     },
 
     getCategories: () => {
       dispatch(getCategories()).then((response) => {
-        const selectableFields = getSelectableFields()
+        const selectableFields = getSelectableFields();
 
-        const fields = keys(response.categories).concat(selectableFields)
-        dispatch(updateFields(fields))
-      })
+        const fields = keys(response.categories).concat(selectableFields);
+        dispatch(updateFields(fields));
+      });
     },
 
     toggleResultHandler: (key) => {
-      dispatch(toggleResult(key))
+      dispatch(toggleResult(key));
     },
 
     previewResult: () => {
       dispatch(requestApi()).then(() => {
-        dispatch(toggleResult(0))
-      })
+        dispatch(toggleResult(0));
+      });
     }
-  }
+  };
 }
 
 function mapStateToProps(state) {
   return {
     query: state.query,
     toggle: state.toggle
-  }
+  };
 }
 
 App.propTypes = {
@@ -117,6 +117,6 @@ App.propTypes = {
   getCategories: PropTypes.func.isRequired,
   toggleResultHandler: PropTypes.func.isRequired,
   previewResult: PropTypes.func.isRequired
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,17 +1,17 @@
-import React from 'react'
-import { shallow } from 'enzyme'
+import React from 'react';
+import { shallow } from 'enzyme';
 
-import { Filter } from '../Filter'
+import { Filter } from '../Filter';
 
-const { Map } = require('immutable')
+const { Map } = require('immutable');
 
 describe('components/Filter', () => {
-  const addFilter = jest.fn()
-  const removeFilter = jest.fn()
-  const removeAllFilters = jest.fn()
-  const selectFilterHandler = jest.fn()
-  const selectFilterValueHandler = jest.fn()
-  const submitHandler = jest.fn()
+  const addFilter = jest.fn();
+  const removeFilter = jest.fn();
+  const removeAllFilters = jest.fn();
+  const selectFilterHandler = jest.fn();
+  const selectFilterValueHandler = jest.fn();
+  const submitHandler = jest.fn();
 
   const filter = shallow(<Filter
     addFilter={addFilter}
@@ -31,14 +31,14 @@ describe('components/Filter', () => {
     selectFilterHandler={selectFilterHandler}
     selectFilterValueHandler={selectFilterValueHandler}
     submitHandler={submitHandler}
-  />)
+  />);
 
   it('renders successfully', () => {
-    expect(filter.find('.__sw-filter__').length).toBe(1)
-    expect(filter.find('.add-filter').length).toBe(1)
+    expect(filter.find('.__sw-filter__').length).toBe(1);
+    expect(filter.find('.add-filter').length).toBe(1);
 
-    filter.find('.add-filter').simulate('click')
+    filter.find('.add-filter').simulate('click');
 
-    expect(filter.find('Button').length).toBe(4)
-  })
-})
+    expect(filter.find('Button').length).toBe(4);
+  });
+});

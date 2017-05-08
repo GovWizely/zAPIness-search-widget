@@ -1,13 +1,13 @@
-import React from 'react'
-import { shallow } from 'enzyme'
+import React from 'react';
+import { shallow } from 'enzyme';
 
-import Pagination from '../Pagination'
+import Pagination from '../Pagination';
 
 describe('components/Pagination', () => {
-  const totalPage = 5
-  const totalNumButton = 3
-  const activePage = 2
-  const onSelect = jest.fn()
+  const totalPage = 5;
+  const totalNumButton = 3;
+  const activePage = 2;
+  const onSelect = jest.fn();
 
   it('renders successfully', () => {
     const pagination = shallow(
@@ -17,7 +17,7 @@ describe('components/Pagination', () => {
         activePage={activePage}
         onSelect={onSelect}
       />
-    )
+    );
 
     expect(pagination.containsMatchingElement(
       <div>
@@ -33,8 +33,8 @@ describe('components/Pagination', () => {
           <li><a>Last »</a></li>
         </ul>
       </div>
-    ))
-  })
+    ));
+  });
 
   it('does not show prev button if current page is the first page', () => {
     const pagination = shallow(
@@ -44,7 +44,7 @@ describe('components/Pagination', () => {
         activePage={1}
         onSelect={onSelect}
       />
-    )
+    );
 
     expect(pagination.containsMatchingElement(
       <div>
@@ -58,8 +58,8 @@ describe('components/Pagination', () => {
           <li><a>Last »</a></li>
         </ul>
       </div>
-    ))
-  })
+    ));
+  });
 
   it('does not show next button if current page is last page', () => {
     const pagination = shallow(
@@ -69,7 +69,7 @@ describe('components/Pagination', () => {
         activePage={5}
         onSelect={onSelect}
       />
-    )
+    );
 
     expect(pagination.containsMatchingElement(
       <div>
@@ -84,6 +84,6 @@ describe('components/Pagination', () => {
           <li><a>Last »</a></li>
         </ul>
       </div>
-    ))
-  })
-})
+    ));
+  });
+});

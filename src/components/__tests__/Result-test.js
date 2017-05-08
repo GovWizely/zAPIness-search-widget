@@ -1,11 +1,11 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import Result from '../Result'
+import React from 'react';
+import { shallow } from 'enzyme';
+import Result from '../Result';
 
 describe('components/Result', () => {
-  const activePage = 1
-  const paginationHandleSelect = jest.fn()
-  const toggleHandler = jest.fn()
+  const activePage = 1;
+  const paginationHandleSelect = jest.fn();
+  const toggleHandler = jest.fn();
   const query = {
     get: jest.fn(),
     data: {
@@ -19,7 +19,7 @@ describe('components/Result', () => {
         { address: 'New York' }
       ]
     }
-  }
+  };
 
   it('renders successfully', () => {
     const result = shallow(
@@ -35,17 +35,17 @@ describe('components/Result', () => {
           show: false
         }}
       />
-    )
+    );
 
-    expect(result.find('div.__sw-result__').length).toBe(1)
-    expect(result.find('Pagination').length).toBe(1)
-    expect(result.find('Drawer').length).toBe(3)
+    expect(result.find('div.__sw-result__').length).toBe(1);
+    expect(result.find('Pagination').length).toBe(1);
+    expect(result.find('Drawer').length).toBe(3);
 
     result.find('Drawer').forEach((node, index) => {
-      expect(node.props().cells).toEqual(query.data.results[index])
-      expect(node.props().label).toEqual('address')
-    })
-  })
+      expect(node.props().cells).toEqual(query.data.results[index]);
+      expect(node.props().label).toEqual('address');
+    });
+  });
 
   it('renders no result message if result is empty', () => {
     const result = shallow(
@@ -62,9 +62,9 @@ describe('components/Result', () => {
           }
         }}
       />
-    )
+    );
 
-    expect(result.find('div.__sw-no-result__').length).toBe(1)
-    expect(result.find('Pagination').length).toBe(0)
-  })
-})
+    expect(result.find('div.__sw-no-result__').length).toBe(1);
+    expect(result.find('Pagination').length).toBe(0);
+  });
+});

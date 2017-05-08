@@ -1,10 +1,10 @@
-import colors from './colors'
-import buttons from './buttons'
-import form from './form'
-import result from './result'
-import pagination from './pagination'
-import list from './list'
-import filter from './filter'
+import colors from './colors';
+import buttons from './buttons';
+import form from './form';
+import result from './result';
+import pagination from './pagination';
+import list from './list';
+import filter from './filter';
 
 const styles = {
   buttons,
@@ -47,6 +47,6 @@ const styles = {
     right: 0,
     top: 0
   }
-}
+};
 
-export default styles
+export default styles;

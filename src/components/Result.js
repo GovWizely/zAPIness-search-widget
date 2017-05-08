@@ -1,22 +1,22 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import map from 'lodash/map'
+import map from 'lodash/map';
 
-import Pagination from './Pagination'
+import Pagination from './Pagination';
 import {
   count,
   paginationTotal,
   totalCount
-} from '../actions/elasticsearch'
+} from '../actions/elasticsearch';
 import {
   filterResult
-} from '../actions/QueryActions'
+} from '../actions/QueryActions';
 
-import Drawer from './Drawer'
-import styles from '../stylesheets/styles'
+import Drawer from './Drawer';
+import styles from '../stylesheets/styles';
 
-const Radium = require('radium')
+const Radium = require('radium');
 
 const Result = props => (
   <div className="__sw-result__" style={styles.result.base}>
@@ -55,7 +55,7 @@ const Result = props => (
       </div>
     }
   </div>
-)
+);
 
 Result.propTypes = {
   activePage: PropTypes.number.isRequired,
@@ -72,6 +72,6 @@ Result.propTypes = {
       })
     }
   ).isRequired
-}
+};
 
-export default Radium(Result)
+export default Radium(Result);

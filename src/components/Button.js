@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types'
-import styles from '../stylesheets/styles'
+import PropTypes from 'prop-types';
+import styles from '../stylesheets/styles';
 
-const Radium = require('radium')
-const React = require('react')
+const Radium = require('radium');
+const React = require('react');
 
 const Button = props => (
   <button
@@ -16,7 +16,7 @@ const Button = props => (
   >
     {props.children}
   </button>
-)
+);
 
 Button.propTypes = {
   children: PropTypes.oneOfType([
@@ -27,6 +27,6 @@ Button.propTypes = {
   clickHandler: PropTypes.func.isRequired,
   kind: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired
-}
+};
 
-export default Radium(Button)
+export default Radium(Button);
