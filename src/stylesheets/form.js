@@ -19,7 +19,7 @@ const form = {
     fontWeight: 300,
     lineHeight: '28px',
     padding: '8px 10px',
-    width: '540px'
+    width: '100%'
   },
 
   inputWrapper: {

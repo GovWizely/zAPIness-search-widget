@@ -16,7 +16,7 @@ const styles = {
 
   container: {
     padding: '20px',
-    width: '600px'
+    width: '100%'
   },
 
   img: {
