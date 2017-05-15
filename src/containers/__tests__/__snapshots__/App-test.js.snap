@@ -67,50 +67,6 @@ exports[`containers/App renders correctly 1`] = `
           value=""
         />
       </div>
-      <button
-        className="__sw-advanced-search__"
-        data-radium={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "background": "#f9f9f9",
-            "border": "none",
-            "borderRadius": 3,
-            "color": "#7c7c7c",
-            "display": "inline-block",
-            "flex": 1,
-            "height": "46px",
-            "justifyContent": "center",
-            "marginLeft": "10px",
-            "overflow": "hidden",
-            "padding": "0 5px",
-            "width": "46px",
-          }
-        }
-        type="button"
-      >
-        <span
-          data-radium={true}
-        >
-          <img
-            alt="Add"
-            data-radium={true}
-            src="test-file-stub"
-            style={
-              Object {
-                "color": "#BDBDBD",
-                "height": "20px",
-                "width": "20px",
-              }
-            }
-          />
-        </span>
-      </button>
     </form>
   </div>
 </div>

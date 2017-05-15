@@ -10,7 +10,8 @@ import {
   totalCount
 } from '../actions/elasticsearch';
 import {
-  filterResult
+  filterResult,
+  getLabels
 } from '../actions/QueryActions';
 
 import Drawer from './Drawer';
@@ -18,51 +19,56 @@ import styles from '../stylesheets/styles';
 
 const Radium = require('radium');
 
-const Result = props => (
-  <div className="__sw-result__" style={styles.result.base}>
-    { props.query.data.results.length === 0 &&
-      <div className="__sw-no-result__" style={styles.result.noResult}>
-        No result found. Please try again.
-      </div>
-    }
-    {
-      map(filterResult(props.query.data.results, props.fields), (result, index) => (
-        <div key={index} className="__result-container__" style={styles.result.container}>
-          <Drawer
-            cells={result}
-            label={props.label}
-            id={index}
-            toggleHandler={props.toggleHandler}
-            showDetails={
-              index === props.toggleStatus.key && props.toggleStatus.show
-            }
+const Result = (props) => {
+  const labels = getLabels(props.query.data.results, props.label);
+
+  return (
+    <div className="__sw-result__" style={styles.result.base}>
+      { props.query.data.results.length === 0 &&
+        <div className="__sw-no-result__" style={styles.result.noResult}>
+          No result found. Please try again.
+        </div>
+      }
+      {
+        map(filterResult(props.query.data.results, props.fields), (result, index) => (
+          <div key={index} className="__result-container__" style={styles.result.container}>
+            <Drawer
+              cells={result}
+              label={labels[index]}
+              id={index}
+              toggleHandler={props.toggleHandler}
+              showDetails={
+                index === props.toggleStatus.key && props.toggleStatus.show
+              }
+            />
+          </div>
+        ))
+      }
+
+      {
+        props.query.data.results.length > 0 &&
+        <div style={styles.pagination.total}>
+          { count(props.query.data) } of { totalCount(props.query.data) } results shown
+        </div>
+      }
+      {
+        props.query.data.results.length > 0 &&
+        <div style={{ width: '100%' }}>
+          <Pagination
+            totalPage={paginationTotal(props.query.data, 10)}
+            totalNumButton={3}
+            activePage={props.activePage}
+            onSelect={props.paginationHandleSelect}
           />
         </div>
-      ))
-    }
-
-    {
-      props.query.data.results.length > 0 &&
-      <div style={styles.pagination.total}>
-        { count(props.query.data) } of { totalCount(props.query.data) } results shown
-      </div>
-    }
-    {
-      props.query.data.results.length > 0 &&
-      <div style={{ width: '100%' }}>
-        <Pagination
-          totalPage={paginationTotal(props.query.data, 10)}
-          totalNumButton={3}
-          activePage={props.activePage}
-          onSelect={props.paginationHandleSelect}
-        />
-      </div>
-    }
-  </div>
-);
+      }
+    </div>
+  );
+};
 
 Result.propTypes = {
   activePage: PropTypes.number.isRequired,
+  label: PropTypes.string.isRequired,
   paginationHandleSelect: PropTypes.func.isRequired,
   toggleHandler: PropTypes.func.isRequired,
   toggleStatus: PropTypes.shape({}).isRequired,

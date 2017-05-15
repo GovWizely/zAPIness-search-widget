@@ -13,7 +13,7 @@ describe('components/Drawer', () => {
   const wrapper = shallow(
     <Drawer
       cells={results}
-      label="name"
+      label="Harry Potter"
       showDetails={false}
       id={1}
       toggleHandler={toggleHandler}
@@ -34,7 +34,7 @@ describe('components/Drawer', () => {
     const showDetailsWrapper = shallow(
       <Drawer
         cells={results}
-        label="name"
+        label="Harry Potter"
         showDetails
         id={1}
         toggleHandler={toggleHandler}

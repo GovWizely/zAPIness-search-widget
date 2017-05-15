@@ -37,6 +37,8 @@ export class App extends Component {
 
   render() {
     const {
+      filters,
+      isFetching,
       query,
       handleSelect,
       toggle,
@@ -48,7 +50,10 @@ export class App extends Component {
     return (
       <div className="__sw-container__" style={styles.container}>
         <div className="container" style={{width: '100%'}}>
-          <Form />
+          <Form
+            isFetching={isFetching}
+            filters={filters}
+          />
           {
             result &&
             <Result
@@ -105,7 +110,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     query: state.query,
-    toggle: state.toggle
+    toggle: state.toggle,
+    isFetching: state.isFetching,
+    filters: state.filters
   };
 }
 
@@ -113,6 +120,8 @@ App.propTypes = {
   query: PropTypes.shape({
     get: PropTypes.func
   }).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  filters: PropTypes.shape({}).isRequired,
   toggle: PropTypes.shape({}).isRequired,
   handleSelect: PropTypes.func.isRequired,
   getCategories: PropTypes.func.isRequired,
