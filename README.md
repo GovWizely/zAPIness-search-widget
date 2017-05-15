@@ -44,6 +44,7 @@ zAPIness-search-widget will be loaded in any webpage by embedding the following 
 * __label__: The main title you want to show in the search result, i.e Department of Immigration and Citizenship in the screenshot above. Default to first element in the aggregations
 * __fields__: By default, it will show all searchable fields from the endpoint. You may set the fields you want to show in the search result. The fields will be combinded with all the searchable fields.
 * __preview__: Default to false. If true, perform a search with ```q=''``` on first load and show all the details of the first result.
+* __showAll__: Default to false. If true, show all fields in the search results. This settings overrides fields settings.
 
 ---
 
