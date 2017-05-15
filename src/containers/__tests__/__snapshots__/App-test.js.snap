@@ -6,12 +6,17 @@ exports[`containers/App renders correctly 1`] = `
   style={
     Object {
       "padding": "20px",
-      "width": "600px",
+      "width": "100%",
     }
   }
 >
   <div
     className="container"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
   >
     <form
       className="__sw-input__"
@@ -29,7 +34,7 @@ exports[`containers/App renders correctly 1`] = `
             "height": "46px",
             "position": "relative",
             "verticalAlign": "top",
-            "width": "90%",
+            "width": "80%",
           }
         }
       >
@@ -55,7 +60,7 @@ exports[`containers/App renders correctly 1`] = `
               "fontWeight": 300,
               "lineHeight": "28px",
               "padding": "8px 10px",
-              "width": "540px",
+              "width": "100%",
             }
           }
           type="text"

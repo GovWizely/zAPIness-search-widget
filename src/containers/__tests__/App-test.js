@@ -33,6 +33,7 @@ describe('containers/App', () => {
 
   const handleSelect = jest.fn();
   const getCategories = jest.fn();
+  const updateFields = jest.fn();
 
   it('renders correctly', () => {
     const tree = renderer.create(
@@ -41,6 +42,7 @@ describe('containers/App', () => {
           query={initialState}
           handleSelect={handleSelect}
           getCategories={getCategories}
+          updateFields={updateFields}
         />
       </Provider>
     ).toJSON();
@@ -54,6 +56,7 @@ describe('containers/App', () => {
           query={initialState}
           handleSelect={handleSelect}
           getCategories={getCategories}
+          updateFields={updateFields}
         />
       </Provider>
     );

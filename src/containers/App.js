@@ -28,6 +28,7 @@ import styles from '../stylesheets/styles';
 export class App extends Component {
   componentWillMount() {
     this.props.getCategories();
+    this.props.updateFields();
 
     if (getPreviewMode()) {
       this.props.previewResult();
@@ -81,12 +82,12 @@ function mapDispatchToProps(dispatch) {
     },
 
     getCategories: () => {
-      dispatch(getCategories()).then((response) => {
-        const selectableFields = getSelectableFields();
+      dispatch(getCategories());
+    },
 
-        const fields = keys(response.categories).concat(selectableFields);
-        dispatch(updateFields(fields));
-      });
+    updateFields: () => {
+      const fields = getSelectableFields();
+      dispatch(updateFields(fields));
     },
 
     toggleResultHandler: (key) => {
@@ -116,6 +117,7 @@ App.propTypes = {
   handleSelect: PropTypes.func.isRequired,
   getCategories: PropTypes.func.isRequired,
   toggleResultHandler: PropTypes.func.isRequired,
+  updateFields: PropTypes.func.isRequired,
   previewResult: PropTypes.func.isRequired
 };
 

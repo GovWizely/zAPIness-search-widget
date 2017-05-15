@@ -1,5 +1,6 @@
 import map from 'lodash/map';
 import pick from 'lodash/pick';
+import isEmpty from 'lodash/isEmpty';
 
 import * as actionTypes from '../constants/ActionTypes';
 
@@ -42,6 +43,8 @@ export function updatePageNum(pageNum) {
 }
 
 export function filterResult(data, fields) {
+  if(isEmpty(fields)) { return data; }
+
   return map(data, d => pick(d, fields));
 }
 

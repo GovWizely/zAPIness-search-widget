@@ -97,25 +97,31 @@ describe('actions/QueryActions', () => {
   });
 
   describe('filterResult', () => {
+    const data = [
+      {
+        title: 'Harry Potter',
+        director: 'David Yates',
+        year: '2006'
+      },
+      {
+        title: 'Interstellar',
+        director: 'Christopher Nolan',
+        year: '2015'
+      },
+      {
+        title: 'Avatar',
+        director: 'James Cameron',
+        year: '2009'
+      }
+    ];
+
+    it('returns full data if fields is empty', () => {
+      const fields = [];
+      expect(QueryActions.filterResult(data, fields)).toEqual(data);
+    });
+
     it('returns on the selected fields', () => {
       const fields = ['title', 'director'];
-      const data = [
-        {
-          title: 'Harry Potter',
-          director: 'David Yates',
-          year: '2006'
-        },
-        {
-          title: 'Interstellar',
-          director: 'Christopher Nolan',
-          year: '2015'
-        },
-        {
-          title: 'Avatar',
-          director: 'James Cameron',
-          year: '2009'
-        }
-      ];
 
       expect(QueryActions.filterResult(data, fields)).toEqual([
         {
