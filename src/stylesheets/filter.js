@@ -10,7 +10,8 @@ const filter = {
     color: colors.xDarkGrey,
     fontFamily,
     margin: '20px 0',
-    padding: '20px'
+    padding: '20px',
+    width: '83%'
   },
 
   ul: {
@@ -32,18 +33,20 @@ const filter = {
 
   listContainer: {
     display: 'inline-block',
-    verticalAlign: 'text-top'
+    verticalAlign: 'text-top',
+    width: '100%'
   },
 
   btnContainer: {
     display: 'inline-block',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
+    width: '20%'
   },
 
   select: {
     height: '20px',
-    marginRight: '10px',
-    width: '170px'
+    marginRight: '1%',
+    width: '28%'
   },
 
   actionBtn: {

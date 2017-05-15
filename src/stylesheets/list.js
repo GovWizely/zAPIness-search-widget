@@ -2,7 +2,8 @@ import colors from './colors';
 
 const list = {
   container: {
-    display: 'inline'
+    display: 'inline-block',
+    height: '35px'
   },
 
   base: {

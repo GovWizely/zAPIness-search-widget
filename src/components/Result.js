@@ -40,12 +40,16 @@ const Result = props => (
         </div>
       ))
     }
+
     {
       props.query.data.results.length > 0 &&
-      <div>
-        <span style={styles.pagination.total}>
-          { count(props.query.data) } of { totalCount(props.query.data) } results shown
-        </span>
+      <div style={styles.pagination.total}>
+        { count(props.query.data) } of { totalCount(props.query.data) } results shown
+      </div>
+    }
+    {
+      props.query.data.results.length > 0 &&
+      <div style={{ width: '100%' }}>
         <Pagination
           totalPage={paginationTotal(props.query.data, 10)}
           totalNumButton={3}
