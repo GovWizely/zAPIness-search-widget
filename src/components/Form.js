@@ -87,6 +87,10 @@ export class Form extends Component {
   }
 }
 
+function mapStateToProps() {
+  return {};
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     submitHandler: (data) => {
@@ -104,7 +108,7 @@ Form.propTypes = {
   filters: PropTypes.shape({}).isRequired
 };
 
-const connected = connect(mapDispatchToProps)(Form);
+const connected = connect(mapStateToProps, mapDispatchToProps)(Form);
 
 export default reduxForm({
   form: 'form',

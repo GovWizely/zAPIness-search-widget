@@ -8,7 +8,8 @@ const initialState = Map({
   pageNum: 1,
   data: undefined,
   error: [],
-  fields: []
+  fields: [],
+  showAll: false
 });
 
 export default function queryReducer(state = initialState, action) {
@@ -28,6 +29,8 @@ export default function queryReducer(state = initialState, action) {
       });
     case actionTypes.UPDATE_FIELDS:
       return state.set('fields', action.fields);
+    case actionTypes.UPDATE_SHOW_ALL:
+      return state.set('showAll', action.showAll);
     default:
       return state;
   }

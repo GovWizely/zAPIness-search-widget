@@ -10,12 +10,13 @@ const renderApp = ({
   endpoint,
   label,
   fields,
-  preview = false
+  preview = false,
+  showAll = false
 }) => {
   const store = configureStore();
 
   createMountPoint(mountPoint);
-  configureApp(host, endpoint, fields, label, preview);
+  configureApp(host, endpoint, fields, label, preview, showAll);
 
   render(
     <Root store={store} />,

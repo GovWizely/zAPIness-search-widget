@@ -12,7 +12,8 @@ describe('queryReducer', () => {
     pageNum: 1,
     data: undefined,
     error: [],
-    fields: []
+    fields: [],
+    showAll: false
   });
 
   it('returns initialState', () => {
@@ -24,7 +25,8 @@ describe('queryReducer', () => {
      pageNum: 1,
      data: undefined,
      error: [],
-     fields: []
+     fields: [],
+     showAll: false
    }));
   });
 
@@ -40,7 +42,8 @@ describe('queryReducer', () => {
       pageNum: 1,
       data,
       error: [],
-      fields: []
+      fields: [],
+      showAll: false
     }));
   });
 
@@ -56,7 +59,8 @@ describe('queryReducer', () => {
       pageNum: 1,
       data: undefined,
       error: 'Some Error',
-      fields: []
+      fields: [],
+      showAll: false
     }));
   });
 
@@ -72,7 +76,8 @@ describe('queryReducer', () => {
       pageNum: 1,
       data: undefined,
       error: [],
-      fields: []
+      fields: [],
+      showAll: false
     }));
   });
 
@@ -88,7 +93,8 @@ describe('queryReducer', () => {
       pageNum: 2,
       data: undefined,
       error: [],
-      fields: []
+      fields: [],
+      showAll: false
     }));
   });
 
@@ -105,7 +111,8 @@ describe('queryReducer', () => {
       pageNum: 1,
       data: undefined,
       error: [],
-      fields: []
+      fields: [],
+      showAll: false
     }));
   });
 
@@ -121,7 +128,25 @@ describe('queryReducer', () => {
       pageNum: 1,
       data: undefined,
       error: [],
-      fields: ['some', 'random', 'fields']
+      fields: ['some', 'random', 'fields'],
+      showAll: false
+    }));
+  });
+
+  it('handles update showAll', () => {
+    expect(
+      queryReducer(initialState, {
+        type: actionTypes.UPDATE_SHOW_ALL,
+        showAll: true
+      })
+    ).toEqual(Map({
+      keyword: '',
+      offset: 0,
+      pageNum: 1,
+      data: undefined,
+      error: [],
+      fields: [],
+      showAll: true
     }));
   });
 });

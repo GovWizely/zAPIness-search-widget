@@ -11,13 +11,15 @@ import Result from '../components/Result';
 import {
   getPreviewMode,
   getSelectableFields,
-  getResultLabel
+  getResultLabel,
+  getShowAll
 } from '../actions/api';
 
 import {
   requestApi,
   updatePageNum,
-  updateFields
+  updateFields,
+  updateShowAll
 } from '../actions/QueryActions';
 import { getCategories } from '../actions/FilterActions';
 import toggleResult from '../actions/ToggleActions';
@@ -58,6 +60,7 @@ export class App extends Component {
             result &&
             <Result
               query={result}
+              showAll={query.get('showAll')}
               fields={query.get('fields')}
               label={getResultLabel() || keys(categories(result.data))[0]}
               paginationHandleSelect={handleSelect}
@@ -92,7 +95,9 @@ function mapDispatchToProps(dispatch) {
 
     updateFields: () => {
       const fields = getSelectableFields();
+      const showAll = getShowAll();
       dispatch(updateFields(fields));
+      dispatch(updateShowAll(showAll));
     },
 
     toggleResultHandler: (key) => {

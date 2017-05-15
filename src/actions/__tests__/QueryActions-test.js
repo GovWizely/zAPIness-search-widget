@@ -114,15 +114,20 @@ describe('actions/QueryActions', () => {
   });
 
   describe('filterResult', () => {
-    it('returns full data if fields is empty', () => {
+    it('returns no data if fields is empty', () => {
       const fields = [];
-      expect(QueryActions.filterResult(data, fields)).toEqual(data);
+      expect(QueryActions.filterResult(data, fields)).toEqual([{}, {}, {}]);
+    });
+
+    it('returns full data if show all is true', () => {
+      const fields = [];
+      expect(QueryActions.filterResult(data, fields, true)).toEqual(data);
     });
 
     it('returns on the selected fields', () => {
       const fields = ['title', 'director'];
 
-      expect(QueryActions.filterResult(data, fields)).toEqual([
+      expect(QueryActions.filterResult(data, fields, false)).toEqual([
         {
           title: 'Harry Potter',
           director: 'David Yates'

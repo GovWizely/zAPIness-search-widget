@@ -21,6 +21,11 @@ const Radium = require('radium');
 
 const Result = (props) => {
   const labels = getLabels(props.query.data.results, props.label);
+  const results = filterResult(
+    props.query.data.results,
+    props.fields,
+    props.showAll
+  );
 
   return (
     <div className="__sw-result__" style={styles.result.base}>
@@ -30,7 +35,7 @@ const Result = (props) => {
         </div>
       }
       {
-        map(filterResult(props.query.data.results, props.fields), (result, index) => (
+        map(results, (result, index) => (
           <div key={index} className="__result-container__" style={styles.result.container}>
             <Drawer
               cells={result}
@@ -71,6 +76,7 @@ Result.propTypes = {
   label: PropTypes.string.isRequired,
   paginationHandleSelect: PropTypes.func.isRequired,
   toggleHandler: PropTypes.func.isRequired,
+  showAll: PropTypes.bool.isRequired,
   toggleStatus: PropTypes.shape({}).isRequired,
   fields: PropTypes.arrayOf(PropTypes.string).isRequired,
   query: PropTypes.shape(

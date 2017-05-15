@@ -26,6 +26,7 @@ describe('components/Result', () => {
       <Result
         query={query}
         fields={['address']}
+        showAll={false}
         label={'address'}
         paginationHandleSelect={paginationHandleSelect}
         activePage={activePage}
@@ -53,6 +54,7 @@ describe('components/Result', () => {
         activePage={activePage}
         paginationHandleSelect={paginationHandleSelect}
         label={'address'}
+        showAl={false}
         fields={['address']}
         toggleHandler={toggleHandler}
         toggleStatus={{}}
