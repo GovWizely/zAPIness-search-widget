@@ -15,6 +15,23 @@ describe('actions/QueryActions', () => {
   const keyword = 'Earth';
   const offset = 10;
   const endpoint = 'sample-endpoint/1';
+  const data = [
+    {
+      title: 'Harry Potter',
+      director: 'David Yates',
+      year: '2006'
+    },
+    {
+      title: 'Interstellar',
+      director: 'Christopher Nolan',
+      year: '2015'
+    },
+    {
+      title: 'Avatar',
+      director: 'James Cameron',
+      year: '2009'
+    }
+  ];
 
   describe('updateKeyword', () => {
     it('creates action to update keyword', () => {
@@ -97,27 +114,20 @@ describe('actions/QueryActions', () => {
   });
 
   describe('filterResult', () => {
+    it('returns no data if fields is empty', () => {
+      const fields = [];
+      expect(QueryActions.filterResult(data, fields)).toEqual([{}, {}, {}]);
+    });
+
+    it('returns full data if show all is true', () => {
+      const fields = [];
+      expect(QueryActions.filterResult(data, fields, true)).toEqual(data);
+    });
+
     it('returns on the selected fields', () => {
       const fields = ['title', 'director'];
-      const data = [
-        {
-          title: 'Harry Potter',
-          director: 'David Yates',
-          year: '2006'
-        },
-        {
-          title: 'Interstellar',
-          director: 'Christopher Nolan',
-          year: '2015'
-        },
-        {
-          title: 'Avatar',
-          director: 'James Cameron',
-          year: '2009'
-        }
-      ];
 
-      expect(QueryActions.filterResult(data, fields)).toEqual([
+      expect(QueryActions.filterResult(data, fields, false)).toEqual([
         {
           title: 'Harry Potter',
           director: 'David Yates'
@@ -130,6 +140,18 @@ describe('actions/QueryActions', () => {
           title: 'Avatar',
           director: 'James Cameron'
         }
+      ]);
+    });
+  });
+
+  describe('getLabels', () => {
+    it('gets the values of the object based on values passed', () => {
+      const label = 'title';
+
+      expect(QueryActions.getLabels(data, label)).toEqual([
+        'Harry Potter',
+        'Interstellar',
+        'Avatar'
       ]);
     });
   });

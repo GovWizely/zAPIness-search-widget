@@ -6,13 +6,15 @@ let selectableFields = [];
 let instance = null;
 let previewMode = null;
 let resultLabel = null;
+let showAllFields = null;
 
 export function configureApp(
   host,
   endpoint,
   fields = [],
   label = null,
-  preview = false
+  preview = false,
+  showAll = false
 ) {
   instance = axios.create({
     baseURL: host
@@ -22,6 +24,7 @@ export function configureApp(
   selectableFields = fields;
   previewMode = preview;
   resultLabel = label;
+  showAllFields = showAll;
 }
 
 export function getData(data) {
@@ -55,6 +58,10 @@ export function getPreviewMode() {
 
 export function getResultLabel() {
   return resultLabel;
+}
+
+export function getShowAll() {
+  return showAllFields;
 }
 
 export function createMountPoint(mountPoint) {

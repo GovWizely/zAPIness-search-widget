@@ -27,7 +27,7 @@ const form = {
     height: '46px',
     position: 'relative',
     verticalAlign: 'top',
-    width: '90%'
+    width: '80%'
   }
 };
 

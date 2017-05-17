@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { FieldArray, reduxForm } from 'redux-form';
 
 import debounce from 'lodash/debounce';
+import isEmpty from 'lodash/isEmpty';
 
 import {
   requestApi,
@@ -37,6 +38,7 @@ export class Form extends Component {
 
   render() {
     const {
+      filters,
       isFetching,
       submitHandler
     } = this.props;
@@ -51,7 +53,7 @@ export class Form extends Component {
           />
           {
             isFetching &&
-            <div style={styles.loadingIconWrapper}>
+            <div style={styles.loadingIconWrapper} className="__sw-loading__">
               <span>
                 <img src={loadingIcon} alt="Loading" style={styles.loadingIcon} />
               </span>
@@ -59,16 +61,19 @@ export class Form extends Component {
           }
         </div>
 
-        <Button
-          type="button"
-          kind="primary"
-          clickHandler={this.toggleFilter}
-          className="__sw-advanced-search__"
-        >
-          <span>
-            <img style={styles.img} src={settings} alt="Add" />
-          </span>
-        </Button>
+        {
+          !isEmpty(filters.get('categories')) &&
+          <Button
+            type="button"
+            kind="primary"
+            clickHandler={this.toggleFilter}
+            className="__sw-advanced-search__"
+          >
+            <span>
+              <img style={styles.img} src={settings} alt="Add" />
+            </span>
+          </Button>
+        }
 
         {
           this.state.showFilter &&
@@ -82,10 +87,8 @@ export class Form extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    isFetching: state.isFetching
-  };
+function mapStateToProps() {
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -101,7 +104,8 @@ function mapDispatchToProps(dispatch) {
 
 Form.propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  submitHandler: PropTypes.func.isRequired
+  submitHandler: PropTypes.func.isRequired,
+  filters: PropTypes.shape({}).isRequired
 };
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(Form);

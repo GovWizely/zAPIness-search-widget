@@ -38,7 +38,7 @@ class Drawer extends Component {
         className="__sw-data__"
         data-id={id}
       >
-        <div>{ cells[label] }</div>
+        <div>{ label }</div>
         {
           showDetails &&
           <div className="__sw-details__" style={styles.result.details}>

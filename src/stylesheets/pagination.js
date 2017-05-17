@@ -2,7 +2,8 @@ import colors from './colors';
 
 const pagination = {
   container: {
-    margin: '20px -20px'
+    display: 'inline-block',
+    margin: '10px -10px'
   },
 
   base: {
@@ -11,10 +12,13 @@ const pagination = {
 
   total: {
     color: colors.darkGrey,
-    float: 'right',
+    display: 'inline-block',
     fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
     fontSize: '11px',
-    fontStyle: 'italic'
+    fontStyle: 'italic',
+    marginTop: '20px',
+    textAlign: 'right',
+    width: '100%'
   }
 };
 

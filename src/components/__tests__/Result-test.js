@@ -26,6 +26,7 @@ describe('components/Result', () => {
       <Result
         query={query}
         fields={['address']}
+        showAll={false}
         label={'address'}
         paginationHandleSelect={paginationHandleSelect}
         activePage={activePage}
@@ -43,7 +44,7 @@ describe('components/Result', () => {
 
     result.find('Drawer').forEach((node, index) => {
       expect(node.props().cells).toEqual(query.data.results[index]);
-      expect(node.props().label).toEqual('address');
+      expect(node.props().label).toEqual(query.data.results[index].address);
     });
   });
 
@@ -52,6 +53,11 @@ describe('components/Result', () => {
       <Result
         activePage={activePage}
         paginationHandleSelect={paginationHandleSelect}
+        label={'address'}
+        showAl={false}
+        fields={['address']}
+        toggleHandler={toggleHandler}
+        toggleStatus={{}}
         query={{
           get: jest.fn(),
           data: {

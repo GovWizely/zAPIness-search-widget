@@ -12,13 +12,21 @@ const { Map } = require('immutable');
 describe('containers/App', () => {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
+  const filters = Map({
+    categories: [],
+    filters: []
+  });
+  const toggle = Map({
+    key: undefined,
+    show: false
+  });
 
   const initialState = Map({
     categories: [],
     keyword: '',
     offset: 0,
     pageNum: 1,
-    filters: [],
+    filters,
     data: undefined,
     error: [],
     query: Map({
@@ -26,21 +34,31 @@ describe('containers/App', () => {
       offset: 0,
       filters: []
     }),
-    isFetching: false
+    isFetching: false,
+    toggle
   });
 
   const store = mockStore(initialState);
 
   const handleSelect = jest.fn();
   const getCategories = jest.fn();
+  const updateFields = jest.fn();
+  const toggleResultHandler = jest.fn();
+  const previewResult = jest.fn();
 
   it('renders correctly', () => {
     const tree = renderer.create(
       <Provider store={store}>
         <App
           query={initialState}
+          toggle={toggle}
           handleSelect={handleSelect}
           getCategories={getCategories}
+          updateFields={updateFields}
+          toggleResultHandler={toggleResultHandler}
+          previewResult={previewResult}
+          isFetching={false}
+          filters={filters}
         />
       </Provider>
     ).toJSON();
@@ -50,11 +68,7 @@ describe('containers/App', () => {
   it('dispatch actions to store', () => {
     shallow(
       <Provider store={store}>
-        <ConnectedApp
-          query={initialState}
-          handleSelect={handleSelect}
-          getCategories={getCategories}
-        />
+        <ConnectedApp />
       </Provider>
     );
 

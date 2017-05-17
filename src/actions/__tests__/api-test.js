@@ -16,6 +16,7 @@ describe('action/api', () => {
       expect(api.getEndpoint()).toEqual(endpoint);
       expect(api.getSelectableFields()).toEqual(fields);
       expect(api.getPreviewMode()).toEqual(false);
+      expect(api.getShowAll()).toEqual(false);
       expect(api.getResultLabel()).toEqual(label);
     });
 

@@ -4,7 +4,8 @@ const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const result = {
   base: {
-    marginTop: '20px'
+    marginTop: '20px',
+    width: '80%'
   },
 
   container: {

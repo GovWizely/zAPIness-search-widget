@@ -11,13 +11,15 @@ import Result from '../components/Result';
 import {
   getPreviewMode,
   getSelectableFields,
-  getResultLabel
+  getResultLabel,
+  getShowAll
 } from '../actions/api';
 
 import {
   requestApi,
   updatePageNum,
-  updateFields
+  updateFields,
+  updateShowAll
 } from '../actions/QueryActions';
 import { getCategories } from '../actions/FilterActions';
 import toggleResult from '../actions/ToggleActions';
@@ -28,6 +30,7 @@ import styles from '../stylesheets/styles';
 export class App extends Component {
   componentWillMount() {
     this.props.getCategories();
+    this.props.updateFields();
 
     if (getPreviewMode()) {
       this.props.previewResult();
@@ -36,6 +39,8 @@ export class App extends Component {
 
   render() {
     const {
+      filters,
+      isFetching,
       query,
       handleSelect,
       toggle,
@@ -47,11 +52,15 @@ export class App extends Component {
     return (
       <div className="__sw-container__" style={styles.container}>
         <div className="container" style={{width: '100%'}}>
-          <Form />
+          <Form
+            isFetching={isFetching}
+            filters={filters}
+          />
           {
             result &&
             <Result
               query={result}
+              showAll={query.get('showAll')}
               fields={query.get('fields')}
               label={getResultLabel() || keys(categories(result.data))[0]}
               paginationHandleSelect={handleSelect}
@@ -81,12 +90,14 @@ function mapDispatchToProps(dispatch) {
     },
 
     getCategories: () => {
-      dispatch(getCategories()).then((response) => {
-        const selectableFields = getSelectableFields();
+      dispatch(getCategories());
+    },
 
-        const fields = keys(response.categories).concat(selectableFields);
-        dispatch(updateFields(fields));
-      });
+    updateFields: () => {
+      const fields = getSelectableFields();
+      const showAll = getShowAll();
+      dispatch(updateFields(fields));
+      dispatch(updateShowAll(showAll));
     },
 
     toggleResultHandler: (key) => {
@@ -104,7 +115,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     query: state.query,
-    toggle: state.toggle
+    toggle: state.toggle,
+    isFetching: state.isFetching,
+    filters: state.filters
   };
 }
 
@@ -112,10 +125,13 @@ App.propTypes = {
   query: PropTypes.shape({
     get: PropTypes.func
   }).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  filters: PropTypes.shape({}).isRequired,
   toggle: PropTypes.shape({}).isRequired,
   handleSelect: PropTypes.func.isRequired,
   getCategories: PropTypes.func.isRequired,
   toggleResultHandler: PropTypes.func.isRequired,
+  updateFields: PropTypes.func.isRequired,
   previewResult: PropTypes.func.isRequired
 };
 
