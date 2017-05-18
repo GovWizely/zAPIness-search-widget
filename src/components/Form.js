@@ -44,7 +44,7 @@ export class Form extends Component {
     } = this.props;
 
     return (
-      <form className="__sw-input__" style={styles.form.container} onSubmit={e => e.preventDefault()}>
+      <form className="__sw-input__" style={styles.form.container}>
         <div style={styles.form.inputWrapper}>
           <Input
             name="keyword"
