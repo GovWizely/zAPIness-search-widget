@@ -40,11 +40,12 @@ export class Form extends Component {
     const {
       filters,
       isFetching,
+      handleSubmit,
       submitHandler
     } = this.props;
 
     return (
-      <form className="__sw-input__" style={styles.form.container}>
+      <form className="__sw-input__" style={styles.form.container} onSubmit={handleSubmit}>
         <div style={styles.form.inputWrapper}>
           <Input
             name="keyword"
@@ -103,6 +104,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 Form.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   submitHandler: PropTypes.func.isRequired,
   filters: PropTypes.shape({}).isRequired
