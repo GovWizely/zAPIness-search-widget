@@ -51,10 +51,11 @@ export class App extends Component {
 
     return (
       <div className="__sw-container__" style={styles.container}>
-        <div className="container" style={{width: '100%'}}>
+        <div className="container" style={{ width: '100%' }}>
           <Form
             isFetching={isFetching}
             filters={filters}
+            onSubmit={() => {}}
           />
           {
             result &&
