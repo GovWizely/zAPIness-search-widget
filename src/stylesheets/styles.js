@@ -44,8 +44,25 @@ const styles = {
   loadingIconWrapper: {
     position: 'absolute',
     marginTop: '2px',
-    right: 0,
+    right: '10px',
     top: 0
+  },
+
+  lookingGlass: {
+    height: '30px',
+    opacity: '0.3',
+    width: '30px'
+  },
+
+  lookingGlassWrapper: {
+    position: 'absolute',
+    marginTop: '7px',
+    right: '10px',
+    top: 0,
+
+    ':hover': {
+      cursor: 'pointer'
+    }
   }
 };
 

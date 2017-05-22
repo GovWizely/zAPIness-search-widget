@@ -9,7 +9,7 @@ const form = {
 
   input: {
     borderWidth: 1,
-    borderColor: colors.lightGrey,
+    borderColor: colors.grey,
     borderRadius: 3,
     boxSizing: 'border-box',
     borderStyle: 'solid',
