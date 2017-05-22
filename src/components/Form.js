@@ -37,6 +37,20 @@ export class Form extends Component {
     });
   }
 
+  advancedSearchBtn() {
+    return (
+      <Button
+        type="button"
+        kind={this.state.showFilter ? "active" : "primary" }
+        clickHandler={this.toggleFilter}
+        className="__sw-advanced-search__"
+      >
+        { this.state.showFilter && <span>Hide Advanced Search</span> }
+        { !this.state.showFilter && <span>Advanced Search</span> }
+      </Button>
+    )
+  }
+
   render() {
     const {
       filters,
@@ -58,9 +72,12 @@ export class Form extends Component {
             submitHandler={submitHandler}
             fetching={isFetching}
           />
-        </div>
 
-        <div>Advanced Search</div>
+          {
+            this.advancedSearchBtn()
+          }
+        
+        </div>
 
         {
           this.state.showFilter &&

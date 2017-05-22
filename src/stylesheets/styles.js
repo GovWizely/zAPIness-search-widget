@@ -49,16 +49,15 @@ const styles = {
   },
 
   lookingGlass: {
-    height: '30px',
-    opacity: '0.3',
-    width: '30px'
+    height: '25px',
+    opacity: '0.8',
+    width: '25px'
   },
 
   lookingGlassWrapper: {
     position: 'absolute',
-    marginTop: '7px',
     right: '10px',
-    top: 0,
+    top: '10px',
 
     ':hover': {
       cursor: 'pointer'

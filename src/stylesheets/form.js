@@ -4,6 +4,7 @@ const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const form = {
   container: {
+    position: 'relative',
     width: '100%'
   },
 

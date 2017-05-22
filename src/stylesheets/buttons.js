@@ -19,18 +19,41 @@ const buttons = {
     }
   },
 
+  active: {
+    alignItems: 'center',
+    background: colors.darkChalk,
+    border: 'none',
+    color: colors.white,
+    display: 'block',
+    fontSize: '14px',
+    fontWeight: 500,
+    padding: '5px',
+    position: 'absolute',
+    right: '45px',
+    top: '8px',
+
+    ':hover': {
+      background: colors.mediumGrey,
+      color: colors.darkChalk,
+      cursor: 'pointer'
+    }
+  },
+
   primary: {
     alignItems: 'center',
-    background: colors.lightGrey,
+    background: 'none',
+    border: `1px solid ${colors.darkChalk}`,
     color: colors.xDarkGrey,
-    display: 'inline-block',
+    display: 'block',
     flex: 1,
-    height: '46px',
+    fontSize: '14px',
+    fontWeight: 500,
     justifyContent: 'center',
-    marginLeft: '10px',
-    padding: '0 5px',
+    padding: '5px',
+    position: 'absolute',
     overflow: 'hidden',
-    width: '46px'
+    right: '45px',
+    top: '8px'
   },
 
   wide: {
