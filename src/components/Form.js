@@ -22,6 +22,8 @@ import Button from './Button';
 import Input from './Input';
 import Fetcher from './Fetcher';
 
+const settings = require('../settings.png');
+
 export class Form extends Component {
   constructor(props) {
     super(props);
@@ -58,30 +60,38 @@ export class Form extends Component {
             submitHandler={submitHandler}
             fetching={isFetching}
           />
-
-          <DesktopView>
-            <Button
-              type="button"
-              kind={this.state.showFilter ? 'active' : 'primary'}
-              clickHandler={this.toggleFilter}
-              className="__sw-advanced-search__"
-            >
-              { this.state.showFilter && <span>Hide Advanced Search</span> }
-              { !this.state.showFilter && <span>Advanced Search</span> }
-            </Button>
-          </DesktopView>
         </div>
 
         <PhoneView>
-          <Button
-            type="button"
-            kind="link"
-            clickHandler={this.toggleFilter}
-            className="__mobile-sw-advanced-search__"
-          >
-            { this.state.showFilter && <span>Hide Advanced Search</span> }
-            { !this.state.showFilter && <span>Advanced Search</span> }
-          </Button>
+          {
+            matches => matches ? (
+              <div>
+                <Button
+                  type="button"
+                  kind="mobileLink"
+                  clickHandler={this.toggleFilter}
+                  className="__mobile-sw-advanced-search__"
+                >
+                  <img src={settings} alt="settings" style={styles.sImg} />
+                  { this.state.showFilter && <span>Hide Advanced Search</span> }
+                  { !this.state.showFilter && <span>Advanced Search</span> }
+                </Button>
+              </div>
+            ) : (
+              <div style={{ overflow: 'hidden' }}>
+                <Button
+                  type="button"
+                  kind="link"
+                  clickHandler={this.toggleFilter}
+                  className="__sw-advanced-search__"
+                >
+                  <img src={settings} alt="settings" style={styles.sImg} />
+                  { this.state.showFilter && <span>Hide Advanced Search</span> }
+                  { !this.state.showFilter && <span>Advanced Search</span> }
+                </Button>
+              </div>
+            )
+          }
         </PhoneView>
 
         {

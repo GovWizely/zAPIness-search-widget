@@ -53,7 +53,14 @@ module.exports = {
             name: 'assets/images/[name]-[sha512:hash:base64:7].[ext]'
           }
         }]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' }
+        ]
       }
     ]
   }
-}
+};

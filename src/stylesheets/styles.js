@@ -15,6 +15,7 @@ const styles = {
   filter,
 
   container: {
+    boxSizing: 'border-box',
     padding: '20px',
     width: '100%'
   },
@@ -23,6 +24,15 @@ const styles = {
     height: '20px',
     width: '20px',
     color: colors.grey
+  },
+
+  sImg: {
+    height: '15px',
+    marginRight: '3px',
+    marginTop: '-2px',
+    opacity: 0.5,
+    verticalAlign: 'middle',
+    width: '15px'
   },
 
   link: {

@@ -4,8 +4,7 @@ const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const result = {
   base: {
-    marginTop: '20px',
-    width: '80%'
+    marginTop: '20px'
   },
 
   container: {
@@ -13,7 +12,6 @@ const result = {
     borderRadius: 3,
     color: colors.xDarkGrey,
     padding: '10px 20px',
-    width: '100%',
 
     ':hover': {
       background: colors.lightGrey,

@@ -10,7 +10,7 @@ const filter = {
     boxSizing: 'border-box',
     color: colors.xDarkGrey,
     fontFamily,
-    margin: '20px 0',
+    margin: '10px 0',
     padding: '20px',
     width: '100%'
   },
@@ -48,7 +48,7 @@ const filter = {
 
   span: {
     fontSize: '13px',
-    fontWeight: 300,
+    fontWeight: 500,
     marginBottom: '5px'
   },
 
@@ -65,8 +65,9 @@ const filter = {
   },
 
   select: {
-    border: `1px solid ${colors.xDarkGrey}`,
+    border: `1px solid ${colors.darkGrey}`,
     height: '20px',
+    opacity: 0.8,
     width: '100%'
   },
 

@@ -47,7 +47,7 @@ class Drawer extends Component {
                 { map(toPairs(cells), (cell, index) => (
                   <tr key={index} style={styles.result.tr}>
                     <td><b style={{ fontWeight: 400 }}>{ startCase(cell[0]) }</b></td>
-                    <td><i>{ cell[1] }</i></td>
+                    <td style={{ paddingLeft: '10px' }}><i>{ cell[1] }</i></td>
                   </tr>
                   ))}
               </tbody>

@@ -5,6 +5,7 @@ import { Field } from 'redux-form';
 
 import isEmpty from 'lodash/isEmpty';
 import keys from 'lodash/keys';
+import assignIn from 'lodash/assignIn';
 import SelectInput from './SelectInput';
 
 import Button from './Button';
@@ -25,9 +26,6 @@ import {
 } from '../actions/FilterActions';
 
 import styles from '../stylesheets/styles';
-
-const plus = require('../plus.png');
-const trash = require('../trash.png');
 
 export class Filter extends Component {
   componentDidMount() {
@@ -61,13 +59,13 @@ export class Filter extends Component {
       <div className="__sw-filter__" style={styles.filter.container}>
         <DesktopView>
           <div style={styles.filter.searchLabel}>
-            <span>Search By:</span>
+            <div style={{ marginBottom: '10px' }}>Search By:</div>
             {
                 fields.length === 0 &&
                   <Button
                     className="add-filter"
                     clickHandler={() => addFilter(fields)}
-                    kind="wide"
+                    kind="smallBlock"
                     type="button"
                   >
                     Add New Condition
@@ -114,10 +112,10 @@ export class Filter extends Component {
                   <Button
                     className="remove-filter"
                     clickHandler={() => removeFilter(fields, index)}
-                    kind="small"
+                    kind="sLink"
                     type="button"
                   >
-                    <span><img src={trash} alt="Delete" style={styles.img} /></span>
+                    Delete
                   </Button>
                 </div>
               </div>
@@ -137,6 +135,7 @@ export class Filter extends Component {
                 >
                   <span>Add New Condition</span>
                 </Button>
+
                 {
                   fields.length > 0 &&
                     <Button
@@ -145,9 +144,10 @@ export class Filter extends Component {
                       kind="mobileSubmit"
                       type="button"
                     >
-                      Submit
+                      Search
                     </Button>
                 }
+
               </div>
             ) : (
               <div>
@@ -169,15 +169,15 @@ export class Filter extends Component {
                       kind="small"
                       type="button"
                     >
-                      Remove All
+                      Clear All
                     </Button>
                     <Button
                       className="submit"
                       clickHandler={() => submitHandler()}
-                      kind="small"
+                      kind="submit"
                       type="button"
                     >
-                      Submit
+                      Search
                     </Button>
                   </div>
                 }

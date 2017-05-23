@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Media from 'react-media';
 
 export const breakpoints = {
-  desktop: '(min-width: 1025px)',
+  desktop: '(min-width: 768px)',
   tablet: '(min-width: 768px) and (max-width: 1024px)',
   phone: '(max-width: 767px)'
 };

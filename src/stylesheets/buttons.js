@@ -23,10 +23,31 @@ const buttons = {
     background: 'none',
     border: 'none',
     color: colors.darkChalk,
+    float: 'right',
     fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
     fontSize: '13px',
     fontWeight: 700,
     marginTop: '5px',
+    overflow: 'hidden',
+    textAlign: 'right',
+    textDecoration: 'underline',
+    width: '30%',
+
+    ':hover': {
+      background: 'none',
+      cursor: 'pointer'
+    }
+  },
+
+  mobileLink: {
+    background: 'none',
+    border: 'none',
+    color: colors.darkChalk,
+    fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+    fontSize: '13px',
+    fontWeight: 700,
+    marginTop: '5px',
+    textAlign: 'right',
     textDecoration: 'underline',
     width: '100%',
 
@@ -36,41 +57,19 @@ const buttons = {
     }
   },
 
-  active: {
-    alignItems: 'center',
-    background: colors.darkChalk,
+  sLink: {
+    background: 'none',
     border: 'none',
-    color: colors.white,
-    display: 'block',
-    fontSize: '14px',
-    fontWeight: 500,
-    padding: '5px',
-    position: 'absolute',
-    right: '45px',
-    top: '8px',
+    color: colors.darkChalk,
+    fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+    fontSize: '13px',
+    fontWeight: 300,
+    textDecoration: 'underline',
 
     ':hover': {
-      background: colors.mediumGrey,
-      color: colors.darkChalk,
+      background: 'none',
       cursor: 'pointer'
     }
-  },
-
-  primary: {
-    alignItems: 'center',
-    background: 'none',
-    border: `1px solid ${colors.darkChalk}`,
-    color: colors.xDarkGrey,
-    display: 'block',
-    flex: 1,
-    fontSize: '14px',
-    fontWeight: 500,
-    justifyContent: 'center',
-    padding: '5px',
-    position: 'absolute',
-    overflow: 'hidden',
-    right: '45px',
-    top: '8px'
   },
 
   wide: {
@@ -90,6 +89,10 @@ const buttons = {
     marginLeft: '5px'
   },
 
+  smallLink: {
+
+  },
+
   smallBlock: {
     border: `1px solid ${colors.xDarkGrey}`,
     display: 'block',
@@ -100,13 +103,23 @@ const buttons = {
     width: '100%'
   },
 
+  submit: {
+    background: colors.darkChalk,
+    display: 'inline-block',
+    fontSize: '13px',
+    fontWeight: 500,
+    color: colors.white,
+    marginLeft: '5px'
+  },
+
   mobileSubmit: {
     background: colors.darkChalk,
     display: 'block',
     fontSize: '13px',
     fontWeight: 500,
     color: colors.white,
-    width: '100%'
+    width: '100%',
+    marginBottom: '10px'
   }
 };
 
