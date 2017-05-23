@@ -19,6 +19,23 @@ const buttons = {
     }
   },
 
+  link: {
+    background: 'none',
+    border: 'none',
+    color: colors.darkChalk,
+    fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+    fontSize: '13px',
+    fontWeight: 700,
+    marginTop: '5px',
+    textDecoration: 'underline',
+    width: '100%',
+
+    ':hover': {
+      background: 'none',
+      cursor: 'pointer'
+    }
+  },
+
   active: {
     alignItems: 'center',
     background: colors.darkChalk,

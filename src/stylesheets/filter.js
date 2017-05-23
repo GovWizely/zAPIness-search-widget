@@ -16,11 +16,9 @@ const filter = {
   },
 
   searchLabel: {
-    borderBottom: `1px solid ${colors.darkGrey}`,
     fontSize: '15px',
     fontWeight: 500,
-    marginBottom: '20px',
-    paddingBottom: '10px'
+    marginBottom: '20px'
   },
 
   category: {

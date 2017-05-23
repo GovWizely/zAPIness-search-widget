@@ -37,20 +37,6 @@ export class Form extends Component {
     });
   }
 
-  advancedSearchBtn() {
-    return (
-      <Button
-        type="button"
-        kind={this.state.showFilter ? "active" : "primary" }
-        clickHandler={this.toggleFilter}
-        className="__sw-advanced-search__"
-      >
-        { this.state.showFilter && <span>Hide Advanced Search</span> }
-        { !this.state.showFilter && <span>Advanced Search</span> }
-      </Button>
-    )
-  }
-
   render() {
     const {
       filters,
@@ -73,10 +59,30 @@ export class Form extends Component {
             fetching={isFetching}
           />
 
-          {
-            this.advancedSearchBtn()
-          }
+          <DesktopView>
+            <Button
+              type="button"
+              kind={this.state.showFilter ? 'active' : 'primary'}
+              clickHandler={this.toggleFilter}
+              className="__sw-advanced-search__"
+            >
+              { this.state.showFilter && <span>Hide Advanced Search</span> }
+              { !this.state.showFilter && <span>Advanced Search</span> }
+            </Button>
+          </DesktopView>
         </div>
+
+        <PhoneView>
+          <Button
+            type="button"
+            kind="link"
+            clickHandler={this.toggleFilter}
+            className="__mobile-sw-advanced-search__"
+          >
+            { this.state.showFilter && <span>Hide Advanced Search</span> }
+            { !this.state.showFilter && <span>Advanced Search</span> }
+          </Button>
+        </PhoneView>
 
         {
           this.state.showFilter &&
