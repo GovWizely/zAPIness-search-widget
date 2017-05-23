@@ -71,6 +71,25 @@ const buttons = {
     fontWeight: 500,
     color: colors.xDarkGrey,
     marginLeft: '5px'
+  },
+
+  smallBlock: {
+    border: `1px solid ${colors.xDarkGrey}`,
+    display: 'block',
+    fontSize: '13px',
+    fontWeight: 500,
+    color: colors.xDarkGrey,
+    marginBottom: '10px',
+    width: '100%'
+  },
+
+  mobileSubmit: {
+    background: colors.darkChalk,
+    display: 'block',
+    fontSize: '13px',
+    fontWeight: 500,
+    color: colors.white,
+    width: '100%'
   }
 };
 

@@ -5,7 +5,7 @@ const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 const form = {
   container: {
     position: 'relative',
-    width: '100%'
+    width: '90%'
   },
 
   input: {
@@ -28,7 +28,7 @@ const form = {
     height: '46px',
     position: 'relative',
     verticalAlign: 'top',
-    width: '80%'
+    width: '100%'
   }
 };
 

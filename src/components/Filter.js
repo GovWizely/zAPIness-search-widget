@@ -8,6 +8,8 @@ import keys from 'lodash/keys';
 import SelectInput from './SelectInput';
 
 import Button from './Button';
+import DesktopView from './responsive/DesktopView';
+import PhoneView from './responsive/PhoneView';
 
 import {
   clearError,
@@ -28,6 +30,12 @@ const plus = require('../plus.png');
 const trash = require('../trash.png');
 
 export class Filter extends Component {
+  componentDidMount() {
+    if (this.props.fields.length > 0) { return; }
+
+    this.props.addFilter(this.props.fields);
+  }
+
   getAvailableValues(index) {
     const target = this.props.filters.get('filters')[index];
 
@@ -51,58 +59,58 @@ export class Filter extends Component {
 
     return (
       <div className="__sw-filter__" style={styles.filter.container}>
-
-        {
-          fields.length === 0 &&
-          <Button
-            className="add-filter"
-            clickHandler={() => addFilter(fields)}
-            kind="wide"
-            type="button"
-          >
-            Add New Filter
-          </Button>
-        }
-
+        <DesktopView>
+          <div style={styles.filter.searchLabel}>
+            <span>Search By:</span>
+            {
+                fields.length === 0 &&
+                  <Button
+                    className="add-filter"
+                    clickHandler={() => addFilter(fields)}
+                    kind="wide"
+                    type="button"
+                  >
+                    Add New Condition
+                  </Button>
+              }
+          </div>
+        </DesktopView>
 
         { !isEmpty(query.get('error')) &&
           <div className="__sw-error__" style={styles.error}>Field/Value is required</div>
         }
+
         <ul style={styles.filter.ul}>
           {fields.map((member, index) =>
             <li key={`filter-${index + 1}`} style={styles.filter.li}>
               <div className="list-container" style={styles.filter.listContainer}>
-                <span style={styles.filter.span}>Filtered By:</span>
-                <Field
-                  name={`${member}.type`}
-                  list={keys(filters.get('categories'))}
-                  changeHandler={data => selectFilterHandler(data, index)}
-                  component={SelectInput}
-                  className="select-type"
-                  fieldName={`${member}.type`}
-                  styles={styles.filter.select}
-                  {...rest}
-                />
-                <span style={styles.filter.span}>Value:</span>
-                <Field
-                  name={`${member}.value`}
-                  list={this.getAvailableValues(index)}
-                  changeHandler={data => selectFilterValueHandler(data, index)}
-                  component={SelectInput}
-                  fieldName={`${member}.value`}
-                  styles={styles.filter.select}
-                  {...rest}
-                />
-                <div className="btn-container" style={styles.filter.btnContainer}>
-                  <Button
-                    className="add-filter"
-                    clickHandler={() => addFilter(fields)}
-                    kind="small"
-                    type="button"
-                  >
-                    <span><img src={plus} alt="Add" style={styles.img} /></span>
-                  </Button>
+                <div style={styles.filter.category}>
+                  <div style={styles.filter.span}>Field:</div>
+                  <Field
+                    name={`${member}.type`}
+                    list={keys(filters.get('categories'))}
+                    changeHandler={data => selectFilterHandler(data, index)}
+                    component={SelectInput}
+                    className="select-type"
+                    fieldName={`${member}.type`}
+                    styles={styles.filter.select}
+                    {...rest}
+                  />
+                </div>
+                <div style={styles.filter.category}>
+                  <div style={styles.filter.span}>Value:</div>
+                  <Field
+                    name={`${member}.value`}
+                    list={this.getAvailableValues(index)}
+                    changeHandler={data => selectFilterValueHandler(data, index)}
+                    component={SelectInput}
+                    fieldName={`${member}.value`}
+                    styles={styles.filter.select}
+                    {...rest}
+                  />
+                </div>
 
+                <div className="btn-container" style={styles.filter.btnContainer}>
                   <Button
                     className="remove-filter"
                     clickHandler={() => removeFilter(fields, index)}
@@ -117,27 +125,66 @@ export class Filter extends Component {
           )}
         </ul>
 
-        {
-          fields.length > 0 &&
-          <div className="action-btn" style={styles.filter.actionBtn}>
-            <Button
-              className="remove-all-filter"
-              clickHandler={() => removeAllFilters(fields)}
-              kind="small"
-              type="button"
-            >
-              Remove All Filters
-            </Button>
-            <Button
-              className="submit"
-              clickHandler={() => submitHandler()}
-              kind="small"
-              type="button"
-            >
-              Submit
-            </Button>
-          </div>
-        }
+        <PhoneView>
+          {
+            matches => matches ? (
+              <div>
+                <Button
+                  className="add-filter"
+                  clickHandler={() => addFilter(fields)}
+                  kind="smallBlock"
+                  type="button"
+                >
+                  <span>Add New Condition</span>
+                </Button>
+                {
+                  fields.length > 0 &&
+                    <Button
+                      className="submit"
+                      clickHandler={() => submitHandler()}
+                      kind="mobileSubmit"
+                      type="button"
+                    >
+                      Submit
+                    </Button>
+                }
+              </div>
+            ) : (
+              <div>
+                {
+                  fields.length > 0 &&
+                  <div className="action-btn" style={styles.filter.actionBtn}>
+                    <Button
+                      className="add-filter"
+                      clickHandler={() => addFilter(fields)}
+                      kind="small"
+                      type="button"
+                    >
+                      Add Another Condition
+                    </Button>
+
+                    <Button
+                      className="remove-all-filter"
+                      clickHandler={() => removeAllFilters(fields)}
+                      kind="small"
+                      type="button"
+                    >
+                      Remove All
+                    </Button>
+                    <Button
+                      className="submit"
+                      clickHandler={() => submitHandler()}
+                      kind="small"
+                      type="button"
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                }
+              </div>
+            )
+          }
+        </PhoneView>
       </div>
     );
   }

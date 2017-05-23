@@ -7,17 +7,40 @@ const filter = {
     backgroundColor: colors.lightGrey,
     border: `1px solid ${colors.mediumGrey}`,
     borderRadius: 3,
+    boxSizing: 'border-box',
     color: colors.xDarkGrey,
     fontFamily,
     margin: '20px 0',
     padding: '20px',
-    width: '83%'
+    width: '100%'
+  },
+
+  searchLabel: {
+    borderBottom: `1px solid ${colors.darkGrey}`,
+    fontSize: '15px',
+    fontWeight: 500,
+    marginBottom: '20px',
+    paddingBottom: '10px'
+  },
+
+  category: {
+    display: 'inline-block',
+    marginRight: '1%',
+    width: '39%'
+  },
+
+  numbering: {
+    display: 'inline-block',
+    fontSize: '13px',
+    fontStyle: 'italic',
+    fontWeight: 400,
+    width: '10%'
   },
 
   ul: {
     fontFamily,
     listStyle: 'none',
-    margin: '20px 0',
+    margin: '0 0 20px 0',
     padding: 0
   },
 
@@ -27,8 +50,8 @@ const filter = {
 
   span: {
     fontSize: '13px',
-    fontWeight: 500,
-    marginRight: '5px'
+    fontWeight: 300,
+    marginBottom: '5px'
   },
 
   listContainer: {
@@ -44,12 +67,14 @@ const filter = {
   },
 
   select: {
+    border: `1px solid ${colors.xDarkGrey}`,
     height: '20px',
-    marginRight: '1%',
-    width: '28%'
+    width: '100%'
   },
 
   actionBtn: {
+    borderTop: `1px solid ${colors.darkGrey}`,
+    paddingTop: '20px',
     textAlign: 'right'
   }
 };
