@@ -132,6 +132,7 @@ Form.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   submitHandler: PropTypes.func.isRequired,
+  updateFilterStatus: PropTypes.func.isRequired,
   filters: PropTypes.shape({}).isRequired
 };
 

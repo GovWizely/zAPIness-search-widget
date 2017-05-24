@@ -89,10 +89,6 @@ const buttons = {
     marginLeft: '5px'
   },
 
-  smallLink: {
-
-  },
-
   smallBlock: {
     border: `1px solid ${colors.xDarkGrey}`,
     display: 'block',
@@ -109,7 +105,12 @@ const buttons = {
     fontSize: '13px',
     fontWeight: 500,
     color: colors.white,
-    marginLeft: '5px'
+    marginLeft: '5px',
+
+    ':hover': {
+      background: colors.chalk,
+      cursor: 'pointer'
+    }
   },
 
   mobileSubmit: {
