@@ -59,7 +59,7 @@ export class Filter extends Component {
       <div className="__sw-filter__" style={styles.filter.container}>
         <DesktopView>
           <div style={styles.filter.searchLabel}>
-            <div style={{ marginBottom: '10px' }}>Search By:</div>
+            <div style={{ marginBottom: '10px' }}>Filtered By:</div>
             {
                 fields.length === 0 &&
                   <Button
@@ -133,7 +133,7 @@ export class Filter extends Component {
                   kind="smallBlock"
                   type="button"
                 >
-                  <span>Add New Condition</span>
+                  <span>Add New Filter</span>
                 </Button>
 
                 {

@@ -21,7 +21,8 @@ const Button = props => (
 Button.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.shape({}),
-    PropTypes.string
+    PropTypes.string,
+    PropTypes.any
   ]).isRequired,
   className: PropTypes.string.isRequired,
   clickHandler: PropTypes.func.isRequired,

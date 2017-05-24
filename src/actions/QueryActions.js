@@ -1,6 +1,7 @@
 import map from 'lodash/map';
 import pick from 'lodash/pick';
 import values from 'lodash/values';
+import { change } from 'redux-form';
 
 import * as actionTypes from '../constants/ActionTypes';
 
@@ -63,6 +64,20 @@ export function updateShowAll(showAll) {
   return {
     type: actionTypes.UPDATE_SHOW_ALL,
     showAll
+  };
+}
+
+export function updateHasFilter(hasFilter) {
+  return {
+    type: actionTypes.UPDATE_HAS_FILTER,
+    hasFilter
+  };
+}
+
+export function setFilterRequired() {
+  return (dispatch, getState) => {
+    const required = getState().query.get('hasFilter');
+    dispatch(change('form', 'filterRequired', required));
   };
 }
 

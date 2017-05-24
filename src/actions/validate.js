@@ -1,7 +1,7 @@
 const validate = (values) => {
   const errors = {};
 
-  if (!values.filters) { return {}; }
+  if (!values.filters || !values.filterRequired) { return {}; }
 
   const filterArrayErrors = [];
 

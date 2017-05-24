@@ -9,7 +9,8 @@ const initialState = Map({
   data: undefined,
   error: [],
   fields: [],
-  showAll: false
+  showAll: false,
+  hasFilter: false
 });
 
 export default function queryReducer(state = initialState, action) {
@@ -31,6 +32,8 @@ export default function queryReducer(state = initialState, action) {
       return state.set('fields', action.fields);
     case actionTypes.UPDATE_SHOW_ALL:
       return state.set('showAll', action.showAll);
+    case actionTypes.UPDATE_HAS_FILTER:
+      return state.set('hasFilter', action.hasFilter);
     default:
       return state;
   }

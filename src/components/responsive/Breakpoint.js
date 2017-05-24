@@ -25,7 +25,12 @@ Breakpoint.defaultProps = {
 
 Breakpoint.propTypes = {
   name: PropTypes.string,
-  children: PropTypes.shape({})
+  children: PropTypes.oneOfType(
+    [
+      PropTypes.shape({}),
+      PropTypes.func
+    ]
+  )
 };
 
 export default Breakpoint;

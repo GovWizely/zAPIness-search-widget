@@ -6,12 +6,13 @@ import { FieldArray, reduxForm } from 'redux-form';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 
-import DesktopView from '../components/responsive/DesktopView';
 import PhoneView from '../components/responsive/PhoneView';
 
 import {
   requestApi,
-  updateKeyword
+  updateKeyword,
+  updateHasFilter,
+  setFilterRequired
 } from '../actions/QueryActions';
 
 import validate from '../actions/validate';
@@ -37,6 +38,7 @@ export class Form extends Component {
     this.setState({
       showFilter: !this.state.showFilter
     });
+    this.props.updateFilterStatus(!this.state.showFilter);
   }
 
   render() {
@@ -73,8 +75,8 @@ export class Form extends Component {
                   className="__mobile-sw-advanced-search__"
                 >
                   <img src={settings} alt="settings" style={styles.sImg} />
-                  { this.state.showFilter && <span>Hide Advanced Search</span> }
-                  { !this.state.showFilter && <span>Advanced Search</span> }
+                  { this.state.showFilter && <span>Hide Advanced Filter</span> }
+                  { !this.state.showFilter && <span>Advanced Filter</span> }
                 </Button>
               </div>
             ) : (
@@ -86,8 +88,8 @@ export class Form extends Component {
                   className="__sw-advanced-search__"
                 >
                   <img src={settings} alt="settings" style={styles.sImg} />
-                  { this.state.showFilter && <span>Hide Advanced Search</span> }
-                  { !this.state.showFilter && <span>Advanced Search</span> }
+                  { this.state.showFilter && <span>Hide Advanced Filter</span> }
+                  { !this.state.showFilter && <span>Advanced Filter</span> }
                 </Button>
               </div>
             )
@@ -113,10 +115,15 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
   return {
     submitHandler: (data) => {
+      dispatch(setFilterRequired());
       const keyword = data.target.value;
 
       dispatch(updateKeyword(keyword));
       dispatch(requestApi());
+    },
+
+    updateFilterStatus: (hasFilter) => {
+      dispatch(updateHasFilter(hasFilter));
     }
   };
 }

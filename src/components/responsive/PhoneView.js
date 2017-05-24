@@ -9,7 +9,12 @@ const PhoneView = props => (
 );
 
 PhoneView.propTypes = {
-  children: PropTypes.shape({}).isRequired
+  children: PropTypes.oneOfType(
+    [
+      PropTypes.func,
+      PropTypes.shape({})
+    ]
+  ).isRequired
 };
 
 export default PhoneView;
