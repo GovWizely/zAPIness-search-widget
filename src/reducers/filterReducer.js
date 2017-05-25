@@ -1,3 +1,5 @@
+import keys from 'lodash/keys';
+import values from 'lodash/values';
 import * as actionTypes from '../constants/ActionTypes';
 
 const { Map } = require('immutable');
@@ -12,14 +14,20 @@ export default function filterReducer(state = initialState, action) {
   let availableValues;
   let target;
   let newType;
+  let defaultFilter;
+  let defaultValues;
 
   switch (action.type) {
     case actionTypes.ADD_FILTER:
+      defaultFilter = state.get('categories');
+      defaultValues = values(defaultFilter)[0];
+
       newState = state.get('filters').concat(Map({
-        type: '',
-        availableValues: [],
-        value: ''
+        type: keys(defaultFilter)[0],
+        availableValues: defaultValues,
+        value: defaultValues ? defaultValues[0] : ''
       }));
+
       return state.setIn(['filters'], newState);
     case actionTypes.REMOVE_SELECTED_FILTER:
       newState = state.get('filters')

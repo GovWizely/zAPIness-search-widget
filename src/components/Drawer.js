@@ -8,14 +8,6 @@ import startCase from 'lodash/startCase';
 import styles from '../stylesheets/styles';
 
 class Drawer extends Component {
-  static propTypes = {
-    cells: PropTypes.shape({}).isRequired,
-    label: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    toggleHandler: PropTypes.func.isRequired,
-    showDetails: PropTypes.bool.isRequired
-  }
-
   toggleDetails(e) {
     e.preventDefault();
 
@@ -58,5 +50,13 @@ class Drawer extends Component {
     );
   }
 }
+
+Drawer.propTypes = {
+  cells: PropTypes.shape({}).isRequired,
+  label: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  toggleHandler: PropTypes.func.isRequired,
+  showDetails: PropTypes.bool.isRequired
+};
 
 export default Drawer;

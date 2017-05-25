@@ -27,6 +27,25 @@ function updateCategories(data) {
   };
 }
 
+export function addFilter() {
+  return {
+    type: actionTypes.ADD_FILTER
+  };
+}
+
+export function addDefaultFilter(fields) {
+  return (dispatch, getState) => {
+    dispatch(addFilter());
+
+    const defaultFilter = getState().filters.get('filters')[0].toJS();
+
+    return fields.push({
+      type: defaultFilter.type,
+      value: defaultFilter.value
+    });
+  };
+}
+
 export function updateSelectedFilter(selectedFilter, index) {
   return {
     type: actionTypes.UPDATE_SELECTED_FILTER,
@@ -43,11 +62,7 @@ export function updateSelectedValue(selectedValue, index) {
   };
 }
 
-export function addFilter() {
-  return {
-    type: actionTypes.ADD_FILTER
-  };
-}
+
 
 export function removeSelectedFilter(index) {
   return {

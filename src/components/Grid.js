@@ -3,7 +3,7 @@ import List from './List';
 
 import styles from '../stylesheets/styles';
 
-const Grid = (activePage, clickHandler) => num => (
+const Grid = (activePage, clickHandler) => (num) => (
   <List
     key={num}
     id={`list-${num + 1}`}

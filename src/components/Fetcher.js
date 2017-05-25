@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import styles from '../stylesheets/styles';
 import colors from '../stylesheets/colors';
 
-const Spinner = require('react-spinkit');
+import { Wave } from 'better-react-spinkit';
+
 const lookingGlass = require('../glass.png');
 
 const Radium = require('radium');
@@ -29,10 +30,10 @@ const Fetcher = (props) => {
       {
         fetching &&
         <span>
-          <Spinner
-            name="line-scale"
+          <Wave
             color={colors.chalk}
-            fadeIn="none"
+            size={34}
+            reverse
           />
         </span>
       }

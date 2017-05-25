@@ -5,6 +5,7 @@ import { FieldArray, reduxForm } from 'redux-form';
 
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
+import keys from 'lodash/keys';
 
 import PhoneView from '../components/responsive/PhoneView';
 
@@ -109,7 +110,9 @@ export class Form extends Component {
 }
 
 function mapStateToProps() {
-  return {};
+  return {
+    fields: ['keyword', 'filters[].type', 'filters[].value']
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -136,12 +139,7 @@ Form.propTypes = {
   filters: PropTypes.shape({}).isRequired
 };
 
-const connected = connect(mapStateToProps, mapDispatchToProps)(Form);
-
-export default reduxForm({
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'form',
-  validate,
-  fields: ['keyword', 'filters[].type', 'filters[].value']
-}, () => ({
-  initialValues: {}
-}))(connected);
+  validate
+})(Form));

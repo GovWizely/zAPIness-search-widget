@@ -57,6 +57,7 @@ export class App extends Component {
             filters={filters}
             onSubmit={() => {}}
           />
+
           {
             result &&
             <Result

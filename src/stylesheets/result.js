@@ -11,7 +11,6 @@ const result = {
     borderBottom: `1px solid${colors.lightGrey}`,
     borderRadius: 3,
     color: colors.xDarkGrey,
-    padding: '10px 20px',
 
     ':hover': {
       background: colors.lightGrey,
@@ -28,10 +27,12 @@ const result = {
 
   link: {
     color: colors.chalk,
+    display: 'block',
     textDecoration: 'none',
     fontFamily,
     fontSize: '15px',
     fontWeight: 500,
+    padding: '10px 20px',
     width: '100%'
   },
 

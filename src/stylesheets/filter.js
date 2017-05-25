@@ -24,7 +24,19 @@ const filter = {
   category: {
     display: 'inline-block',
     marginRight: '1%',
-    width: '39%'
+    maxWidth: '39%'
+  },
+
+  categoryType: {
+    display: 'inline-block',
+    marginRight: '1%',
+    maxWidth: '30%'
+  },
+
+  categoryValue: {
+    display: 'inline-block',
+    marginRight: '1%',
+    width: '48%'
   },
 
   numbering: {
@@ -66,9 +78,14 @@ const filter = {
 
   select: {
     border: `1px solid ${colors.darkGrey}`,
-    height: '20px',
+    fontFamily,
+    fontSize: '12px',
     opacity: 0.8,
-    width: '100%'
+    width: '100%',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    padding: '5px 0'
   },
 
   actionBtn: {

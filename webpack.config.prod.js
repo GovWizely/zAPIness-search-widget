@@ -31,10 +31,15 @@ module.exports = {
       comments: false,
       compress: {
         warnings: false,
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
-        screw_ie8: true
+        screw_ie8: true,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true
       }
     }),
     new CompressionPlugin({
@@ -64,7 +69,10 @@ module.exports = {
         include: [__dirname],
         options: {
           babelrc: false,
-          presets: [['es2015', { modules: false }], 'stage-0', 'react']
+          presets: [['env', {
+            modules: false,
+            loose: true
+          }], 'react', 'stage-3']
         }
       },
       {

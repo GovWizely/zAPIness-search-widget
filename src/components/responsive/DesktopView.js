@@ -9,7 +9,10 @@ const DesktopView = props => (
 );
 
 DesktopView.propTypes = {
-  children: PropTypes.shape({}).isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.any
+  ]).isRequired
 };
 
 export default DesktopView;

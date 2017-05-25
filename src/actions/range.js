@@ -18,7 +18,7 @@ const getRange = (activePage, totalPage, totalNumButton) => {
   let last = activePage + limit + 1;
   let numRange = [];
 
-  if (totalPage > totalNumButton) {
+  if (totalPage >= totalNumButton) {
     if (noPrev(activePage, limit)) {
       initial = upperLimit;
     }

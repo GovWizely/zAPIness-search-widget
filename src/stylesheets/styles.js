@@ -26,6 +26,13 @@ const styles = {
     color: colors.grey
   },
 
+  shallowImg: {
+    height: '20px',
+    marginLeft: '15px',
+    opacity: 0.6,
+    width: '20px'
+  },
+
   sImg: {
     height: '15px',
     marginRight: '3px',
@@ -53,9 +60,8 @@ const styles = {
 
   loadingIconWrapper: {
     position: 'absolute',
-    marginTop: '2px',
     right: '10px',
-    top: 0
+    top: '8px'
   },
 
   lookingGlass: {

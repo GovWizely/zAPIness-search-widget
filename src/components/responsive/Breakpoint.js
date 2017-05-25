@@ -28,7 +28,7 @@ Breakpoint.propTypes = {
   children: PropTypes.oneOfType(
     [
       PropTypes.shape({}),
-      PropTypes.func
+      PropTypes.any
     ]
   )
 };

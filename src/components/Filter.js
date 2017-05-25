@@ -5,7 +5,6 @@ import { Field } from 'redux-form';
 
 import isEmpty from 'lodash/isEmpty';
 import keys from 'lodash/keys';
-import assignIn from 'lodash/assignIn';
 import SelectInput from './SelectInput';
 
 import Button from './Button';
@@ -18,7 +17,7 @@ import {
 } from '../actions/QueryActions';
 
 import {
-  addFilter,
+  addDefaultFilter,
   updateSelectedValue,
   updateSelectedFilter,
   removeAllFilters,
@@ -26,6 +25,8 @@ import {
 } from '../actions/FilterActions';
 
 import styles from '../stylesheets/styles';
+
+const trash = require('../trash.png');
 
 export class Filter extends Component {
   componentDidMount() {
@@ -60,17 +61,6 @@ export class Filter extends Component {
         <DesktopView>
           <div style={styles.filter.searchLabel}>
             <div style={{ marginBottom: '10px' }}>Filtered By:</div>
-            {
-                fields.length === 0 &&
-                  <Button
-                    className="add-filter"
-                    clickHandler={() => addFilter(fields)}
-                    kind="smallBlock"
-                    type="button"
-                  >
-                    Add New Condition
-                  </Button>
-              }
           </div>
         </DesktopView>
 
@@ -82,8 +72,8 @@ export class Filter extends Component {
           {fields.map((member, index) =>
             <li key={`filter-${index + 1}`} style={styles.filter.li}>
               <div className="list-container" style={styles.filter.listContainer}>
-                <div style={styles.filter.category}>
-                  <div style={styles.filter.span}>Field:</div>
+                <div style={styles.filter.categoryType}>
+                  { index === 0 && <div style={styles.filter.span}>Field:</div> }
                   <Field
                     name={`${member}.type`}
                     list={keys(filters.get('categories'))}
@@ -95,8 +85,8 @@ export class Filter extends Component {
                     {...rest}
                   />
                 </div>
-                <div style={styles.filter.category}>
-                  <div style={styles.filter.span}>Value:</div>
+                <div style={styles.filter.categoryValue}>
+                  { index === 0 && <div style={styles.filter.span}>Value:</div> }
                   <Field
                     name={`${member}.value`}
                     list={this.getAvailableValues(index)}
@@ -109,20 +99,46 @@ export class Filter extends Component {
                 </div>
 
                 <div className="btn-container" style={styles.filter.btnContainer}>
-                  <Button
-                    className="remove-filter"
-                    clickHandler={() => removeFilter(fields, index)}
-                    kind="sLink"
-                    type="button"
-                  >
-                    Delete
-                  </Button>
+                  <PhoneView>
+                    {
+                      matches => matches ? (
+                        <Button
+                          className="remove-filter"
+                          clickHandler={() => removeFilter(fields, index)}
+                          kind="sLink"
+                          type="button"
+                        >
+                          <img src={trash} alt="Delete" style={styles.shallowImg} />
+                        </Button>
+                      ) : (
+                          <Button
+                            className="remove-filter"
+                            clickHandler={() => removeFilter(fields, index)}
+                            kind="sLink"
+                            type="button"
+                          >
+                            Delete
+                          </Button>
+                      )
+                    }
+                  </PhoneView>
                 </div>
               </div>
             </li>
           )}
+          <DesktopView>
+            <li>
+              <Button
+                className="add-filter"
+                clickHandler={() => addFilter(fields)}
+                kind="sLink"
+                type="button"
+              >
+                { fields.length === 0 ? 'Add New Filter' : 'Add Another Filter' }
+              </Button>
+            </li>
+          </DesktopView>
         </ul>
-
         <PhoneView>
           {
             matches => matches ? (
@@ -154,15 +170,6 @@ export class Filter extends Component {
                 {
                   fields.length > 0 &&
                   <div className="action-btn" style={styles.filter.actionBtn}>
-                    <Button
-                      className="add-filter"
-                      clickHandler={() => addFilter(fields)}
-                      kind="small"
-                      type="button"
-                    >
-                      Add Another Condition
-                    </Button>
-
                     <Button
                       className="remove-all-filter"
                       clickHandler={() => removeAllFilters(fields)}
@@ -211,8 +218,7 @@ function mapDispatchToProps(dispatch) {
     },
 
     addFilter: (fields) => {
-      dispatch(addFilter());
-      return fields.push({});
+      dispatch(addDefaultFilter(fields));
     },
 
     removeFilter: (fields, index) => {
