@@ -1,7 +1,10 @@
 import map from 'lodash/map';
+import each from 'lodash/each';
 import mapValues from 'lodash/mapValues';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
+import keys from 'lodash/keys';
+import values from 'lodash/values';
 
 import * as actionTypes from '../constants/ActionTypes';
 import {
@@ -27,21 +30,37 @@ function updateCategories(data) {
   };
 }
 
-export function addFilter() {
+export function addFilter(filterType, value) {
   return {
-    type: actionTypes.ADD_FILTER
+    type: actionTypes.ADD_FILTER,
+    filterType,
+    value
   };
 }
 
 export function addDefaultFilter(fields) {
   return (dispatch, getState) => {
-    dispatch(addFilter());
-
-    const defaultFilter = getState().filters.get('filters')[0].toJS();
+    const defaultFilter = getState().filters.get('categories');
+    const defaultValue = values(defaultFilter)[0];
 
     return fields.push({
-      type: defaultFilter.type,
-      value: defaultFilter.value
+      type: keys(defaultFilter)[0],
+      value: defaultValue ? defaultValue[0] : ''
+    });
+  };
+}
+
+export function removeAllFilters() {
+  return {
+    type: actionTypes.REMOVE_ALL_FILTERS
+  };
+}
+
+export function addFilters(formFilters) {
+  return (dispatch) => {
+    dispatch(removeAllFilters());
+    each(formFilters, (filter) => {
+      dispatch(addFilter(filter.type, filter.value));
     });
   };
 }
@@ -62,18 +81,10 @@ export function updateSelectedValue(selectedValue, index) {
   };
 }
 
-
-
 export function removeSelectedFilter(index) {
   return {
     type: actionTypes.REMOVE_SELECTED_FILTER,
     index
-  };
-}
-
-export function removeAllFilters() {
-  return {
-    type: actionTypes.REMOVE_ALL_FILTERS
   };
 }
 

@@ -13,7 +13,8 @@ import {
   requestApi,
   updateKeyword,
   updateHasFilter,
-  setFilterRequired
+  setFilterRequired,
+  resetPageNum
 } from '../actions/QueryActions';
 
 import validate from '../actions/validate';
@@ -120,6 +121,7 @@ function mapDispatchToProps(dispatch) {
     submitHandler: (data) => {
       dispatch(setFilterRequired());
       const keyword = data.target.value;
+      dispatch(resetPageNum());
 
       dispatch(updateKeyword(keyword));
       dispatch(requestApi());

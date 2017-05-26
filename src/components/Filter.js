@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Field } from 'redux-form';
+import { Field, formValueSelector } from 'redux-form';
 
 import isEmpty from 'lodash/isEmpty';
 import keys from 'lodash/keys';
@@ -13,13 +13,13 @@ import PhoneView from './responsive/PhoneView';
 
 import {
   clearError,
-  requestApi
+  requestApi,
+  resetPageNum
 } from '../actions/QueryActions';
 
 import {
   addDefaultFilter,
-  updateSelectedValue,
-  updateSelectedFilter,
+  addFilters,
   removeAllFilters,
   removeSelectedFilter
 } from '../actions/FilterActions';
@@ -36,9 +36,10 @@ export class Filter extends Component {
   }
 
   getAvailableValues(index) {
-    const target = this.props.filters.get('filters')[index];
+    const target = this.props.formFilters[index].type;
+    const categories = this.props.filters.get('categories');
 
-    return target.get('availableValues') || [];
+    return categories ? categories[target] : [];
   }
 
   render() {
@@ -46,12 +47,11 @@ export class Filter extends Component {
       fields,
       filters,
       form,
+      formFilters,
       query,
       addFilter,
       removeAllFilters,
       removeFilter,
-      selectFilterHandler,
-      selectFilterValueHandler,
       submitHandler,
       ...rest
     } = this.props;
@@ -77,7 +77,7 @@ export class Filter extends Component {
                   <Field
                     name={`${member}.type`}
                     list={keys(filters.get('categories'))}
-                    changeHandler={data => selectFilterHandler(data, index)}
+                    changeHandler={() => {}}
                     component={SelectInput}
                     className="select-type"
                     fieldName={`${member}.type`}
@@ -90,7 +90,7 @@ export class Filter extends Component {
                   <Field
                     name={`${member}.value`}
                     list={this.getAvailableValues(index)}
-                    changeHandler={data => selectFilterValueHandler(data, index)}
+                    changeHandler={() => {}}
                     component={SelectInput}
                     fieldName={`${member}.value`}
                     styles={styles.filter.select}
@@ -156,7 +156,7 @@ export class Filter extends Component {
                   fields.length > 0 &&
                     <Button
                       className="submit"
-                      clickHandler={() => submitHandler()}
+                      clickHandler={() => submitHandler(formFilters)}
                       kind="mobileSubmit"
                       type="button"
                     >
@@ -180,7 +180,7 @@ export class Filter extends Component {
                     </Button>
                     <Button
                       className="submit"
-                      clickHandler={() => submitHandler()}
+                      clickHandler={() => submitHandler(formFilters)}
                       kind="submit"
                       type="button"
                     >
@@ -197,8 +197,11 @@ export class Filter extends Component {
   }
 }
 
+const selector = formValueSelector('form');
+
 function mapStateToProps(state) {
   return {
+    formFilters: selector(state, 'filters') || [],
     query: state.query,
     form: state.form,
     filters: state.filters
@@ -207,16 +210,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectFilterHandler: (data, index) => {
-      const selectedCategory = data.target.value;
-      dispatch(updateSelectedFilter(selectedCategory, index));
-    },
-
-    selectFilterValueHandler: (data, index) => {
-      const selectedValue = data.target.value;
-      dispatch(updateSelectedValue(selectedValue, index));
-    },
-
     addFilter: (fields) => {
       dispatch(addDefaultFilter(fields));
     },
@@ -232,7 +225,9 @@ function mapDispatchToProps(dispatch) {
       return fields.removeAll();
     },
 
-    submitHandler: () => {
+    submitHandler: (formFilters) => {
+      dispatch(addFilters(formFilters));
+      dispatch(resetPageNum());
       dispatch(requestApi());
     }
   };
@@ -249,14 +244,18 @@ Filter.propTypes = {
   filters: PropTypes.shape({
     get: PropTypes.func.isRequired
   }).isRequired,
+  formFilters: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      value: PropTypes.string
+    })
+  ).isRequired,
   form: PropTypes.shape({}).isRequired,
   query: PropTypes.shape({
     get: PropTypes.func.isRequired
   }).isRequired,
   removeFilter: PropTypes.func.isRequired,
   removeAllFilters: PropTypes.func.isRequired,
-  selectFilterHandler: PropTypes.func.isRequired,
-  selectFilterValueHandler: PropTypes.func.isRequired,
   submitHandler: PropTypes.func.isRequired
 };
 

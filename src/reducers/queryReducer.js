@@ -21,6 +21,8 @@ export default function queryReducer(state = initialState, action) {
       return state.set('error', action.error);
     case actionTypes.CLEAR_ERROR:
       return state.set('error', []);
+    case actionTypes.RESET_PAGE_NUM:
+      return state.set('pageNum', 1);
     case actionTypes.UPDATE_KEYWORD:
       return state.set('keyword', action.keyword);
     case actionTypes.UPDATE_PAGE_NUM:
