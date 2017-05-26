@@ -50,6 +50,7 @@ export class Filter extends Component {
       formFilters,
       query,
       addFilter,
+      isFetching,
       removeAllFilters,
       removeFilter,
       submitHandler,
@@ -159,6 +160,7 @@ export class Filter extends Component {
                       clickHandler={() => submitHandler(formFilters)}
                       kind="mobileSubmit"
                       type="button"
+                      submitting={isFetching}
                     >
                       Search
                     </Button>
@@ -183,6 +185,7 @@ export class Filter extends Component {
                       clickHandler={() => submitHandler(formFilters)}
                       kind="submit"
                       type="button"
+                      submitting={isFetching}
                     >
                       Search
                     </Button>
@@ -204,7 +207,8 @@ function mapStateToProps(state) {
     formFilters: selector(state, 'filters') || [],
     query: state.query,
     form: state.form,
-    filters: state.filters
+    filters: state.filters,
+    isFetching: state.isFetching
   };
 }
 

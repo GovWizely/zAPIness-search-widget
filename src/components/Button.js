@@ -13,10 +13,15 @@ const Button = props => (
     className={props.className}
     onClick={props.clickHandler}
     type={props.type}
+    disabled={props.submitting}
   >
     {props.children}
   </button>
 );
+
+Button.defaultProps = {
+  submitting: false
+};
 
 Button.propTypes = {
   children: PropTypes.oneOfType([
@@ -27,7 +32,8 @@ Button.propTypes = {
   className: PropTypes.string.isRequired,
   clickHandler: PropTypes.func.isRequired,
   kind: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
+  submitting: PropTypes.bool
 };
 
 export default Radium(Button);

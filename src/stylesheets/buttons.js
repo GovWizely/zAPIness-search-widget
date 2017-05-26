@@ -110,6 +110,11 @@ const buttons = {
     ':hover': {
       background: colors.chalk,
       cursor: 'pointer'
+    },
+
+    ':disabled': {
+      background: colors.chalk,
+      opacity: '0.5'
     }
   },
 

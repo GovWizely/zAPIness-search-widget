@@ -65,22 +65,6 @@ export function addFilters(formFilters) {
   };
 }
 
-export function updateSelectedFilter(selectedFilter, index) {
-  return {
-    type: actionTypes.UPDATE_SELECTED_FILTER,
-    index,
-    selectedFilter
-  };
-}
-
-export function updateSelectedValue(selectedValue, index) {
-  return {
-    type: actionTypes.UPDATE_SELECTED_FILTER_VALUE,
-    index,
-    selectedValue
-  };
-}
-
 export function removeSelectedFilter(index) {
   return {
     type: actionTypes.REMOVE_SELECTED_FILTER,

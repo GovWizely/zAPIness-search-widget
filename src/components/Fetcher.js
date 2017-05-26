@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../stylesheets/styles';
-import colors from '../stylesheets/colors';
-
-import { Wave } from 'better-react-spinkit';
+import LoadingIcon from './LoadingIcon';
 
 const lookingGlass = require('../glass.png');
 
@@ -11,32 +9,24 @@ const Radium = require('radium');
 
 const Fetcher = (props) => {
   const {
-    fetching,
-    submitHandler
+    submitHandler,
+    fetching
   } = props;
 
   return (
     <div
-      style={fetching ? styles.loadingIconWrapper : styles.lookingGlassWrapper}
+      style={styles.lookingGlassWrapper}
       onClick={fetching ? () => { } : submitHandler}
       role="button"
+      disabled={fetching}
     >
-      {
-        !fetching &&
-        <span>
-          <img src={lookingGlass} alt="Search" style={styles.lookingGlass} />
-        </span>
-      }
-      {
-        fetching &&
-        <span>
-          <Wave
-            color={colors.chalk}
-            size={34}
-            reverse
-          />
-        </span>
-      }
+      <span>
+        <img
+          src={lookingGlass}
+          alt="Search"
+          style={styles.lookingGlass}
+        />
+      </span>
     </div>
   );
 };

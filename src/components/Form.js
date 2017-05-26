@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { FieldArray, reduxForm } from 'redux-form';
 
 import debounce from 'lodash/debounce';
-import isEmpty from 'lodash/isEmpty';
-import keys from 'lodash/keys';
 
 import PhoneView from '../components/responsive/PhoneView';
 
