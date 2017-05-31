@@ -74,15 +74,15 @@ export default class Pagination extends React.Component {
                     </List>
                   }
                   <List
-                      className="current-page"
-                      mobile
-                      clickHandler={(e) => {
-                        e.preventDefault();
-                        onSelect(activePage);
-                      }}
-                    >
-                      {activePage} of {totalPage}
-                    </List>
+                    className="current-page"
+                    mobile
+                    clickHandler={(e) => {
+                      e.preventDefault();
+                      onSelect(activePage);
+                    }}
+                  >
+                    {activePage} of {totalPage}
+                  </List>
                   { haveNext &&
                     <List
                       className="next-page"

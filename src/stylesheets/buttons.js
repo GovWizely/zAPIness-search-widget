@@ -31,7 +31,6 @@ const buttons = {
     overflow: 'hidden',
     textAlign: 'right',
     textDecoration: 'underline',
-    width: '30%',
 
     ':hover': {
       background: 'none',

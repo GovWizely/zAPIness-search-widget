@@ -2,7 +2,7 @@
 
 A search widget that allows users to search a given zAPIness endpoint.
 
-<img width="1668" alt="screen shot 2017-05-31 at 2 51 52 pm" src="https://cloud.githubusercontent.com/assets/21019282/26619375/ca7678e8-4610-11e7-821e-b7016684e1bd.png">
+<img width="1459" alt="screen shot 2017-05-31 at 5 13 47 pm" src="https://cloud.githubusercontent.com/assets/21019282/26624795/98a38806-4624-11e7-893f-0fecc4820502.png">
 ____
 
 
@@ -15,7 +15,7 @@ zAPIness-search-widget will be loaded in any webpage by embedding the following 
 ```javascript
 <script type="text/javascript">
   var script = document.createElement('script');
-  script.src = "https://govwizely.github.io/zAPIness-search-widget/static/js/main.js?v=975c2c68";
+  script.src = "https://govwizely.github.io/zAPIness-search-widget/static/js/main.js?v=40c3c744";
   document.getElementsByTagName('head')[0].appendChild(script);
 
   window.onload = function() {
