@@ -74,4 +74,22 @@ describe('containers/App', () => {
 
     expect(store.getActions().length).toEqual(1);
   });
+
+  it('renders no result during data fetching', () => {
+    const app = shallow(
+      <App
+        query={initialState}
+        toggle={toggle}
+        handleSelect={handleSelect}
+        getCategories={getCategories}
+        updateFields={updateFields}
+        toggleResultHandler={toggleResultHandler}
+        previewResult={previewResult}
+        isFetching
+        filters={filters}
+      />
+    );
+
+    expect(app.find('div.__sw-result__').exists()).toBe(false);
+  });
 });

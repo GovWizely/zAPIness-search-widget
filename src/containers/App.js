@@ -59,10 +59,10 @@ export class App extends Component {
             onSubmit={() => {}}
           />
           {
-            isFetching && <div><LoadingIcon /></div>
+            isFetching && <div style={{ padding: '0 50%' }}><LoadingIcon /></div>
           }
           {
-            result &&
+            result && !isFetching &&
             <Result
               query={result}
               showAll={query.get('showAll')}

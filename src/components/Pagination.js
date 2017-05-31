@@ -73,7 +73,7 @@ export default class Pagination extends React.Component {
                       ‹
                     </List>
                   }
-                    <List
+                  <List
                       className="current-page"
                       mobile
                       clickHandler={(e) => {

@@ -42,7 +42,7 @@ const Result = (props) => {
         {
           props.query.data.results.length > 0 &&
           <div style={styles.pagination.total} className="__sw-total-result__">
-            { count(props.query.data) } of { totalCount(props.query.data) } results shown
+            { props.activePage } - { paginationTotal(props.query.data, 10) } of { totalCount(props.query.data) } results shown
           </div>
         }
       </DesktopView>

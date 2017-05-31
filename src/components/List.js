@@ -37,7 +37,7 @@ List.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.shape({})
+    PropTypes.any
   ]).isRequired,
   className: PropTypes.string.isRequired,
   clickHandler: PropTypes.func.isRequired,
