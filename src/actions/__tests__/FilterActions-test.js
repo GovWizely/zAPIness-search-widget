@@ -18,50 +18,84 @@ describe('actions/FilterActions', () => {
   const endpoint = 'sample-endpoint/1';
   const host = 'http://sample-host';
 
-  describe('updateSelectedFilter', () => {
-    it('creates action to update selected filter', () => {
-      const selectedFilter = { type: 'star', value: 'Sun' };
-
-      expect(FilterActions.updateSelectedFilter(selectedFilter, index)).toEqual(
-        {
-          type: actionTypes.UPDATE_SELECTED_FILTER,
-          index,
-          selectedFilter
-        }
-      );
-    });
-  });
-
-  describe('updateSelectedValue', () => {
-    it('creates action to update selected value', () => {
-      const selectedValue = 'Earth';
-
-      expect(FilterActions.updateSelectedValue(selectedValue, index)).toEqual(
-        {
-          type: actionTypes.UPDATE_SELECTED_FILTER_VALUE,
-          index,
-          selectedValue
-        }
-      );
-    });
-  });
-
   describe('removeSelectedFilter', () => {
     it('creates action to remove selected filter', () => {
-      expect(FilterActions.removeSelectedFilter(index)).toEqual(
-        {
-          type: actionTypes.REMOVE_SELECTED_FILTER,
-          index
-        }
-      );
+      const store = mockStore({
+        filters: [{ type: 'country', value: 'Sweden' }]
+      });
+
+      const expectedActions = [{
+        type: actionTypes.REMOVE_SELECTED_FILTER,
+        index
+      }];
+
+      store.dispatch(FilterActions.removeSelectedFilter(index));
+
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 
   describe('removeAllFilters', () => {
     it('creates action to remove all filters', () => {
-      expect(FilterActions.removeAllFilters()).toEqual(
-        { type: actionTypes.REMOVE_ALL_FILTERS }
-      );
+      const store = mockStore({
+        filters: [{ type: 'country', value: 'Sweden' }]
+      });
+
+      const expectedActions = [{ type: actionTypes.REMOVE_ALL_FILTERS }];
+
+      store.dispatch(FilterActions.removeAllFilters());
+
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('addFilter', () => {
+    it('adds new filter with the passed values and types', () => {
+      const store = mockStore({
+        filters: [{ type: 'country', value: 'Sweden' }]
+      });
+
+      const filterType = 'country';
+      const value = 'Sweden';
+
+      const expectedActions = [{ type: actionTypes.ADD_FILTER,
+        filterType,
+        value
+      }];
+
+      store.dispatch(FilterActions.addFilter(filterType, value));
+
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('addFilters', () => {
+    it('adds filters to store based on fields from the form', () => {
+      const store = mockStore({
+        filters: [{ type: 'country', value: 'Sweden' }]
+      });
+
+      const filter1 = { type: 'capital', value: 'Berlin' };
+      const filter2 = { type: 'country', value: 'Italy' };
+      const formFilters = [filter1, filter2];
+
+      const expectedActions = [
+        {
+          type: actionTypes.REMOVE_ALL_FILTERS
+        },
+        {
+          type: actionTypes.ADD_FILTER,
+          filterType: filter1.type,
+          value: filter1.value
+        }, {
+          type: actionTypes.ADD_FILTER,
+          filterType: filter2.type,
+          value: filter2.value
+        }
+      ];
+
+      store.dispatch(FilterActions.addFilters(formFilters));
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 

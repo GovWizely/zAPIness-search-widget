@@ -13,7 +13,7 @@ const styles = delay => ({
 });
 
 const LoadingIcon = () => (
-  <span>
+  <span className="__sw-loading-icon__">
     <span>
       <style> {
         `@-webkit-keyframes wave {

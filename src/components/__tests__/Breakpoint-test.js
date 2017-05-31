@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Breakpoint, { breakpoints } from '../responsive/Breakpoints';
+import Breakpoint, { breakpoints } from '../responsive/Breakpoint';
 
 describe('components/Breakpoints', () => {
   it('returns desktop view by default', () => {

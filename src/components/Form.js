@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { FieldArray, reduxForm } from 'redux-form';
 
 import debounce from 'lodash/debounce';
+import isEmpty from 'lodash/isEmpty';
 
 import PhoneView from '../components/responsive/PhoneView';
 
@@ -63,7 +64,6 @@ export class Form extends Component {
             fetching={isFetching}
           />
         </div>
-
         <PhoneView>
           {
             matches => matches ? (
@@ -72,7 +72,7 @@ export class Form extends Component {
                   type="button"
                   kind="mobileLink"
                   clickHandler={this.toggleFilter}
-                  className="__mobile-sw-advanced-search__"
+                  className="_sw-advanced-search__"
                 >
                   <img src={settings} alt="settings" style={styles.sImg} />
                   { this.state.showFilter && <span>Hide Advanced Filter</span> }

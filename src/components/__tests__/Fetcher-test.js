@@ -5,27 +5,7 @@ import Fetcher from '../Fetcher';
 describe('components/Fetcher', () => {
   const submitHandler = jest.fn();
 
-  it('shows loading icon during data fetching', () => {
-    const wrapper = shallow(
-      <Fetcher
-        fetching
-        submitHandler={submitHandler}
-      />
-    );
-
-    expect(wrapper.containsMatchingElement(
-      <div>
-        <span>
-          <img alt="Loading" />
-        </span>
-      </div>
-    ));
-
-    wrapper.find('div').simulate('click');
-    expect(submitHandler).toHaveBeenCalledTimes(0);
-  });
-
-  it('shows looking glass icon at all times except fetching data', () => {
+  it('shows looking glass icon', () => {
     const wrapper = shallow(
       <Fetcher
         fetching={false}
@@ -43,5 +23,16 @@ describe('components/Fetcher', () => {
 
     wrapper.find('div').simulate('click');
     expect(submitHandler).toHaveBeenCalledTimes(1);
+  });
+
+  it('is disabled during form submission', () => {
+    const wrapper = shallow(
+      <Fetcher
+        fetching
+        submitHandler={submitHandler}
+      />
+    );
+
+    expect(wrapper.find('div').props().disabled).toBe(true);
   });
 });

@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 import sinon from 'sinon';
+import { change } from 'redux-form';
 import * as QueryActions from '../QueryActions';
 import * as actionTypes from '../../constants/ActionTypes';
 import { configureApp } from '../api';
@@ -152,6 +153,60 @@ describe('actions/QueryActions', () => {
         'Harry Potter',
         'Interstellar',
         'Avatar'
+      ]);
+    });
+  });
+
+  describe('updateHasFilter', () => {
+    it('updates has filter flag', () => {
+      const store = mockStore(Map({
+        hasFilter: false
+      }));
+
+      store.dispatch(QueryActions.updateHasFilter(true));
+
+      expect(store.getActions()).toEqual([
+        { type: actionTypes.UPDATE_HAS_FILTER, hasFilter: true }
+      ]);
+    });
+  });
+
+  describe('resetPageNum', () => {
+    it('resets page num to 1', () => {
+      const store = mockStore(Map({
+        pageNum: 5
+      }));
+
+      store.dispatch(QueryActions.resetPageNum());
+
+      expect(store.getActions()).toEqual(
+        [{ type: actionTypes.RESET_PAGE_NUM }]
+      );
+    });
+  });
+
+  describe('setFilterRequired', () => {
+    it('updates has filter flag', () => {
+      const store = mockStore({
+        form: {
+          form: {}
+        },
+        query: Map({ hasFilter: true })
+      });
+
+      store.dispatch(QueryActions.setFilterRequired());
+
+      expect(store.getActions()).toEqual([
+        {
+          meta: {
+            field: 'filterRequired',
+            form: 'form',
+            persistentSubmitErrors: undefined,
+            touch: undefined
+          },
+          payload: true,
+          type: '@@redux-form/CHANGE'
+        }
       ]);
     });
   });

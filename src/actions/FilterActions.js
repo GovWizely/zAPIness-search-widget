@@ -3,8 +3,6 @@ import each from 'lodash/each';
 import mapValues from 'lodash/mapValues';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
-import keys from 'lodash/keys';
-import values from 'lodash/values';
 
 import * as actionTypes from '../constants/ActionTypes';
 import {
@@ -35,18 +33,6 @@ export function addFilter(filterType, value) {
     type: actionTypes.ADD_FILTER,
     filterType,
     value
-  };
-}
-
-export function addDefaultFilter(fields) {
-  return (dispatch, getState) => {
-    const defaultFilter = getState().filters.get('categories');
-    const defaultValue = values(defaultFilter)[0];
-
-    return fields.push({
-      type: keys(defaultFilter)[0],
-      value: defaultValue ? defaultValue[0] : ''
-    });
   };
 }
 

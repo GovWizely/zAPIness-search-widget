@@ -53,7 +53,6 @@ export default class Pagination extends React.Component {
 
     return (
       <div style={styles.pagination.container}>
-
         <PhoneView>
             {
               matches => matches ? (

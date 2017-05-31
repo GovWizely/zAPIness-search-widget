@@ -28,7 +28,8 @@ const Result = (props) => {
     props.showAll
   );
 
-  const showPagination = props.query.data.results.length > 0 && paginationTotal(props.query.data, 10) > 1;
+  const showPagination = props.query.data.results.length > 0
+    && paginationTotal(props.query.data, 10) > 1;
 
   return (
     <div className="__sw-result__" style={styles.result.base}>
@@ -40,7 +41,7 @@ const Result = (props) => {
       <DesktopView>
         {
           props.query.data.results.length > 0 &&
-          <div style={styles.pagination.total}>
+          <div style={styles.pagination.total} className="__sw-total-result__">
             { count(props.query.data) } of { totalCount(props.query.data) } results shown
           </div>
         }

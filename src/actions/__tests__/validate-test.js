@@ -3,6 +3,10 @@ import validate from '../validate';
 describe('action/validate', () => {
   describe('validate', () => {
     it('returns empty obj if does not have filters', () => {
+      expect(validate({ filterRequired: false })).toEqual({});
+    });
+
+    it('returns empty obj if filterRequired is false', () => {
       expect(validate({})).toEqual({});
     });
 
@@ -19,7 +23,8 @@ describe('action/validate', () => {
       const values = {
         filters: [{
           type: 'Occupation', value: ''
-        }]
+        }],
+        filterRequired: true
       };
 
       expect(validate(values)).toEqual(
@@ -31,7 +36,8 @@ describe('action/validate', () => {
       const values = {
         filters: [{
           type: '', value: 'student'
-        }]
+        }],
+        filterRequired: true
       };
 
       expect(validate(values)).toEqual(

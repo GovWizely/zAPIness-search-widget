@@ -5,8 +5,9 @@ import { Field, formValueSelector } from 'redux-form';
 
 import isEmpty from 'lodash/isEmpty';
 import keys from 'lodash/keys';
-import SelectInput from './SelectInput';
+import values from 'lodash/values';
 
+import SelectInput from './SelectInput';
 import Button from './Button';
 import DesktopView from './responsive/DesktopView';
 import PhoneView from './responsive/PhoneView';
@@ -18,7 +19,6 @@ import {
 } from '../actions/QueryActions';
 
 import {
-  addDefaultFilter,
   addFilters,
   removeAllFilters,
   removeSelectedFilter
@@ -32,14 +32,27 @@ export class Filter extends Component {
   componentDidMount() {
     if (this.props.fields.length > 0) { return; }
 
-    this.props.addFilter(this.props.fields);
+    this.addDefaultFilter(this.props.fields);
   }
 
   getAvailableValues(index) {
+    if (isEmpty(this.props.formFilters)) { return []; }
     const target = this.props.formFilters[index].type;
     const categories = this.props.filters.get('categories');
 
     return categories ? categories[target] : [];
+  }
+
+  addDefaultFilter(fields) {
+    const defaultFilter = this.props.filters.get('categories');
+    const defaultValue = values(defaultFilter)[0];
+
+    fields.push({
+      type: keys(defaultFilter)[0],
+      value: defaultValue ? defaultValue[0] : ''
+    });
+
+    return fields;
   }
 
   render() {
@@ -49,7 +62,6 @@ export class Filter extends Component {
       form,
       formFilters,
       query,
-      addFilter,
       isFetching,
       removeAllFilters,
       removeFilter,
@@ -112,14 +124,14 @@ export class Filter extends Component {
                           <img src={trash} alt="Delete" style={styles.shallowImg} />
                         </Button>
                       ) : (
-                          <Button
-                            className="remove-filter"
-                            clickHandler={() => removeFilter(fields, index)}
-                            kind="sLink"
-                            type="button"
-                          >
-                            Delete
-                          </Button>
+                        <Button
+                          className="remove-filter"
+                          clickHandler={() => removeFilter(fields, index)}
+                          kind="sLink"
+                          type="button"
+                        >
+                          Delete
+                        </Button>
                       )
                     }
                   </PhoneView>
@@ -128,46 +140,25 @@ export class Filter extends Component {
             </li>
           )}
           <DesktopView>
-            <li>
-              <Button
-                className="add-filter"
-                clickHandler={() => addFilter(fields)}
-                kind="sLink"
-                type="button"
-              >
-                { fields.length === 0 ? 'Add New Filter' : 'Add Another Filter' }
-              </Button>
-            </li>
+            {
+              matches => matches ? (
+                <li>
+                  <Button
+                    className="add-filter"
+                    clickHandler={() => this.addDefaultFilter(fields)}
+                    kind="sLink"
+                    type="button"
+                  >
+                    { fields.length === 0 ? 'Add New Filter' : 'Add Another Filter' }
+                  </Button>
+                </li>
+              ) : null
+            }
           </DesktopView>
         </ul>
-        <PhoneView>
+        <DesktopView>
           {
             matches => matches ? (
-              <div>
-                <Button
-                  className="add-filter"
-                  clickHandler={() => addFilter(fields)}
-                  kind="smallBlock"
-                  type="button"
-                >
-                  <span>Add New Filter</span>
-                </Button>
-
-                {
-                  fields.length > 0 &&
-                    <Button
-                      className="submit"
-                      clickHandler={() => submitHandler(formFilters)}
-                      kind="mobileSubmit"
-                      type="button"
-                      submitting={isFetching}
-                    >
-                      Search
-                    </Button>
-                }
-
-              </div>
-            ) : (
               <div>
                 {
                   fields.length > 0 &&
@@ -192,9 +183,33 @@ export class Filter extends Component {
                   </div>
                 }
               </div>
+            ) : (
+              <div>
+                <Button
+                  className="add-filter"
+                  clickHandler={() => this.addDefaultFilter(fields)}
+                  kind="smallBlock"
+                  type="button"
+                >
+                  <span>Add New Filter</span>
+                </Button>
+
+                {
+                  fields.length > 0 &&
+                    <Button
+                      className="submit"
+                      clickHandler={() => submitHandler(formFilters)}
+                      kind="mobileSubmit"
+                      type="button"
+                      submitting={isFetching}
+                    >
+                      Search
+                    </Button>
+                }
+              </div>
             )
           }
-        </PhoneView>
+        </DesktopView>
       </div>
     );
   }
@@ -214,10 +229,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addFilter: (fields) => {
-      dispatch(addDefaultFilter(fields));
-    },
-
     removeFilter: (fields, index) => {
       dispatch(removeSelectedFilter(index));
       return fields.remove(index);
@@ -238,7 +249,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 Filter.propTypes = {
-  addFilter: PropTypes.func.isRequired,
   fields: PropTypes.oneOfType([
     PropTypes.shape({
       component: PropTypes.func
@@ -255,6 +265,7 @@ Filter.propTypes = {
     })
   ).isRequired,
   form: PropTypes.shape({}).isRequired,
+  isFetching: PropTypes.bool.isRequired,
   query: PropTypes.shape({
     get: PropTypes.func.isRequired
   }).isRequired,

@@ -19,6 +19,7 @@ const Fetcher = (props) => {
       onClick={fetching ? () => { } : submitHandler}
       role="button"
       disabled={fetching}
+      className="__sw-fetcher__"
     >
       <span>
         <img

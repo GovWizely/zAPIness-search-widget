@@ -99,7 +99,6 @@ export function requestApi() {
     }
 
     const data = buildParams(getState().query, getState().filters);
-    console.log(data);
     return getData(data)
       .then((response) => {
         dispatch(receiveData());

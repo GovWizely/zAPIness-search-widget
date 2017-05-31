@@ -13,7 +13,8 @@ describe('queryReducer', () => {
     data: undefined,
     error: [],
     fields: [],
-    showAll: false
+    showAll: false,
+    hasFilter: false
   });
 
   it('returns initialState', () => {
@@ -26,7 +27,8 @@ describe('queryReducer', () => {
      data: undefined,
      error: [],
      fields: [],
-     showAll: false
+     showAll: false,
+     hasFilter: false
    }));
   });
 
@@ -43,7 +45,8 @@ describe('queryReducer', () => {
       data,
       error: [],
       fields: [],
-      showAll: false
+      showAll: false,
+      hasFilter: false
     }));
   });
 
@@ -60,7 +63,8 @@ describe('queryReducer', () => {
       data: undefined,
       error: 'Some Error',
       fields: [],
-      showAll: false
+      showAll: false,
+      hasFilter: false
     }));
   });
 
@@ -77,7 +81,8 @@ describe('queryReducer', () => {
       data: undefined,
       error: [],
       fields: [],
-      showAll: false
+      showAll: false,
+      hasFilter: false
     }));
   });
 
@@ -94,7 +99,8 @@ describe('queryReducer', () => {
       data: undefined,
       error: [],
       fields: [],
-      showAll: false
+      showAll: false,
+      hasFilter: false
     }));
   });
 
@@ -112,7 +118,8 @@ describe('queryReducer', () => {
       data: undefined,
       error: [],
       fields: [],
-      showAll: false
+      showAll: false,
+      hasFilter: false
     }));
   });
 
@@ -129,7 +136,8 @@ describe('queryReducer', () => {
       data: undefined,
       error: [],
       fields: ['some', 'random', 'fields'],
-      showAll: false
+      showAll: false,
+      hasFilter: false
     }));
   });
 
@@ -146,7 +154,72 @@ describe('queryReducer', () => {
       data: undefined,
       error: [],
       fields: [],
-      showAll: true
+      showAll: true,
+      hasFilter: false
+    }));
+  });
+
+  it('handles reset page num', () => {
+    const newInitialState = Map({
+      keyword: '',
+      offset: 0,
+      pageNum: 5,
+      data: undefined,
+      error: [],
+      fields: [],
+      showAll: true,
+      hasFilter: false
+    });
+
+    expect(
+      queryReducer(newInitialState, {
+        type: actionTypes.RESET_PAGE_NUM
+      })
+    ).toEqual(Map({
+      keyword: '',
+      offset: 0,
+      pageNum: 1,
+      data: undefined,
+      error: [],
+      fields: [],
+      showAll: true,
+      hasFilter: false
+    }));
+  });
+
+  it('handles update has filter', () => {
+    expect(
+      queryReducer(initialState, {
+        type: actionTypes.UPDATE_HAS_FILTER,
+        hasFilter: true
+      })
+    ).toEqual(Map({
+      keyword: '',
+      offset: 0,
+      pageNum: 1,
+      data: undefined,
+      error: [],
+      fields: [],
+      showAll: false,
+      hasFilter: true
+    }));
+  });
+
+  it('handles update showAll', () => {
+    expect(
+      queryReducer(initialState, {
+        type: actionTypes.UPDATE_SHOW_ALL,
+        showAll: true
+      })
+    ).toEqual(Map({
+      keyword: '',
+      offset: 0,
+      pageNum: 1,
+      data: undefined,
+      error: [],
+      fields: [],
+      showAll: true,
+      hasFilter: false
     }));
   });
 });
