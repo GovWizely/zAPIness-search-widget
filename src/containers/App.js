@@ -7,6 +7,7 @@ import keys from 'lodash/keys';
 
 import Form from '../components/Form';
 import Result from '../components/Result';
+import LoadingIcon from '../components/LoadingIcon';
 
 import {
   getPreviewMode,
@@ -58,7 +59,10 @@ export class App extends Component {
             onSubmit={() => {}}
           />
           {
-            result &&
+            isFetching && <div style={{ padding: '0 50%' }}><LoadingIcon /></div>
+          }
+          {
+            result && !isFetching &&
             <Result
               query={result}
               showAll={query.get('showAll')}
@@ -75,7 +79,7 @@ export class App extends Component {
           }
           {
             (!isUndefined(result) && result.length === 0) &&
-            <div>No Result</div>
+            <div>No result found. Please try again.</div>
           }
         </div>
       </div>

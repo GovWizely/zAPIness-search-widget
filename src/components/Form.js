@@ -6,9 +6,14 @@ import { FieldArray, reduxForm } from 'redux-form';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 
+import PhoneView from '../components/responsive/PhoneView';
+
 import {
   requestApi,
-  updateKeyword
+  updateKeyword,
+  updateHasFilter,
+  setFilterRequired,
+  resetPageNum
 } from '../actions/QueryActions';
 
 import validate from '../actions/validate';
@@ -17,9 +22,9 @@ import styles from '../stylesheets/styles';
 import Filter from './Filter';
 import Button from './Button';
 import Input from './Input';
+import Fetcher from './Fetcher';
 
 const settings = require('../settings.png');
-const loadingIcon = require('../spin.gif');
 
 export class Form extends Component {
   constructor(props) {
@@ -34,6 +39,7 @@ export class Form extends Component {
     this.setState({
       showFilter: !this.state.showFilter
     });
+    this.props.updateFilterStatus(!this.state.showFilter);
   }
 
   render() {
@@ -52,29 +58,43 @@ export class Form extends Component {
             placeholder="Search for keyword..."
             changeHandler={debounce(submitHandler, 1000)}
           />
-          {
-            isFetching &&
-            <div style={styles.loadingIconWrapper} className="__sw-loading__">
-              <span>
-                <img src={loadingIcon} alt="Loading" style={styles.loadingIcon} />
-              </span>
-            </div>
-          }
-        </div>
 
-        {
-          !isEmpty(filters.get('categories')) &&
-          <Button
-            type="button"
-            kind="primary"
-            clickHandler={this.toggleFilter}
-            className="__sw-advanced-search__"
-          >
-            <span>
-              <img style={styles.img} src={settings} alt="Add" />
-            </span>
-          </Button>
-        }
+          <Fetcher
+            submitHandler={submitHandler}
+            fetching={isFetching}
+          />
+        </div>
+        <PhoneView>
+          {
+            matches => matches ? (
+              <div>
+                <Button
+                  type="button"
+                  kind="mobileLink"
+                  clickHandler={this.toggleFilter}
+                  className="_sw-advanced-search__"
+                >
+                  <img src={settings} alt="settings" style={styles.sImg} />
+                  { this.state.showFilter && <span>Hide Advanced Filter</span> }
+                  { !this.state.showFilter && <span>Advanced Filter</span> }
+                </Button>
+              </div>
+            ) : (
+              <div style={{ overflow: 'hidden' }}>
+                <Button
+                  type="button"
+                  kind="link"
+                  clickHandler={this.toggleFilter}
+                  className="__sw-advanced-search__"
+                >
+                  <img src={settings} alt="settings" style={styles.sImg} />
+                  { this.state.showFilter && <span>Hide Advanced Filter</span> }
+                  { !this.state.showFilter && <span>Advanced Filter</span> }
+                </Button>
+              </div>
+            )
+          }
+        </PhoneView>
 
         {
           this.state.showFilter &&
@@ -89,16 +109,24 @@ export class Form extends Component {
 }
 
 function mapStateToProps() {
-  return {};
+  return {
+    fields: ['keyword', 'filters[].type', 'filters[].value']
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     submitHandler: (data) => {
+      dispatch(setFilterRequired());
       const keyword = data.target.value;
+      dispatch(resetPageNum());
 
       dispatch(updateKeyword(keyword));
       dispatch(requestApi());
+    },
+
+    updateFilterStatus: (hasFilter) => {
+      dispatch(updateHasFilter(hasFilter));
     }
   };
 }
@@ -107,15 +135,11 @@ Form.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   submitHandler: PropTypes.func.isRequired,
+  updateFilterStatus: PropTypes.func.isRequired,
   filters: PropTypes.shape({}).isRequired
 };
 
-const connected = connect(mapStateToProps, mapDispatchToProps)(Form);
-
-export default reduxForm({
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'form',
-  validate,
-  fields: ['keyword', 'filters[].type', 'filters[].value']
-}, () => ({
-  initialValues: {}
-}))(connected);
+  validate
+})(Form));

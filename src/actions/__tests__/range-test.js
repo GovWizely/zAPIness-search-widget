@@ -7,6 +7,12 @@ describe('actions/getRange', () => {
     });
   });
 
+  describe('when totalPage is equal to preset range', () => {
+    it('returns range between 2 and totalPage', () => {
+      expect(getRange(1, 3, 3)).toEqual([2]);
+    });
+  });
+
   it('returns range between 2 and totalPage if totalPage' +
      'is larger than preset range', () => {
     expect(getRange(1, 1, 3)).toEqual([]);

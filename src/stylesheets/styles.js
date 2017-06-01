@@ -15,6 +15,7 @@ const styles = {
   filter,
 
   container: {
+    boxSizing: 'border-box',
     padding: '20px',
     width: '100%'
   },
@@ -23,6 +24,22 @@ const styles = {
     height: '20px',
     width: '20px',
     color: colors.grey
+  },
+
+  shallowImg: {
+    height: '20px',
+    marginLeft: '15px',
+    opacity: 0.6,
+    width: '20px'
+  },
+
+  sImg: {
+    height: '15px',
+    marginRight: '3px',
+    marginTop: '-2px',
+    opacity: 0.5,
+    verticalAlign: 'middle',
+    width: '15px'
   },
 
   link: {
@@ -43,9 +60,24 @@ const styles = {
 
   loadingIconWrapper: {
     position: 'absolute',
-    marginTop: '2px',
-    right: 0,
-    top: 0
+    right: '10px',
+    top: '8px'
+  },
+
+  lookingGlass: {
+    height: '25px',
+    opacity: '0.8',
+    width: '25px'
+  },
+
+  lookingGlassWrapper: {
+    position: 'absolute',
+    right: '10px',
+    top: '10px',
+
+    ':hover': {
+      cursor: 'pointer'
+    }
   }
 };
 

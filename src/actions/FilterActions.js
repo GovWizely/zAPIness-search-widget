@@ -1,4 +1,5 @@
 import map from 'lodash/map';
+import each from 'lodash/each';
 import mapValues from 'lodash/mapValues';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
@@ -27,25 +28,26 @@ function updateCategories(data) {
   };
 }
 
-export function updateSelectedFilter(selectedFilter, index) {
+export function addFilter(filterType, value) {
   return {
-    type: actionTypes.UPDATE_SELECTED_FILTER,
-    index,
-    selectedFilter
+    type: actionTypes.ADD_FILTER,
+    filterType,
+    value
   };
 }
 
-export function updateSelectedValue(selectedValue, index) {
+export function removeAllFilters() {
   return {
-    type: actionTypes.UPDATE_SELECTED_FILTER_VALUE,
-    index,
-    selectedValue
+    type: actionTypes.REMOVE_ALL_FILTERS
   };
 }
 
-export function addFilter() {
-  return {
-    type: actionTypes.ADD_FILTER
+export function addFilters(formFilters) {
+  return (dispatch) => {
+    dispatch(removeAllFilters());
+    each(formFilters, (filter) => {
+      dispatch(addFilter(filter.type, filter.value));
+    });
   };
 }
 
@@ -53,12 +55,6 @@ export function removeSelectedFilter(index) {
   return {
     type: actionTypes.REMOVE_SELECTED_FILTER,
     index
-  };
-}
-
-export function removeAllFilters() {
-  return {
-    type: actionTypes.REMOVE_ALL_FILTERS
   };
 }
 

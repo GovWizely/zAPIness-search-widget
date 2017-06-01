@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import map from 'lodash/map';
 import getRange from '../actions/range';
+import PhoneView from './responsive/PhoneView';
 
 import List from './List';
 import Grid from './Grid';
@@ -52,68 +53,119 @@ export default class Pagination extends React.Component {
 
     return (
       <div style={styles.pagination.container}>
-        <ul className="pagination" style={styles.pagination.base}>
-          <List
-            className="previous-page"
-            styles={styles.list.first}
-            clickHandler={(e) => {
-              e.preventDefault();
-              onSelect(1);
-            }}
-          >
-            « First
-          </List>
+        <PhoneView>
+            {
+              matches => matches ? (
+                <ul className="mobilePagination" style={styles.pagination.mobileBase}>
+                  { havePrev &&
+                    <List
+                      className="previous-page"
+                      mobile
+                      styles={{
+                        borderTopLeftRadius: 3,
+                        borderBottomLeftRadius: 3
+                      }}
+                      clickHandler={(e) => {
+                        e.preventDefault();
+                        onSelect(activePage - 1);
+                      }}
+                    >
+                      ‹
+                    </List>
+                  }
+                  <List
+                    className="current-page"
+                    mobile
+                    clickHandler={(e) => {
+                      e.preventDefault();
+                      onSelect(activePage);
+                    }}
+                  >
+                    {activePage} of {totalPage}
+                  </List>
+                  { haveNext &&
+                    <List
+                      className="next-page"
+                      mobile
+                      styles={{
+                        borderTopRightRadius: 3,
+                        borderBottomRightRadius: 3
+                      }}
+                      clickHandler={(e) => {
+                        e.preventDefault();
+                        onSelect(activePage + 1);
+                      }}
+                    >
+                      ›
+                    </List>
+                  }
+                </ul>
+              ) : (
+                <ul className="pagination" style={styles.pagination.base}>
+                  <List
+                    className="first-page"
+                    styles={styles.list.first}
+                    clickHandler={(e) => {
+                      e.preventDefault();
+                      onSelect(1);
+                    }}
+                  >
+                    « First
+                  </List>
 
-          { havePrev &&
-            <List
-              className="previous-page"
-              clickHandler={(e) => {
-                e.preventDefault();
-                onSelect(activePage - 1);
-              }}
-            >
-              ‹ Prev
-            </List>
-          }
-          { this.page(1) }
-          { haveTrailingPrev &&
-            <List
-              className="trailing"
-              clickHandler={e => e.preventDefault()}
-            >...</List>
-          }
-          { this.props.totalPage !== 1 && this.buildPageBetween() }
-          { haveTrailingNext &&
-            <List
-              className="trailing"
-              clickHandler={e => e.preventDefault()}
-            >...</List>
-          }
-          { totalPage !== 1 && this.page(totalPage) }
+                  { havePrev &&
+                    <List
+                      className="previous-page"
+                      clickHandler={(e) => {
+                        e.preventDefault();
+                        onSelect(activePage - 1);
+                      }}
+                    >
+                      ‹ Prev
+                    </List>
+                  }
+                  { this.page(1) }
+                  { haveTrailingPrev &&
+                    <List
+                      className="trailing"
+                      clickHandler={e => e.preventDefault()}
+                    >...</List>
+                  }
+                  { this.props.totalPage !== 1 && this.buildPageBetween() }
+                  { haveTrailingNext &&
+                    <List
+                      className="trailing"
+                      clickHandler={e => e.preventDefault()}
+                    >...</List>
+                  }
+                  { totalPage !== 1 && this.page(totalPage) }
 
-          { haveNext &&
-            <List
-              className="next-page"
-              clickHandler={(e) => {
-                e.preventDefault();
-                onSelect(activePage + 1);
-              }}
-            >
-              Next ›
-            </List>
-          }
+                  { haveNext &&
+                    <List
+                      className="next-page"
+                      clickHandler={(e) => {
+                        e.preventDefault();
+                        onSelect(activePage + 1);
+                      }}
+                    >
+                      Next ›
+                    </List>
+                  }
 
-          <List
-            className="next-page"
-            styles={styles.list.last}
-            clickHandler={(e) => {
-              e.preventDefault();
-              onSelect(totalPage);
-            }}
-          >
-            Last »
-          </List>
-        </ul>
+                  <List
+                    className="last-page"
+                    styles={styles.list.last}
+                    clickHandler={(e) => {
+                      e.preventDefault();
+                      onSelect(totalPage);
+                    }}
+                  >
+                    Last »
+                  </List>
+                </ul>
+              )
+            }
+        </PhoneView>
       </div>
     );
   }

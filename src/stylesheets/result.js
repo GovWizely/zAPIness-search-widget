@@ -4,16 +4,13 @@ const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const result = {
   base: {
-    marginTop: '20px',
-    width: '80%'
+    marginTop: '20px'
   },
 
   container: {
     borderBottom: `1px solid${colors.lightGrey}`,
     borderRadius: 3,
     color: colors.xDarkGrey,
-    padding: '10px 20px',
-    width: '100%',
 
     ':hover': {
       background: colors.lightGrey,
@@ -30,10 +27,12 @@ const result = {
 
   link: {
     color: colors.chalk,
+    display: 'block',
     textDecoration: 'none',
     fontFamily,
     fontSize: '15px',
     fontWeight: 500,
+    padding: '10px 20px',
     width: '100%'
   },
 

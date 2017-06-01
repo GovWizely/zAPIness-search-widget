@@ -12,7 +12,11 @@ const List = props => (
   >
     <a
       href="{undefined}"
-      style={[
+      style={props.mobile ? [
+        styles.list.base,
+        styles.list.mobileBase,
+        props.styles
+      ] : [
         styles.list.base,
         props.styles
       ]}
@@ -25,6 +29,7 @@ const List = props => (
 
 List.defaultProps = {
   id: '',
+  mobile: false,
   styles: styles.list.normal
 };
 
@@ -32,12 +37,13 @@ List.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.shape({})
+    PropTypes.any
   ]).isRequired,
   className: PropTypes.string.isRequired,
   clickHandler: PropTypes.func.isRequired,
   id: PropTypes.string,
-  styles: PropTypes.shape({})
+  styles: PropTypes.shape({}),
+  mobile: PropTypes.bool
 };
 
 export default Radium(List);

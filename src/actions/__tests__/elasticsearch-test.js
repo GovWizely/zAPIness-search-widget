@@ -55,8 +55,23 @@ describe('actions/elasticsearch', () => {
       });
     });
 
+    it('returns q and offset in the params if hasFilter is false', () => {
+      data = Map({
+        keyword,
+        offset,
+        filters,
+        hasFilter: false
+      });
+
+      expect(es.buildParams(data)).toEqual({
+        q: keyword,
+        offset
+      });
+    });
+
     it('returns q, offset and filters in the params', () => {
-      data = Map({ keyword, offset, filters });
+      const hasFilter = true;
+      data = Map({ keyword, offset, filters, hasFilter });
       const filterData = Map({ filters });
 
       expect(es.buildParams(data, filterData)).toEqual({

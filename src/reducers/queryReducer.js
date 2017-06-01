@@ -9,7 +9,8 @@ const initialState = Map({
   data: undefined,
   error: [],
   fields: [],
-  showAll: false
+  showAll: false,
+  hasFilter: false
 });
 
 export default function queryReducer(state = initialState, action) {
@@ -20,6 +21,8 @@ export default function queryReducer(state = initialState, action) {
       return state.set('error', action.error);
     case actionTypes.CLEAR_ERROR:
       return state.set('error', []);
+    case actionTypes.RESET_PAGE_NUM:
+      return state.set('pageNum', 1);
     case actionTypes.UPDATE_KEYWORD:
       return state.set('keyword', action.keyword);
     case actionTypes.UPDATE_PAGE_NUM:
@@ -31,6 +34,8 @@ export default function queryReducer(state = initialState, action) {
       return state.set('fields', action.fields);
     case actionTypes.UPDATE_SHOW_ALL:
       return state.set('showAll', action.showAll);
+    case actionTypes.UPDATE_HAS_FILTER:
+      return state.set('hasFilter', action.hasFilter);
     default:
       return state;
   }

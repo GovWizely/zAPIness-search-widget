@@ -14,6 +14,13 @@ const list = {
     textDecoration: 'none'
   },
 
+  mobileBase: {
+    border: `1px solid ${colors.chalk}`,
+    color: colors.darkChalk,
+    fontSize: '15px',
+    padding: '9px 15px'
+  },
+
   active: {
     background: colors.darkChalk,
     border: `1px solid ${colors.chalk}`,

@@ -1,9 +1,9 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CompressionPlugin = require("compression-webpack-plugin")
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
-process.env.NODE_ENV = 'production'
+process.env.NODE_ENV = 'production';
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -31,15 +31,20 @@ module.exports = {
       comments: false,
       compress: {
         warnings: false,
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
-        screw_ie8: true
+        screw_ie8: true,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true
       }
     }),
     new CompressionPlugin({
-      asset: "[path].gz[query]",
-      algorithm: "gzip",
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
       test: /\.js$|\.css$|\.html$/,
       threshold: 10240,
       minRatio: 0
@@ -64,7 +69,10 @@ module.exports = {
         include: [__dirname],
         options: {
           babelrc: false,
-          presets: [['es2015', { modules: false }], 'stage-0', 'react']
+          presets: [['env', {
+            modules: false,
+            loose: true
+          }], 'react', 'stage-3']
         }
       },
       {
@@ -84,7 +92,14 @@ module.exports = {
             name: 'assets/images/[name]-[sha512:hash:base64:7].[ext]'
           }
         }]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' }
+        ]
       }
     ]
   }
-}
+};

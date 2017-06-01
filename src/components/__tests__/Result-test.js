@@ -39,13 +39,47 @@ describe('components/Result', () => {
     );
 
     expect(result.find('div.__sw-result__').length).toBe(1);
-    expect(result.find('Pagination').length).toBe(1);
+    expect(result.find('Pagination').exists()).toBe(false);
+
     expect(result.find('Drawer').length).toBe(3);
+    expect(result.find('div.__sw-total-result__').length).toBe(1);
 
     result.find('Drawer').forEach((node, index) => {
       expect(node.props().cells).toEqual(query.data.results[index]);
       expect(node.props().label).toEqual(query.data.results[index].address);
     });
+  });
+
+  it('shows pagination if total result is more than 10', () => {
+    const result = shallow(
+      <Result
+        query={{ get: jest.fn(),
+          data: {
+            metadata: {
+              total: 20
+            },
+            aggregations: { type: 1 },
+            results: [
+              { address: 'Boston' },
+              { address: 'Seattle' },
+              { address: 'New York' },
+              { address: 'Houston' }
+            ]
+          } }}
+        fields={['address']}
+        showAll={false}
+        label={'address'}
+        paginationHandleSelect={paginationHandleSelect}
+        activePage={activePage}
+        toggleHandler={toggleHandler}
+        toggleStatus={{
+          key: 1,
+          show: false
+        }}
+      />
+    );
+
+    expect(result.find('Pagination').exists()).toBe(true);
   });
 
   it('renders no result message if result is empty', () => {
@@ -71,6 +105,6 @@ describe('components/Result', () => {
     );
 
     expect(result.find('div.__sw-no-result__').length).toBe(1);
-    expect(result.find('Pagination').length).toBe(0);
+    expect(result.find('Pagination').exists()).toBe(false);
   });
 });

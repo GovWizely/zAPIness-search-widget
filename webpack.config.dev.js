@@ -40,7 +40,7 @@ module.exports = {
         exclude: /node_modules/,
         include: [__dirname],
         query: {
-          presets: [['es2015', { modules: false }], 'stage-0', 'react'],
+          presets: [['env', { modules: false, loose: true }], 'react', 'stage-3'],
           plugins: ['react-hot-loader/babel']
         }
       },
@@ -53,7 +53,14 @@ module.exports = {
             name: 'assets/images/[name]-[sha512:hash:base64:7].[ext]'
           }
         }]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' }
+        ]
       }
     ]
   }
-}
+};

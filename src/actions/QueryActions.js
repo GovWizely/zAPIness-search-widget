@@ -1,6 +1,7 @@
 import map from 'lodash/map';
 import pick from 'lodash/pick';
 import values from 'lodash/values';
+import { change } from 'redux-form';
 
 import * as actionTypes from '../constants/ActionTypes';
 
@@ -66,6 +67,26 @@ export function updateShowAll(showAll) {
   };
 }
 
+export function updateHasFilter(hasFilter) {
+  return {
+    type: actionTypes.UPDATE_HAS_FILTER,
+    hasFilter
+  };
+}
+
+export function setFilterRequired() {
+  return (dispatch, getState) => {
+    const required = getState().query.get('hasFilter');
+    dispatch(change('form', 'filterRequired', required));
+  };
+}
+
+export function resetPageNum() {
+  return {
+    type: actionTypes.RESET_PAGE_NUM
+  };
+}
+
 export function requestApi() {
   return (dispatch, getState) => {
     dispatch(requestData());
@@ -78,7 +99,6 @@ export function requestApi() {
     }
 
     const data = buildParams(getState().query, getState().filters);
-
     return getData(data)
       .then((response) => {
         dispatch(receiveData());

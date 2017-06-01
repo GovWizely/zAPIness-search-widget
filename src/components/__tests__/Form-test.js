@@ -3,21 +3,34 @@ import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { shallow, mount } from 'enzyme';
 import ConnectedForm, { Form } from '../Form';
+import Input from '../Input';
 
 const { Map } = require('immutable');
 
 describe('components/Form', () => {
   const submitHandler = jest.fn();
+  const handleSubmit = jest.fn();
   const mockStore = configureMockStore();
   const filters = Map({
-    categories: [],
+    categories: {
+      country: ['Italy', 'Germany'],
+      capital: ['Rome', 'Berlin']
+    },
     filters: []
   });
 
   const store = mockStore({
-    categories: [],
     filters,
-    isFetching: false
+    isFetching: false,
+    query: Map({
+      keyword: '',
+      offset: 0,
+      pageNum: 1,
+      error: [],
+      fields: [],
+      showAll: true,
+      hasFilter: true
+    })
   });
 
   it('renders successfully', () => {
@@ -25,6 +38,7 @@ describe('components/Form', () => {
       <Form
         submitHandler={submitHandler}
         isFetching={false}
+        onSubmit={handleSubmit}
         filters={filters}
       />
     );
@@ -43,41 +57,37 @@ describe('components/Form', () => {
         <ConnectedForm
           isFetching={false}
           filters={filters}
+          onSubmit={() => {}}
         />
       </Provider>
     );
 
-    connectedForm.find('Input').simulate('change');
-
+    expect(connectedForm.find(Input).length).toBe(1);
+    connectedForm.find(Input).simulate('change', { target: { value: 'David' } });
+    expect(connectedForm.find('.__sw-fetcher__').length).toBe(1);
     expect(store.getActions().length).toBe(2);
   });
 
-  it('shows add filter button if categories is not empty', () => {
-    const newFilters = Map({
-      categories: ['a', 'b', 'c'],
-      filters: []
-    });
-
-    const form = shallow(
-      <Form
-        submitHandler={submitHandler}
-        isFetching={false}
-        filters={newFilters}
-      />
+  it('shows add filter button', () => {
+    const connectedForm = mount(
+      <Provider store={store}>
+        <ConnectedForm
+          isFetching={false}
+          filters={filters}
+          onSubmit={() => {}}
+        />
+      </Provider>
     );
 
-    expect(form.find('Button').is('.__sw-advanced-search__')).toBe(true);
-  });
+    expect(connectedForm.find('button').length).toBe(1);
+    expect(connectedForm.find('button').text()).toBe('Advanced Filter');
 
-  it('shows loading icon during data fetching', () => {
-    const form = shallow(
-      <Form
-        submitHandler={submitHandler}
-        isFetching
-        filters={filters}
-      />
+    connectedForm.find('button').simulate('click');
+
+    expect(connectedForm.find('button').first().text()).toBe('Hide Advanced Filter');
+    expect(connectedForm.find('FieldArray').length).toBe(1);
+    expect(JSON.stringify(store.getActions())).toContain(
+      JSON.stringify({ type: 'UPDATE_HAS_FILTER', hasFilter: true })
     );
-
-    expect(form.find('div.__sw-loading__').length).toBe(1);
   });
 });

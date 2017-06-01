@@ -15,6 +15,7 @@ import {
 } from '../actions/QueryActions';
 
 import Drawer from './Drawer';
+import DesktopView from './responsive/DesktopView';
 import styles from '../stylesheets/styles';
 
 const Radium = require('radium');
@@ -27,6 +28,9 @@ const Result = (props) => {
     props.showAll
   );
 
+  const showPagination = props.query.data.results.length > 0
+    && paginationTotal(props.query.data, 10) > 1;
+
   return (
     <div className="__sw-result__" style={styles.result.base}>
       { props.query.data.results.length === 0 &&
@@ -34,6 +38,14 @@ const Result = (props) => {
           No result found. Please try again.
         </div>
       }
+      <DesktopView>
+        {
+          props.query.data.results.length > 0 &&
+          <div style={styles.pagination.total} className="__sw-total-result__">
+            { props.activePage } - { paginationTotal(props.query.data, 10) } of { totalCount(props.query.data) } results shown
+          </div>
+        }
+      </DesktopView>
       {
         map(results, (result, index) => (
           <div key={index} className="__result-container__" style={styles.result.container}>
@@ -51,13 +63,7 @@ const Result = (props) => {
       }
 
       {
-        props.query.data.results.length > 0 &&
-        <div style={styles.pagination.total}>
-          { count(props.query.data) } of { totalCount(props.query.data) } results shown
-        </div>
-      }
-      {
-        props.query.data.results.length > 0 &&
+        showPagination &&
         <div style={{ width: '100%' }}>
           <Pagination
             totalPage={paginationTotal(props.query.data, 10)}

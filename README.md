@@ -2,32 +2,35 @@
 
 A search widget that allows users to search a given zAPIness endpoint.
 
-<img width="722" alt="screen shot 2017-04-18 at 3 31 37 pm" src="https://cloud.githubusercontent.com/assets/21019282/25119298/2bbd6b3e-244c-11e7-874b-310ddff36431.png">
+<img width="1459" alt="screen shot 2017-05-31 at 5 13 47 pm" src="https://cloud.githubusercontent.com/assets/21019282/26624795/98a38806-4624-11e7-893f-0fecc4820502.png">
 ____
 
 
 ### Basic Usage
 
-[Live Demo](http://zapi-widget.herokuapp.com/)
+[Live Demo](https://govwizely.github.io/zAPIness-search-widget)
 
 zAPIness-search-widget will be loaded in any webpage by embedding the following javascripts into the page:
 
 ```javascript
 <script type="text/javascript">
   var script = document.createElement('script');
-  script.src = "https://govwizely.github.io/zAPIness-search-widget/static/js/main.7285011e.js";
+  script.src = "https://govwizely.github.io/zAPIness-search-widget/static/js/main.js?v=40c3c744";
   document.getElementsByTagName('head')[0].appendChild(script);
 
   window.onload = function() {
     // Initiate the search widget with endpoint
     zAPI.SearchWidget.new({
-      mountPoint: "#root",
-      host: "http://rrsoft3.apib.tech",
+      mountPoint: "#zAPI-sw-root",
+      host: "https://rrsoft4.zapiness.xyz",
       endpoint: "sample_api",
-      label: "agency",
       fields: [
         "agency",
-        "description"
+        "description",
+        "end_date",
+        "supplier_name",
+        "supplier_country",
+        "supplier_city"
       ]
     });
   }
@@ -37,14 +40,16 @@ zAPIness-search-widget will be loaded in any webpage by embedding the following 
 ---
 
 ### Configurations
+|  Key          | Default Value | Required | Description |
+| ------------- |-------------| -----|----- |
+| mountPoint    |  - | true | Selector of the div to embed on the page. The app will create the div with the id(mountPoint) if none is found on the page |
+| host      | -    |   true | Host of your endpoint from zAPIness app  |
+| endpoint | -     |   true | Name of your endpoint |
+| label | First element of the aggregations |false| The main title you want to show in the search result, i.e AusAid in the screenshot above |
+| fields | - | false |By default, it will show all searchable fields from the endpoint. You may set the fields you want to show in the search result|
+| preview | false | false| perform a search during initialization and show all the details of the first result|
+| showAll | false | false| show all fields in the search results |
 
-* __mountPoint__: Selector of the div to embed on the page. The app will create the div with the mountPoint if none is found on the page
-* __host__: Host of your endpoint from zAPIness app
-* __endpoint__: Name of your endpoint
-* __label__: The main title you want to show in the search result, i.e Department of Immigration and Citizenship in the screenshot above. Default to first element in the aggregations
-* __fields__: By default, it will show all searchable fields from the endpoint. You may set the fields you want to show in the search result. The fields will be combinded with all the searchable fields.
-* __preview__: Default to false. If true, perform a search with ```q=''``` on first load and show all the details of the first result.
-* __showAll__: Default to false. If true, show all fields in the search results. This settings overrides fields settings.
 
 ---
 
@@ -79,10 +84,6 @@ ___
 ___
 
 ### Troubleshooting
-
-__Search Widget is not interacting with endpoint__
-
-Currently, zAPIness-search-widget can only interact with zAPIness endpoint on http. Make sure you access your webpage on http instead of https
 
 __Snapshot Tests fails__
 

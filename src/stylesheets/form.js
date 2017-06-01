@@ -4,12 +4,12 @@ const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const form = {
   container: {
-    width: '100%'
+    position: 'relative'
   },
 
   input: {
     borderWidth: 1,
-    borderColor: colors.lightGrey,
+    borderColor: colors.grey,
     borderRadius: 3,
     boxSizing: 'border-box',
     borderStyle: 'solid',
@@ -27,7 +27,7 @@ const form = {
     height: '46px',
     position: 'relative',
     verticalAlign: 'top',
-    width: '80%'
+    width: '100%'
   }
 };
 

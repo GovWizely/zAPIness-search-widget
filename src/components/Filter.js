@@ -1,37 +1,58 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Field } from 'redux-form';
+import { Field, formValueSelector } from 'redux-form';
 
 import isEmpty from 'lodash/isEmpty';
 import keys from 'lodash/keys';
-import SelectInput from './SelectInput';
+import values from 'lodash/values';
 
+import SelectInput from './SelectInput';
 import Button from './Button';
+import DesktopView from './responsive/DesktopView';
+import PhoneView from './responsive/PhoneView';
 
 import {
   clearError,
-  requestApi
+  requestApi,
+  resetPageNum
 } from '../actions/QueryActions';
 
 import {
-  addFilter,
-  updateSelectedValue,
-  updateSelectedFilter,
+  addFilters,
   removeAllFilters,
   removeSelectedFilter
 } from '../actions/FilterActions';
 
 import styles from '../stylesheets/styles';
 
-const plus = require('../plus.png');
 const trash = require('../trash.png');
 
 export class Filter extends Component {
-  getAvailableValues(index) {
-    const target = this.props.filters.get('filters')[index];
+  componentDidMount() {
+    if (this.props.fields.length > 0) { return; }
 
-    return target.get('availableValues') || [];
+    this.addDefaultFilter(this.props.fields);
+  }
+
+  getAvailableValues(index) {
+    if (isEmpty(this.props.formFilters)) { return []; }
+    const target = this.props.formFilters[index].type;
+    const categories = this.props.filters.get('categories');
+
+    return categories ? categories[target] : [];
+  }
+
+  addDefaultFilter(fields) {
+    const defaultFilter = this.props.filters.get('categories');
+    const defaultValue = values(defaultFilter)[0];
+
+    fields.push({
+      type: keys(defaultFilter)[0],
+      value: defaultValue ? defaultValue[0] : ''
+    });
+
+    return fields;
   }
 
   render() {
@@ -39,135 +60,175 @@ export class Filter extends Component {
       fields,
       filters,
       form,
+      formFilters,
       query,
-      addFilter,
+      isFetching,
       removeAllFilters,
       removeFilter,
-      selectFilterHandler,
-      selectFilterValueHandler,
       submitHandler,
       ...rest
     } = this.props;
 
     return (
       <div className="__sw-filter__" style={styles.filter.container}>
-
-        {
-          fields.length === 0 &&
-          <Button
-            className="add-filter"
-            clickHandler={() => addFilter(fields)}
-            kind="wide"
-            type="button"
-          >
-            Add New Filter
-          </Button>
-        }
-
+        <DesktopView>
+          <div style={styles.filter.searchLabel}>
+            <div style={{ marginBottom: '10px' }}>Filtered By:</div>
+          </div>
+        </DesktopView>
 
         { !isEmpty(query.get('error')) &&
           <div className="__sw-error__" style={styles.error}>Field/Value is required</div>
         }
+
         <ul style={styles.filter.ul}>
           {fields.map((member, index) =>
             <li key={`filter-${index + 1}`} style={styles.filter.li}>
               <div className="list-container" style={styles.filter.listContainer}>
-                <span style={styles.filter.span}>Filtered By:</span>
-                <Field
-                  name={`${member}.type`}
-                  list={keys(filters.get('categories'))}
-                  changeHandler={data => selectFilterHandler(data, index)}
-                  component={SelectInput}
-                  className="select-type"
-                  fieldName={`${member}.type`}
-                  styles={styles.filter.select}
-                  {...rest}
-                />
-                <span style={styles.filter.span}>Value:</span>
-                <Field
-                  name={`${member}.value`}
-                  list={this.getAvailableValues(index)}
-                  changeHandler={data => selectFilterValueHandler(data, index)}
-                  component={SelectInput}
-                  fieldName={`${member}.value`}
-                  styles={styles.filter.select}
-                  {...rest}
-                />
-                <div className="btn-container" style={styles.filter.btnContainer}>
-                  <Button
-                    className="add-filter"
-                    clickHandler={() => addFilter(fields)}
-                    kind="small"
-                    type="button"
-                  >
-                    <span><img src={plus} alt="Add" style={styles.img} /></span>
-                  </Button>
+                <div style={styles.filter.categoryType}>
+                  { index === 0 && <div style={styles.filter.span}>Field:</div> }
+                  <Field
+                    name={`${member}.type`}
+                    list={keys(filters.get('categories'))}
+                    changeHandler={() => {}}
+                    component={SelectInput}
+                    className="select-type"
+                    fieldName={`${member}.type`}
+                    styles={styles.filter.select}
+                    {...rest}
+                  />
+                </div>
+                <div style={styles.filter.categoryValue}>
+                  { index === 0 && <div style={styles.filter.span}>Value:</div> }
+                  <Field
+                    name={`${member}.value`}
+                    list={this.getAvailableValues(index)}
+                    changeHandler={() => {}}
+                    component={SelectInput}
+                    fieldName={`${member}.value`}
+                    styles={styles.filter.select}
+                    {...rest}
+                  />
+                </div>
 
-                  <Button
-                    className="remove-filter"
-                    clickHandler={() => removeFilter(fields, index)}
-                    kind="small"
-                    type="button"
-                  >
-                    <span><img src={trash} alt="Delete" style={styles.img} /></span>
-                  </Button>
+                <div className="btn-container" style={styles.filter.btnContainer}>
+                  <PhoneView>
+                    {
+                      matches => matches ? (
+                        <Button
+                          className="remove-filter"
+                          clickHandler={() => removeFilter(fields, index)}
+                          kind="sLink"
+                          type="button"
+                        >
+                          <img src={trash} alt="Delete" style={styles.shallowImg} />
+                        </Button>
+                      ) : (
+                        <Button
+                          className="remove-filter"
+                          clickHandler={() => removeFilter(fields, index)}
+                          kind="sLink"
+                          type="button"
+                        >
+                          Delete
+                        </Button>
+                      )
+                    }
+                  </PhoneView>
                 </div>
               </div>
             </li>
           )}
+          <DesktopView>
+            {
+              matches => matches ? (
+                <li>
+                  <Button
+                    className="add-filter"
+                    clickHandler={() => this.addDefaultFilter(fields)}
+                    kind="sLink"
+                    type="button"
+                  >
+                    { fields.length === 0 ? 'Add New Filter' : 'Add Another Filter' }
+                  </Button>
+                </li>
+              ) : null
+            }
+          </DesktopView>
         </ul>
+        <DesktopView>
+          {
+            matches => matches ? (
+              <div>
+                {
+                  fields.length > 0 &&
+                  <div className="action-btn" style={styles.filter.actionBtn}>
+                    <Button
+                      className="remove-all-filter"
+                      clickHandler={() => removeAllFilters(fields)}
+                      kind="small"
+                      type="button"
+                    >
+                      Clear All
+                    </Button>
+                    <Button
+                      className="submit"
+                      clickHandler={() => submitHandler(formFilters)}
+                      kind="submit"
+                      type="button"
+                      submitting={isFetching}
+                    >
+                      Search
+                    </Button>
+                  </div>
+                }
+              </div>
+            ) : (
+              <div>
+                <Button
+                  className="add-filter"
+                  clickHandler={() => this.addDefaultFilter(fields)}
+                  kind="smallBlock"
+                  type="button"
+                >
+                  <span>Add New Filter</span>
+                </Button>
 
-        {
-          fields.length > 0 &&
-          <div className="action-btn" style={styles.filter.actionBtn}>
-            <Button
-              className="remove-all-filter"
-              clickHandler={() => removeAllFilters(fields)}
-              kind="small"
-              type="button"
-            >
-              Remove All Filters
-            </Button>
-            <Button
-              className="submit"
-              clickHandler={() => submitHandler()}
-              kind="small"
-              type="button"
-            >
-              Submit
-            </Button>
-          </div>
-        }
+                {
+                  fields.length > 0 &&
+                    <Button
+                      className="submit"
+                      clickHandler={() => submitHandler(formFilters)}
+                      kind="mobileSubmit"
+                      type="button"
+                      submitting={isFetching}
+                    >
+                      Search
+                    </Button>
+                }
+              </div>
+            )
+          }
+        </DesktopView>
       </div>
     );
   }
 }
 
+const selector = formValueSelector('form');
+
 function mapStateToProps(state) {
   return {
+    formFilters: selector(state, 'filters') || [],
     query: state.query,
     form: state.form,
-    filters: state.filters
+    filters: state.filters,
+    isFetching: state.isFetching
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectFilterHandler: (data, index) => {
-      const selectedCategory = data.target.value;
-      dispatch(updateSelectedFilter(selectedCategory, index));
-    },
-
-    selectFilterValueHandler: (data, index) => {
-      const selectedValue = data.target.value;
-      dispatch(updateSelectedValue(selectedValue, index));
-    },
-
-    addFilter: (fields) => {
-      dispatch(addFilter());
-      return fields.push({});
-    },
-
     removeFilter: (fields, index) => {
       dispatch(removeSelectedFilter(index));
       return fields.remove(index);
@@ -179,14 +240,15 @@ function mapDispatchToProps(dispatch) {
       return fields.removeAll();
     },
 
-    submitHandler: () => {
+    submitHandler: (formFilters) => {
+      dispatch(addFilters(formFilters));
+      dispatch(resetPageNum());
       dispatch(requestApi());
     }
   };
 }
 
 Filter.propTypes = {
-  addFilter: PropTypes.func.isRequired,
   fields: PropTypes.oneOfType([
     PropTypes.shape({
       component: PropTypes.func
@@ -196,14 +258,19 @@ Filter.propTypes = {
   filters: PropTypes.shape({
     get: PropTypes.func.isRequired
   }).isRequired,
+  formFilters: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      value: PropTypes.string
+    })
+  ).isRequired,
   form: PropTypes.shape({}).isRequired,
+  isFetching: PropTypes.bool.isRequired,
   query: PropTypes.shape({
     get: PropTypes.func.isRequired
   }).isRequired,
   removeFilter: PropTypes.func.isRequired,
   removeAllFilters: PropTypes.func.isRequired,
-  selectFilterHandler: PropTypes.func.isRequired,
-  selectFilterValueHandler: PropTypes.func.isRequired,
   submitHandler: PropTypes.func.isRequired
 };
 

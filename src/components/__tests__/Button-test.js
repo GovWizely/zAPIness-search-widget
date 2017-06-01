@@ -11,12 +11,13 @@ describe('components/Button', () => {
         className="btn"
         clickHandler={clickHandler}
         type="button"
+        submitting={false}
       >
         Powerful
       </Button>
     );
 
-    const { className, type } = button.props();
+    const { className, type, disabled } = button.props();
 
     button.simulate('click');
 
@@ -24,5 +25,24 @@ describe('components/Button', () => {
     expect(className).toBe('btn');
     expect(type).toBe('button');
     expect(clickHandler).toHaveBeenCalledTimes(1);
+    expect(disabled).toBe(false);
+  });
+
+  it('is disabled during form submission', () => {
+    const clickHandler = jest.fn();
+    const button = shallow(
+      <Button
+        kind="primary"
+        className="btn"
+        clickHandler={clickHandler}
+        type="button"
+        submitting
+      >
+        Powerful
+      </Button>
+    );
+
+    const { disabled } = button.props();
+    expect(disabled).toBe(true);
   });
 });
