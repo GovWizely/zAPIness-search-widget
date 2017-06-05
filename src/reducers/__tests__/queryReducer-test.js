@@ -162,7 +162,7 @@ describe('queryReducer', () => {
   it('handles reset page num', () => {
     const newInitialState = Map({
       keyword: '',
-      offset: 0,
+      offset: 10,
       pageNum: 5,
       data: undefined,
       error: [],

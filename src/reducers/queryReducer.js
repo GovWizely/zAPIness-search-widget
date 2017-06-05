@@ -22,7 +22,10 @@ export default function queryReducer(state = initialState, action) {
     case actionTypes.CLEAR_ERROR:
       return state.set('error', []);
     case actionTypes.RESET_PAGE_NUM:
-      return state.set('pageNum', 1);
+      return state.merge({
+        pageNum: 1,
+        offset: 0
+      });
     case actionTypes.UPDATE_KEYWORD:
       return state.set('keyword', action.keyword);
     case actionTypes.UPDATE_PAGE_NUM:
