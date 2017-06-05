@@ -58,6 +58,7 @@ export class App extends Component {
           <Form
             isFetching={isFetching}
             filters={filters}
+            query={query}
             onSubmit={() => {}}
           />
           {

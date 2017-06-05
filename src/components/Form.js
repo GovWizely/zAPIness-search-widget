@@ -47,6 +47,7 @@ export class Form extends Component {
       filters,
       isFetching,
       handleSubmit,
+      query,
       submitHandler
     } = this.props;
 
@@ -62,6 +63,7 @@ export class Form extends Component {
           <Fetcher
             submitHandler={submitHandler}
             fetching={isFetching}
+            keyword={query.get('keyword')}
           />
         </div>
         <PhoneView>
@@ -116,12 +118,13 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    submitHandler: (data) => {
+    submitHandler: (data, keyword) => {
       dispatch(setFilterRequired());
-      const keyword = data.target.value;
+
+      const input = keyword || data.target.value;
       dispatch(resetPageNum());
 
-      dispatch(updateKeyword(keyword));
+      dispatch(updateKeyword(input));
       dispatch(requestApi());
     },
 

@@ -19,18 +19,20 @@ describe('components/Form', () => {
     filters: []
   });
 
+  const query = Map({
+    keyword: '',
+    offset: 0,
+    pageNum: 1,
+    error: [],
+    fields: [],
+    showAll: true,
+    hasFilter: true
+  });
+
   const store = mockStore({
     filters,
     isFetching: false,
-    query: Map({
-      keyword: '',
-      offset: 0,
-      pageNum: 1,
-      error: [],
-      fields: [],
-      showAll: true,
-      hasFilter: true
-    })
+    query
   });
 
   it('renders successfully', () => {
@@ -40,6 +42,7 @@ describe('components/Form', () => {
         isFetching={false}
         onSubmit={handleSubmit}
         filters={filters}
+        query={query}
       />
     );
 
@@ -57,6 +60,7 @@ describe('components/Form', () => {
         <ConnectedForm
           isFetching={false}
           filters={filters}
+          query={query}
           onSubmit={() => {}}
         />
       </Provider>
@@ -74,6 +78,7 @@ describe('components/Form', () => {
         <ConnectedForm
           isFetching={false}
           filters={filters}
+          query={query}
           onSubmit={() => {}}
         />
       </Provider>

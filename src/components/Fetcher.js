@@ -9,13 +9,14 @@ const Radium = require('radium');
 const Fetcher = (props) => {
   const {
     submitHandler,
-    fetching
+    fetching,
+    keyword
   } = props;
 
   return (
     <div
       style={styles.lookingGlassWrapper}
-      onClick={fetching ? () => { } : submitHandler}
+      onClick={fetching ? () => { } : data => submitHandler(data, keyword)}
       role="button"
       disabled={fetching}
       className="__sw-fetcher__"
@@ -33,7 +34,8 @@ const Fetcher = (props) => {
 
 Fetcher.propTypes = {
   fetching: PropTypes.bool.isRequired,
-  submitHandler: PropTypes.func.isRequired
+  submitHandler: PropTypes.func.isRequired,
+  keyword: PropTypes.string.isRequired
 };
 
 export default Radium(Fetcher);

@@ -10,6 +10,7 @@ describe('components/Fetcher', () => {
       <Fetcher
         fetching={false}
         submitHandler={submitHandler}
+        keyword="cool"
       />
     );
 
@@ -30,6 +31,7 @@ describe('components/Fetcher', () => {
       <Fetcher
         fetching
         submitHandler={submitHandler}
+        keyword=""
       />
     );
 
