@@ -45,13 +45,15 @@ export class App extends Component {
       query,
       handleSelect,
       toggle,
-      toggleResultHandler
+      toggleResultHandler,
+      innerRef,
+      width
     } = this.props;
 
     const result = query.get('data');
 
     return (
-      <div className="__sw-container__" style={styles.container}>
+      <div ref={innerRef} className="__sw-container__" style={styles.container}>
         <div className="container" style={{ width: '100%' }}>
           <Form
             isFetching={isFetching}

@@ -12,6 +12,14 @@ exports[`containers/App renders correctly 1`] = `
   }
 >
   <div
+    style={
+      Object {
+        "border": "1px solid black",
+        "padding": "50px",
+      }
+    }
+  />
+  <div
     className="container"
     style={
       Object {
