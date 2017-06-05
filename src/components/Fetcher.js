@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../stylesheets/styles';
-import LoadingIcon from './LoadingIcon';
 
 const lookingGlass = require('../glass.png');
 
