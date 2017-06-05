@@ -5,9 +5,10 @@ import map from 'lodash/map';
 
 import Pagination from './Pagination';
 import {
-  count,
   paginationTotal,
-  totalCount
+  totalCount,
+  paginationEnd,
+  paginationStart
 } from '../actions/elasticsearch';
 import {
   filterResult,
@@ -15,12 +16,13 @@ import {
 } from '../actions/QueryActions';
 
 import Drawer from './Drawer';
-import DesktopView from './responsive/DesktopView';
+import TotalResult from './TotalResult';
 import styles from '../stylesheets/styles';
 
 const Radium = require('radium');
 
 const Result = (props) => {
+  // const { width } = props;
   const labels = getLabels(props.query.data.results, props.label);
   const results = filterResult(
     props.query.data.results,
@@ -38,14 +40,14 @@ const Result = (props) => {
           No result found. Please try again.
         </div>
       }
-      <DesktopView>
-        {
-          props.query.data.results.length > 0 &&
-          <div style={styles.pagination.total} className="__sw-total-result__">
-            { props.activePage } - { paginationTotal(props.query.data, 10) } of { totalCount(props.query.data) } results shown
-          </div>
-        }
-      </DesktopView>
+      {
+        props.query.data.results.length > 0 &&
+        <TotalResult
+          start={paginationStart(props.query.data, props.activePage)}
+          end={paginationEnd(props.query.data)}
+          total={totalCount(props.query.data)}
+        />
+      }
       {
         map(results, (result, index) => (
           <div key={index} className="__result-container__" style={styles.result.container}>

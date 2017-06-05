@@ -51,6 +51,12 @@ export default class Pagination extends React.Component {
     const havePrev = activePage !== 1;
     const haveNext = activePage !== totalPage;
 
+    // console.log(`Have trailing next:${haveTrailingNext}`);
+    // console.log(`Have trailing prev:${haveTrailingPrev}`);
+    // console.log(`Have next:${haveNext}`);
+    // console.log(`Have previous:${havePrev}`);
+    // console.log(`totalPage${totalPage + 1}`);
+
     return (
       <div style={styles.pagination.container}>
         <PhoneView>
@@ -131,7 +137,7 @@ export default class Pagination extends React.Component {
                       clickHandler={e => e.preventDefault()}
                     >...</List>
                   }
-                  { this.props.totalPage !== 1 && this.buildPageBetween() }
+                  { totalPage !== 1 && this.buildPageBetween() }
                   { haveTrailingNext &&
                     <List
                       className="trailing"
