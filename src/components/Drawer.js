@@ -47,7 +47,7 @@ class Drawer extends Component {
                         <b style={{ fontWeight: 400 }}>{ startCase(cell[0]) }</b>
                       </td>
                       <td style={{ paddingLeft: '10px' }}>
-                        <i>{ cell[1] ? cell[1] : 'n/a' }</i>
+                        <i>{ cell[1] ? cell[1] : '-' }</i>
                       </td>
                     </tr>
                     ))}
