@@ -8,14 +8,16 @@ describe('components/Pagination', () => {
   const totalNumButton = 3;
   const activePage = 2;
   const onSelect = jest.fn();
+  const deviceType = 'desktop';
 
   it('renders successfully', () => {
     const pagination = shallow(
       <Pagination
-        totalPage={totalPage}
-        totalNumButton={totalNumButton}
         activePage={activePage}
+        deviceType={deviceType}
         onSelect={onSelect}
+        totalNumButton={totalNumButton}
+        totalPage={totalPage}
       />
     );
 
@@ -39,10 +41,11 @@ describe('components/Pagination', () => {
   it('does not show prev button if current page is the first page', () => {
     const pagination = shallow(
       <Pagination
-        totalPage={5}
-        totalNumButton={3}
         activePage={1}
+        deviceType={deviceType}
         onSelect={onSelect}
+        totalNumButton={3}
+        totalPage={5}
       />
     );
 
@@ -64,10 +67,11 @@ describe('components/Pagination', () => {
   it('does not show next button if current page is last page', () => {
     const pagination = shallow(
       <Pagination
-        totalPage={5}
-        totalNumButton={3}
         activePage={5}
         onSelect={onSelect}
+        deviceType={deviceType}
+        totalNumButton={3}
+        totalPage={5}
       />
     );
 
@@ -85,5 +89,46 @@ describe('components/Pagination', () => {
         </ul>
       </div>
     ));
+  });
+
+  describe('In desktop view', () => {
+    it('renders desktopPagination', () => {
+      const pagination = shallow(
+        <Pagination
+          activePage={5}
+          onSelect={onSelect}
+          deviceType={deviceType}
+          totalNumButton={3}
+          totalPage={5}
+        />
+      );
+
+      expect(pagination.find('ul.desktopPagination').exists()).toBe(true);
+    });
+  });
+
+  describe('In mobile view', () => {
+    it('renders mobilePagination', () => {
+      const pagination = shallow(
+        <Pagination
+          activePage={2}
+          onSelect={onSelect}
+          deviceType="mobile"
+          totalNumButton={3}
+          totalPage={5}
+        />
+      );
+      expect(pagination.find('ul.mobilePagination').exists()).toBe(true);
+
+      expect(pagination.containsMatchingElement(
+        <div>
+          <ul>
+            <a><li>‹</li></a>
+            <a><li>2 of 5</li></a>
+            <a><li>›</li></a>
+          </ul>
+        </div>
+      ));
+    });
   });
 });

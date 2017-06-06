@@ -12,14 +12,27 @@ const { Map } = require('immutable');
 describe('containers/App', () => {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
+  const contentRect = {
+    bounds: {
+      width: 1024
+    }
+  };
+
   const filters = Map({
     categories: [],
     filters: []
   });
+  const getCategories = jest.fn();
+  const handleSelect = jest.fn();
+  const innerRef = jest.fn();
+  const previewResult = jest.fn();
+
   const toggle = Map({
     key: undefined,
     show: false
   });
+  const toggleResultHandler = jest.fn();
+  const updateFields = jest.fn();
 
   const initialState = Map({
     categories: [],
@@ -40,25 +53,21 @@ describe('containers/App', () => {
 
   const store = mockStore(initialState);
 
-  const handleSelect = jest.fn();
-  const getCategories = jest.fn();
-  const updateFields = jest.fn();
-  const toggleResultHandler = jest.fn();
-  const previewResult = jest.fn();
-
   it('renders correctly', () => {
     const tree = renderer.create(
       <Provider store={store}>
         <App
+          contentRect={contentRect}
+          filters={filters}
+          getCategories={getCategories}
+          handleSelect={handleSelect}
+          innerRef={innerRef}
+          isFetching={false}
+          previewResult={previewResult}
           query={initialState}
           toggle={toggle}
-          handleSelect={handleSelect}
-          getCategories={getCategories}
-          updateFields={updateFields}
           toggleResultHandler={toggleResultHandler}
-          previewResult={previewResult}
-          isFetching={false}
-          filters={filters}
+          updateFields={updateFields}
         />
       </Provider>
     ).toJSON();
@@ -68,7 +77,10 @@ describe('containers/App', () => {
   it('dispatch actions to store', () => {
     shallow(
       <Provider store={store}>
-        <ConnectedApp />
+        <ConnectedApp
+          contentRect={contentRect}
+          innerRef={innerRef}
+        />
       </Provider>
     );
 
@@ -78,15 +90,17 @@ describe('containers/App', () => {
   it('renders no result during data fetching', () => {
     const app = shallow(
       <App
+        contentRect={contentRect}
+        filters={filters}
+        getCategories={getCategories}
+        handleSelect={handleSelect}
+        innerRef={innerRef}
+        isFetching
+        previewResult={previewResult}
         query={initialState}
         toggle={toggle}
-        handleSelect={handleSelect}
-        getCategories={getCategories}
-        updateFields={updateFields}
         toggleResultHandler={toggleResultHandler}
-        previewResult={previewResult}
-        isFetching
-        filters={filters}
+        updateFields={updateFields}
       />
     );
 

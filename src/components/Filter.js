@@ -9,8 +9,6 @@ import values from 'lodash/values';
 
 import SelectInput from './SelectInput';
 import Button from './Button';
-import DesktopView from './responsive/DesktopView';
-import PhoneView from './responsive/PhoneView';
 
 import {
   clearError,
@@ -57,6 +55,7 @@ export class Filter extends Component {
 
   render() {
     const {
+      deviceType,
       fields,
       filters,
       form,
@@ -69,13 +68,16 @@ export class Filter extends Component {
       ...rest
     } = this.props;
 
+    const isDesktop = deviceType === 'desktop';
+
     return (
       <div className="__sw-filter__" style={styles.filter.container}>
-        <DesktopView>
-          <div style={styles.filter.searchLabel}>
+        {
+          isDesktop &&
+          <div style={styles.filter.searchLabel} className="__sw-search-label__">
             <div style={{ marginBottom: '10px' }}>Filtered By:</div>
           </div>
-        </DesktopView>
+        }
 
         { !isEmpty(query.get('error')) &&
           <div className="__sw-error__" style={styles.error}>Field/Value is required</div>
@@ -112,104 +114,78 @@ export class Filter extends Component {
                 </div>
 
                 <div className="btn-container" style={styles.filter.btnContainer}>
-                  <PhoneView>
-                    {
-                      matches => matches ? (
-                        <Button
-                          className="remove-filter"
-                          clickHandler={() => removeFilter(fields, index)}
-                          kind="sLink"
-                          type="button"
-                        >
-                          <img src={trash} alt="Delete" style={styles.shallowImg} />
-                        </Button>
-                      ) : (
-                        <Button
-                          className="remove-filter"
-                          clickHandler={() => removeFilter(fields, index)}
-                          kind="sLink"
-                          type="button"
-                        >
-                          Delete
-                        </Button>
-                      )
-                    }
-                  </PhoneView>
+                  <Button
+                    className="remove-filter"
+                    clickHandler={() => removeFilter(fields, index)}
+                    kind="sLink"
+                    type="button"
+                  >
+                    { isDesktop && <span>Delete</span> }
+                    { !isDesktop && <img src={trash} alt="Delete" style={styles.shallowImg} />}
+                  </Button>
                 </div>
               </div>
             </li>
           )}
-          <DesktopView>
-            {
-              matches => matches ? (
-                <li>
-                  <Button
-                    className="add-filter"
-                    clickHandler={() => this.addDefaultFilter(fields)}
-                    kind="sLink"
-                    type="button"
-                  >
-                    { fields.length === 0 ? 'Add New Filter' : 'Add Another Filter' }
-                  </Button>
-                </li>
-              ) : null
-            }
-          </DesktopView>
-        </ul>
-        <DesktopView>
+
           {
-            matches => matches ? (
-              <div>
-                {
-                  fields.length > 0 &&
-                  <div className="action-btn" style={styles.filter.actionBtn}>
-                    <Button
-                      className="remove-all-filter"
-                      clickHandler={() => removeAllFilters(fields)}
-                      kind="small"
-                      type="button"
-                    >
-                      Clear All
-                    </Button>
-                    <Button
-                      className="submit"
-                      clickHandler={() => submitHandler(formFilters)}
-                      kind="submit"
-                      type="button"
-                      submitting={isFetching}
-                    >
-                      Search
-                    </Button>
-                  </div>
-                }
-              </div>
-            ) : (
-              <div>
+            isDesktop &&
+            <li>
+              <Button
+                className="add-filter"
+                clickHandler={() => this.addDefaultFilter(fields)}
+                kind="sLink"
+                type="button"
+              >
+                { fields.length === 0 ? 'Add New Filter' : 'Add Another Filter' }
+              </Button>
+            </li>
+          }
+        </ul>
+
+        <div className="action-btn" style={isDesktop ? styles.filter.actionBtn : {}}>
+          {
+            !isDesktop &&
+            <div>
+              <Button
+                className="add-filter"
+                clickHandler={() => this.addDefaultFilter(fields)}
+                kind="mobileSmall"
+                type="button"
+              >
+                <span>Add New Filter</span>
+              </Button>
+            </div>
+          }
+          {
+            isDesktop &&
+            <span>
+              {
+                fields.length > 0 &&
                 <Button
-                  className="add-filter"
-                  clickHandler={() => this.addDefaultFilter(fields)}
-                  kind="smallBlock"
+                  className="remove-all-filter"
+                  clickHandler={() => removeAllFilters(fields)}
+                  kind="desktopSmall"
                   type="button"
                 >
-                  <span>Add New Filter</span>
+                  Clear All
                 </Button>
-
-                {
-                  fields.length > 0 &&
-                    <Button
-                      className="submit"
-                      clickHandler={() => submitHandler(formFilters)}
-                      kind="mobileSubmit"
-                      type="button"
-                      submitting={isFetching}
-                    >
-                      Search
-                    </Button>
-                }
-              </div>
-            )
+              }
+            </span>
           }
-        </DesktopView>
+          {
+            fields.length > 0 &&
+            <Button
+              className={`${deviceType}Submit`}
+              clickHandler={() => submitHandler(formFilters)}
+              kind={`${deviceType}Submit`}
+              type="button"
+              submitting={isFetching}
+            >
+              Search
+            </Button>
+          }
+        </div>
       </div>
     );
   }
@@ -248,7 +224,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+Filter.defaultProps = {
+  form: undefined,
+  deviceType: null
+};
+
 Filter.propTypes = {
+  deviceType: PropTypes.string,
   fields: PropTypes.oneOfType([
     PropTypes.shape({
       component: PropTypes.func
@@ -264,7 +246,7 @@ Filter.propTypes = {
       value: PropTypes.string
     })
   ).isRequired,
-  form: PropTypes.shape({}).isRequired,
+  form: PropTypes.shape({}),
   isFetching: PropTypes.bool.isRequired,
   query: PropTypes.shape({
     get: PropTypes.func.isRequired

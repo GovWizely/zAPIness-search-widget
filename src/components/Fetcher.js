@@ -32,10 +32,14 @@ const Fetcher = (props) => {
   );
 };
 
+Fetcher.defaultProps = {
+  keyword: undefined
+};
+
 Fetcher.propTypes = {
   fetching: PropTypes.bool.isRequired,
   submitHandler: PropTypes.func.isRequired,
-  keyword: PropTypes.string.isRequired
+  keyword: PropTypes.string
 };
 
 export default Radium(Fetcher);

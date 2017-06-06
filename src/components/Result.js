@@ -22,30 +22,41 @@ import styles from '../stylesheets/styles';
 const Radium = require('radium');
 
 const Result = (props) => {
-  // const { width } = props;
-  const labels = getLabels(props.query.data.results, props.label);
+  const {
+    activePage,
+    deviceType,
+    fields,
+    label,
+    paginationHandleSelect,
+    query,
+    showAll,
+    toggleHandler,
+    toggleStatus
+  } = props;
+
+  const labels = getLabels(query.data.results, label);
   const results = filterResult(
-    props.query.data.results,
-    props.fields,
-    props.showAll
+    query.data.results,
+    fields,
+    showAll
   );
 
-  const showPagination = props.query.data.results.length > 0
-    && paginationTotal(props.query.data, 10) > 1;
+  const showPagination = query.data.results.length > 0
+    && paginationTotal(query.data, 10) > 1;
 
   return (
     <div className="__sw-result__" style={styles.result.base}>
-      { props.query.data.results.length === 0 &&
+      { query.data.results.length === 0 &&
         <div className="__sw-no-result__" style={styles.result.noResult}>
           No result found. Please try again.
         </div>
       }
       {
-        props.query.data.results.length > 0 &&
+        query.data.results.length > 0 &&
         <TotalResult
-          start={paginationStart(props.query.data, props.activePage)}
-          end={paginationEnd(props.query.data)}
-          total={totalCount(props.query.data)}
+          start={paginationStart(query.data, activePage)}
+          end={paginationEnd(query.data)}
+          total={totalCount(query.data)}
         />
       }
       {
@@ -53,12 +64,12 @@ const Result = (props) => {
           <div key={index} className="__result-container__" style={styles.result.container}>
             <Drawer
               cells={result}
-              label={labels[index]}
               id={index}
-              toggleHandler={props.toggleHandler}
+              label={labels[index]}
               showDetails={
-                index === props.toggleStatus.key && props.toggleStatus.show
+                index === toggleStatus.key && toggleStatus.show
               }
+              toggleHandler={toggleHandler}
             />
           </div>
         ))
@@ -68,10 +79,11 @@ const Result = (props) => {
         showPagination &&
         <div style={{ width: '100%' }}>
           <Pagination
-            totalPage={paginationTotal(props.query.data, 10)}
+            activePage={activePage}
+            deviceType={deviceType}
+            onSelect={paginationHandleSelect}
             totalNumButton={3}
-            activePage={props.activePage}
-            onSelect={props.paginationHandleSelect}
+            totalPage={paginationTotal(query.data, 10)}
           />
         </div>
       }
@@ -79,14 +91,16 @@ const Result = (props) => {
   );
 };
 
+Result.defaultProps = {
+  deviceType: ''
+};
+
 Result.propTypes = {
   activePage: PropTypes.number.isRequired,
+  deviceType: PropTypes.string,
+  fields: PropTypes.arrayOf(PropTypes.string).isRequired,
   label: PropTypes.string.isRequired,
   paginationHandleSelect: PropTypes.func.isRequired,
-  toggleHandler: PropTypes.func.isRequired,
-  showAll: PropTypes.bool.isRequired,
-  toggleStatus: PropTypes.shape({}).isRequired,
-  fields: PropTypes.arrayOf(PropTypes.string).isRequired,
   query: PropTypes.shape(
     { get: PropTypes.func,
       data: PropTypes.shape({
@@ -95,7 +109,10 @@ Result.propTypes = {
         }))
       })
     }
-  ).isRequired
+  ).isRequired,
+  showAll: PropTypes.bool.isRequired,
+  toggleHandler: PropTypes.func.isRequired,
+  toggleStatus: PropTypes.shape({}).isRequired
 };
 
 export default Radium(Result);

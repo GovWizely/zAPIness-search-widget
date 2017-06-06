@@ -8,7 +8,7 @@ const MeasuredApp = withContentRect('bounds')(
   ({ measureRef, contentRect, ...props }) => (
     <App
       innerRef={measureRef}
-      width={contentRect.bounds.width}
+      contentRect={contentRect}
       {...props}
     />
 ));

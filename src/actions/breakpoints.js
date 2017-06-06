@@ -1,3 +1,5 @@
-export default const breakpoints = (styleName) => (width) => {
-  return width > 768 ? styleName['desktop'] : styleName['mobile'];
-}
+const smScreen = 768;
+
+const breakpoints = width => width > smScreen ? 'desktop' : 'mobile';
+
+export default breakpoints;

@@ -38,11 +38,12 @@ describe('components/Form', () => {
   it('renders successfully', () => {
     const form = shallow(
       <Form
-        submitHandler={submitHandler}
+        deviceType="desktop"
+        filters={filters}
         isFetching={false}
         onSubmit={handleSubmit}
-        filters={filters}
         query={query}
+        submitHandler={submitHandler}
       />
     );
 
@@ -52,6 +53,7 @@ describe('components/Form', () => {
     expect(form.find('Input').length).toBe(1);
     expect(name).toEqual('keyword');
     expect(placeholder).toEqual('Search for keyword...');
+    expect(form.find('Button').props().kind).toEqual('desktopLink');
   });
 
   it('dispatch actions when user key in input', () => {
@@ -60,8 +62,8 @@ describe('components/Form', () => {
         <ConnectedForm
           isFetching={false}
           filters={filters}
-          query={query}
           onSubmit={() => {}}
+          query={query}
         />
       </Provider>
     );
@@ -78,8 +80,8 @@ describe('components/Form', () => {
         <ConnectedForm
           isFetching={false}
           filters={filters}
-          query={query}
           onSubmit={() => {}}
+          query={query}
         />
       </Provider>
     );
@@ -94,5 +96,21 @@ describe('components/Form', () => {
     expect(JSON.stringify(store.getActions())).toContain(
       JSON.stringify({ type: 'UPDATE_HAS_FILTER', hasFilter: true })
     );
+  });
+
+  it('renders mobile advanced search link in small screen', () => {
+    const connectedForm = mount(
+      <Provider store={store}>
+        <ConnectedForm
+          deviceType="mobile"
+          filters={filters}
+          isFetching={false}
+          onSubmit={() => {}}
+          query={query}
+        />
+      </Provider>
+    );
+
+    expect(connectedForm.find('Button').props().kind).toEqual('mobileLink');
   });
 });

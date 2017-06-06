@@ -101,53 +101,6 @@ exports[`containers/App renders correctly 1`] = `
           </span>
         </div>
       </div>
-      <div>
-        <button
-          className="_sw-advanced-search__"
-          data-radium={true}
-          disabled={false}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          style={
-            Object {
-              "background": "none",
-              "border": "none",
-              "borderRadius": 3,
-              "color": "#7f7d71",
-              "fontFamily": "\\"Helvetica Neue\\",Helvetica,Arial,sans-serif",
-              "fontSize": "13px",
-              "fontWeight": 700,
-              "marginTop": "5px",
-              "textAlign": "right",
-              "textDecoration": "underline",
-              "width": "100%",
-            }
-          }
-          type="button"
-        >
-          <img
-            alt="settings"
-            data-radium={true}
-            src="test-file-stub"
-            style={
-              Object {
-                "height": "15px",
-                "marginRight": "3px",
-                "marginTop": "-2px",
-                "opacity": 0.5,
-                "verticalAlign": "middle",
-                "width": "15px",
-              }
-            }
-          />
-          <span>
-            Advanced Filter
-          </span>
-        </button>
-      </div>
     </form>
   </div>
 </div>

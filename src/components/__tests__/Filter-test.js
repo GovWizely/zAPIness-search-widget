@@ -3,16 +3,12 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import * as api from '../../actions/api';
 
 import ConnectedFilter from '../Filter';
 
 const { Map } = require('immutable');
-const axios = require('axios');
-const MockAdapter = require('axios-mock-adapter');
-
-const mock = new MockAdapter(axios);
 
 const DecoratedFilter = reduxForm({
   form: 'form',
@@ -63,17 +59,18 @@ describe('components/Filter', () => {
     <Provider store={store}>
       <DecoratedFilter
         fields={fields}
+        deviceType="desktop"
       />
     </Provider>
   );
 
   it('renders successfully', () => {
-    expect(connectedFilter.find('.__sw-filter__').length).toBe(1);
+    expect(connectedFilter.find('.__sw-filter__').exists()).toBe(true);
 
-    expect(connectedFilter.find('.remove-filter').length).toBe(1);
-    expect(connectedFilter.find('.remove-all-filter').length).toBe(1);
-    expect(connectedFilter.find('.add-filter').length).toBe(1);
-    expect(connectedFilter.find('.submit').length).toBe(1);
+    expect(connectedFilter.find('.remove-filter').exists()).toBe(true);
+
+    expect(connectedFilter.find('.add-filter').exists()).toBe(true);
+    expect(connectedFilter.find('.desktopSubmit').exists()).toBe(true);
   });
 
   it('adds new filter', () => {
@@ -85,12 +82,45 @@ describe('components/Filter', () => {
   });
 
   it('submits form', () => {
-    connectedFilter.find('.submit').simulate('click');
+    connectedFilter.find('.desktopSubmit').simulate('click');
 
     const actions = JSON.stringify(store.getActions());
 
     expect(actions).toContain(JSON.stringify({ type: 'REMOVE_ALL_FILTERS' }));
     expect(actions).toContain(JSON.stringify({ type: 'RESET_PAGE_NUM' }));
     expect(actions).toContain(JSON.stringify({ type: 'REQUEST_DATA' }));
+  });
+
+  describe('In desktop view', () => {
+    it('renders remove all button', () => {
+      expect(connectedFilter.find('.remove-all-filter').exists()).toBe(true);
+    });
+
+    it('renders submit button with desktop styles', () => {
+      expect(connectedFilter.find('.desktopSubmit').exists()).toBe(true);
+    });
+
+    it('renders search label', () => {
+      expect(connectedFilter.find('div.__sw-search-label__').exists()).toBe(true);
+    });
+  });
+
+  describe('In mobile view', () => {
+    const mobileConnectedFilter = mount(
+      <Provider store={store}>
+        <DecoratedFilter
+          fields={fields}
+          deviceType="mobile"
+        />
+      </Provider>
+    );
+
+    it('renders submit button with mobile styles in mobile', () => {
+      expect(mobileConnectedFilter.find('.mobileSubmit').exists()).toBe(true);
+    });
+
+    it('does not render remove all button', () => {
+      expect(mobileConnectedFilter.find('.remove-all-filter').exists()).toBe(false);
+    });
   });
 });

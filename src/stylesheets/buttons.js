@@ -38,6 +38,25 @@ const buttons = {
     }
   },
 
+  desktopLink: {
+    background: 'none',
+    border: 'none',
+    color: colors.darkChalk,
+    float: 'right',
+    fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+    fontSize: '13px',
+    fontWeight: 700,
+    marginTop: '5px',
+    overflow: 'hidden',
+    textAlign: 'right',
+    textDecoration: 'underline',
+
+    ':hover': {
+      background: 'none',
+      cursor: 'pointer'
+    }
+  },
+
   mobileLink: {
     background: 'none',
     border: 'none',
@@ -80,7 +99,7 @@ const buttons = {
     width: '100%'
   },
 
-  small: {
+  desktopSmall: {
     border: `1px solid ${colors.xDarkGrey}`,
     fontSize: '13px',
     fontWeight: 500,
@@ -88,7 +107,7 @@ const buttons = {
     marginLeft: '5px'
   },
 
-  smallBlock: {
+  mobileSmall: {
     border: `1px solid ${colors.xDarkGrey}`,
     display: 'block',
     fontSize: '13px',
@@ -98,7 +117,7 @@ const buttons = {
     width: '100%'
   },
 
-  submit: {
+  desktopSubmit: {
     background: colors.darkChalk,
     display: 'inline-block',
     fontSize: '13px',
