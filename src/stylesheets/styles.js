@@ -15,6 +15,7 @@ const styles = {
   filter,
 
   container: {
+    background: colors.white,
     boxSizing: 'border-box',
     padding: '20px',
     width: '100%'
