@@ -54,8 +54,8 @@ const Result = (props) => {
       {
         query.data.results.length > 0 &&
         <TotalResult
-          start={paginationStart(query.data, activePage)}
           end={paginationEnd(query.data)}
+          start={paginationStart(query.data, activePage)}
           total={totalCount(query.data)}
         />
       }
@@ -64,6 +64,7 @@ const Result = (props) => {
           <div key={index} className="__result-container__" style={styles.result.container}>
             <Drawer
               cells={result}
+              deviceType={deviceType}
               id={index}
               label={labels[index]}
               showDetails={

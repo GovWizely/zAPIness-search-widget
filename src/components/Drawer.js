@@ -17,10 +17,13 @@ class Drawer extends Component {
   render() {
     const {
       cells,
+      deviceType,
+      id,
       label,
-      showDetails,
-      id
+      showDetails
     } = this.props;
+
+    const isDesktop = deviceType === 'desktop';
 
     return (
       <a
@@ -34,16 +37,39 @@ class Drawer extends Component {
         {
           showDetails &&
           <div className="__sw-details__" style={styles.result.details}>
-            <table>
-              <tbody>
+            {
+              isDesktop &&
+              <table>
+                <tbody>
+                  { map(toPairs(cells), (cell, index) => (
+                    <tr key={index} style={styles.result.tr}>
+                      <td>
+                        <b style={{ fontWeight: 400 }}>{ startCase(cell[0]) }</b>
+                      </td>
+                      <td style={{ paddingLeft: '10px' }}>
+                        <i>{ cell[1] ? cell[1] : 'n/a' }</i>
+                      </td>
+                    </tr>
+                    ))}
+                </tbody>
+              </table>
+            }
+
+            {
+              !isDesktop &&
+              <div className="__sw-mobile-details__">
                 { map(toPairs(cells), (cell, index) => (
-                  <tr key={index} style={styles.result.tr}>
-                    <td><b style={{ fontWeight: 400 }}>{ startCase(cell[0]) }</b></td>
-                    <td style={{ paddingLeft: '10px' }}><i>{ cell[1] }</i></td>
-                  </tr>
+                  <div key={index}>
+                    <div>
+                      <b style={{ fontWeight: 400 }}>{ startCase(cell[0]) }</b>
+                    </div>
+                    <div style={{ paddingBottom: '10px' }}>
+                      <i>{ cell[1] ? cell[1] : 'n/a' }</i>
+                    </div>
+                  </div>
                   ))}
-              </tbody>
-            </table>
+              </div>
+            }
           </div>
         }
       </a>
@@ -53,10 +79,11 @@ class Drawer extends Component {
 
 Drawer.propTypes = {
   cells: PropTypes.shape({}).isRequired,
-  label: PropTypes.string.isRequired,
+  deviceType: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  toggleHandler: PropTypes.func.isRequired,
-  showDetails: PropTypes.bool.isRequired
+  label: PropTypes.string.isRequired,
+  showDetails: PropTypes.bool.isRequired,
+  toggleHandler: PropTypes.func.isRequired
 };
 
 export default Drawer;

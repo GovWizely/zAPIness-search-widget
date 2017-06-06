@@ -13,9 +13,10 @@ describe('components/Drawer', () => {
   const wrapper = shallow(
     <Drawer
       cells={results}
+      deviceType="desktop"
+      id={1}
       label="Harry Potter"
       showDetails={false}
-      id={1}
       toggleHandler={toggleHandler}
     />
   );
@@ -30,34 +31,75 @@ describe('components/Drawer', () => {
     expect(toggleHandler).toHaveBeenCalledTimes(1);
   });
 
-  it('renders details correctly', () => {
-    const showDetailsWrapper = shallow(
-      <Drawer
-        cells={results}
-        label="Harry Potter"
-        showDetails
-        id={1}
-        toggleHandler={toggleHandler}
-      />
-    );
+  describe('In desktop view', () => {
+    it('renders details correctly', () => {
+      const showDetailsWrapper = shallow(
+        <Drawer
+          cells={results}
+          deviceType="desktop"
+          id={1}
+          label="Harry Potter"
+          showDetails
+          toggleHandler={toggleHandler}
+        />
+      );
 
-    expect(showDetailsWrapper.containsMatchingElement(
-      <table>
-        <tbody>
-          <tr>
-            <td><b>Name</b></td>
-            <td>Harry Potter</td>
-          </tr>
-          <tr>
-            <td><b>Author</b></td>
-            <td>J.K Rowling</td>
-          </tr>
-          <tr>
-            <td><b>Year</b></td>
-            <td>1996</td>
-          </tr>
-        </tbody>
-      </table>
-    ));
+      expect(showDetailsWrapper.containsMatchingElement(
+        <table>
+          <tbody>
+            <tr>
+              <td><b>Name</b></td>
+              <td>Harry Potter</td>
+            </tr>
+            <tr>
+              <td><b>Author</b></td>
+              <td>J.K Rowling</td>
+            </tr>
+            <tr>
+              <td><b>Year</b></td>
+              <td>1996</td>
+            </tr>
+          </tbody>
+        </table>
+      ));
+    });
+  });
+
+  describe('In mobile view', () => {
+    it('renders details correctly', () => {
+      const showDetailsWrapper = shallow(
+        <Drawer
+          cells={results}
+          deviceType="mobile"
+          id={1}
+          label="Harry Potter"
+          showDetails
+          toggleHandler={toggleHandler}
+        />
+      );
+
+      expect(
+        showDetailsWrapper.find('div.__sw-mobile-details__').exists()
+      ).toBe(true);
+
+      expect(showDetailsWrapper.containsMatchingElement(
+        <div>
+          <div>
+            <div>
+              <div><b>Name</b></div>
+              <div>Harry Potter</div>
+            </div>
+            <div>
+              <div><b>Author</b></div>
+              <div>J.K Rowling</div>
+            </div>
+            <div>
+              <div><b>Year</b></div>
+              <div>1996</div>
+            </div>
+          </div>
+        </div>
+      ));
+    });
   });
 });
