@@ -1,37 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
+import Select from 'react-select';
 
-import map from 'lodash/map';
 import startCase from 'lodash/startCase';
+import reduce from 'lodash/reduce';
+
+import 'react-select/dist/react-select.css';
+
+const generateList = list => reduce(list, (options, el) => {
+  options.push({
+    value: el,
+    label: startCase(el)
+  });
+  return options;
+}, []);
 
 const SelectInput = props => (
-  <Field
+  <Select
+    {...props}
     name={props.fieldName}
-    component="select"
-    onChange={props.changeHandler}
+    disabled={props.disabled}
+    onChange={value => props.input.onChange(value)}
+    options={generateList(props.list)}
+    value={props.input.value || ''}
     style={props.styles}
-  >
-    <option>SELECT ONE</option>
-    {
-        map(props.list, (item, index) => (
-          <option key={index} value={item} >
-            { startCase(item) }
-          </option>
-        ))
-      }
-  </Field>
+    onBlur={() => props.input.onBlur(props.input.value)}
+  />
 );
 
 SelectInput.defaultProps = {
+  disabled: false,
+  input: {},
   styles: {}
 };
 
 SelectInput.propTypes = {
+  disabled: PropTypes.bool,
   fieldName: PropTypes.string.isRequired,
-  changeHandler: PropTypes.func.isRequired,
   list: PropTypes.arrayOf(String).isRequired,
-  styles: PropTypes.shape({})
+  styles: PropTypes.shape({}),
+  input: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.any
+  ])
 };
 
 export default SelectInput;

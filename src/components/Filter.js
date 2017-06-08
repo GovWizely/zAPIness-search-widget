@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { Field, formValueSelector } from 'redux-form';
 
 import isEmpty from 'lodash/isEmpty';
+import map from 'lodash/map';
 import keys from 'lodash/keys';
 import values from 'lodash/values';
+import startCase from 'lodash/startCase';
 
 import SelectInput from './SelectInput';
 import Button from './Button';
@@ -26,6 +28,8 @@ import styles from '../stylesheets/styles';
 
 const trash = require('../trash.png');
 
+const _ = require('lodash');
+
 export class Filter extends Component {
   componentDidMount() {
     if (this.props.fields.length > 0) { return; }
@@ -33,9 +37,25 @@ export class Filter extends Component {
     this.addDefaultFilter(this.props.fields);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.formFilters !== nextProps.formFilters) {
+      map(this.props.formFilters, (filter, index) => {
+        const currentFilter = nextProps.formFilters[index];
+        if (currentFilter && currentFilter.type !== filter.type) {
+          currentFilter.value = null;
+        }
+
+        return nextProps;
+      });
+    }
+  }
+
   getAvailableValues(index) {
-    if (isEmpty(this.props.formFilters)) { return []; }
-    const target = this.props.formFilters[index].type;
+    if (!this.props.formFilters || !this.props.formFilters[index].type) {
+      return [];
+    }
+
+    const target = this.props.formFilters[index].type.value || '';
     const categories = this.props.filters.get('categories');
 
     return categories ? categories[target] : [];
@@ -43,11 +63,12 @@ export class Filter extends Component {
 
   addDefaultFilter(fields) {
     const defaultFilter = this.props.filters.get('categories');
-    const defaultValue = values(defaultFilter)[0];
+    const defaultType = keys(defaultFilter)[0];
+    const defaultValue = values(defaultFilter)[0] ? values(defaultFilter)[0][0] : '';
 
     fields.push({
-      type: keys(defaultFilter)[0],
-      value: defaultValue ? defaultValue[0] : ''
+      type: { value: defaultType, label: startCase(defaultType) },
+      value: { value: defaultValue, label: startCase(defaultValue) }
     });
 
     return fields;
@@ -69,6 +90,7 @@ export class Filter extends Component {
     } = this.props;
 
     const isDesktop = deviceType === 'desktop';
+    console.log(formFilters[0]);
 
     return (
       <div className="__sw-filter__" style={styles.filter.container}>
@@ -92,11 +114,10 @@ export class Filter extends Component {
                   <Field
                     name={`${member}.type`}
                     list={keys(filters.get('categories'))}
-                    changeHandler={() => {}}
                     component={SelectInput}
                     className="select-type"
                     fieldName={`${member}.type`}
-                    styles={styles.filter.select}
+                    // styles={styles.filter.select}
                     {...rest}
                   />
                 </div>
@@ -105,10 +126,10 @@ export class Filter extends Component {
                   <Field
                     name={`${member}.value`}
                     list={this.getAvailableValues(index)}
-                    changeHandler={() => {}}
                     component={SelectInput}
                     fieldName={`${member}.value`}
-                    styles={styles.filter.select}
+                    disabled={!formFilters || !formFilters[index].type}
+                    // styles={styles.filter.select}
                     {...rest}
                   />
                 </div>
@@ -226,7 +247,8 @@ function mapDispatchToProps(dispatch) {
 
 Filter.defaultProps = {
   form: undefined,
-  deviceType: null
+  deviceType: null,
+  formFilters: undefined
 };
 
 Filter.propTypes = {
@@ -240,12 +262,10 @@ Filter.propTypes = {
   filters: PropTypes.shape({
     get: PropTypes.func.isRequired
   }).isRequired,
-  formFilters: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string,
-      value: PropTypes.string
-    })
-  ).isRequired,
+  formFilters: PropTypes.oneOfType([
+    PropTypes.any,
+    PropTypes.arrayOf(PropTypes.shape({}))
+  ]),
   form: PropTypes.shape({}),
   isFetching: PropTypes.bool.isRequired,
   query: PropTypes.shape({

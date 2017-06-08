@@ -77,15 +77,15 @@ const filter = {
   },
 
   select: {
-    border: `1px solid ${colors.darkGrey}`,
-    fontFamily,
-    fontSize: '12px',
-    opacity: 0.8,
-    width: '100%',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    padding: '5px 0'
+    // border: `1px solid ${colors.darkGrey}`,
+    // fontFamily,
+    // fontSize: '12px',
+    // opacity: 0.8,
+    // width: '100%',
+    // textOverflow: 'ellipsis',
+    // whiteSpace: 'nowrap',
+    // overflow: 'hidden',
+    // padding: '5px 0'
   },
 
   actionBtn: {

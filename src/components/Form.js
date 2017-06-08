@@ -66,20 +66,21 @@ export class Form extends Component {
           />
         </div>
 
+        <div style={{ overflow: 'hidden' }}>
+          <Button
+            type="button"
+            kind={`${deviceType}Link`}
+            clickHandler={this.toggleFilter}
+            className="_sw-advanced-search__"
+          >
+            <img src={settings} alt="settings" style={styles.sImg} />
+            { this.state.showFilter && <span>Hide Advanced Filter</span> }
+            { !this.state.showFilter && <span>Advanced Filter</span> }
+          </Button>
+        </div>
+
         {
-          !isEmpty(filters.get('categories')) &&
-            <div style={{ overflow: 'hidden' }}>
-              <Button
-                type="button"
-                kind={`${deviceType}Link`}
-                clickHandler={this.toggleFilter}
-                className="_sw-advanced-search__"
-              >
-                <img src={settings} alt="settings" style={styles.sImg} />
-                { this.state.showFilter && <span>Hide Advanced Filter</span> }
-                { !this.state.showFilter && <span>Advanced Filter</span> }
-              </Button>
-            </div>
+          !isEmpty(filters.get('categories')) && <div>Got categories:)</div>
         }
 
         {
