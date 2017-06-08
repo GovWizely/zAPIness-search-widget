@@ -18,17 +18,19 @@ const generateList = list => reduce(list, (options, el) => {
 const SelectInput = props => (
   <Select
     {...props}
-    name={props.fieldName}
+    clearable={props.clearable}
     disabled={props.disabled}
+    name={props.fieldName}
+    onBlur={() => props.input.onBlur(props.input.value)}
     onChange={value => props.input.onChange(value)}
     options={generateList(props.list)}
-    value={props.input.value || ''}
     style={props.styles}
-    onBlur={() => props.input.onBlur(props.input.value)}
+    value={props.input.value || ''}
   />
 );
 
 SelectInput.defaultProps = {
+  clearable: true,
   disabled: false,
   input: {},
   styles: {}
@@ -36,13 +38,14 @@ SelectInput.defaultProps = {
 
 SelectInput.propTypes = {
   disabled: PropTypes.bool,
+  clearable: PropTypes.bool,
   fieldName: PropTypes.string.isRequired,
-  list: PropTypes.arrayOf(String).isRequired,
-  styles: PropTypes.shape({}),
   input: PropTypes.oneOfType([
     PropTypes.shape({}),
     PropTypes.any
-  ])
+  ]),
+  list: PropTypes.arrayOf(String).isRequired,
+  styles: PropTypes.shape({})
 };
 
 export default SelectInput;

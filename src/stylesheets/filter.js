@@ -3,7 +3,7 @@ import colors from './colors';
 const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const filter = {
-  container: {
+  desktopContainer: {
     backgroundColor: colors.lightGrey,
     border: `1px solid ${colors.mediumGrey}`,
     borderRadius: 3,
@@ -13,6 +13,12 @@ const filter = {
     margin: '10px 0',
     padding: '20px',
     width: '100%'
+  },
+
+  mobileContainer: {
+    borderBottom: `1px solid ${colors.mediumGrey}`,
+    marginTop: '20px',
+    paddingBottom: '10px'
   },
 
   searchLabel: {
@@ -27,16 +33,36 @@ const filter = {
     maxWidth: '39%'
   },
 
-  categoryType: {
+  desktopCategoryType: {
     display: 'inline-block',
     marginRight: '1%',
-    maxWidth: '30%'
+    width: '25%'
   },
 
-  categoryValue: {
+  mobileCategoryType: {
     display: 'inline-block',
     marginRight: '1%',
-    width: '48%'
+    width: '45%'
+  },
+
+  desktopCategoryValue: {
+    display: 'inline-block',
+    marginRight: '1%',
+    width: '50%'
+  },
+
+  mobileCategoryValue: {
+    display: 'inline-block',
+    marginRight: '1%',
+    width: '45%'
+  },
+
+  label: {
+    borderBottom: `1px solid ${colors.mediumGrey}`,
+    color: colors.xDarkGrey,
+    fontFamily,
+    marginBottom: '10px',
+    paddingBottom: '10px'
   },
 
   numbering: {
@@ -70,22 +96,18 @@ const filter = {
     width: '100%'
   },
 
-  btnContainer: {
+  desktopBtnContainer: {
     display: 'inline-block',
+    position: 'relative',
     verticalAlign: 'middle',
     width: '20%'
   },
 
-  select: {
-    // border: `1px solid ${colors.darkGrey}`,
-    // fontFamily,
-    // fontSize: '12px',
-    // opacity: 0.8,
-    // width: '100%',
-    // textOverflow: 'ellipsis',
-    // whiteSpace: 'nowrap',
-    // overflow: 'hidden',
-    // padding: '5px 0'
+  mobileBtnContainer: {
+    display: 'inline-block',
+    position: 'relative',
+    verticalAlign: 'middle',
+    width: '2%'
   },
 
   actionBtn: {

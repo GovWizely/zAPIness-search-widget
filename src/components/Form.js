@@ -80,7 +80,7 @@ export class Form extends Component {
         </div>
 
         {
-          !isEmpty(filters.get('categories')) && <div>Got categories:)</div>
+          !isEmpty(filters.get('categories')) && <span></span>
         }
 
         {

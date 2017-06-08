@@ -90,6 +90,23 @@ const buttons = {
     }
   },
 
+  mobileDeleteLink: {
+    background: 'none',
+    position: 'absolute',
+    top: '-26px',
+    right: '-26px'
+  },
+
+  desktopDeleteLink: {
+    color: colors.darkChalk,
+    fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+    fontSize: '13px',
+    fontWeight: 300,
+    position: 'absolute',
+    textDecoration: 'underline',
+    top: '-26px'
+  },
+
   wide: {
     border: `1px solid ${colors.xDarkGrey}`,
     fontSize: '13px',
@@ -101,29 +118,32 @@ const buttons = {
 
   desktopSmall: {
     border: `1px solid ${colors.xDarkGrey}`,
-    fontSize: '13px',
+    fontSize: '15px',
     fontWeight: 500,
     color: colors.xDarkGrey,
-    marginLeft: '5px'
+    marginLeft: '5px',
+    padding: '5px 8px'
   },
 
   mobileSmall: {
     border: `1px solid ${colors.xDarkGrey}`,
     display: 'block',
-    fontSize: '13px',
+    fontSize: '15px',
     fontWeight: 500,
     color: colors.xDarkGrey,
     marginBottom: '10px',
+    padding: '8px',
     width: '100%'
   },
 
   desktopSubmit: {
     background: colors.darkChalk,
     display: 'inline-block',
-    fontSize: '13px',
+    fontSize: '15px',
     fontWeight: 500,
     color: colors.white,
     marginLeft: '5px',
+    padding: '5px 8px',
 
     ':hover': {
       background: colors.chalk,
@@ -138,10 +158,11 @@ const buttons = {
 
   mobileSubmit: {
     background: colors.darkChalk,
-    display: 'block',
-    fontSize: '13px',
-    fontWeight: 500,
     color: colors.white,
+    display: 'block',
+    fontSize: '15px',
+    fontWeight: 500,
+    padding: '8px',
     width: '100%',
     marginBottom: '10px'
   }

@@ -93,7 +93,7 @@ export class Filter extends Component {
     console.log(formFilters[0]);
 
     return (
-      <div className="__sw-filter__" style={styles.filter.container}>
+      <div className="__sw-filter__" style={styles.filter[`${deviceType}Container`]}>
         {
           isDesktop &&
           <div style={styles.filter.searchLabel} className="__sw-search-label__">
@@ -106,39 +106,41 @@ export class Filter extends Component {
         }
 
         <ul style={styles.filter.ul}>
+          <li style={styles.filter.label}>
+            <div style={styles.filter[`${deviceType}CategoryType`]}>Field:</div>
+            <div style={styles.filter[`${deviceType}CategoryValue`]}>Value:</div>
+          </li>
           {fields.map((member, index) =>
             <li key={`filter-${index + 1}`} style={styles.filter.li}>
               <div className="list-container" style={styles.filter.listContainer}>
-                <div style={styles.filter.categoryType}>
-                  { index === 0 && <div style={styles.filter.span}>Field:</div> }
+                <div style={styles.filter[`${deviceType}CategoryType`]}>
                   <Field
                     name={`${member}.type`}
                     list={keys(filters.get('categories'))}
                     component={SelectInput}
                     className="select-type"
                     fieldName={`${member}.type`}
-                    // styles={styles.filter.select}
+                    clearable={isDesktop}
                     {...rest}
                   />
                 </div>
-                <div style={styles.filter.categoryValue}>
-                  { index === 0 && <div style={styles.filter.span}>Value:</div> }
+                <div style={styles.filter[`${deviceType}CategoryValue`]}>
                   <Field
                     name={`${member}.value`}
                     list={this.getAvailableValues(index)}
                     component={SelectInput}
                     fieldName={`${member}.value`}
                     disabled={!formFilters || !formFilters[index].type}
-                    // styles={styles.filter.select}
+                    clearable={isDesktop}
                     {...rest}
                   />
                 </div>
 
-                <div className="btn-container" style={styles.filter.btnContainer}>
+                <div className="btn-container" style={styles.filter[`${deviceType}BtnContainer`]}>
                   <Button
                     className="remove-filter"
                     clickHandler={() => removeFilter(fields, index)}
-                    kind="sLink"
+                    kind={`${deviceType}DeleteLink`}
                     type="button"
                   >
                     { isDesktop && <span>Delete</span> }
