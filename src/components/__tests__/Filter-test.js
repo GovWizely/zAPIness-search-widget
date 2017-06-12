@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import * as api from '../../actions/api';
 
 import ConnectedFilter from '../Filter';
@@ -36,10 +36,11 @@ describe('components/Filter', () => {
     }),
     form: {
       form: {
-        filters: {
-          name: 'filters',
-          type: 'FieldArray',
-          count: 1
+        values: {
+          filters: [{
+            type: { value: 'country', label: 'Country' },
+            label: { value: 'rome', label: 'Rome' }
+          }]
         }
       }
     },
@@ -76,9 +77,8 @@ describe('components/Filter', () => {
   it('adds new filter', () => {
     const addBtn = connectedFilter.find('.add-filter');
     expect(addBtn.text()).toEqual('Add Another Filter');
-    addBtn.simulate('click');
-    expect(connectedFilter.find(Field).length).toBe(4);
     expect(connectedFilter.find(Field).at(0).props().list).toEqual(['country', 'capital']);
+    expect(connectedFilter.find(Field).at(1).props().list).toEqual(['Italy', 'Germany']);
   });
 
   it('submits form', () => {

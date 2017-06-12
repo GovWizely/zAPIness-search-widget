@@ -45,9 +45,11 @@ export function removeAllFilters() {
 export function addFilters(formFilters) {
   return (dispatch) => {
     dispatch(removeAllFilters());
-    // debugger
+
     each(formFilters, (filter) => {
-      dispatch(addFilter(filter.type.value, filter.value.value));
+      const type = filter.type ? filter.type.value : undefined;
+      const value = filter.value ? filter.value.value : undefined;
+      dispatch(addFilter(type, value));
     });
   };
 }

@@ -7,7 +7,7 @@ const initialState = Map({
   offset: 0,
   pageNum: 1,
   data: undefined,
-  error: [],
+  error: undefined,
   fields: [],
   showAll: false,
   hasFilter: false
@@ -20,7 +20,7 @@ export default function queryReducer(state = initialState, action) {
     case actionTypes.LOAD_ERROR:
       return state.set('error', action.error);
     case actionTypes.CLEAR_ERROR:
-      return state.set('error', []);
+      return state.set('error', undefined);
     case actionTypes.RESET_PAGE_NUM:
       return state.merge({
         pageNum: 1,

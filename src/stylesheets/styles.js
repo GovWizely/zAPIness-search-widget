@@ -6,6 +6,8 @@ import pagination from './pagination';
 import list from './list';
 import filter from './filter';
 
+const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
+
 const styles = {
   buttons,
   form,
@@ -49,8 +51,19 @@ const styles = {
   },
 
   error: {
+    border: `1px solid ${colors.errorRed}`,
+    borderRadius: '5px'
+  },
+
+  errorMessage: {
+    background: '#f2dede',
+    border: '1px solid #ebccd1',
+    borderRadius: '4px',
     color: colors.red,
-    fontWeight: 500
+    fontFamily,
+    fontSize: '14px',
+    padding: '15px 20px',
+    margin: '10px 0'
   },
 
   loadingIcon: {

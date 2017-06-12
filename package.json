@@ -37,7 +37,7 @@
     "react-redux": "^4.4.5",
     "react-select": "^1.0.0-rc.5",
     "redux": "^3.1.1",
-    "redux-form": "^6.3.2",
+    "redux-form": "^6.8.0",
     "redux-thunk": "^2.1.0",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.2"

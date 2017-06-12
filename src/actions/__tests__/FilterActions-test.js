@@ -75,8 +75,14 @@ describe('actions/FilterActions', () => {
         filters: [{ type: 'country', value: 'Sweden' }]
       });
 
-      const filter1 = { type: 'capital', value: 'Berlin' };
-      const filter2 = { type: 'country', value: 'Italy' };
+      const filter1 = {
+        type: { value: 'capital', label: 'Capital' },
+        value: { value: 'berlin', label: 'Berlin' }
+      };
+      const filter2 = {
+        type: { value: 'country', label: 'Country' },
+        value: { value: 'italy', label: 'Italy' }
+      };
       const formFilters = [filter1, filter2];
 
       const expectedActions = [
@@ -85,12 +91,12 @@ describe('actions/FilterActions', () => {
         },
         {
           type: actionTypes.ADD_FILTER,
-          filterType: filter1.type,
-          value: filter1.value
+          filterType: filter1.type.value,
+          value: filter1.value.value
         }, {
           type: actionTypes.ADD_FILTER,
-          filterType: filter2.type,
-          value: filter2.value
+          filterType: filter2.type.value,
+          value: filter2.value.value
         }
       ];
 

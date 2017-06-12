@@ -80,17 +80,19 @@ describe('actions/QueryActions', () => {
   });
 
   describe('requestApi', () => {
-    const store = mockStore({
-      form: {
-        form: {}
-      },
-      query: Map({ keyword, offset }),
-      isFetching: false
-    });
-
     const results = [1, 2, 3];
 
     it('get results successfully', () => {
+      const store = mockStore({
+        form: {
+          form: {}
+        },
+        query: Map({ keyword, offset }),
+        isFetching: false,
+        filters: Map([
+          Map({ type: '1', value: 'Season' })
+        ])
+      });
       const expectedActions = [
         {
           type: actionTypes.RECEIVE_DATA
@@ -98,6 +100,35 @@ describe('actions/QueryActions', () => {
         {
           type: actionTypes.LOAD_RESULT,
           results
+        }
+      ];
+
+      configureApp(endpoint);
+
+      nock('endpoint').get('/').reply(200, { results });
+
+      const dispatch = sinon.spy(store, 'dispatch');
+      const fn = QueryActions.requestApi();
+
+      fn(dispatch, store.getState);
+
+      expect(dispatch.calledWith(expectedActions));
+    });
+
+    it('does not perform ajax call if there is error', () => {
+      const store = mockStore({
+        form: {
+          form: {}
+        },
+        query: Map({ keyword, offset }),
+        isFetching: false,
+        filters: Map([
+          Map({ type: undefined, value: undefined })
+        ])
+      });
+      const expectedActions = [
+        {
+          type: actionTypes.RECEIVE_DATA
         }
       ];
 

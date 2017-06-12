@@ -1,9 +1,13 @@
 import map from 'lodash/map';
+import each from 'lodash/each';
 import pick from 'lodash/pick';
 import values from 'lodash/values';
 import { change } from 'redux-form';
 
 import * as actionTypes from '../constants/ActionTypes';
+import {
+  submissionError
+} from '../constants/Errors';
 
 import { requestData, receiveData } from './LoadingActions';
 import { buildParams } from './elasticsearch';
@@ -77,6 +81,7 @@ export function updateHasFilter(hasFilter) {
 export function setFilterRequired() {
   return (dispatch, getState) => {
     const required = getState().query.get('hasFilter');
+
     dispatch(change('form', 'filterRequired', required));
   };
 }
@@ -90,24 +95,35 @@ export function resetPageNum() {
 export function requestApi() {
   return (dispatch, getState) => {
     dispatch(requestData());
+    const filters = getState().filters.get('filters');
+    const hasFilter = getState().query.get('hasFilter');
+    let hasError = false;
 
-    const error = getState().form.form ? getState().form.form.syncErrors : false;
-
-    if (error) {
-      dispatch(receiveData());
-      return dispatch(loadError(error));
+    if (filters && hasFilter) {
+      each(filters, (filter) => {
+        if (!filter.get('type') || !filter.get('value')) {
+          dispatch(receiveData());
+          hasError = true;
+        }
+      });
     }
 
-    const data = buildParams(getState().query, getState().filters);
-    return getData(data)
-      .then((response) => {
-        dispatch(receiveData());
-        dispatch(clearError());
-        dispatch(loadResult(response));
-      },
-      (error) => {
-        dispatch(receiveData());
-        dispatch(loadError(error));
-      });
+    const data = buildParams(
+      getState().query,
+      getState().filters
+    );
+
+    if (!hasError) {
+      return getData(data)
+        .then((response) => {
+          dispatch(receiveData());
+          dispatch(clearError());
+          dispatch(loadResult(response));
+        },
+        (error) => {
+          dispatch(receiveData());
+          dispatch(loadError(submissionError));
+        });
+    }
   };
 }

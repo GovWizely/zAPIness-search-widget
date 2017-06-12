@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FieldArray, reduxForm } from 'redux-form';
+import {
+  FieldArray,
+  getFormSyncErrors,
+  isDirty,
+  reduxForm
+} from 'redux-form';
 
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
@@ -14,7 +19,6 @@ import {
   resetPageNum
 } from '../actions/QueryActions';
 
-import validate from '../actions/validate';
 import styles from '../stylesheets/styles';
 
 import Filter from './Filter';
@@ -42,7 +46,9 @@ export class Form extends Component {
 
   render() {
     const {
+      anyTouched,
       deviceType,
+      errors,
       filters,
       handleSubmit,
       isFetching,
@@ -58,7 +64,6 @@ export class Form extends Component {
             placeholder="Search for keyword..."
             changeHandler={debounce(submitHandler, 1000)}
           />
-
           <Fetcher
             submitHandler={submitHandler}
             fetching={isFetching}
@@ -66,21 +71,27 @@ export class Form extends Component {
           />
         </div>
 
-        <div style={{ overflow: 'hidden' }}>
-          <Button
-            type="button"
-            kind={`${deviceType}Link`}
-            clickHandler={this.toggleFilter}
-            className="_sw-advanced-search__"
-          >
-            <img src={settings} alt="settings" style={styles.sImg} />
-            { this.state.showFilter && <span>Hide Advanced Filter</span> }
-            { !this.state.showFilter && <span>Advanced Filter</span> }
-          </Button>
-        </div>
+        {
+          !isEmpty(filters.get('categories')) &&
+          <div style={{ overflow: 'hidden' }}>
+            <Button
+              type="button"
+              kind={`${deviceType}Link`}
+              clickHandler={this.toggleFilter}
+              className="_sw-advanced-search__"
+            >
+              <img src={settings} alt="settings" style={styles.sImg} />
+              { this.state.showFilter && <span>Hide Advanced Filter</span> }
+              { !this.state.showFilter && <span>Advanced Filter</span> }
+            </Button>
+          </div>
+        }
 
         {
-          !isEmpty(filters.get('categories')) && <span></span>
+          query.get('error') &&
+          <div className="__sw-error__" style={styles.errorMessage}>
+            { query.get('error') }
+          </div>
         }
 
         {
@@ -89,6 +100,8 @@ export class Form extends Component {
             name="filters"
             deviceType={deviceType}
             component={Filter}
+            // error={errors}
+            // touched={anyTouched}
           />
         }
       </form>
@@ -96,8 +109,13 @@ export class Form extends Component {
   }
 }
 
-function mapStateToProps() {
+const getSyncErrors = getFormSyncErrors('form');
+const formIsTouched = isDirty('form');
+
+function mapStateToProps(state) {
   return {
+    errors: getSyncErrors(state),
+    anyTouched: formIsTouched(state),
     fields: ['keyword', 'filters[].type', 'filters[].value']
   };
 }
@@ -121,12 +139,16 @@ function mapDispatchToProps(dispatch) {
 }
 
 Form.defaultProps = {
+  anyTouched: false,
   deviceType: '',
+  errors: undefined,
   handleSubmit: undefined,
   updateFilterStatus: undefined
 };
 
 Form.propTypes = {
+  anyTouched: PropTypes.bool,
+  errors: PropTypes.shape({}),
   handleSubmit: PropTypes.func,
   isFetching: PropTypes.bool.isRequired,
   submitHandler: PropTypes.func.isRequired,
@@ -137,6 +159,5 @@ Form.propTypes = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'form',
-  validate
+  form: 'form'
 })(Form));

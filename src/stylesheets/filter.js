@@ -23,8 +23,7 @@ const filter = {
 
   searchLabel: {
     fontSize: '15px',
-    fontWeight: 500,
-    marginBottom: '20px'
+    fontWeight: 500
   },
 
   category: {

@@ -1,22 +1,26 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import Select from 'react-select';
 import SelectInput from '../SelectInput';
+import styles from '../../stylesheets/styles';
 
 describe('components/SelectInput', () => {
-  it('renders successfully', () => {
-    const changeHandler = jest.fn();
-    const fieldName = 'select';
-    const list = ['Earth', 'Mars', 'Pluto'];
+  const list = ['Earth', 'Mars', 'Pluto'];
+  const onChange = jest.fn();
+  const input = { name: 'name', value: 'text', onChange };
 
-    const input = shallow(
+  it('renders successfully', () => {
+    const selectInput = shallow(
       <SelectInput
-        fieldName={fieldName}
-        changeHandler={changeHandler}
+        input={input}
+        clearable
+        disabled={false}
         list={list}
+        meta={{}}
       />
     );
 
-    expect(input.containsMatchingElement(
+    expect(selectInput.containsMatchingElement(
       <select>
         <option>SELECT ONE</option>
         <option>Earth</option>
@@ -25,12 +29,40 @@ describe('components/SelectInput', () => {
       </select>
     ));
 
-    const props = input.props();
+    const props = selectInput.find(Select).props();
+    expect(props.options).toEqual(
+      [
+        { value: 'Earth', label: 'Earth' },
+        { value: 'Mars', label: 'Mars' },
+        { value: 'Pluto', label: 'Pluto' }
+      ]
+    );
 
-    expect(props.name).toBe(fieldName);
-    expect(props.component).toBe('select');
+    selectInput.find(Select).simulate('change');
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
 
-    input.find('Field').simulate('change');
-    expect(changeHandler).toHaveBeenCalledTimes(1);
+  it('renders errors if the input is not disabled', () => {
+    const selectInput = shallow(<SelectInput
+      input={input}
+      clearable
+      disabled={false}
+      list={list}
+      meta={{ error: 'Required' }}
+    />);
+
+    expect(selectInput.find('div').props().style).toBe(styles.error);
+  });
+
+  it('does not render errors if the input is disabled', () => {
+    const selectInput = shallow(<SelectInput
+      input={input}
+      clearable
+      disabled
+      list={list}
+      meta={{ error: 'Required' }}
+    />);
+
+    expect(selectInput.find('div').props().style).toBe(undefined);
   });
 });

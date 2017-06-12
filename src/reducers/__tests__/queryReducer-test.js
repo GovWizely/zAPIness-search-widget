@@ -11,7 +11,7 @@ describe('queryReducer', () => {
     offset: 0,
     pageNum: 1,
     data: undefined,
-    error: [],
+    error: undefined,
     fields: [],
     showAll: false,
     hasFilter: false
@@ -25,7 +25,7 @@ describe('queryReducer', () => {
      offset: 0,
      pageNum: 1,
      data: undefined,
-     error: [],
+     error: undefined,
      fields: [],
      showAll: false,
      hasFilter: false
@@ -43,7 +43,7 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data,
-      error: [],
+      error: undefined,
       fields: [],
       showAll: false,
       hasFilter: false
@@ -79,7 +79,7 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: [],
+      error: undefined,
       fields: [],
       showAll: false,
       hasFilter: false
@@ -97,7 +97,7 @@ describe('queryReducer', () => {
       offset: 10,
       pageNum: 2,
       data: undefined,
-      error: [],
+      error: undefined,
       fields: [],
       showAll: false,
       hasFilter: false
@@ -116,7 +116,7 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: [],
+      error: undefined,
       fields: [],
       showAll: false,
       hasFilter: false
@@ -134,7 +134,7 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: [],
+      error: undefined,
       fields: ['some', 'random', 'fields'],
       showAll: false,
       hasFilter: false
@@ -152,7 +152,7 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: [],
+      error: undefined,
       fields: [],
       showAll: true,
       hasFilter: false
@@ -165,7 +165,7 @@ describe('queryReducer', () => {
       offset: 10,
       pageNum: 5,
       data: undefined,
-      error: [],
+      error: undefined,
       fields: [],
       showAll: true,
       hasFilter: false
@@ -180,7 +180,7 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: [],
+      error: undefined,
       fields: [],
       showAll: true,
       hasFilter: false
@@ -198,7 +198,7 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: [],
+      error: undefined,
       fields: [],
       showAll: false,
       hasFilter: true
@@ -216,7 +216,7 @@ describe('queryReducer', () => {
       offset: 0,
       pageNum: 1,
       data: undefined,
-      error: [],
+      error: undefined,
       fields: [],
       showAll: true,
       hasFilter: false
