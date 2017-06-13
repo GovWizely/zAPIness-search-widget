@@ -5,7 +5,8 @@ import {
   FieldArray,
   getFormSyncErrors,
   isDirty,
-  reduxForm
+  reduxForm,
+  change
 } from 'redux-form';
 
 import debounce from 'lodash/debounce';
@@ -47,6 +48,7 @@ export class Form extends Component {
   render() {
     const {
       anyTouched,
+      clearHandler,
       deviceType,
       errors,
       filters,
@@ -63,7 +65,10 @@ export class Form extends Component {
             name="keyword"
             placeholder="Search for keyword..."
             changeHandler={debounce(submitHandler, 1000)}
+            clearHandler={clearHandler}
+            value={query.get('keyword') || ''}
           />
+
           <Fetcher
             submitHandler={submitHandler}
             fetching={isFetching}
@@ -100,8 +105,6 @@ export class Form extends Component {
             name="filters"
             deviceType={deviceType}
             component={Filter}
-            // error={errors}
-            // touched={anyTouched}
           />
         }
       </form>
@@ -134,6 +137,11 @@ function mapDispatchToProps(dispatch) {
 
     updateFilterStatus: (hasFilter) => {
       dispatch(updateHasFilter(hasFilter));
+    },
+
+    clearHandler: () => {
+      dispatch(updateKeyword(''));
+      dispatch(change('form', 'keyword', ''));
     }
   };
 }

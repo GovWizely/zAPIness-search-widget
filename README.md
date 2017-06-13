@@ -1,6 +1,6 @@
 # zAPIness-search-widget
 
-A search widget that allows users to search a given zAPIness endpoint.
+A search widget that allows users to search a given zAPIness endpoint.[See Demo](https://govwizely.github.io/zAPIness-search-widget)
 
 ##### Desktop
 
@@ -14,8 +14,6 @@ ____
 
 
 ### Basic Usage
-
-[Live Demo](https://govwizely.github.io/zAPIness-search-widget)
 
 zAPIness-search-widget will be loaded in any webpage by embedding the following javascripts into the page:
 
@@ -55,7 +53,7 @@ zAPIness-search-widget will be loaded in any webpage by embedding the following 
 | label | First element of the aggregations |false| The main title you want to show in the search result, i.e AusAid in the screenshot above |
 | fields | - | false |By default, it will show all searchable fields from the endpoint. You may set the fields you want to show in the search result|
 | preview | false | false| perform a search during initialization and show all the details of the first result|
-| showAll | false | false| show all fields in the search results |
+| showAll | true | false| show all fields in the search results |
 
 
 ---

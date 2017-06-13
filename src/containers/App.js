@@ -57,7 +57,7 @@ export class App extends Component {
 
     return (
       <div className="__sw-container__" style={styles.container}>
-        <div className="container" style={{ width: '100%' }} ref={innerRef}>
+        <div style={{ width: '100%', padding: 0 }} ref={innerRef}>
           <Form
             deviceType={deviceType}
             filters={filters}

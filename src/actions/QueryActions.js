@@ -2,6 +2,7 @@ import map from 'lodash/map';
 import each from 'lodash/each';
 import pick from 'lodash/pick';
 import values from 'lodash/values';
+import isEmpty from 'lodash/isEmpty';
 import { change } from 'redux-form';
 
 import * as actionTypes from '../constants/ActionTypes';
