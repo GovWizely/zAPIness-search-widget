@@ -1,0 +1,52 @@
+#
+# This file contains configuration flags to customize your site
+#
+
+theme: minima
+
+markdown:         kramdown
+highlighter:      rouge
+
+kramdown:
+  auto_ids: true
+
+# Name of your site (displayed in the header)
+name: Embeddable Search Widget
+
+# Short bio or description (displayed in the header)
+description: Search widget that you can customize and embed into your website straight away
+
+source:           .
+destination:      ./_gh_pages
+
+# Includes an icon in the footer for each username you enter
+footer-links:
+  dribbble:
+  email:
+  facebook:
+  flickr:
+  github: GovWizely/zAPIness-search-widget
+  instagram:
+  linkedin:
+  pinterest:
+  rss: # just type anything here for a working RSS icon
+  twitter:
+  stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
+  youtube: # channel/<your_long_string> or user/<user-name>
+  googleplus: # anything in your profile username that comes after plus.google.com/
+
+url: "https://govwizely.github.io/zAPIness-search-widget"
+baseurl: ""
+
+permalink: pretty
+
+current_version:  4.0.0-alpha.6
+docs_version:     4.0
+
+# Use the following plug-ins
+gems:
+  - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
+  - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
+
+# Exclude these files from your production _site
+exclude: [.git, .github, assets/scss/, build, js, node_modules, nuget, scss, vendor, bower.json, composer.json, Gemfile, Gemfile.lock, Gruntfile.js, package.js, package.json, sache.json]
