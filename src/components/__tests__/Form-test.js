@@ -71,7 +71,7 @@ describe('components/Form', () => {
     expect(connectedForm.find(Input).length).toBe(1);
     connectedForm.find(Input).simulate('change', { target: { value: 'David' } });
     expect(connectedForm.find('.__sw-fetcher__').length).toBe(1);
-    expect(store.getActions().length).toBe(2);
+    expect(store.getActions().length).toBe(1);
   });
 
   it('shows add filter button', () => {

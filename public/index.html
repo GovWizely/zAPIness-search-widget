@@ -13,6 +13,7 @@
   <meta property="og:type" content="article">
   <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://govwizely.github.io/zAPIness-search-widget/static/js/main.js?v=1cc2a13e"></script>
   <style>
     body {
       color: #333;
@@ -51,8 +52,12 @@
     }
     .page-body,
     .page-footer,
-    .page-header {
+    .page-header,
+    .page-details {
       padding: 20px 0;
+    }
+    .page-details {
+      background: #fafbfd;
     }
     .page-header {
       background-color: #000000;
@@ -93,15 +98,15 @@
       text-decoration: none;
     }
     .page-footer {
-      background-color: #fafafa;
-      color: #999;
+      background-color: #ccc;
+      color: #ffffff;
       margin: 0;
       padding: 20px 0;
       text-align: center;
       width: 100%;
     }
     .page-footer a {
-      color: #999;
+      color: #ffffff;
     }
     @media (min-width: 480px) {
       .page-body,
@@ -174,20 +179,24 @@
       display: none;
     }
     .show-code {
-      float: right;
-      font-weight: 300;
+      border: 1px solid #676565;
+      border-radius: 5px;
+      color: #676565;
+      font-weight: 500;
       font-size: 13px;
       margin-left: 10px;
-      text-decoration: underline;
+      padding: 5px;
     }
     .show-code:hover {
       cursor: pointer;
+      color: black;
+      border: 1px solid black;
     }
     pre {
       background: #272323;
       border: 1px solid #191515;
       border-radius: 5px;
-      color: #f5deb3;
+      color: #ffffff;
       overflow: auto;
     }
   </style>
@@ -211,91 +220,85 @@
   </div>
   <div class="page-body">
     <div class="container">
-      <section>
-        <div class="example">
-          <h3>Selected Fields <span class="show-code" data-id="example-1">show code</span></h3>
-          <div class="hint">
-            If you want to show all fields, list all the fields for the fields parameter or set showAll to true
-          </div>
+      <div class="app" id="zAPI-sw-root"></div>
+
+    </div>
+  </div>
+
+  <div class="page-details">
+    <div class="container">
+      <div class="example">
+        <h3>Selected Fields <span class="show-code" onclick="runExample1()">run code</span></h3>
+        <div class="hint">
+          Show selected fields in the result.
         </div>
-        <pre id="example-1" class="hidden">
-          <code>
-            zAPI.SearchWidget.new({
-              mountPoint: "#zAPI-sw-root",
-              host: "https://rrsoft4.zapiness.xyz",
-              endpoint: "sample_api",
-              fields: [
-                "agency",
-                "description",
-                "end_date",
-                "supplier_name",
-                "supplier_country",
-                "supplier_city"
-              ]
-            });
-          </code>
-        </pre>
-        <div class="app" id="zAPI-sw-root"></div>
-      </section>
+      </div>
+      <pre id="example-1">
+        <code>
+          zAPI.SearchWidget.new({
+            mountPoint: "#zAPI-sw-root",
+            host: "https://rrsoft4.zapiness.xyz",
+            endpoint: "sample_api",
+            fields: [
+              "agency",
+              "description",
+              "end_date"
+            ]
+          });
+        </code>
+      </pre>
 
-      <section>
-        <div class="example">
-          <h3>Preview Mode <span class="show-code" data-id="example-2">show code</span></h3>
-          <div class="hint">
-            Show full details of the first result once the search widget is loaded.
-          </div>
+      <div class="example">
+        <h3>Preview Mode <span class="show-code" onclick="runExample2()">run code</span></h3>
+        <div class="hint">
+          Show full details of the first result once the search widget is loaded.
         </div>
-        <pre id="example-2" class="hidden">
-          <code>
-            zAPI.SearchWidget.new({
-              mountPoint: "#zAPI-sw-root",
-              host: "https://rrsoft4.zapiness.xyz",
-              endpoint: "sample_api",
-              preview: true,
-              showAll: true
-            });
-          </code>
-        </pre>
+      </div>
+      <pre id="example-2">
+        <code>
+          zAPI.SearchWidget.new({
+            mountPoint: "#zAPI-sw-root",
+            host: "https://rrsoft4.zapiness.xyz",
+            endpoint: "sample_api",
+            preview: true,
+            fields: [
+              "agency",
+              "description",
+              "end_date",
+              "supplier_name",
+              "supplier_country",
+              "supplier_city"
+            ]
+          });
+        </code>
+      </pre>
 
-        <div id="zAPI-sw-root-2"></div>
-      </section>
+      <div id="zAPI-sw-root-2"></div>
 
-      <section>
-        <div class="example">
-          <h3>Specific Label <span class="show-code" data-id="example-3">show code</span></h3>
+      <div class="example">
+        <h3>Specific Label <span class="show-code" onclick="runExample3()">run code</span></h3>
+        <div class="hint">
+          Specify the title of the result.
         </div>
-        <pre id="example-3" class="hidden">
-          <code>
-            zAPI.SearchWidget.new({
-              mountPoint: "#zAPI-sw-root",
-              host: "https://rrsoft4.zapiness.xyz",
-              endpoint: "sample_api",
-              label: "agency",
-              showAll: true
-            });
-          </code>
-        </pre>
-
-        <div id="zAPI-sw-root-3"></div>
-      </section>
-
-      <section>
-        <div class="example">
-          <h3>Show All <span class="show-code" data-id="example-4">show code</span></h3>
-        </div>
-        <pre id="example-4" class="hidden">
-          <code>
-            zAPI.SearchWidget.new({
-              mountPoint: "#zAPI-sw-root",
-              host: "https://rrsoft4.zapiness.xyz",
-              endpoint: "sample_api",
-              showAll: true
-            });
-          </code>
-        </pre>
-
-        <div id="zAPI-sw-root-4"></div>
-      </section>
+      </div>
+      <pre id="example-3">
+        <code>
+          zAPI.SearchWidget.new({
+            mountPoint: "#zAPI-sw-root",
+            host: "https://rrsoft4.zapiness.xyz",
+            endpoint: "sample_api",
+            label: "agency",
+            fields: [
+              "agency",
+              "description",
+              "end_date",
+              "supplier_name",
+              "supplier_country",
+              "supplier_city"
+            ]
+          });
+        </code>
+      </pre>
     </div>
   </div>
   <footer class="page-footer">
@@ -320,46 +323,66 @@
           "supplier_city"
         ]
       });
-
-      zAPI.SearchWidget.new({
-        mountPoint: "#zAPI-sw-root-2",
-        host: "https://rrsoft4.zapiness.xyz",
-        endpoint: "sample_api",
-        preview: true,
-        label: "agency",
-        showAll: true
-      });
-
-      zAPI.SearchWidget.new({
-        mountPoint: "#zAPI-sw-root-3",
-        host: "https://rrsoft4.zapiness.xyz",
-        endpoint: "sample_api",
-        label: "agency",
-        showAll: true
-      });
-
-      zAPI.SearchWidget.new({
-        mountPoint: "#zAPI-sw-root-4",
-        host: "https://rrsoft4.zapiness.xyz",
-        endpoint: "sample_api",
-        label: "agency",
-        showAll: true
-      });
     }
   </script>
   <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
   <script>
-    $(document).ready(function() {
-      $(".show-code").on("click", function() {
-        var example = "#" + $(this).data('id');
-        $(example).toggleClass('hidden');
-        if($(example).hasClass('hidden')) {
-          $(this).html('show code');
-        } else {
-          $(this).html('hide code');
-        }
+    function removeNode() {
+      $("#zAPI-sw-root")[0].innerHTML = "";
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+    };
+    function runExample1() {
+      removeNode();
+      zAPI.SearchWidget.new({
+        mountPoint: "#zAPI-sw-root",
+        host: "https://rrsoft4.zapiness.xyz",
+        endpoint: "sample_api",
+        preview: true,
+        fields: [
+          "agency",
+          "description",
+          "end_date"
+        ]
       });
-    });
+      return false;
+    }
+
+    function runExample2() {
+      removeNode();
+      zAPI.SearchWidget.new({
+        mountPoint: "#zAPI-sw-root",
+        host: "https://rrsoft4.zapiness.xyz",
+        endpoint: "sample_api",
+        preview: true,
+        fields: [
+          "agency",
+          "description",
+          "end_date",
+          "supplier_name",
+          "supplier_country",
+          "supplier_city"
+        ]
+      });
+    }
+
+    function runExample3() {
+      removeNode();
+      zAPI.SearchWidget.new({
+        mountPoint: "#zAPI-sw-root",
+        host: "https://rrsoft4.zapiness.xyz",
+        endpoint: "sample_api",
+        label: "supplier_name",
+        preview: true,
+        fields: [
+          "agency",
+          "description",
+          "end_date",
+          "supplier_name",
+          "supplier_country",
+          "supplier_city"
+        ]
+      });
+    }
   </script>
 </body>
 </html>

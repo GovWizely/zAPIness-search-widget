@@ -13,9 +13,9 @@ exports[`containers/App renders correctly 1`] = `
   }
 >
   <div
-    className="container"
     style={
       Object {
+        "padding": 0,
         "width": "100%",
       }
     }
@@ -40,34 +40,38 @@ exports[`containers/App renders correctly 1`] = `
           }
         }
       >
-        <input
-          className="__input__"
-          name="keyword"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onDragStart={[Function]}
-          onDrop={[Function]}
-          onFocus={[Function]}
-          placeholder="Search for keyword..."
-          style={
-            Object {
-              "borderColor": "#BDBDBD",
-              "borderRadius": 3,
-              "borderStyle": "solid",
-              "borderWidth": 1,
-              "boxSizing": "border-box",
-              "display": "inline-block",
-              "fontFamily": "\\"Helvetica Neue\\",Helvetica,Arial,sans-serif",
-              "fontSize": "15px",
-              "fontWeight": 300,
-              "lineHeight": "28px",
-              "padding": "8px 10px",
-              "width": "100%",
+        <div
+          data-radium={true}
+        >
+          <input
+            data-radium={true}
+            name="keyword"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder="Search for keyword..."
+            style={
+              Object {
+                "borderColor": "#BDBDBD",
+                "borderRadius": 3,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "boxSizing": "border-box",
+                "display": "inline-block",
+                "fontFamily": "\\"Helvetica Neue\\",Helvetica,Arial,sans-serif",
+                "fontSize": "15px",
+                "fontWeight": 300,
+                "lineHeight": "28px",
+                "padding": "8px 10px",
+                "width": "100%",
+              }
             }
-          }
-          type="text"
-          value=""
-        />
+            type="text"
+            value=""
+          />
+        </div>
         <div
           className="__sw-fetcher__"
           data-radium={true}

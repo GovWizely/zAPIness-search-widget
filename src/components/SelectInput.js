@@ -36,6 +36,7 @@ const SelectInput = ({
         onChange={value => input.onChange(value)}
         options={generateList(list)}
         value={input.value || ''}
+        arrowRenderer={() => {}}
       />
     </div>
   );
