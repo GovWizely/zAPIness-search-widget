@@ -17,7 +17,7 @@ import Button from './Button';
 import {
   clearError,
   requestApi,
-  resetPageNum,
+  resetPageNum
 } from '../actions/QueryActions';
 
 import {
@@ -39,6 +39,7 @@ export class Filter extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.formFilters !== nextProps.formFilters) {
+      // empty the value of filter if the type has changed
       map(this.props.formFilters, (filter, index) => {
         const currentFilter = nextProps.formFilters[index];
         if (currentFilter && currentFilter.type !== filter.type) {
@@ -175,7 +176,7 @@ export class Filter extends Component {
                 fields.length > 0 &&
                 <Button
                   className="remove-all-filter"
-                  clickHandler={() => removeAllFilters(fields, form)}
+                  clickHandler={() => removeAllFilters(fields)}
                   kind="desktopSmall"
                   type="button"
                 >
@@ -188,7 +189,7 @@ export class Filter extends Component {
             fields.length > 0 &&
             <Button
               className={`${deviceType}Submit`}
-              clickHandler={() => submitHandler(formFilters)}
+              clickHandler={() => submitHandler(formFilters, fields)}
               kind={`${deviceType}Submit`}
               type="button"
               submitting={isFetching}
@@ -260,7 +261,7 @@ Filter.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   removeFilter: PropTypes.func.isRequired,
   removeAllFilters: PropTypes.func.isRequired,
-  submitHandler: PropTypes.func.isRequired,
+  submitHandler: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

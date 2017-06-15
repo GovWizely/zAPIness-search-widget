@@ -48,7 +48,7 @@ export function addFilters(formFilters) {
   return (dispatch) => {
     dispatch(removeAllFilters());
 
-    const validFilters = filter(formFilters, el => !isNull(el.type) && !isNull(el.value));
+    const validFilters = filter(formFilters, el => el.type && el.value);
 
     each(validFilters, (f) => {
       dispatch(addFilter(f.type.value, f.value.value));
