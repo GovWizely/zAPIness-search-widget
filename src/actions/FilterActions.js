@@ -3,6 +3,8 @@ import each from 'lodash/each';
 import mapValues from 'lodash/mapValues';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
+import filter from 'lodash/filter';
+import isNull from 'lodash/isNull';
 
 import * as actionTypes from '../constants/ActionTypes';
 import {
@@ -46,10 +48,10 @@ export function addFilters(formFilters) {
   return (dispatch) => {
     dispatch(removeAllFilters());
 
-    each(formFilters, (filter) => {
-      const type = filter.type ? filter.type.value : undefined;
-      const value = filter.value ? filter.value.value : undefined;
-      dispatch(addFilter(type, value));
+    const validFilters = filter(formFilters, el => !isNull(el.type) && !isNull(el.value));
+
+    each(validFilters, (f) => {
+      dispatch(addFilter(f.type.value, f.value.value));
     });
   };
 }

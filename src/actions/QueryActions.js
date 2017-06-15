@@ -88,35 +88,21 @@ export function resetPageNum() {
 export function requestApi() {
   return (dispatch, getState) => {
     dispatch(requestData());
-    const filters = getState().filters.get('filters');
-    const hasFilter = getState().query.get('hasFilter');
-    let hasError = false;
-
-    if (filters && hasFilter) {
-      each(filters, (filter) => {
-        if (!filter.get('type') || !filter.get('value')) {
-          dispatch(receiveData());
-          hasError = true;
-        }
-      });
-    }
 
     const data = buildParams(
       getState().query,
       getState().filters
     );
 
-    if (!hasError) {
-      return getData(data)
-        .then((response) => {
-          dispatch(receiveData());
-          dispatch(clearError());
-          dispatch(loadResult(response));
-        },
-        (error) => {
-          dispatch(receiveData());
-          dispatch(loadError(submissionError));
-        });
-    }
+    return getData(data)
+      .then((response) => {
+        dispatch(receiveData());
+        dispatch(clearError());
+        dispatch(loadResult(response));
+      },
+      (error) => {
+        dispatch(receiveData());
+        dispatch(loadError(submissionError));
+      });
   };
 }
