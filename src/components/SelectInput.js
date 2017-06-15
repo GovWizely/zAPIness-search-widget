@@ -23,6 +23,12 @@ const SelectInput = ({
   ...rest
 }) => (
   <div>
+    <style>{
+      `.Select-arrow-zone {
+         width: 5px;
+      }`
+    }
+    </style>
     <Select
       {...rest}
       clearable={clearable}
