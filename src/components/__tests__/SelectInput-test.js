@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Select from 'react-select';
 import SelectInput from '../SelectInput';
-import styles from '../../stylesheets/styles';
 
 describe('components/SelectInput', () => {
   const list = ['Earth', 'Mars', 'Pluto'];
@@ -16,7 +15,6 @@ describe('components/SelectInput', () => {
         clearable
         disabled={false}
         list={list}
-        meta={{}}
       />
     );
 
@@ -40,29 +38,5 @@ describe('components/SelectInput', () => {
 
     selectInput.find(Select).simulate('change');
     expect(onChange).toHaveBeenCalledTimes(1);
-  });
-
-  it('renders errors if the input is not disabled', () => {
-    const selectInput = shallow(<SelectInput
-      input={input}
-      clearable
-      disabled={false}
-      list={list}
-      meta={{ error: 'Required' }}
-    />);
-
-    expect(selectInput.find('div').props().style).toBe(styles.error);
-  });
-
-  it('does not render errors if the input is disabled', () => {
-    const selectInput = shallow(<SelectInput
-      input={input}
-      clearable
-      disabled
-      list={list}
-      meta={{ error: 'Required' }}
-    />);
-
-    expect(selectInput.find('div').props().style).toBe(undefined);
   });
 });

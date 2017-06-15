@@ -79,14 +79,6 @@ export function updateHasFilter(hasFilter) {
   };
 }
 
-export function setFilterRequired() {
-  return (dispatch, getState) => {
-    const required = getState().query.get('hasFilter');
-
-    dispatch(change('form', 'filterRequired', required));
-  };
-}
-
 export function resetPageNum() {
   return {
     type: actionTypes.RESET_PAGE_NUM

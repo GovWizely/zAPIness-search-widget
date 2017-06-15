@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   FieldArray,
-  getFormSyncErrors,
-  isDirty,
   reduxForm,
   change
 } from 'redux-form';
@@ -16,7 +14,6 @@ import {
   requestApi,
   updateKeyword,
   updateHasFilter,
-  setFilterRequired,
   resetPageNum
 } from '../actions/QueryActions';
 
@@ -47,10 +44,8 @@ export class Form extends Component {
 
   render() {
     const {
-      anyTouched,
       clearHandler,
       deviceType,
-      errors,
       filters,
       handleSubmit,
       isFetching,
@@ -112,13 +107,8 @@ export class Form extends Component {
   }
 }
 
-const getSyncErrors = getFormSyncErrors('form');
-const formIsTouched = isDirty('form');
-
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
-    errors: getSyncErrors(state),
-    anyTouched: formIsTouched(state),
     fields: ['keyword', 'filters[].type', 'filters[].value']
   };
 }
@@ -126,8 +116,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     submitHandler: (data, keyword) => {
-      dispatch(setFilterRequired());
-
       const input = keyword || data.target.value;
       dispatch(resetPageNum());
 
@@ -147,16 +135,13 @@ function mapDispatchToProps(dispatch) {
 }
 
 Form.defaultProps = {
-  anyTouched: false,
   deviceType: '',
-  errors: undefined,
   handleSubmit: undefined,
   updateFilterStatus: undefined
 };
 
 Form.propTypes = {
-  anyTouched: PropTypes.bool,
-  errors: PropTypes.shape({}),
+  clearHandler: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func,
   isFetching: PropTypes.bool.isRequired,
   submitHandler: PropTypes.func.isRequired,

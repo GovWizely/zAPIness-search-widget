@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   Field,
-  formValueSelector,
-  getFormSyncErrors,
-  isDirty
+  formValueSelector
 } from 'redux-form';
 
 import map from 'lodash/map';
@@ -15,13 +13,11 @@ import startCase from 'lodash/startCase';
 
 import SelectInput from './SelectInput';
 import Button from './Button';
-import { required } from '../actions/validate';
 
 import {
   clearError,
   requestApi,
   resetPageNum,
-  setFilterRequired
 } from '../actions/QueryActions';
 
 import {
@@ -29,10 +25,6 @@ import {
   removeAllFilters,
   removeSelectedFilter
 } from '../actions/FilterActions';
-
-import {
-  filterError
-} from '../constants/Errors';
 
 import styles from '../stylesheets/styles';
 
@@ -85,20 +77,16 @@ export class Filter extends Component {
   render() {
     const {
       deviceType,
-      error,
       fields,
       filters,
-      form,
       formFilters,
       isFetching,
       removeAllFilters,
       removeFilter,
-      submitHandler,
-      touched
+      submitHandler
     } = this.props;
 
     const isDesktop = deviceType === 'desktop';
-    const hasError = formFilters.length > 0 && touched && error;
 
     return (
       <div className="__sw-filter__" style={styles.filter[`${deviceType}Container`]}>
@@ -106,13 +94,6 @@ export class Filter extends Component {
           isDesktop &&
           <div style={styles.filter.searchLabel} className="__sw-search-label__">
             <div style={{ marginBottom: '10px' }}>Filtered By:</div>
-          </div>
-        }
-
-        {
-          hasError &&
-          <div className="__sw-filter-error__" style={styles.errorMessage}>
-            {filterError}
           </div>
         }
 
@@ -131,7 +112,6 @@ export class Filter extends Component {
                     component={SelectInput}
                     className="select-type"
                     clearable={isDesktop}
-                    validate={required}
                   />
                 </div>
                 <div style={styles.filter[`${deviceType}CategoryValue`]}>
@@ -141,7 +121,6 @@ export class Filter extends Component {
                     component={SelectInput}
                     disabled={!formFilters || !formFilters[index].type}
                     clearable={isDesktop}
-                    validate={required}
                   />
                 </div>
 
@@ -224,13 +203,9 @@ export class Filter extends Component {
 }
 
 const selector = formValueSelector('form');
-const getSyncErrors = getFormSyncErrors('form');
-const formIsTouched = isDirty('form');
 
 function mapStateToProps(state) {
   return {
-    error: getSyncErrors(state),
-    touched: formIsTouched(state),
     formFilters: selector(state, 'filters') || [],
     form: state.form,
     query: state.query,
@@ -246,7 +221,7 @@ function mapDispatchToProps(dispatch) {
       return fields.remove(index);
     },
 
-    removeAllFilters: (fields, form) => {
+    removeAllFilters: (fields) => {
       dispatch(removeAllFilters());
       dispatch(clearError());
 
@@ -254,8 +229,6 @@ function mapDispatchToProps(dispatch) {
     },
 
     submitHandler: (formFilters) => {
-      dispatch(setFilterRequired());
-
       dispatch(addFilters(formFilters));
       dispatch(resetPageNum());
       dispatch(requestApi());
@@ -266,14 +239,11 @@ function mapDispatchToProps(dispatch) {
 Filter.defaultProps = {
   form: undefined,
   deviceType: undefined,
-  error: undefined,
-  formFilters: undefined,
-  touched: false
+  formFilters: undefined
 };
 
 Filter.propTypes = {
   deviceType: PropTypes.string,
-  error: PropTypes.shape({}),
   fields: PropTypes.oneOfType([
     PropTypes.shape({
       component: PropTypes.func
@@ -291,7 +261,6 @@ Filter.propTypes = {
   removeFilter: PropTypes.func.isRequired,
   removeAllFilters: PropTypes.func.isRequired,
   submitHandler: PropTypes.func.isRequired,
-  touched: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

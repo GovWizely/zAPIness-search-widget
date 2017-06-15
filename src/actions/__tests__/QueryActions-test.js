@@ -215,30 +215,4 @@ describe('actions/QueryActions', () => {
       );
     });
   });
-
-  describe('setFilterRequired', () => {
-    it('updates has filter flag', () => {
-      const store = mockStore({
-        form: {
-          form: {}
-        },
-        query: Map({ hasFilter: true })
-      });
-
-      store.dispatch(QueryActions.setFilterRequired());
-
-      expect(store.getActions()).toEqual([
-        {
-          meta: {
-            field: 'filterRequired',
-            form: 'form',
-            persistentSubmitErrors: undefined,
-            touch: undefined
-          },
-          payload: true,
-          type: '@@redux-form/CHANGE'
-        }
-      ]);
-    });
-  });
 });
