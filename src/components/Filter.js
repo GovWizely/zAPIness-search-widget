@@ -56,7 +56,7 @@ export class Filter extends Component {
       return [];
     }
 
-    const target = this.props.formFilters[index].type.value || '';
+    const target = this.props.formFilters[index].type || '';
     const categories = this.props.filters.get('categories');
 
     return categories ? categories[target] : [];
