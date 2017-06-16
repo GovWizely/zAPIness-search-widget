@@ -113,6 +113,15 @@ const filter = {
     borderTop: `1px solid ${colors.darkGrey}`,
     paddingTop: '20px',
     textAlign: 'right'
+  },
+
+  clearBtn: {
+    color: '#999',
+    fontSize: '20px',
+    position: 'absolute',
+    right: '15px',
+    textDecoration: 'none',
+    top: '9px'
   }
 };
 

@@ -20,12 +20,14 @@ class Select extends Component {
     });
   }
 
-  clearHandler() {
-    return;
+  clearHandler(e) {
+    e.preventDefault();
+    this.setState({
+      value: ''
+    });
   }
 
   matches(input) {
-    //const matchList = generateList(this.props.list);
     const regex = new RegExp(input, 'i');
     const filteredList = filter(this.props.list, l => l.match(regex) && l !== input);
     return filteredList
@@ -44,12 +46,13 @@ class Select extends Component {
       input,
       list,
       name,
+      disabled,
       ...rest
     } = this.props;
 
     return (
       <div className="__sw-select-box__">
-        <div>
+        <div style={{ position: 'relative' }}>
           <input
             {...input}
             type="text"
@@ -59,6 +62,15 @@ class Select extends Component {
             value={this.state.value}
             onChange={e => this.changeHandler(e)}
           />
+          { this.state.value !== '' &&
+            <a
+              href={'undefined'}
+              onClick={e => this.clearHandler(e)}
+              style={styles.filter.clearBtn}
+            >
+              &times;
+            </a>
+          }
         </div>
         <div>
           <ul>
