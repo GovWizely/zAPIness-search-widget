@@ -9,7 +9,7 @@ process.env.NODE_ENV = 'production';
 module.exports = {
   devtool: 'cheap-module-source-map',
   entry: [
-    './src/index'
+    './lala'
   ],
   output: {
     path: path.join(__dirname, 'build/static/js'),
@@ -19,7 +19,7 @@ module.exports = {
   },
   plugins:
   [
-    new BundleAnalyzerPlugin(),
+    //new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')

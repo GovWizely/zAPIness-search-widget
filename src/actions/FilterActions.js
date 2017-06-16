@@ -4,7 +4,6 @@ import mapValues from 'lodash/mapValues';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
 import filter from 'lodash/filter';
-import isNull from 'lodash/isNull';
 
 import * as actionTypes from '../constants/ActionTypes';
 import {

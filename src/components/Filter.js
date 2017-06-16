@@ -11,7 +11,7 @@ import keys from 'lodash/keys';
 import values from 'lodash/values';
 import startCase from 'lodash/startCase';
 
-import SelectInput from './SelectInput';
+import Select from './Select';
 import Button from './Button';
 
 import {
@@ -67,12 +67,12 @@ export class Filter extends Component {
     const defaultType = keys(defaultFilter)[0];
     const defaultValue = values(defaultFilter)[0] ? values(defaultFilter)[0][0] : '';
 
-    fields.push({
-      type: { value: defaultType, label: startCase(defaultType) },
-      value: { value: defaultValue, label: startCase(defaultValue) }
-    });
+    // return fields.push({
+    //   type: { value: defaultType, label: startCase(defaultType) },
+    //   value: { value: defaultValue, label: startCase(defaultValue) }
+    // });
 
-    return fields;
+    return fields.push({ type: defaultType, value: defaultValue });
   }
 
   render() {
@@ -110,7 +110,7 @@ export class Filter extends Component {
                   <Field
                     name={`${member}.type`}
                     list={keys(filters.get('categories'))}
-                    component={SelectInput}
+                    component={Select}
                     className="select-type"
                     clearable={isDesktop}
                   />
@@ -119,7 +119,7 @@ export class Filter extends Component {
                   <Field
                     name={`${member}.value`}
                     list={this.getAvailableValues(index)}
-                    component={SelectInput}
+                    component={Select}
                     disabled={!formFilters || !formFilters[index].type}
                     clearable={isDesktop}
                   />
