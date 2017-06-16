@@ -10,13 +10,15 @@ class Select extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: startCase(this.props.input.value)
+      value: startCase(this.props.input.value),
+      firstClick: true
     };
   }
 
   changeHandler(e) {
     this.setState({
-      value: e.target.value
+      value: e.target.value,
+      firstClick: false
     });
   }
 
@@ -28,9 +30,13 @@ class Select extends Component {
   }
 
   matches(input) {
+    if (this.state.firstClick) {
+      return this.props.list;
+    }
+
     const regex = new RegExp(input, 'i');
     const filteredList = filter(this.props.list, l => l.match(regex) && l !== input);
-    return filteredList
+    return filteredList;
   }
 
   clickHandler(e) {
@@ -60,6 +66,7 @@ class Select extends Component {
             placeholder="select one"
             style={styles.form.input}
             value={this.state.value}
+            onBlur={val => input.onBlur(val)}
             onChange={e => this.changeHandler(e)}
           />
           { this.state.value !== '' &&
@@ -94,7 +101,7 @@ class Select extends Component {
   }
 }
 
-Select.PropTypes = {
+Select.propTypes = {
   input: PropTypes.shape({}).isRequired,
   list: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired
