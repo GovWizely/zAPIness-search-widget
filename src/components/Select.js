@@ -49,6 +49,7 @@ class Select extends Component {
 
   render() {
     const {
+      clearable,
       input,
       list,
       name,
@@ -69,7 +70,7 @@ class Select extends Component {
             onBlur={val => input.onBlur(val)}
             onChange={e => this.changeHandler(e)}
           />
-          { this.state.value !== '' &&
+          { this.state.value !== '' && clearable &&
             <a
               href={'undefined'}
               onClick={e => this.clearHandler(e)}
