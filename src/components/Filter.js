@@ -57,9 +57,13 @@ export class Filter extends Component {
     }
 
     const target = this.props.formFilters[index].type || '';
+    console.log("target = " + target );
     const categories = this.props.filters.get('categories');
 
-    return categories ? categories[target] : [];
+    let lala = categories ? categories[target] : [];
+    console.log(lala);
+
+    return lala;
   }
 
   addDefaultFilter(fields) {

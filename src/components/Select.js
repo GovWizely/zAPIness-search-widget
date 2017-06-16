@@ -11,40 +11,53 @@ class Select extends Component {
     super(props);
     this.state = {
       value: startCase(this.props.input.value),
-      firstClick: true
+      firstClick: true,
+      showOptions: false
     };
   }
 
   changeHandler(e) {
     this.setState({
       value: e.target.value,
-      firstClick: false
+      firstClick: false,
+      showOptions: true
     });
   }
 
   clearHandler(e) {
     e.preventDefault();
     this.setState({
-      value: ''
+      value: '',
+      firstClick: false,
+      showOptions: true
     });
   }
 
   matches(input) {
+    console.log(this.state.firstClick);
+    let returnList = null;
     if (this.state.firstClick) {
-      return this.props.list;
+      // return this.props.list;
+      returnList = this.props.list;
     }
 
     const regex = new RegExp(input, 'i');
     const filteredList = filter(this.props.list, l => l.match(regex) && l !== input);
-    return filteredList;
+    // return filteredList;
+    returnList = filteredList;
+    console.log(returnList);
+
+    return returnList;
   }
 
   clickHandler(e) {
     e.preventDefault();
 
     this.setState({
-      value: startCase(e.target.getAttribute('value'))
+      value: startCase(e.target.getAttribute('value')),
+      showOptions: false
     });
+    this.props.input.onChange(e.target.getAttribute('value'));
   }
 
   render() {
@@ -80,32 +93,35 @@ class Select extends Component {
             </a>
           }
         </div>
-        <div>
-          <ul>
-            {
-              map(this.matches(this.state.value), match => (
-                <li>
-                  <a
-                    href="{undefined}"
-                    onClick={e => this.clickHandler(e)}
-                    value={match}
-                  >
-                    { startCase(match) }
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
+        {
+          this.state.showOptions &&
+          <div>
+            <ul>
+              {
+                map(this.matches(this.state.value), match => (
+                  <li>
+                    <a
+                      href="{undefined}"
+                      onClick={e => this.clickHandler(e)}
+                      value={match}
+                    >
+                      { startCase(match) }
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        }
       </div>
     );
   }
 }
 
 Select.propTypes = {
-  input: PropTypes.shape({}).isRequired,
-  list: PropTypes.arrayOf(PropTypes.string).isRequired,
-  name: PropTypes.string.isRequired
+  input: PropTypes.shape({}),
+  list: PropTypes.arrayOf(PropTypes.string),
+  name: PropTypes.string
 };
 
 export default Select;
