@@ -57,24 +57,17 @@ export class Filter extends Component {
     }
 
     const target = this.props.formFilters[index].type || '';
-    console.log("target = " + target );
     const categories = this.props.filters.get('categories');
 
-    let lala = categories ? categories[target] : [];
-    console.log(lala);
+  console.log(target);
 
-    return lala;
+    return categories ? categories[target] : [];
   }
 
   addDefaultFilter(fields) {
     const defaultFilter = this.props.filters.get('categories');
     const defaultType = keys(defaultFilter)[0];
     const defaultValue = values(defaultFilter)[0] ? values(defaultFilter)[0][0] : '';
-
-    // return fields.push({
-    //   type: { value: defaultType, label: startCase(defaultType) },
-    //   value: { value: defaultValue, label: startCase(defaultValue) }
-    // });
 
     return fields.push({ type: defaultType, value: defaultValue });
   }

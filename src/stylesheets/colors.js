@@ -11,7 +11,8 @@ const colors = {
   chalk: '#89877b',
   darkChalk: '#7f7d71',
   red: '#a94442',
-  errorRed: '#FF0000'
+  errorRed: '#FF0000',
+  lightBlue: color('#007EFF').lighten(0.9).hexString()
 };
 
 export default colors;

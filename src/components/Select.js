@@ -5,6 +5,7 @@ import map from 'lodash/map';
 import filter from 'lodash/filter';
 
 import styles from '../stylesheets/styles';
+const Radium = require('radium');
 
 class Select extends Component {
   constructor(props) {
@@ -28,26 +29,19 @@ class Select extends Component {
     e.preventDefault();
     this.setState({
       value: '',
-      firstClick: false,
-      showOptions: true
+      firstClick: false
     });
+    this.textInput.focus();
   }
 
   matches(input) {
-    console.log(this.state.firstClick);
-    let returnList = null;
     if (this.state.firstClick) {
-      // return this.props.list;
-      returnList = this.props.list;
+      return this.props.list;
     }
 
     const regex = new RegExp(input, 'i');
     const filteredList = filter(this.props.list, l => l.match(regex) && l !== input);
-    // return filteredList;
-    returnList = filteredList;
-    console.log(returnList);
-
-    return returnList;
+    return filteredList;
   }
 
   clickHandler(e) {
@@ -57,6 +51,7 @@ class Select extends Component {
       value: startCase(e.target.getAttribute('value')),
       showOptions: false
     });
+
     this.props.input.onChange(e.target.getAttribute('value'));
   }
 
@@ -70,18 +65,32 @@ class Select extends Component {
       ...rest
     } = this.props;
 
+    const notSelectedInputStyle = [
+      styles.select.input,
+      styles.select.noSelect,
+      styles.select.placeholder,
+      styles.select.openSelectInputBorder
+    ];
+
+    const inputStyle = [
+      styles.select.input,
+      styles.select.placeholder,
+      styles.select.inputBorder
+    ];
+
     return (
-      <div className="__sw-select-box__">
+      <div className="__sw-select-box__" style={{ position: 'relative' }}>
         <div style={{ position: 'relative' }}>
           <input
             {...input}
             type="text"
             name={name}
             placeholder="select one"
-            style={styles.form.input}
+            style={this.state.showOptions ? notSelectedInputStyle : inputStyle }
             value={this.state.value}
             onBlur={val => input.onBlur(val)}
             onChange={e => this.changeHandler(e)}
+            ref={(input) => { this.textInput = input; }}
           />
           { this.state.value !== '' && clearable &&
             <a
@@ -95,15 +104,17 @@ class Select extends Component {
         </div>
         {
           this.state.showOptions &&
-          <div>
-            <ul>
+          <div style={styles.select.options}>
+            <ul style={styles.select.ul}>
               {
-                map(this.matches(this.state.value), match => (
-                  <li>
+                map(this.matches(this.state.value), (match, index) => (
+                  <li key={`option-${index}`} style={styles.select.li}>
                     <a
                       href="{undefined}"
                       onClick={e => this.clickHandler(e)}
                       value={match}
+                      style={styles.select.link}
+                      key={index}
                     >
                       { startCase(match) }
                     </a>
@@ -124,4 +135,4 @@ Select.propTypes = {
   name: PropTypes.string
 };
 
-export default Select;
+export default Radium(Select);

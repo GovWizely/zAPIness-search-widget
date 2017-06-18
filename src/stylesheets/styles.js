@@ -4,6 +4,7 @@ import form from './form';
 import result from './result';
 import pagination from './pagination';
 import list from './list';
+import select from './select';
 import filter from './filter';
 
 const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
@@ -15,6 +16,7 @@ const styles = {
   pagination,
   list,
   filter,
+  select,
 
   container: {
     background: colors.white,
