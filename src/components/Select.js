@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import startCase from 'lodash/startCase';
 import map from 'lodash/map';
 import filter from 'lodash/filter';
+import isEmpty from 'lodash/isEmpty';
+
+import List from './List';
 
 import styles from '../stylesheets/styles';
 
@@ -55,7 +58,7 @@ class Select extends Component {
 
     const regex = new RegExp(input, 'i');
     const filteredList = filter(this.props.list, l => l.match(regex) && l !== input);
-    return filteredList;
+    return isEmpty(filteredList) ? ['No results found'] : filteredList;
   }
 
   clickHandler(e) {
@@ -92,6 +95,8 @@ class Select extends Component {
       styles.select.inputBorder
     ];
 
+    const matches = this.matches(this.state.value);
+
     return (
       <div className="__sw-select-box__" style={{ position: 'relative' }}>
         <div style={{ position: 'relative' }}>
@@ -100,6 +105,7 @@ class Select extends Component {
             type="text"
             style={showOptions && this.state.isOpen ? notSelectedInputStyle : inputStyle}
             value={this.state.value}
+            placeholder="Select as you type..."
             onBlur={val => input.onBlur(val)}
             onChange={e => this.changeHandler(e)}
             onFocus={e => this.focusHandler(e)}
@@ -121,18 +127,17 @@ class Select extends Component {
           <div style={styles.select.options}>
             <ul style={styles.select.ul}>
               {
-                map(this.matches(this.state.value), (match, index) => (
-                  <li key={`option-${index}`} style={styles.select.li}>
-                    <a
-                      href="{undefined}"
-                      onClick={e => this.clickHandler(e)}
-                      value={match}
-                      style={styles.select.link}
-                      key={index}
-                    >
-                      { startCase(match) }
-                    </a>
-                  </li>
+                map(matches, (match, index) => (
+                  <List
+                    id={`option-${index}`}
+                    clickHandler={e => this.clickHandler(e)}
+                    containerStyle={styles.select.li}
+                    key={index}
+                    styles={styles.select.link}
+                    value={match}
+                  >
+                    { startCase(match) }
+                  </List>
                 ))
               }
             </ul>

@@ -6,7 +6,7 @@ const React = require('react');
 
 const List = props => (
   <li
-    style={styles.list.container}
+    style={props.containerStyle}
     key={props.id}
     className={props.className}
   >
@@ -21,6 +21,7 @@ const List = props => (
         props.styles
       ]}
       onClick={props.clickHandler}
+      {...props}
     >
       {props.children}
     </a>
@@ -30,7 +31,8 @@ const List = props => (
 List.defaultProps = {
   id: '',
   mobile: false,
-  styles: styles.list.normal
+  styles: styles.list.normal,
+  containerStyle: styles.list.container
 };
 
 List.propTypes = {
@@ -41,6 +43,7 @@ List.propTypes = {
   ]).isRequired,
   className: PropTypes.string.isRequired,
   clickHandler: PropTypes.func.isRequired,
+  containerStyle: PropTypes.shape({}),
   id: PropTypes.string,
   styles: PropTypes.shape({}),
   mobile: PropTypes.bool

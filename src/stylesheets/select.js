@@ -69,6 +69,9 @@ const select = {
     color: colors.black,
     display: 'block',
     fontFamily,
+    fontSize: '15px',
+    padding: 0,
+    marginLeft: 0,
     textDecoration: 'none',
     width: '100%',
 
