@@ -36,6 +36,11 @@ const select = {
     borderRight: `1px solid ${colors.grey}`
   },
 
+  disabled: {
+    background: colors.lightGrey,
+    color: colors.grey
+  },
+
   options: {
     background: colors.white,
     borderBottom: `1px solid ${colors.grey}`,
@@ -55,7 +60,6 @@ const select = {
   },
 
   li: {
-    padding: '10px',
     borderLeft: '1px solid #ccc',
     borderRight: '1px solid #ccc',
 
@@ -65,18 +69,43 @@ const select = {
     }
   },
 
+  noResult: {
+    borderLeft: '1px solid #ccc',
+    borderRight: '1px solid #ccc',
+    //padding: '10px',
+
+    ':hover': {
+      cursor: 'no-drop'
+    }
+  },
+
   link: {
     color: colors.black,
     display: 'block',
     fontFamily,
     fontSize: '15px',
-    padding: 0,
+    padding: '10px',
     marginLeft: 0,
     textDecoration: 'none',
     width: '100%',
 
     ':hover': {
       cursor: 'pointer'
+    }
+  },
+
+  noResultLink: {
+    color: colors.chalk,
+    display: 'block',
+    fontFamily,
+    fontSize: '15px',
+    padding: '10px',
+    marginLeft: 0,
+    textDecoration: 'none',
+    width: '100%',
+
+    ':hover': {
+      cursor: 'no-drop'
     }
   },
 

@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import isUndefined from 'lodash/isUndefined';
 import keys from 'lodash/keys';
 
+const _ = require('lodash');
+
 import Form from '../components/Form';
 import Result from '../components/Result';
 import LoadingIcon from '../components/LoadingIcon';
@@ -52,7 +54,6 @@ export class App extends Component {
     } = this.props;
 
     const result = query.get('data');
-
     const deviceType = breakpoints(contentRect.bounds.width);
 
     return (
@@ -75,7 +76,7 @@ export class App extends Component {
               activePage={query.get('pageNum')}
               deviceType={deviceType}
               fields={query.get('fields')}
-              label={getResultLabel() || keys(categories(result.data))[0]}
+              label={getResultLabel() || result.data ? keys(result.data.results[0])[0] : ''}
               paginationHandleSelect={handleSelect}
               query={result}
               showAll={query.get('showAll')}

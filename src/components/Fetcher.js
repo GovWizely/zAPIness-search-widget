@@ -16,7 +16,7 @@ const Fetcher = (props) => {
   return (
     <div
       style={styles.lookingGlassWrapper}
-      onClick={fetching ? () => { } : data => submitHandler(data, keyword)}
+      onClick={fetching ? () => { } : () => submitHandler(keyword)}
       role="button"
       disabled={fetching}
       className="__sw-fetcher__"
@@ -39,7 +39,9 @@ Fetcher.defaultProps = {
 Fetcher.propTypes = {
   fetching: PropTypes.bool.isRequired,
   submitHandler: PropTypes.func.isRequired,
-  keyword: PropTypes.string
+  keyword: PropTypes.oneOfType([
+    PropTypes.any
+  ])
 };
 
 export default Radium(Fetcher);

@@ -16,10 +16,9 @@ describe('components/Input', () => {
       />
     );
 
-    const { name, type, className, placeholder } = input.props();
+    const { name, className, placeholder } = input.props();
 
     expect(name).toBe(nameProp);
-    expect(type).toBe('text');
     expect(className).toBe('__input__');
     expect(placeholder).toBe(placeholderProp);
 

@@ -35,7 +35,7 @@ const filter = {
   desktopCategoryType: {
     display: 'inline-block',
     marginRight: '1%',
-    width: '25%'
+    width: '40%'
   },
 
   mobileCategoryType: {
@@ -99,7 +99,7 @@ const filter = {
     display: 'inline-block',
     position: 'relative',
     verticalAlign: 'middle',
-    width: '20%'
+    width: '2%'
   },
 
   mobileBtnContainer: {

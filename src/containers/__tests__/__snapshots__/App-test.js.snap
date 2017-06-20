@@ -41,16 +41,12 @@ exports[`containers/App renders correctly 1`] = `
         }
       >
         <div
+          className="__sw-debounced-input__"
           data-radium={true}
         >
           <input
             data-radium={true}
-            name="keyword"
-            onBlur={[Function]}
             onChange={[Function]}
-            onDragStart={[Function]}
-            onDrop={[Function]}
-            onFocus={[Function]}
             placeholder="Search for keyword..."
             style={
               Object {
@@ -68,7 +64,6 @@ exports[`containers/App renders correctly 1`] = `
                 "width": "100%",
               }
             }
-            type="text"
             value=""
           />
         </div>

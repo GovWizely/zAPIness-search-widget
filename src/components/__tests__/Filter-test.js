@@ -38,8 +38,8 @@ describe('components/Filter', () => {
       form: {
         values: {
           filters: [{
-            type: { value: 'country', label: 'Country' },
-            label: { value: 'rome', label: 'Rome' }
+            type: 'country',
+            value: 'rome'
           }]
         }
       }

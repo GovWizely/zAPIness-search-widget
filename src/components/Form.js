@@ -7,7 +7,6 @@ import {
   change
 } from 'redux-form';
 
-import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 
 import {
@@ -59,7 +58,7 @@ export class Form extends Component {
           <Input
             name="keyword"
             placeholder="Search for keyword..."
-            changeHandler={debounce(submitHandler, 1000)}
+            changeHandler={submitHandler}
             clearHandler={clearHandler}
             value={query.get('keyword') || ''}
           />
@@ -70,22 +69,21 @@ export class Form extends Component {
             keyword={query.get('keyword')}
           />
         </div>
-        <div style={{ overflow: 'hidden' }}>
-          <Button
-            type="button"
-            kind={`${deviceType}Link`}
-            clickHandler={this.toggleFilter}
-            className="_sw-advanced-search__"
-          >
-            <img src={settings} alt="settings" style={styles.sImg} />
-            { this.state.showFilter && <span>Hide Advanced Filter</span> }
-            { !this.state.showFilter && <span>Advanced Filter</span> }
-          </Button>
-        </div>
 
         {
-          !isEmpty(filters.get('categories'))
-
+          !isEmpty(filters.get('categories')) &&
+          <div style={{ overflow: 'hidden' }}>
+            <Button
+              type="button"
+              kind={`${deviceType}Link`}
+              clickHandler={this.toggleFilter}
+              className="_sw-advanced-search__"
+            >
+              <img src={settings} alt="settings" style={styles.sImg} />
+              { this.state.showFilter && <span>Hide Advanced Filter</span> }
+              { !this.state.showFilter && <span>Advanced Filter</span> }
+            </Button>
+          </div>
         }
 
         {
@@ -116,8 +114,9 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    submitHandler: (data, keyword) => {
-      const input = keyword || data.target.value;
+    submitHandler: (keyword) => {
+      //debugger
+      const input = keyword;
       dispatch(resetPageNum());
 
       dispatch(updateKeyword(input));

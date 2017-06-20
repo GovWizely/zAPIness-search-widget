@@ -128,6 +128,15 @@
         max-width: 400px;
         padding: 0 20px;
       }
+      h1 {
+        font-size: 20px;
+      }
+      p {
+        font-size: 15px;
+      }
+      .page-details {
+        padding: 20px;
+      }
     }
     .checkbox-list {
       margin-top: .5em;
@@ -220,8 +229,8 @@
   </div>
   <div class="page-body">
     <div class="container">
+      <h2>Search for Books in Computer Science</h2>
       <div class="app" id="zAPI-sw-root"></div>
-
     </div>
   </div>
 
@@ -237,12 +246,13 @@
         <code>
           zAPI.SearchWidget.new({
             mountPoint: "#zAPI-sw-root",
-            host: "https://rrsoft4.zapiness.xyz",
-            endpoint: "sample_api",
+            host: "https://rrsoft.zapiness.com",
+            endpoint: "books",
             fields: [
-              "agency",
-              "description",
-              "end_date"
+              "title",
+              "publisher",
+              "authors",
+              "page_count"
             ]
           });
         </code>
@@ -258,16 +268,18 @@
         <code>
           zAPI.SearchWidget.new({
             mountPoint: "#zAPI-sw-root",
-            host: "https://rrsoft4.zapiness.xyz",
-            endpoint: "sample_api",
+            host: "https://rrsoft.zapiness.com",
+            endpoint: "books",
             preview: true,
             fields: [
-              "agency",
-              "description",
-              "end_date",
-              "supplier_name",
-              "supplier_country",
-              "supplier_city"
+              "title",
+              "publisher",
+              "average_rating",
+              "rating_count",
+              "language",
+              "categories",
+              "authors",
+              "page_count"
             ]
           });
         </code>
@@ -285,16 +297,18 @@
         <code>
           zAPI.SearchWidget.new({
             mountPoint: "#zAPI-sw-root",
-            host: "https://rrsoft4.zapiness.xyz",
-            endpoint: "sample_api",
-            label: "agency",
+            host: "https://rrsoft.zapiness.com",
+            endpoint: "books",
+            label: "authors",
             fields: [
-              "agency",
-              "description",
-              "end_date",
-              "supplier_name",
-              "supplier_country",
-              "supplier_city"
+              "title",
+              "publisher",
+              "average_rating",
+              "rating_count",
+              "language",
+              "categories",
+              "authors",
+              "page_count"
             ]
           });
         </code>
@@ -312,15 +326,18 @@
       // Initiate the search widget with endpoint
       zAPI.SearchWidget.new({
         mountPoint: "#zAPI-sw-root",
-        host: "https://rrsoft4.zapiness.xyz",
-        endpoint: "sample_api",
+        host: "https://rrsoft.zapiness.com",
+        endpoint: "books",
+        label: "title",
         fields: [
-          "agency",
-          "description",
-          "end_date",
-          "supplier_name",
-          "supplier_country",
-          "supplier_city"
+          "title",
+          "publisher",
+          "average_rating",
+          "rating_count",
+          "language",
+          "categories",
+          "authors",
+          "page_count"
         ]
       });
     }
@@ -335,13 +352,14 @@
       removeNode();
       zAPI.SearchWidget.new({
         mountPoint: "#zAPI-sw-root",
-        host: "https://rrsoft4.zapiness.xyz",
-        endpoint: "sample_api",
+        host: "https://rrsoft.zapiness.com",
+        endpoint: "books",
         preview: true,
         fields: [
-          "agency",
-          "description",
-          "end_date"
+          "title",
+          "publisher",
+          "authors",
+          "page_count"
         ]
       });
       return false;
@@ -351,16 +369,18 @@
       removeNode();
       zAPI.SearchWidget.new({
         mountPoint: "#zAPI-sw-root",
-        host: "https://rrsoft4.zapiness.xyz",
-        endpoint: "sample_api",
+        host: "https://rrsoft.zapiness.com",
+        endpoint: "books",
         preview: true,
         fields: [
-          "agency",
-          "description",
-          "end_date",
-          "supplier_name",
-          "supplier_country",
-          "supplier_city"
+          "title",
+          "publisher",
+          "average_rating",
+          "rating_count",
+          "language",
+          "categories",
+          "authors",
+          "page_count"
         ]
       });
     }
@@ -369,17 +389,19 @@
       removeNode();
       zAPI.SearchWidget.new({
         mountPoint: "#zAPI-sw-root",
-        host: "https://rrsoft4.zapiness.xyz",
-        endpoint: "sample_api",
-        label: "supplier_name",
+        host: "https://rrsoft.zapiness.com",
+        endpoint: "books",
+        label: "authors",
         preview: true,
         fields: [
-          "agency",
-          "description",
-          "end_date",
-          "supplier_name",
-          "supplier_country",
-          "supplier_city"
+          "title",
+          "publisher",
+          "average_rating",
+          "rating_count",
+          "language",
+          "categories",
+          "authors",
+          "page_count"
         ]
       });
     }

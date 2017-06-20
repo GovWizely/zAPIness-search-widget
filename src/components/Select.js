@@ -4,6 +4,7 @@ import startCase from 'lodash/startCase';
 import map from 'lodash/map';
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
+import isUndefined from 'lodash/isUndefined';
 
 import List from './List';
 
@@ -11,20 +12,49 @@ import styles from '../stylesheets/styles';
 
 const Radium = require('radium');
 
+const noResult = 'No results found';
+
 class Select extends Component {
   constructor(props) {
     super(props);
+    this.setWrapperRef = this.setWrapperRef.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+
+    let value = isUndefined(this.props.input) ? '' : this.props.input.value;
+
     this.state = {
-      value: startCase(this.props.input.value),
+      value: this.formatLabel(value),
       firstClick: true,
-      isOpen: false
+      isOpen: false,
+      notFormattedKeyword: false
     };
+  }
+
+  componentDidMount() {
+    document.body.addEventListener('click', this.handleClickOutside);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.input.value !== nextProps.input.value) {
       this.setState({
-        value: startCase(nextProps.input.value)
+        value: this.formatLabel(nextProps.input.value)
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    document.body.removeEventListener('click', this.handleClickOutside);
+  }
+
+  setWrapperRef(node) {
+    this.wrapperRef = node;
+  }
+
+  handleClickOutside(event) {
+    console.log('I am here');
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.setState({
+        isOpen: false
       });
     }
   }
@@ -37,16 +67,22 @@ class Select extends Component {
     });
   }
 
-  focusHandler(e) {
-    this.props.optionHandler(e.target.id);
-  }
-
   clearHandler(e) {
     e.preventDefault();
     this.setState({
       value: '',
       firstClick: false,
       isOpen: false
+    });
+    this.textInput.focus();
+  }
+
+  noResultClickHandler(e) {
+    e.preventDefault();
+
+    this.setState({
+      value: this.textInput.value,
+      isOpen: true
     });
     this.textInput.focus();
   }
@@ -58,7 +94,7 @@ class Select extends Component {
 
     const regex = new RegExp(input, 'i');
     const filteredList = filter(this.props.list, l => l.match(regex) && l !== input);
-    return isEmpty(filteredList) ? ['No results found'] : filteredList;
+    return isEmpty(filteredList) ? noResult : filteredList;
   }
 
   clickHandler(e) {
@@ -74,26 +110,42 @@ class Select extends Component {
     this.props.input.onChange(targetValue);
   }
 
+  inputStyle() {
+    let basic = [
+      styles.select.input,
+      styles.select.placeholder
+    ];
+    if(this.state.isOpen) {
+      basic = basic.concat([
+        styles.select.noSelect,
+        styles.select.openSelectInputBorder
+      ]);
+    } else if (this.props.disabled) {
+      basic = basic.concat(
+        styles.select.disabled,
+        styles.select.inputBorder
+      );
+    } else {
+      basic = basic.concat([
+        styles.select.inputBorder
+      ]);
+    }
+
+    return basic;
+  }
+
+  formatLabel(match) {
+    return this.props.allowFormatted ? startCase(match) : match;
+  }
+
   render() {
     const {
+      allowFormatted,
       clearable,
+      disabled,
       id,
-      input,
-      showOptions
+      input
     } = this.props;
-
-    const notSelectedInputStyle = [
-      styles.select.input,
-      styles.select.noSelect,
-      styles.select.placeholder,
-      styles.select.openSelectInputBorder
-    ];
-
-    const inputStyle = [
-      styles.select.input,
-      styles.select.placeholder,
-      styles.select.inputBorder
-    ];
 
     const matches = this.matches(this.state.value);
 
@@ -103,12 +155,12 @@ class Select extends Component {
           <input
             {...input}
             type="text"
-            style={showOptions && this.state.isOpen ? notSelectedInputStyle : inputStyle}
+            style={this.inputStyle()}
             value={this.state.value}
             placeholder="Select as you type..."
             onBlur={val => input.onBlur(val)}
             onChange={e => this.changeHandler(e)}
-            onFocus={e => this.focusHandler(e)}
+            disabled={disabled}
             ref={(i) => { this.textInput = i; }}
             id={id}
           />
@@ -117,17 +169,29 @@ class Select extends Component {
               href={'undefined'}
               onClick={e => this.clearHandler(e)}
               style={styles.filter.clearBtn}
+              className='__sw-filter-clear-btn__'
             >
               &times;
             </a>
           }
         </div>
         {
-          (this.state.isOpen && showOptions) &&
-          <div style={styles.select.options}>
+          this.state.isOpen &&
+          <div className='__sw-open-options__' style={styles.select.options} ref={this.setWrapperRef}>
             <ul style={styles.select.ul}>
               {
-                map(matches, (match, index) => (
+                matches === noResult &&
+                <List
+                  clickHandler={e => this.noResultClickHandler(e)}
+                  containerStyle={styles.select.noResult}
+                  key="noResult"
+                  styles={styles.select.noResultLink}
+                >
+                  {noResult}
+                </List>
+              }
+              {
+                matches !== noResult && map(matches, (match, index) => (
                   <List
                     id={`option-${index}`}
                     clickHandler={e => this.clickHandler(e)}
@@ -136,7 +200,7 @@ class Select extends Component {
                     styles={styles.select.link}
                     value={match}
                   >
-                    { startCase(match) }
+                    { this.formatLabel(match) }
                   </List>
                 ))
               }
@@ -149,20 +213,22 @@ class Select extends Component {
 }
 
 Select.defaultProps = {
-  list: [],
-  clearable: true
+  allowFormatted: true,
+  clearable: true,
+  disabled: false,
+  list: []
 };
 
 Select.propTypes = {
+  allowFormatted: PropTypes.bool,
   clearable: PropTypes.bool,
+  disabled: PropTypes.bool,
   id: PropTypes.string.isRequired,
   input: PropTypes.shape({
     value: PropTypes.string,
     onChange: PropTypes.func
   }).isRequired,
-  list: PropTypes.arrayOf(PropTypes.string),
-  optionHandler: PropTypes.func.isRequired,
-  showOptions: PropTypes.bool.isRequired
+  list: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default Radium(Select);

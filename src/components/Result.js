@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import map from 'lodash/map';
+import isEmpty from 'lodash/isEmpty';
 
 import Pagination from './Pagination';
 import {
@@ -66,7 +67,7 @@ const Result = (props) => {
               cells={result}
               deviceType={deviceType}
               id={index}
-              label={labels[index]}
+              label={isEmpty(labels[index]) ? `No ${label}` : labels[index] }
               showDetails={
                 index === toggleStatus.key && toggleStatus.show
               }

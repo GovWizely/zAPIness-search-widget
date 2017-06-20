@@ -76,13 +76,15 @@ describe('actions/FilterActions', () => {
       });
 
       const filter1 = {
-        type: { value: 'capital', label: 'Capital' },
-        value: { value: 'berlin', label: 'Berlin' }
+        type: 'capital',
+        value: 'berlin'
       };
+
       const filter2 = {
-        type: { value: 'country', label: 'Country' },
-        value: { value: 'italy', label: 'Italy' }
+        type: 'country',
+        value: 'italy'
       };
+
       const formFilters = [filter1, filter2];
 
       const expectedActions = [
@@ -91,12 +93,12 @@ describe('actions/FilterActions', () => {
         },
         {
           type: actionTypes.ADD_FILTER,
-          filterType: filter1.type.value,
-          value: filter1.value.value
+          filterType: filter1.type,
+          value: filter1.value
         }, {
           type: actionTypes.ADD_FILTER,
-          filterType: filter2.type.value,
-          value: filter2.value.value
+          filterType: filter2.type,
+          value: filter2.value
         }
       ];
 
@@ -110,8 +112,8 @@ describe('actions/FilterActions', () => {
       });
 
       const filter1 = {
-        type: { value: 'capital', label: 'Capital' },
-        value: { value: 'berlin', label: 'Berlin' }
+        type: 'capital',
+        value: 'berlin'
       };
 
       const filter2 = {
@@ -132,8 +134,8 @@ describe('actions/FilterActions', () => {
         },
         {
           type: actionTypes.ADD_FILTER,
-          filterType: filter1.type.value,
-          value: filter1.value.value
+          filterType: filter1.type,
+          value: filter1.value
         }
       ];
 

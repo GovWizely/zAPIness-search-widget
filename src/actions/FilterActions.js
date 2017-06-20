@@ -23,6 +23,10 @@ function updateCategories(data) {
     categories = pick(categories, fields);
   }
 
+  categories = mapValues(categories, c => {
+    return map(c, value => value.toString());
+  });
+
   return {
     type: actionTypes.UPDATE_CATEGORIES,
     categories
@@ -66,11 +70,4 @@ export function getCategories() {
   return dispatch => getStats().then(
       response => dispatch(updateCategories(response))
     );
-}
-
-export function openOption(id) {
-  return {
-    type: actionTypes.OPEN_OPTION,
-    openedOption: id
-  };
 }

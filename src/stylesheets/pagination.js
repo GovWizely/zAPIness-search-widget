@@ -1,9 +1,14 @@
 import colors from './colors';
 
 const pagination = {
-  container: {
+  desktopContainer: {
     display: 'inline-block',
     margin: '10px'
+  },
+
+  mobileContainer: {
+    display: 'block',
+    margin: '0 auto'
   },
 
   base: {
@@ -12,6 +17,7 @@ const pagination = {
 
   mobileBase: {
     display: 'block',
+    margin: '20px auto',
     width: '100%'
   },
 

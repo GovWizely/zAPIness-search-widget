@@ -93,7 +93,7 @@ const buttons = {
   mobileDeleteLink: {
     background: 'none',
     position: 'absolute',
-    top: '-26px',
+    top: '-14px',
     right: '-26px'
   },
 
@@ -104,7 +104,7 @@ const buttons = {
     fontWeight: 300,
     position: 'absolute',
     textDecoration: 'underline',
-    top: '-26px'
+    top: '-12px'
   },
 
   wide: {

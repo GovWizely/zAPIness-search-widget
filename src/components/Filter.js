@@ -9,7 +9,7 @@ import {
 import map from 'lodash/map';
 import keys from 'lodash/keys';
 import values from 'lodash/values';
-import startCase from 'lodash/startCase';
+import remove from 'lodash/remove';
 
 import Select from './Select';
 import Button from './Button';
@@ -22,7 +22,6 @@ import {
 
 import {
   addFilters,
-  openOption,
   removeAllFilters,
   removeSelectedFilter
 } from '../actions/FilterActions';
@@ -64,13 +63,13 @@ export class Filter extends Component {
     return categories ? categories[target] : [];
   }
 
-  addDefaultFilter(fields) {
-    const defaultFilter = this.props.filters.get('categories');
-    const defaultType = keys(defaultFilter)[0];
-    const defaultValue = values(defaultFilter)[0] ? values(defaultFilter)[0][0] : '';
+   addDefaultFilter(fields) {
+     const defaultFilter = this.props.filters.get('categories');
+     const defaultType = keys(defaultFilter)[0];
+     const defaultValue = values(defaultFilter)[0] ? values(defaultFilter)[0][0] : '';
 
-    return fields.push({ type: defaultType, value: defaultValue });
-  }
+     return fields.push({ type: defaultType, value: defaultValue });
+   }
 
   render() {
     const {
@@ -79,7 +78,6 @@ export class Filter extends Component {
       filters,
       formFilters,
       isFetching,
-      optionHandler,
       removeAllFilters,
       removeFilter,
       submitHandler
@@ -88,7 +86,10 @@ export class Filter extends Component {
     const isDesktop = deviceType === 'desktop';
 
     return (
-      <div className="__sw-filter__" style={styles.filter[`${deviceType}Container`]}>
+      <div
+        className="__sw-filter__"
+        style={styles.filter[`${deviceType}Container`]}
+      >
         {
           isDesktop &&
           <div style={styles.filter.searchLabel} className="__sw-search-label__">
@@ -112,24 +113,17 @@ export class Filter extends Component {
                     className="select-type"
                     clearable={isDesktop}
                     id={`type-${index}`}
-                    showOptions={
-                      filters.get('openedOption') === `type-${index}`
-                    }
-                    optionHandler={optionHandler}
                   />
                 </div>
                 <div style={styles.filter[`${deviceType}CategoryValue`]}>
                   <Field
                     name={`${member}.value`}
+                    allowFormatted={false}
                     list={this.getAvailableValues(index)}
                     component={Select}
                     disabled={!formFilters || !formFilters[index].type}
                     clearable={isDesktop}
                     id={`value-${index}`}
-                    showOptions={
-                      filters.get('openedOption') === `value-${index}`
-                    }
-                    optionHandler={optionHandler}
                   />
                 </div>
 
@@ -240,11 +234,9 @@ function mapDispatchToProps(dispatch) {
     submitHandler: (formFilters) => {
       dispatch(addFilters(formFilters));
       dispatch(resetPageNum());
+      // Remove invalid filters
+      remove(formFilters, filter => !filter.type || !filter.value);
       dispatch(requestApi());
-    },
-
-    optionHandler: (id) => {
-      dispatch(openOption(id));
     }
   };
 }
