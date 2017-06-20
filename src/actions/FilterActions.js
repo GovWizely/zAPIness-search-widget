@@ -50,7 +50,7 @@ export function addFilters(formFilters) {
     const validFilters = filter(formFilters, el => el.type && el.value);
 
     each(validFilters, (f) => {
-      dispatch(addFilter(f.type.value, f.value.value));
+      dispatch(addFilter(f.type, f.value));
     });
   };
 }
@@ -66,4 +66,11 @@ export function getCategories() {
   return dispatch => getStats().then(
       response => dispatch(updateCategories(response))
     );
+}
+
+export function openOption(id) {
+  return {
+    type: actionTypes.OPEN_OPTION,
+    openedOption: id
+  };
 }

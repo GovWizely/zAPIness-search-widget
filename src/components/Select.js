@@ -5,6 +5,7 @@ import map from 'lodash/map';
 import filter from 'lodash/filter';
 
 import styles from '../stylesheets/styles';
+
 const Radium = require('radium');
 
 class Select extends Component {
@@ -13,23 +14,36 @@ class Select extends Component {
     this.state = {
       value: startCase(this.props.input.value),
       firstClick: true,
-      showOptions: false
+      isOpen: false
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.input.value !== nextProps.input.value) {
+      this.setState({
+        value: startCase(nextProps.input.value)
+      });
+    }
   }
 
   changeHandler(e) {
     this.setState({
       value: e.target.value,
       firstClick: false,
-      showOptions: true
+      isOpen: true
     });
+  }
+
+  focusHandler(e) {
+    this.props.optionHandler(e.target.id);
   }
 
   clearHandler(e) {
     e.preventDefault();
     this.setState({
       value: '',
-      firstClick: false
+      firstClick: false,
+      isOpen: false
     });
     this.textInput.focus();
   }
@@ -47,22 +61,22 @@ class Select extends Component {
   clickHandler(e) {
     e.preventDefault();
 
+    const targetValue = e.target.getAttribute('value');
+
     this.setState({
-      value: startCase(e.target.getAttribute('value')),
-      showOptions: false
+      value: startCase(targetValue),
+      isOpen: false
     });
 
-    this.props.input.onChange(e.target.getAttribute('value'));
+    this.props.input.onChange(targetValue);
   }
 
   render() {
     const {
       clearable,
+      id,
       input,
-      list,
-      name,
-      disabled,
-      ...rest
+      showOptions
     } = this.props;
 
     const notSelectedInputStyle = [
@@ -84,13 +98,13 @@ class Select extends Component {
           <input
             {...input}
             type="text"
-            name={name}
-            placeholder="select one"
-            style={this.state.showOptions ? notSelectedInputStyle : inputStyle }
+            style={showOptions && this.state.isOpen ? notSelectedInputStyle : inputStyle}
             value={this.state.value}
             onBlur={val => input.onBlur(val)}
             onChange={e => this.changeHandler(e)}
-            ref={(input) => { this.textInput = input; }}
+            onFocus={e => this.focusHandler(e)}
+            ref={(i) => { this.textInput = i; }}
+            id={id}
           />
           { this.state.value !== '' && clearable &&
             <a
@@ -103,7 +117,7 @@ class Select extends Component {
           }
         </div>
         {
-          this.state.showOptions &&
+          (this.state.isOpen && showOptions) &&
           <div style={styles.select.options}>
             <ul style={styles.select.ul}>
               {
@@ -129,10 +143,21 @@ class Select extends Component {
   }
 }
 
+Select.defaultProps = {
+  list: [],
+  clearable: true
+};
+
 Select.propTypes = {
-  input: PropTypes.shape({}),
+  clearable: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  input: PropTypes.shape({
+    value: PropTypes.string,
+    onChange: PropTypes.func
+  }).isRequired,
   list: PropTypes.arrayOf(PropTypes.string),
-  name: PropTypes.string
+  optionHandler: PropTypes.func.isRequired,
+  showOptions: PropTypes.bool.isRequired
 };
 
 export default Radium(Select);

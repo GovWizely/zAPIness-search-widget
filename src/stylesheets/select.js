@@ -14,7 +14,7 @@ const select = {
     display: 'inline-block',
     fontFamily,
     fontSize: '15px',
-    fontWeight: 300,
+    fontWeight: 400,
     lineHeight: '28px',
     padding: '8px 10px',
     width: '100%',

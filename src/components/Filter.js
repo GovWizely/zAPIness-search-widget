@@ -22,6 +22,7 @@ import {
 
 import {
   addFilters,
+  openOption,
   removeAllFilters,
   removeSelectedFilter
 } from '../actions/FilterActions';
@@ -42,6 +43,7 @@ export class Filter extends Component {
       // empty the value of filter if the type has changed
       map(this.props.formFilters, (filter, index) => {
         const currentFilter = nextProps.formFilters[index];
+
         if (currentFilter && currentFilter.type !== filter.type) {
           currentFilter.value = null;
         }
@@ -58,8 +60,6 @@ export class Filter extends Component {
 
     const target = this.props.formFilters[index].type || '';
     const categories = this.props.filters.get('categories');
-
-  console.log(target);
 
     return categories ? categories[target] : [];
   }
@@ -79,6 +79,7 @@ export class Filter extends Component {
       filters,
       formFilters,
       isFetching,
+      optionHandler,
       removeAllFilters,
       removeFilter,
       submitHandler
@@ -110,6 +111,11 @@ export class Filter extends Component {
                     component={Select}
                     className="select-type"
                     clearable={isDesktop}
+                    id={`type-${index}`}
+                    showOptions={
+                      filters.get('openedOption') === `type-${index}`
+                    }
+                    optionHandler={optionHandler}
                   />
                 </div>
                 <div style={styles.filter[`${deviceType}CategoryValue`]}>
@@ -119,6 +125,11 @@ export class Filter extends Component {
                     component={Select}
                     disabled={!formFilters || !formFilters[index].type}
                     clearable={isDesktop}
+                    id={`value-${index}`}
+                    showOptions={
+                      filters.get('openedOption') === `value-${index}`
+                    }
+                    optionHandler={optionHandler}
                   />
                 </div>
 
@@ -230,6 +241,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(addFilters(formFilters));
       dispatch(resetPageNum());
       dispatch(requestApi());
+    },
+
+    optionHandler: (id) => {
+      dispatch(openOption(id));
     }
   };
 }

@@ -4,7 +4,8 @@ const { Map } = require('immutable');
 
 const initialState = Map({
   categories: [],
-  filters: []
+  filters: [],
+  openedOption: undefined
 });
 
 export default function filterReducer(state = initialState, action) {
@@ -28,6 +29,8 @@ export default function filterReducer(state = initialState, action) {
       return state.set('filters', []);
     case actionTypes.UPDATE_CATEGORIES:
       return state.set('categories', action.categories);
+    case actionTypes.OPEN_OPTION:
+      return state.set('openedOption', action.openedOption);
     default:
       return state;
   }
