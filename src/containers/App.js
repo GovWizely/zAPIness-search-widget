@@ -38,6 +38,10 @@ export class App extends Component {
     }
   }
 
+  getFirstLabel(result) {
+    return result.data ? keys(result.data.results[0])[0] : '';
+  }
+
   render() {
     const {
       contentRect,
@@ -73,7 +77,7 @@ export class App extends Component {
               activePage={query.get('pageNum')}
               deviceType={deviceType}
               fields={query.get('fields')}
-              label={getResultLabel() || result.data ? keys(result.data.results[0])[0] : ''}
+              label={getResultLabel() || this.getFirstLabel(result)}
               paginationHandleSelect={handleSelect}
               query={result}
               showAll={query.get('showAll')}

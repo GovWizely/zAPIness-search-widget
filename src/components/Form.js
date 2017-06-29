@@ -115,7 +115,12 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
   return {
     submitHandler: (event) => {
-      const input = event.target.value || '';
+      let input;
+      if (event.target) {
+        input = event.target.value;
+      } else {
+        input = '';
+      }
       dispatch(resetPageNum());
 
       dispatch(updateKeyword(input));

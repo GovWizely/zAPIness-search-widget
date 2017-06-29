@@ -11,6 +11,7 @@ import { requestData, receiveData } from './LoadingActions';
 import { buildParams } from './elasticsearch';
 import { getData } from './api';
 
+
 function loadResult(data) {
   return {
     type: actionTypes.LOAD_RESULT,
