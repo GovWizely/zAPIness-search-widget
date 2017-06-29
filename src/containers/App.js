@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import isUndefined from 'lodash/isUndefined';
 import keys from 'lodash/keys';
 
-const _ = require('lodash');
-
 import Form from '../components/Form';
 import Result from '../components/Result';
 import LoadingIcon from '../components/LoadingIcon';
@@ -27,7 +25,6 @@ import {
 } from '../actions/QueryActions';
 import { getCategories } from '../actions/FilterActions';
 import toggleResult from '../actions/ToggleActions';
-import { categories } from '../actions/elasticsearch';
 
 import styles from '../stylesheets/styles';
 

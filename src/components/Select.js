@@ -139,7 +139,6 @@ class Select extends Component {
 
   render() {
     const {
-      allowFormatted,
       clearable,
       disabled,
       id,

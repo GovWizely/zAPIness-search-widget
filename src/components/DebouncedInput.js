@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
 
 import debounce from 'lodash/debounce';
 
@@ -65,5 +64,19 @@ class DebouncedInput extends Component {
     );
   }
 }
+
+DebouncedInput.defaultProps = {
+  placeholder: '',
+  clearHandler: () => {}
+};
+
+DebouncedInput.propTypes = {
+  input: PropTypes.shape({
+    value: PropTypes.string,
+    onChange: PropTypes.func
+  }).isRequired,
+  placeholder: PropTypes.string,
+  clearHandler: PropTypes.func
+};
 
 export default Radium(DebouncedInput);

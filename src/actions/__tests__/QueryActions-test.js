@@ -2,7 +2,6 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 import sinon from 'sinon';
-import { change } from 'redux-form';
 import * as QueryActions from '../QueryActions';
 import * as actionTypes from '../../constants/ActionTypes';
 import { configureApp } from '../api';

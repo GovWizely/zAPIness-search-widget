@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
 import DebouncedInput from './DebouncedInput';
-
-import styles from '../stylesheets/styles';
 
 const Radium = require('radium');
 
@@ -22,10 +20,12 @@ const Input = props => (
 
 Input.defaultProps = {
   clearHandler: () => {},
-  type: 'text'
+  type: 'text',
+  value: ''
 };
 
 Input.propTypes = {
+  value: PropTypes.string,
   name: PropTypes.string.isRequired,
   changeHandler: PropTypes.func.isRequired,
   clearHandler: PropTypes.func,

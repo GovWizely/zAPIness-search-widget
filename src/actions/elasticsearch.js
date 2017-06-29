@@ -73,7 +73,6 @@ export function buildParams(query, filters) {
   };
 
   if (query.get('hasFilter') && filters) {
-    // debugger
     const filterData = map(filters.get('filters'), filter => filter.toJS());
     const filter = mapValues(groupBy(filterData, 'type'), val => map(val, 'value'));
     merge(params, filter);

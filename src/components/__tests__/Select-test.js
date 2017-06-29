@@ -41,8 +41,8 @@ describe('components/Select', () => {
       />
     );
 
-    const input = select.find('input');
-    input.simulate('change', { target: { value: '' } });
+    const selectInput = select.find('input');
+    selectInput.simulate('change', { target: { value: '' } });
     expect(select.find('div.__sw-open-options__').exists()).toBe(true);
     expect(select.find('List').length).toBe(3);
     expect(select.find('List').children().nodes).toEqual(list);
@@ -59,8 +59,8 @@ describe('components/Select', () => {
       />
     );
 
-    const input = select.find('input');
-    input.simulate('change', { target: { value: 'a' } });
+    const selectInput = select.find('input');
+    selectInput.simulate('change', { target: { value: 'a' } });
     expect(select.find('div.__sw-open-options__').exists()).toBe(true);
     expect(select.find('List').length).toBe(2);
     expect(select.find('List').children().nodes).toEqual(['earth', 'mars']);
