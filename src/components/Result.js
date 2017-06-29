@@ -67,7 +67,7 @@ const Result = (props) => {
               cells={result}
               deviceType={deviceType}
               id={index}
-              label={isEmpty(labels[index]) ? `No ${label}` : labels[index] }
+              label={isEmpty(labels[index]) ? `No ${label}` : labels[index]}
               showDetails={
                 index === toggleStatus.key && toggleStatus.show
               }

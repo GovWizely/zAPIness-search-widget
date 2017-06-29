@@ -4,22 +4,22 @@ import Select from '../Select';
 
 describe('components/Select', () => {
   const list = [
-    "earth",
-    "mars",
-    "jupiter"
+    'earth',
+    'mars',
+    'jupiter'
   ];
   const onChange = jest.fn();
   const onBlur = jest.fn();
   const input = {
-    onChange: onChange,
-    onBlur: onBlur,
+    onChange,
+    onBlur,
     value: ''
   };
 
   it('renders successfully', () => {
     const select = shallow(
       <Select
-        clearable={true}
+        clearable
         list={list}
         id="randomId"
         input={input}
@@ -34,7 +34,7 @@ describe('components/Select', () => {
     const select = shallow(
       <Select
         allowFormatted={false}
-        clearable={true}
+        clearable
         list={list}
         id="randomId"
         input={input}
@@ -42,7 +42,7 @@ describe('components/Select', () => {
     );
 
     const input = select.find('input');
-    input.simulate('change', { target: { value: '' }});
+    input.simulate('change', { target: { value: '' } });
     expect(select.find('div.__sw-open-options__').exists()).toBe(true);
     expect(select.find('List').length).toBe(3);
     expect(select.find('List').children().nodes).toEqual(list);
@@ -52,7 +52,7 @@ describe('components/Select', () => {
     const select = shallow(
       <Select
         allowFormatted={false}
-        clearable={true}
+        clearable
         list={list}
         id="randomId"
         input={input}
@@ -60,7 +60,7 @@ describe('components/Select', () => {
     );
 
     const input = select.find('input');
-    input.simulate('change', { target: { value: 'a' }});
+    input.simulate('change', { target: { value: 'a' } });
     expect(select.find('div.__sw-open-options__').exists()).toBe(true);
     expect(select.find('List').length).toBe(2);
     expect(select.find('List').children().nodes).toEqual(['earth', 'mars']);

@@ -114,9 +114,8 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    submitHandler: (keyword) => {
-      //debugger
-      const input = keyword;
+    submitHandler: (event) => {
+      const input = event.target.value || '';
       dispatch(resetPageNum());
 
       dispatch(updateKeyword(input));

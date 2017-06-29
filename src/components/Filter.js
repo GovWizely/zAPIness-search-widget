@@ -63,13 +63,13 @@ export class Filter extends Component {
     return categories ? categories[target] : [];
   }
 
-   addDefaultFilter(fields) {
-     const defaultFilter = this.props.filters.get('categories');
-     const defaultType = keys(defaultFilter)[0];
-     const defaultValue = values(defaultFilter)[0] ? values(defaultFilter)[0][0] : '';
+  addDefaultFilter(fields) {
+    const defaultFilter = this.props.filters.get('categories');
+    const defaultType = keys(defaultFilter)[0];
+    const defaultValue = values(defaultFilter)[0] ? values(defaultFilter)[0][0] : '';
 
-     return fields.push({ type: defaultType, value: defaultValue });
-   }
+    return fields.push({ type: defaultType, value: defaultValue });
+  }
 
   render() {
     const {

@@ -23,9 +23,7 @@ function updateCategories(data) {
     categories = pick(categories, fields);
   }
 
-  categories = mapValues(categories, c => {
-    return map(c, value => value.toString());
-  });
+  categories = mapValues(categories, c => map(c, value => value.toString()));
 
   return {
     type: actionTypes.UPDATE_CATEGORIES,

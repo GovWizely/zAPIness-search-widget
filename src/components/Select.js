@@ -20,7 +20,7 @@ class Select extends Component {
     this.setWrapperRef = this.setWrapperRef.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
 
-    let value = isUndefined(this.props.input) ? '' : this.props.input.value;
+    const value = isUndefined(this.props.input) ? '' : this.props.input.value;
 
     this.state = {
       value: this.formatLabel(value),
@@ -51,7 +51,6 @@ class Select extends Component {
   }
 
   handleClickOutside(event) {
-    console.log('I am here');
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       this.setState({
         isOpen: false
@@ -115,7 +114,7 @@ class Select extends Component {
       styles.select.input,
       styles.select.placeholder
     ];
-    if(this.state.isOpen) {
+    if (this.state.isOpen) {
       basic = basic.concat([
         styles.select.noSelect,
         styles.select.openSelectInputBorder
@@ -169,7 +168,7 @@ class Select extends Component {
               href={'undefined'}
               onClick={e => this.clearHandler(e)}
               style={styles.filter.clearBtn}
-              className='__sw-filter-clear-btn__'
+              className="__sw-filter-clear-btn__"
             >
               &times;
             </a>
@@ -177,7 +176,7 @@ class Select extends Component {
         </div>
         {
           this.state.isOpen &&
-          <div className='__sw-open-options__' style={styles.select.options} ref={this.setWrapperRef}>
+          <div className="__sw-open-options__" style={styles.select.options} ref={this.setWrapperRef}>
             <ul style={styles.select.ul}>
               {
                 matches === noResult &&

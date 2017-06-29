@@ -45,6 +45,7 @@
     "axios-mock-adapter": "^1.8.1",
     "babel-cli": "^6.3.17",
     "babel-core": "^6.3.17",
+    "babel-eslint": "^7.2.3",
     "babel-jest": "^19.0.0",
     "babel-loader": "^6.2.0",
     "babel-preset-env": "^1.5.1",

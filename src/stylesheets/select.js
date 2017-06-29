@@ -72,7 +72,7 @@ const select = {
   noResult: {
     borderLeft: '1px solid #ccc',
     borderRight: '1px solid #ccc',
-    //padding: '10px',
+    // padding: '10px',
 
     ':hover': {
       cursor: 'no-drop'
