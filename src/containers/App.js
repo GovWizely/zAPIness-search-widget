@@ -8,6 +8,7 @@ import keys from 'lodash/keys';
 import Form from '../components/Form';
 import Result from '../components/Result';
 import LoadingIcon from '../components/LoadingIcon';
+import breakpoints from '../actions/breakpoints';
 
 import {
   getPreviewMode,
@@ -24,7 +25,6 @@ import {
 } from '../actions/QueryActions';
 import { getCategories } from '../actions/FilterActions';
 import toggleResult from '../actions/ToggleActions';
-import { categories } from '../actions/elasticsearch';
 
 import styles from '../stylesheets/styles';
 
@@ -38,38 +38,49 @@ export class App extends Component {
     }
   }
 
+  getFirstLabel(result) {
+    return result.data ? keys(result.data.results[0])[0] : '';
+  }
+
   render() {
     const {
+      contentRect,
       filters,
+      handleSelect,
+      innerRef,
       isFetching,
       query,
-      handleSelect,
       toggle,
       toggleResultHandler
     } = this.props;
 
     const result = query.get('data');
+    const deviceType = breakpoints(contentRect.bounds.width);
 
     return (
       <div className="__sw-container__" style={styles.container}>
-        <div className="container" style={{ width: '100%' }}>
+        <div style={{ width: '100%', padding: 0 }} ref={innerRef}>
           <Form
-            isFetching={isFetching}
+            deviceType={deviceType}
             filters={filters}
+            isFetching={isFetching}
             onSubmit={() => {}}
+            query={query}
           />
+
           {
             isFetching && <div style={{ padding: '0 50%' }}><LoadingIcon /></div>
           }
           {
             result && !isFetching &&
             <Result
+              activePage={query.get('pageNum')}
+              deviceType={deviceType}
+              fields={query.get('fields')}
+              label={getResultLabel() || this.getFirstLabel(result)}
+              paginationHandleSelect={handleSelect}
               query={result}
               showAll={query.get('showAll')}
-              fields={query.get('fields')}
-              label={getResultLabel() || keys(categories(result.data))[0]}
-              paginationHandleSelect={handleSelect}
-              activePage={query.get('pageNum')}
               toggleHandler={toggleResultHandler}
               toggleStatus={{
                 key: toggle.get('key'),
@@ -127,17 +138,19 @@ function mapStateToProps(state) {
 }
 
 App.propTypes = {
+  contentRect: PropTypes.shape({}).isRequired,
+  filters: PropTypes.shape({}).isRequired,
+  getCategories: PropTypes.func.isRequired,
+  handleSelect: PropTypes.func.isRequired,
+  innerRef: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  previewResult: PropTypes.func.isRequired,
   query: PropTypes.shape({
     get: PropTypes.func
   }).isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  filters: PropTypes.shape({}).isRequired,
   toggle: PropTypes.shape({}).isRequired,
-  handleSelect: PropTypes.func.isRequired,
-  getCategories: PropTypes.func.isRequired,
   toggleResultHandler: PropTypes.func.isRequired,
-  updateFields: PropTypes.func.isRequired,
-  previewResult: PropTypes.func.isRequired
+  updateFields: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

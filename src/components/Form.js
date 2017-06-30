@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FieldArray, reduxForm } from 'redux-form';
+import {
+  FieldArray,
+  reduxForm,
+  change
+} from 'redux-form';
 
-import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
-
-import PhoneView from '../components/responsive/PhoneView';
 
 import {
   requestApi,
   updateKeyword,
   updateHasFilter,
-  setFilterRequired,
   resetPageNum
 } from '../actions/QueryActions';
 
-import validate from '../actions/validate';
 import styles from '../stylesheets/styles';
 
 import Filter from './Filter';
@@ -44,9 +43,12 @@ export class Form extends Component {
 
   render() {
     const {
+      clearHandler,
+      deviceType,
       filters,
-      isFetching,
       handleSubmit,
+      isFetching,
+      query,
       submitHandler
     } = this.props;
 
@@ -56,50 +58,46 @@ export class Form extends Component {
           <Input
             name="keyword"
             placeholder="Search for keyword..."
-            changeHandler={debounce(submitHandler, 1000)}
+            changeHandler={submitHandler}
+            clearHandler={clearHandler}
+            value={query.get('keyword') || ''}
           />
 
           <Fetcher
             submitHandler={submitHandler}
             fetching={isFetching}
+            keyword={query.get('keyword')}
           />
         </div>
-        <PhoneView>
-          {
-            matches => matches ? (
-              <div>
-                <Button
-                  type="button"
-                  kind="mobileLink"
-                  clickHandler={this.toggleFilter}
-                  className="_sw-advanced-search__"
-                >
-                  <img src={settings} alt="settings" style={styles.sImg} />
-                  { this.state.showFilter && <span>Hide Advanced Filter</span> }
-                  { !this.state.showFilter && <span>Advanced Filter</span> }
-                </Button>
-              </div>
-            ) : (
-              <div style={{ overflow: 'hidden' }}>
-                <Button
-                  type="button"
-                  kind="link"
-                  clickHandler={this.toggleFilter}
-                  className="__sw-advanced-search__"
-                >
-                  <img src={settings} alt="settings" style={styles.sImg} />
-                  { this.state.showFilter && <span>Hide Advanced Filter</span> }
-                  { !this.state.showFilter && <span>Advanced Filter</span> }
-                </Button>
-              </div>
-            )
-          }
-        </PhoneView>
+
+        {
+          !isEmpty(filters.get('categories')) &&
+          <div style={{ overflow: 'hidden' }}>
+            <Button
+              type="button"
+              kind={`${deviceType}Link`}
+              clickHandler={this.toggleFilter}
+              className="_sw-advanced-search__"
+            >
+              <img src={settings} alt="settings" style={styles.sImg} />
+              { this.state.showFilter && <span>Hide Advanced Filter</span> }
+              { !this.state.showFilter && <span>Advanced Filter</span> }
+            </Button>
+          </div>
+        }
+
+        {
+          query.get('error') &&
+          <div className="__sw-error__" style={styles.errorMessage}>
+            { query.get('error') }
+          </div>
+        }
 
         {
           this.state.showFilter &&
           <FieldArray
             name="filters"
+            deviceType={deviceType}
             component={Filter}
           />
         }
@@ -116,30 +114,47 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    submitHandler: (data) => {
-      dispatch(setFilterRequired());
-      const keyword = data.target.value;
+    submitHandler: (event) => {
+      let input;
+      if (event.target) {
+        input = event.target.value;
+      } else {
+        input = '';
+      }
       dispatch(resetPageNum());
 
-      dispatch(updateKeyword(keyword));
+      dispatch(updateKeyword(input));
       dispatch(requestApi());
     },
 
     updateFilterStatus: (hasFilter) => {
       dispatch(updateHasFilter(hasFilter));
+    },
+
+    clearHandler: () => {
+      dispatch(updateKeyword(''));
+      dispatch(change('form', 'keyword', ''));
     }
   };
 }
 
+Form.defaultProps = {
+  deviceType: '',
+  handleSubmit: undefined,
+  updateFilterStatus: undefined
+};
+
 Form.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
+  clearHandler: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func,
   isFetching: PropTypes.bool.isRequired,
   submitHandler: PropTypes.func.isRequired,
-  updateFilterStatus: PropTypes.func.isRequired,
-  filters: PropTypes.shape({}).isRequired
+  updateFilterStatus: PropTypes.func,
+  filters: PropTypes.shape({}).isRequired,
+  query: PropTypes.shape({}).isRequired,
+  deviceType: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'form',
-  validate
+  form: 'form'
 })(Form));

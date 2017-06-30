@@ -3,6 +3,7 @@ import each from 'lodash/each';
 import mapValues from 'lodash/mapValues';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
+import filter from 'lodash/filter';
 
 import * as actionTypes from '../constants/ActionTypes';
 import {
@@ -21,6 +22,8 @@ function updateCategories(data) {
   if (!isEmpty(fields)) {
     categories = pick(categories, fields);
   }
+
+  categories = mapValues(categories, c => map(c, value => value.toString()));
 
   return {
     type: actionTypes.UPDATE_CATEGORIES,
@@ -45,8 +48,11 @@ export function removeAllFilters() {
 export function addFilters(formFilters) {
   return (dispatch) => {
     dispatch(removeAllFilters());
-    each(formFilters, (filter) => {
-      dispatch(addFilter(filter.type, filter.value));
+
+    const validFilters = filter(formFilters, el => el.type && el.value);
+
+    each(validFilters, (f) => {
+      dispatch(addFilter(f.type, f.value));
     });
   };
 }

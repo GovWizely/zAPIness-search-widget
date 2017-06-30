@@ -33,10 +33,10 @@
     "radium": "^0.18.2",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
-    "react-media": "^1.5.1",
+    "react-measure": "^2.0.2",
     "react-redux": "^4.4.5",
     "redux": "^3.1.1",
-    "redux-form": "^6.3.2",
+    "redux-form": "^6.8.0",
     "redux-thunk": "^2.1.0",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.2"
@@ -45,6 +45,7 @@
     "axios-mock-adapter": "^1.8.1",
     "babel-cli": "^6.3.17",
     "babel-core": "^6.3.17",
+    "babel-eslint": "^7.2.3",
     "babel-jest": "^19.0.0",
     "babel-loader": "^6.2.0",
     "babel-preset-env": "^1.5.1",
@@ -81,11 +82,13 @@
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.2",
     "redux-mock-store": "^1.2.3",
+    "resize-observer-polyfill": "^1.4.2",
     "sinon": "^2.1.0",
     "style-loader": "^0.18.1",
     "todomvc-app-css": "^2.0.1",
     "url-loader": "^0.5.8",
     "webpack": "^2.4.1",
+    "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-server": "^2.4.2"
   }
 }

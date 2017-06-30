@@ -4,7 +4,10 @@ import form from './form';
 import result from './result';
 import pagination from './pagination';
 import list from './list';
+import select from './select';
 import filter from './filter';
+
+const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const styles = {
   buttons,
@@ -13,8 +16,10 @@ const styles = {
   pagination,
   list,
   filter,
+  select,
 
   container: {
+    background: colors.white,
     boxSizing: 'border-box',
     padding: '20px',
     width: '100%'
@@ -48,8 +53,19 @@ const styles = {
   },
 
   error: {
+    border: `1px solid ${colors.errorRed}`,
+    borderRadius: '5px'
+  },
+
+  errorMessage: {
+    background: '#f2dede',
+    border: '1px solid #ebccd1',
+    borderRadius: '4px',
     color: colors.red,
-    fontWeight: 500
+    fontFamily,
+    fontSize: '14px',
+    padding: '15px 20px',
+    margin: '10px 0'
   },
 
   loadingIcon: {

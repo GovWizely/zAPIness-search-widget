@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import map from 'lodash/map';
+import isNull from 'lodash/isNull';
 
 import Pagination from './Pagination';
 import {
-  count,
   paginationTotal,
-  totalCount
+  totalCount,
+  paginationEnd,
+  paginationStart
 } from '../actions/elasticsearch';
 import {
   filterResult,
@@ -15,48 +17,61 @@ import {
 } from '../actions/QueryActions';
 
 import Drawer from './Drawer';
-import DesktopView from './responsive/DesktopView';
+import TotalResult from './TotalResult';
 import styles from '../stylesheets/styles';
 
 const Radium = require('radium');
 
 const Result = (props) => {
-  const labels = getLabels(props.query.data.results, props.label);
+  const {
+    activePage,
+    deviceType,
+    fields,
+    label,
+    paginationHandleSelect,
+    query,
+    showAll,
+    toggleHandler,
+    toggleStatus
+  } = props;
+
+  const labels = getLabels(query.data.results, label);
   const results = filterResult(
-    props.query.data.results,
-    props.fields,
-    props.showAll
+    query.data.results,
+    fields,
+    showAll
   );
 
-  const showPagination = props.query.data.results.length > 0
-    && paginationTotal(props.query.data, 10) > 1;
+  const showPagination = query.data.results.length > 0
+    && paginationTotal(query.data, 10) > 1;
 
   return (
     <div className="__sw-result__" style={styles.result.base}>
-      { props.query.data.results.length === 0 &&
+      { query.data.results.length === 0 &&
         <div className="__sw-no-result__" style={styles.result.noResult}>
           No result found. Please try again.
         </div>
       }
-      <DesktopView>
-        {
-          props.query.data.results.length > 0 &&
-          <div style={styles.pagination.total} className="__sw-total-result__">
-            { props.activePage } - { paginationTotal(props.query.data, 10) } of { totalCount(props.query.data) } results shown
-          </div>
-        }
-      </DesktopView>
+      {
+        query.data.results.length > 0 &&
+        <TotalResult
+          end={paginationEnd(query.data)}
+          start={paginationStart(query.data, activePage)}
+          total={totalCount(query.data)}
+        />
+      }
       {
         map(results, (result, index) => (
           <div key={index} className="__result-container__" style={styles.result.container}>
             <Drawer
               cells={result}
-              label={labels[index]}
+              deviceType={deviceType}
               id={index}
-              toggleHandler={props.toggleHandler}
+              label={isNull(labels[index]) ? `No ${label}` : labels[index]}
               showDetails={
-                index === props.toggleStatus.key && props.toggleStatus.show
+                index === toggleStatus.key && toggleStatus.show
               }
+              toggleHandler={toggleHandler}
             />
           </div>
         ))
@@ -66,10 +81,11 @@ const Result = (props) => {
         showPagination &&
         <div style={{ width: '100%' }}>
           <Pagination
-            totalPage={paginationTotal(props.query.data, 10)}
+            activePage={activePage}
+            deviceType={deviceType}
+            onSelect={paginationHandleSelect}
             totalNumButton={3}
-            activePage={props.activePage}
-            onSelect={props.paginationHandleSelect}
+            totalPage={paginationTotal(query.data, 10)}
           />
         </div>
       }
@@ -77,14 +93,16 @@ const Result = (props) => {
   );
 };
 
+Result.defaultProps = {
+  deviceType: ''
+};
+
 Result.propTypes = {
   activePage: PropTypes.number.isRequired,
+  deviceType: PropTypes.string,
+  fields: PropTypes.arrayOf(PropTypes.string).isRequired,
   label: PropTypes.string.isRequired,
   paginationHandleSelect: PropTypes.func.isRequired,
-  toggleHandler: PropTypes.func.isRequired,
-  showAll: PropTypes.bool.isRequired,
-  toggleStatus: PropTypes.shape({}).isRequired,
-  fields: PropTypes.arrayOf(PropTypes.string).isRequired,
   query: PropTypes.shape(
     { get: PropTypes.func,
       data: PropTypes.shape({
@@ -93,7 +111,10 @@ Result.propTypes = {
         }))
       })
     }
-  ).isRequired
+  ).isRequired,
+  showAll: PropTypes.bool.isRequired,
+  toggleHandler: PropTypes.func.isRequired,
+  toggleStatus: PropTypes.shape({}).isRequired
 };
 
 export default Radium(Result);

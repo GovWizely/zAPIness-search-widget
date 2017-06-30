@@ -19,27 +19,31 @@ describe('components/Form', () => {
     filters: []
   });
 
+  const query = Map({
+    keyword: '',
+    offset: 0,
+    pageNum: 1,
+    error: [],
+    fields: [],
+    showAll: true,
+    hasFilter: true
+  });
+
   const store = mockStore({
     filters,
     isFetching: false,
-    query: Map({
-      keyword: '',
-      offset: 0,
-      pageNum: 1,
-      error: [],
-      fields: [],
-      showAll: true,
-      hasFilter: true
-    })
+    query
   });
 
   it('renders successfully', () => {
     const form = shallow(
       <Form
-        submitHandler={submitHandler}
+        deviceType="desktop"
+        filters={filters}
         isFetching={false}
         onSubmit={handleSubmit}
-        filters={filters}
+        query={query}
+        submitHandler={submitHandler}
       />
     );
 
@@ -49,6 +53,7 @@ describe('components/Form', () => {
     expect(form.find('Input').length).toBe(1);
     expect(name).toEqual('keyword');
     expect(placeholder).toEqual('Search for keyword...');
+    expect(form.find('Button').props().kind).toEqual('desktopLink');
   });
 
   it('dispatch actions when user key in input', () => {
@@ -58,6 +63,7 @@ describe('components/Form', () => {
           isFetching={false}
           filters={filters}
           onSubmit={() => {}}
+          query={query}
         />
       </Provider>
     );
@@ -65,7 +71,7 @@ describe('components/Form', () => {
     expect(connectedForm.find(Input).length).toBe(1);
     connectedForm.find(Input).simulate('change', { target: { value: 'David' } });
     expect(connectedForm.find('.__sw-fetcher__').length).toBe(1);
-    expect(store.getActions().length).toBe(2);
+    expect(store.getActions().length).toBe(1);
   });
 
   it('shows add filter button', () => {
@@ -75,6 +81,7 @@ describe('components/Form', () => {
           isFetching={false}
           filters={filters}
           onSubmit={() => {}}
+          query={query}
         />
       </Provider>
     );
@@ -89,5 +96,21 @@ describe('components/Form', () => {
     expect(JSON.stringify(store.getActions())).toContain(
       JSON.stringify({ type: 'UPDATE_HAS_FILTER', hasFilter: true })
     );
+  });
+
+  it('renders mobile advanced search link in small screen', () => {
+    const connectedForm = mount(
+      <Provider store={store}>
+        <ConnectedForm
+          deviceType="mobile"
+          filters={filters}
+          isFetching={false}
+          onSubmit={() => {}}
+          query={query}
+        />
+      </Provider>
+    );
+
+    expect(connectedForm.find('Button').props().kind).toEqual('mobileLink');
   });
 });

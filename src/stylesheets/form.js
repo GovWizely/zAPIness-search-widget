@@ -28,6 +28,21 @@ const form = {
     position: 'relative',
     verticalAlign: 'top',
     width: '100%'
+  },
+
+  clearBtn: {
+    color: '#999',
+    fontSize: '20px',
+    height: '10px',
+    position: 'absolute',
+    right: '50px',
+    top: '10px',
+    width: '10px',
+
+    ':hover': {
+      color: colors.errorRed,
+      cursor: 'pointer'
+    }
   }
 };
 

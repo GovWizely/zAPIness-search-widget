@@ -1,13 +1,16 @@
 import map from 'lodash/map';
 import pick from 'lodash/pick';
 import values from 'lodash/values';
-import { change } from 'redux-form';
 
 import * as actionTypes from '../constants/ActionTypes';
+import {
+  submissionError
+} from '../constants/Errors';
 
 import { requestData, receiveData } from './LoadingActions';
 import { buildParams } from './elasticsearch';
 import { getData } from './api';
+
 
 function loadResult(data) {
   return {
@@ -74,13 +77,6 @@ export function updateHasFilter(hasFilter) {
   };
 }
 
-export function setFilterRequired() {
-  return (dispatch, getState) => {
-    const required = getState().query.get('hasFilter');
-    dispatch(change('form', 'filterRequired', required));
-  };
-}
-
 export function resetPageNum() {
   return {
     type: actionTypes.RESET_PAGE_NUM
@@ -91,14 +87,11 @@ export function requestApi() {
   return (dispatch, getState) => {
     dispatch(requestData());
 
-    const error = getState().form.form ? getState().form.form.syncErrors : false;
+    const data = buildParams(
+      getState().query,
+      getState().filters
+    );
 
-    if (error) {
-      dispatch(receiveData());
-      return dispatch(loadError(error));
-    }
-
-    const data = buildParams(getState().query, getState().filters);
     return getData(data)
       .then((response) => {
         dispatch(receiveData());
@@ -107,7 +100,7 @@ export function requestApi() {
       },
       (error) => {
         dispatch(receiveData());
-        dispatch(loadError(error));
+        dispatch(loadError(submissionError));
       });
   };
 }

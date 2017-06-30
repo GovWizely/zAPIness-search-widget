@@ -6,7 +6,7 @@ import styles from '../stylesheets/styles';
 const Grid = (activePage, clickHandler) => num => (
   <List
     key={num}
-    id={`list-${num + 1}`}
+    id={`list-${num}`}
     className={num === activePage ? 'active' : ''}
     styles={num === activePage ? styles.list.active : styles.list.normal}
     clickHandler={(e) => {

@@ -7,6 +7,7 @@ const list = {
   },
 
   base: {
+    display: 'block',
     padding: '9px',
     fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
     fontSize: '13px',

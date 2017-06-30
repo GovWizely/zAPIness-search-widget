@@ -3,7 +3,7 @@ import colors from './colors';
 const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const filter = {
-  container: {
+  desktopContainer: {
     backgroundColor: colors.lightGrey,
     border: `1px solid ${colors.mediumGrey}`,
     borderRadius: 3,
@@ -15,10 +15,15 @@ const filter = {
     width: '100%'
   },
 
+  mobileContainer: {
+    borderBottom: `1px solid ${colors.mediumGrey}`,
+    marginTop: '20px',
+    paddingBottom: '10px'
+  },
+
   searchLabel: {
     fontSize: '15px',
-    fontWeight: 500,
-    marginBottom: '20px'
+    fontWeight: 500
   },
 
   category: {
@@ -27,16 +32,36 @@ const filter = {
     maxWidth: '39%'
   },
 
-  categoryType: {
+  desktopCategoryType: {
     display: 'inline-block',
     marginRight: '1%',
-    maxWidth: '30%'
+    width: '40%'
   },
 
-  categoryValue: {
+  mobileCategoryType: {
     display: 'inline-block',
     marginRight: '1%',
-    width: '48%'
+    width: '45%'
+  },
+
+  desktopCategoryValue: {
+    display: 'inline-block',
+    marginRight: '1%',
+    width: '50%'
+  },
+
+  mobileCategoryValue: {
+    display: 'inline-block',
+    marginRight: '1%',
+    width: '45%'
+  },
+
+  label: {
+    borderBottom: `1px solid ${colors.mediumGrey}`,
+    color: colors.xDarkGrey,
+    fontFamily,
+    marginBottom: '10px',
+    paddingBottom: '10px'
   },
 
   numbering: {
@@ -70,28 +95,33 @@ const filter = {
     width: '100%'
   },
 
-  btnContainer: {
+  desktopBtnContainer: {
     display: 'inline-block',
+    position: 'relative',
     verticalAlign: 'middle',
-    width: '20%'
+    width: '2%'
   },
 
-  select: {
-    border: `1px solid ${colors.darkGrey}`,
-    fontFamily,
-    fontSize: '12px',
-    opacity: 0.8,
-    width: '100%',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    padding: '5px 0'
+  mobileBtnContainer: {
+    display: 'inline-block',
+    position: 'relative',
+    verticalAlign: 'middle',
+    width: '2%'
   },
 
   actionBtn: {
     borderTop: `1px solid ${colors.darkGrey}`,
     paddingTop: '20px',
     textAlign: 'right'
+  },
+
+  clearBtn: {
+    color: '#999',
+    fontSize: '20px',
+    position: 'absolute',
+    right: '15px',
+    textDecoration: 'none',
+    top: '9px'
   }
 };
 

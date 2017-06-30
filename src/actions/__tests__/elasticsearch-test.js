@@ -14,7 +14,8 @@ describe('actions/elasticsearch', () => {
   const categories = ['a', 'b', 'c'];
   let data = {
     metadata: {
-      total
+      total,
+      offset
     },
     aggregations: categories
   };
@@ -33,11 +34,68 @@ describe('actions/elasticsearch', () => {
 
   describe('paginationTotal', () => {
     it('returns total pages showed in the pagination bar', () => {
-      expect(es.paginationTotal(data, 3)).toEqual(3);
+      expect(es.paginationTotal(data, 3)).toEqual(4);
     });
 
     it('returns 1 if the total results is less than count per page', () => {
       expect(es.paginationTotal(data, 20)).toEqual(1);
+    });
+  });
+
+  describe('paginationStart', () => {
+    it('returns current page if current page is the first page', () => {
+      expect(es.paginationStart(data, 1)).toBe(1);
+    });
+
+    it('returns data offset if current page is not the first page', () => {
+      expect(es.paginationStart(data, 3)).toBe(offset + 1);
+    });
+  });
+
+  describe('paginationEnd', () => {
+    it('returns total count of the result if pages is less than 1 page', () => {
+      data = {
+        metadata: {
+          total,
+          offset,
+          next_offset: 20
+        },
+        aggregations: categories
+      };
+
+      expect(es.paginationEnd(data, 20)).toBe(total);
+    });
+
+    it('returns total count of the result if there is no next page', () => {
+      data = {
+        metadata: {
+          total,
+          offset,
+          next_offset: null
+        },
+        aggregations: categories
+      };
+
+      expect(es.paginationEnd(data, 2)).toBe(total);
+    });
+
+    it('otherwise, returns next offset of the page', () => {
+      data = {
+        metadata: {
+          total,
+          offset,
+          next_offset: 20
+        },
+        aggregations: categories
+      };
+
+      expect(es.paginationEnd(data, 1)).toBe(20);
+    });
+  });
+
+  describe('offset', () => {
+    it('returns offset of results', () => {
+      expect(es.offset(data)).toEqual(offset);
     });
   });
 

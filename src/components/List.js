@@ -6,7 +6,7 @@ const React = require('react');
 
 const List = props => (
   <li
-    style={styles.list.container}
+    style={props.containerStyle}
     key={props.id}
     className={props.className}
   >
@@ -21,6 +21,8 @@ const List = props => (
         props.styles
       ]}
       onClick={props.clickHandler}
+      id={props.id}
+      value={props.value}
     >
       {props.children}
     </a>
@@ -29,8 +31,11 @@ const List = props => (
 
 List.defaultProps = {
   id: '',
+  className: '',
   mobile: false,
-  styles: styles.list.normal
+  styles: styles.list.normal,
+  containerStyle: styles.list.container,
+  value: ''
 };
 
 List.propTypes = {
@@ -39,11 +44,13 @@ List.propTypes = {
     PropTypes.number,
     PropTypes.any
   ]).isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   clickHandler: PropTypes.func.isRequired,
+  containerStyle: PropTypes.shape({}),
   id: PropTypes.string,
+  mobile: PropTypes.bool,
   styles: PropTypes.shape({}),
-  mobile: PropTypes.bool
+  value: PropTypes.string
 };
 
 export default Radium(List);

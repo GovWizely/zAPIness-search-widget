@@ -42,7 +42,7 @@ describe('components/Result', () => {
     expect(result.find('Pagination').exists()).toBe(false);
 
     expect(result.find('Drawer').length).toBe(3);
-    expect(result.find('div.__sw-total-result__').length).toBe(1);
+    expect(result.find('TotalResult').exists()).toBe(true);
 
     result.find('Drawer').forEach((node, index) => {
       expect(node.props().cells).toEqual(query.data.results[index]);

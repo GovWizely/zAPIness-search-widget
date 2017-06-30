@@ -10,7 +10,9 @@ const colors = {
   white: '#fff',
   chalk: '#89877b',
   darkChalk: '#7f7d71',
-  red: '#d9534f'
+  red: '#a94442',
+  errorRed: '#FF0000',
+  lightBlue: color('#007EFF').lighten(0.9).hexString()
 };
 
 export default colors;

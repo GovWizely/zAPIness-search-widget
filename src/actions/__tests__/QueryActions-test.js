@@ -2,7 +2,6 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 import sinon from 'sinon';
-import { change } from 'redux-form';
 import * as QueryActions from '../QueryActions';
 import * as actionTypes from '../../constants/ActionTypes';
 import { configureApp } from '../api';
@@ -80,17 +79,19 @@ describe('actions/QueryActions', () => {
   });
 
   describe('requestApi', () => {
-    const store = mockStore({
-      form: {
-        form: {}
-      },
-      query: Map({ keyword, offset }),
-      isFetching: false
-    });
-
     const results = [1, 2, 3];
 
     it('get results successfully', () => {
+      const store = mockStore({
+        form: {
+          form: {}
+        },
+        query: Map({ keyword, offset }),
+        isFetching: false,
+        filters: Map([
+          Map({ type: '1', value: 'Season' })
+        ])
+      });
       const expectedActions = [
         {
           type: actionTypes.RECEIVE_DATA
@@ -98,6 +99,35 @@ describe('actions/QueryActions', () => {
         {
           type: actionTypes.LOAD_RESULT,
           results
+        }
+      ];
+
+      configureApp(endpoint);
+
+      nock('endpoint').get('/').reply(200, { results });
+
+      const dispatch = sinon.spy(store, 'dispatch');
+      const fn = QueryActions.requestApi();
+
+      fn(dispatch, store.getState);
+
+      expect(dispatch.calledWith(expectedActions));
+    });
+
+    it('does not perform ajax call if there is error', () => {
+      const store = mockStore({
+        form: {
+          form: {}
+        },
+        query: Map({ keyword, offset }),
+        isFetching: false,
+        filters: Map([
+          Map({ type: undefined, value: undefined })
+        ])
+      });
+      const expectedActions = [
+        {
+          type: actionTypes.RECEIVE_DATA
         }
       ];
 
@@ -182,32 +212,6 @@ describe('actions/QueryActions', () => {
       expect(store.getActions()).toEqual(
         [{ type: actionTypes.RESET_PAGE_NUM }]
       );
-    });
-  });
-
-  describe('setFilterRequired', () => {
-    it('updates has filter flag', () => {
-      const store = mockStore({
-        form: {
-          form: {}
-        },
-        query: Map({ hasFilter: true })
-      });
-
-      store.dispatch(QueryActions.setFilterRequired());
-
-      expect(store.getActions()).toEqual([
-        {
-          meta: {
-            field: 'filterRequired',
-            form: 'form',
-            persistentSubmitErrors: undefined,
-            touch: undefined
-          },
-          payload: true,
-          type: '@@redux-form/CHANGE'
-        }
-      ]);
     });
   });
 });

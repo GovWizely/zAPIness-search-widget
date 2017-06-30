@@ -75,8 +75,16 @@ describe('actions/FilterActions', () => {
         filters: [{ type: 'country', value: 'Sweden' }]
       });
 
-      const filter1 = { type: 'capital', value: 'Berlin' };
-      const filter2 = { type: 'country', value: 'Italy' };
+      const filter1 = {
+        type: 'capital',
+        value: 'berlin'
+      };
+
+      const filter2 = {
+        type: 'country',
+        value: 'italy'
+      };
+
       const formFilters = [filter1, filter2];
 
       const expectedActions = [
@@ -91,6 +99,43 @@ describe('actions/FilterActions', () => {
           type: actionTypes.ADD_FILTER,
           filterType: filter2.type,
           value: filter2.value
+        }
+      ];
+
+      store.dispatch(FilterActions.addFilters(formFilters));
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('does not add empty filters to the store', () => {
+      const store = mockStore({
+        filters: [{ type: 'country', value: 'Sweden' }]
+      });
+
+      const filter1 = {
+        type: 'capital',
+        value: 'berlin'
+      };
+
+      const filter2 = {
+        type: null,
+        value: null
+      };
+
+      const filter3 = {
+        type: { value: 'capital', label: 'Capital' },
+        value: null
+      };
+
+      const formFilters = [filter1, filter2, filter3];
+
+      const expectedActions = [
+        {
+          type: actionTypes.REMOVE_ALL_FILTERS
+        },
+        {
+          type: actionTypes.ADD_FILTER,
+          filterType: filter1.type,
+          value: filter1.value
         }
       ];
 
