@@ -4,7 +4,7 @@ const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const filter = {
   desktopContainer: {
-    backgroundColor: colors.lightGrey,
+    backgroundColor: colors.white,
     border: `1px solid ${colors.mediumGrey}`,
     borderRadius: 3,
     boxSizing: 'border-box',
@@ -21,10 +21,10 @@ const filter = {
     paddingBottom: '10px'
   },
 
-  searchLabel: {
-    fontSize: '15px',
-    fontWeight: 500
-  },
+  // searchLabel: {
+  //   fontSize: '15px',
+  //   fontWeight: 500
+  // },
 
   category: {
     display: 'inline-block',
@@ -34,8 +34,8 @@ const filter = {
 
   desktopCategoryType: {
     display: 'inline-block',
-    marginRight: '1%',
-    width: '40%'
+    marginRight: '-1px',
+    width: '15%'
   },
 
   mobileCategoryType: {
@@ -46,8 +46,7 @@ const filter = {
 
   desktopCategoryValue: {
     display: 'inline-block',
-    marginRight: '1%',
-    width: '50%'
+    width: '82%'
   },
 
   mobileCategoryValue: {
@@ -75,12 +74,13 @@ const filter = {
   ul: {
     fontFamily,
     listStyle: 'none',
-    margin: '0 0 20px 0',
+    margin: 0,
     padding: 0
   },
 
   li: {
-    padding: '0 0 10px 0'
+    padding: '0 0 10px 0',
+    clear: 'both'
   },
 
   span: {
@@ -109,11 +109,11 @@ const filter = {
     width: '2%'
   },
 
-  actionBtn: {
-    borderTop: `1px solid ${colors.darkGrey}`,
-    paddingTop: '20px',
-    textAlign: 'right'
-  },
+  // actionBtn: {
+  //   borderTop: `1px solid ${colors.darkGrey}`,
+  //   paddingTop: '20px',
+  //   textAlign: 'right'
+  // },
 
   clearBtn: {
     color: '#999',
@@ -122,6 +122,14 @@ const filter = {
     right: '15px',
     textDecoration: 'none',
     top: '9px'
+  },
+
+  dropdownBtn: {
+    borderBottomRightRadius: 0,
+    borderTopRightRadius: 0,
+    position: 'absolute',
+    right: '25px',
+    top: '20px'
   }
 };
 

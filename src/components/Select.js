@@ -7,8 +7,10 @@ import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 
 import List from './List';
+import DownwardArrow from './DownwardArrow';
 
 import styles from '../stylesheets/styles';
+import colors from '../stylesheets/colors';
 
 const Radium = require('radium');
 
@@ -109,10 +111,20 @@ class Select extends Component {
     this.props.input.onChange(targetValue);
   }
 
+  showSelection(e) {
+    e.preventDefault();
+
+    this.setState({
+      value: '',
+      isOpen: !this.state.isOpen
+    });
+  }
+
   inputStyle() {
     let basic = [
       styles.select.input,
-      styles.select.placeholder
+      styles.select.placeholder,
+      this.props.additionalInputStyle
     ];
     if (this.state.isOpen) {
       basic = basic.concat([
@@ -122,6 +134,11 @@ class Select extends Component {
     } else if (this.props.disabled) {
       basic = basic.concat(
         styles.select.disabled,
+        styles.select.inputBorder
+      );
+    } else if (this.props.dropdownOnly) {
+      basic = basic.concat(
+        styles.select.dropdownOnly,
         styles.select.inputBorder
       );
     } else {
@@ -141,6 +158,7 @@ class Select extends Component {
     const {
       clearable,
       disabled,
+      dropdownOnly,
       id,
       input
     } = this.props;
@@ -170,6 +188,21 @@ class Select extends Component {
               className="__sw-filter-clear-btn__"
             >
               &times;
+            </a>
+          }
+
+          {
+            dropdownOnly &&
+            <a
+              href={'undefined'}
+              onClick={e => this.showSelection(e)}
+              style={styles.filter.dropdownBtn}
+              className="__sw-filter-dropdown-btn__"
+            >
+              <DownwardArrow
+                backgroundColor={colors.aliceBlue}
+                arrowColor={colors.darkChalk}
+              />
             </a>
           }
         </div>
@@ -214,6 +247,7 @@ Select.defaultProps = {
   allowFormatted: true,
   clearable: true,
   disabled: false,
+  dropdownOnly: false,
   list: []
 };
 
@@ -221,6 +255,7 @@ Select.propTypes = {
   allowFormatted: PropTypes.bool,
   clearable: PropTypes.bool,
   disabled: PropTypes.bool,
+  dropdownOnly: PropTypes.bool,
   id: PropTypes.string.isRequired,
   input: PropTypes.shape({
     value: PropTypes.string,

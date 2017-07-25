@@ -24,7 +24,6 @@ const select = {
   inputBorder: {
     borderWidth: 1,
     borderColor: colors.grey,
-    borderRadius: 3,
     borderStyle: 'solid'
   },
 
@@ -117,6 +116,10 @@ const select = {
     msUserSelect: 'none',
     userSelect: 'none',
     outline: 0
+  },
+
+  dropdownOnly: {
+    backgroundImage: `linear-gradient(-180deg, #fafbfc 0%, ${colors.aliceBlue} 90%)`
   }
 };
 

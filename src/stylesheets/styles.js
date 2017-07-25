@@ -6,6 +6,7 @@ import pagination from './pagination';
 import list from './list';
 import select from './select';
 import filter from './filter';
+import arrow from './arrow';
 
 const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
@@ -17,6 +18,7 @@ const styles = {
   list,
   filter,
   select,
+  arrow,
 
   container: {
     background: colors.white,

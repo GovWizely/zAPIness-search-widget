@@ -13,7 +13,7 @@ const Button = props => (
     className={props.className}
     onClick={props.clickHandler}
     type={props.type}
-    disabled={props.submitting}
+    disabled={props.submitting || props.disabled}
   >
     {props.children}
   </button>

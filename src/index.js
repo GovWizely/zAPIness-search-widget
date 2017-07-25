@@ -11,12 +11,13 @@ const renderApp = ({
   label,
   fields,
   preview = false,
-  showAll = false
+  showAll = false,
+  showSearchBar = true
 }) => {
   const store = configureStore();
 
   createMountPoint(mountPoint);
-  configureApp(host, endpoint, fields, label, preview, showAll);
+  configureApp(host, endpoint, fields, label, preview, showAll, showSearchBar);
 
   render(
     <Root store={store} />,

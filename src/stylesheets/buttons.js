@@ -98,6 +98,7 @@ const buttons = {
   },
 
   desktopDeleteLink: {
+    background: 'none',
     color: colors.darkChalk,
     fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
     fontSize: '13px',
@@ -137,21 +138,23 @@ const buttons = {
   },
 
   desktopSubmit: {
-    background: colors.darkChalk,
-    display: 'inline-block',
+    background: '#5cb85c',
+    border: '1px solid #4cae4c',
+    display: 'block',
     fontSize: '15px',
-    fontWeight: 500,
+    fontWeight: 600,
     color: colors.white,
-    marginLeft: '5px',
-    padding: '5px 8px',
+    padding: '8px 40px',
 
     ':hover': {
-      background: colors.chalk,
+      background: '#5cb85c',
+      border: '1px solid #4cae4c',
       cursor: 'pointer'
     },
 
     ':disabled': {
       background: colors.chalk,
+      border: colors.white,
       opacity: '0.5'
     }
   },

@@ -14,7 +14,8 @@ import {
   getPreviewMode,
   getSelectableFields,
   getResultLabel,
-  getShowAll
+  getShowAll,
+  getShowSearchBar
 } from '../actions/api';
 
 import {
@@ -66,6 +67,7 @@ export class App extends Component {
             isFetching={isFetching}
             onSubmit={() => {}}
             query={query}
+            showSearchBar={getShowSearchBar()}
           />
 
           {

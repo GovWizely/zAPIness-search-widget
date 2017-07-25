@@ -7,6 +7,7 @@ let instance = null;
 let previewMode = null;
 let resultLabel = null;
 let showAllFields = null;
+let showSearchInput = null;
 
 export function configureApp(
   host,
@@ -14,7 +15,8 @@ export function configureApp(
   fields = [],
   label = null,
   preview = false,
-  showAll = false
+  showAll = false,
+  showSearchBar = true
 ) {
   instance = axios.create({
     baseURL: host
@@ -25,6 +27,7 @@ export function configureApp(
   previewMode = preview;
   resultLabel = label;
   showAllFields = showAll;
+  showSearchInput = showSearchBar;
 }
 
 export function getData(data) {
@@ -62,6 +65,10 @@ export function getResultLabel() {
 
 export function getShowAll() {
   return showAllFields;
+}
+
+export function getShowSearchBar() {
+  return showSearchInput;
 }
 
 export function createMountPoint(mountPoint) {
