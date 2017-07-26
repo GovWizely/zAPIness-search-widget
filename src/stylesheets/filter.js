@@ -21,10 +21,11 @@ const filter = {
     paddingBottom: '10px'
   },
 
-  // searchLabel: {
-  //   fontSize: '15px',
-  //   fontWeight: 500
-  // },
+  searchLabel: {
+    fontFamily,
+    fontSize: '16px',
+    fontWeight: 500
+  },
 
   category: {
     display: 'inline-block',
@@ -108,12 +109,6 @@ const filter = {
     verticalAlign: 'middle',
     width: '2%'
   },
-
-  // actionBtn: {
-  //   borderTop: `1px solid ${colors.darkGrey}`,
-  //   paddingTop: '20px',
-  //   textAlign: 'right'
-  // },
 
   clearBtn: {
     color: '#999',

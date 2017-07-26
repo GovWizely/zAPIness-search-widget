@@ -178,7 +178,7 @@ class Select extends Component {
             value={this.state.value}
             placeholder={placeholder}
             onClick={e => this.inputClickHandler(e)}
-            onBlur={val =>inpur.onBlur(val)}
+            onBlur={val => input.onBlur(val)}
             onChange={e => this.changeHandler(e)}
             disabled={disabled}
             ref={(i) => { this.textInput = i; }}
@@ -248,14 +248,17 @@ class Select extends Component {
 }
 
 Select.defaultProps = {
+  additionalInputStyle: {},
   allowFormatted: true,
   clearable: true,
   disabled: false,
   dropdownOnly: false,
-  list: []
+  list: [],
+  placeholder: ''
 };
 
 Select.propTypes = {
+  additionalInputStyle: PropTypes.shape({}),
   allowFormatted: PropTypes.bool,
   clearable: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -265,7 +268,8 @@ Select.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func
   }).isRequired,
-  list: PropTypes.arrayOf(PropTypes.string)
+  list: PropTypes.arrayOf(PropTypes.string),
+  placeholder: PropTypes.string
 };
 
 export default Radium(Select);

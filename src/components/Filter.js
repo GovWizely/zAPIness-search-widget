@@ -10,6 +10,7 @@ import map from 'lodash/map';
 import keys from 'lodash/keys';
 import values from 'lodash/values';
 import remove from 'lodash/remove';
+import startCase from 'lodash/startCase';
 
 import Select from './Select';
 import Button from './Button';
@@ -88,6 +89,12 @@ export class Filter extends Component {
 
     return (
       <div className="__sw-filter__">
+        {
+          !showSearchBar &&
+          <div style={styles.filter.searchLabel}>
+            Filter By:
+          </div>
+        }
         <div
           style={styles.filter[`${deviceType}Container`]}
         >
@@ -110,7 +117,6 @@ export class Filter extends Component {
                         borderBottomLeftRadius: 3
                       }}
                       id={`type-${index}`}
-                      placeholder=""
                     />
                   </div>
                   <div style={styles.filter[`${deviceType}CategoryValue`]}>
@@ -125,10 +131,11 @@ export class Filter extends Component {
                         borderTopRightRadius: 3,
                         borderBottomRightRadius: 3,
                         borderTopLeftRadius: 0,
-                        borderBottomLeftRadius: 0
+                        borderBottomLeftRadius: 0,
+                        boxShadow: 'inset 0 1px 2px rgba(27,31,35,0.075)'
                       }}
                       id={`value-${index}`}
-                      placeholder=""
+                      placeholder={formFilters[index].type ? `Filter By ${startCase(formFilters[index].type)}...` : "Select as you type"}
                     />
                   </div>
 
@@ -192,34 +199,32 @@ export class Filter extends Component {
             }
           </ul>
 
-          <div className="action-btn">
-            {
-              !isDesktop &&
-              <div>
-                <Button
-                  className="add-filter"
-                  clickHandler={() => this.addDefaultFilter(fields)}
-                  kind="mobileSmall"
-                  type="button"
-                >
-                  <span>Add New Filter</span>
-                </Button>
+          {
+            !isDesktop &&
+            <div className="actionBtn">
+              <Button
+                className="add-filter"
+                clickHandler={() => this.addDefaultFilter(fields)}
+                kind="mobileSmall"
+                type="button"
+              >
+                <span>Add New Filter</span>
+              </Button>
 
-                {
-                  fields.length > 0 &&
-                  <Button
-                    className="mobileSubmit"
-                    clickHandler={() => submitHandler(formFilters, fields)}
-                    kind="mobileSubmit"
-                    type="button"
-                    submitting={isFetching}
-                  >
-                    Search
-                  </Button>
-                }
-              </div>
-            }
-          </div>
+              {
+                fields.length > 0 &&
+                <Button
+                  className="mobileSubmit"
+                  clickHandler={() => submitHandler(formFilters, fields)}
+                  kind="mobileSubmit"
+                  type="button"
+                  submitting={isFetching}
+                >
+                  Search
+                </Button>
+              }
+            </div>
+          }
         </div>
 
         {
