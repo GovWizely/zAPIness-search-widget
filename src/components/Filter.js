@@ -80,6 +80,7 @@ export class Filter extends Component {
       isFetching,
       removeAllFilters,
       removeFilter,
+      showSearchBar,
       submitHandler
     } = this.props;
 
@@ -148,27 +149,45 @@ export class Filter extends Component {
 
             {
               isDesktop &&
-              <li style={{ marginTop: '10px' }}>
+              <li style={fields.length === 0 ? {} : { marginTop: '10px', position: 'relative' }}>
                 <Button
                   className="add-filter"
                   clickHandler={() => this.addDefaultFilter(fields)}
-                  kind="sLink"
+                  kind={fields.length === 0 ? 'desktopSubmit' : 'sLink'}
                   type="button"
                 >
                   { fields.length === 0 ? 'Add New Filter' : 'Add Another Filter' }
                 </Button>
 
-                <span> | </span>
+                {
+                  fields.length > 0 &&
+                  <span>
+                    |
+                    <Button
+                      className="remove-all-filter"
+                      clickHandler={() => removeAllFilters(fields)}
+                      kind="sLink"
+                      type="button"
+                    >
+                      Clear All Filters
+                    </Button>
+                  </span>
+                }
 
-                <Button
-                  className="remove-all-filter"
-                  clickHandler={() => removeAllFilters(fields)}
-                  kind="sLink"
-                  type="button"
-                  disabled={fields.length === 0}
-                >
-                  Clear All Filters
-                </Button>
+                {
+                  !showSearchBar && fields.length > 0 &&
+                  <div style={styles.filter.filterableOnlySubmit}>
+                    <Button
+                      className="desktopSubmit"
+                      clickHandler={() => submitHandler(formFilters, fields)}
+                      kind="desktopSubmit"
+                      type="button"
+                      submitting={isFetching}
+                    >
+                      Search
+                    </Button>
+                  </div>
+                }
               </li>
             }
           </ul>
@@ -204,8 +223,8 @@ export class Filter extends Component {
         </div>
 
         {
-          isDesktop && fields.length > 0 &&
-          <div style={{ float: 'right' }}>
+          isDesktop && showSearchBar && fields.length > 0 &&
+          <div style={{ textAlign: 'right' }}>
             <Button
               className="desktopSubmit"
               clickHandler={() => submitHandler(formFilters, fields)}

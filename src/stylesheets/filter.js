@@ -130,6 +130,12 @@ const filter = {
     position: 'absolute',
     right: '25px',
     top: '20px'
+  },
+
+  filterableOnlySubmit: {
+    position: 'absolute',
+    right: '-3px',
+    top: '-5px'
   }
 };
 

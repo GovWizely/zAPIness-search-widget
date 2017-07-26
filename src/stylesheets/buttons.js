@@ -140,14 +140,13 @@ const buttons = {
   desktopSubmit: {
     background: '#5cb85c',
     border: '1px solid #4cae4c',
-    display: 'block',
     fontSize: '15px',
     fontWeight: 600,
     color: colors.white,
     padding: '8px 40px',
 
     ':hover': {
-      background: '#5cb85c',
+      background: '#51b351',
       border: '1px solid #4cae4c',
       cursor: 'pointer'
     },

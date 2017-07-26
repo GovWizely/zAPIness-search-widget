@@ -28,9 +28,17 @@ const settings = require('../settings.png');
 export class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showFilter: false
-    };
+
+    if (props.showSearchBar) {
+      this.state = {
+        showFilter: false
+      };
+    } else {
+      this.state = {
+        showFilter: true
+      };
+    }
+
     this.toggleFilter = this.toggleFilter.bind(this);
   }
 
@@ -56,7 +64,8 @@ export class Form extends Component {
     return (
       <form className="__sw-input__" style={styles.form.container} onSubmit={handleSubmit}>
         {
-          showSearchBar && <div style={styles.form.inputWrapper}>
+          showSearchBar &&
+          <div style={styles.form.inputWrapper}>
             <Input
               name="keyword"
               placeholder="Search for keyword..."
@@ -74,7 +83,7 @@ export class Form extends Component {
         }
 
         {
-          !isEmpty(filters.get('categories')) &&
+          !isEmpty(filters.get('categories')) && showSearchBar &&
           <div style={{ overflow: 'hidden' }}>
             <Button
               type="button"
@@ -97,11 +106,12 @@ export class Form extends Component {
         }
 
         {
-          this.state.showFilter &&
+          this.state.showFilter && !isEmpty(filters.get('categories')) &&
           <FieldArray
             name="filters"
             deviceType={deviceType}
             component={Filter}
+            showSearchBar={showSearchBar}
           />
         }
       </form>
