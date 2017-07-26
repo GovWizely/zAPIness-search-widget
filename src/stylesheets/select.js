@@ -120,6 +120,12 @@ const select = {
 
   dropdownOnly: {
     backgroundImage: `linear-gradient(-180deg, #fafbfc 0%, ${colors.aliceBlue} 90%)`
+  },
+
+  hover: {
+    ':hover': {
+      cursor: 'pointer'
+    }
   }
 };
 

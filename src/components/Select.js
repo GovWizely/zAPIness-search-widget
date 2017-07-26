@@ -60,6 +60,16 @@ class Select extends Component {
     }
   }
 
+  inputClickHandler(e) {
+    if (this.props.dropdownOnly) {
+      e.preventDefault();
+
+      this.setState({
+        isOpen: !this.state.isOpen
+      });
+    }
+  }
+
   changeHandler(e) {
     this.setState({
       value: e.target.value,
@@ -111,15 +121,6 @@ class Select extends Component {
     this.props.input.onChange(targetValue);
   }
 
-  showSelection(e) {
-    e.preventDefault();
-
-    this.setState({
-      value: '',
-      isOpen: !this.state.isOpen
-    });
-  }
-
   inputStyle() {
     let basic = [
       styles.select.input,
@@ -138,6 +139,7 @@ class Select extends Component {
       );
     } else if (this.props.dropdownOnly) {
       basic = basic.concat(
+        styles.select.hover,
         styles.select.dropdownOnly,
         styles.select.inputBorder
       );
@@ -160,7 +162,8 @@ class Select extends Component {
       disabled,
       dropdownOnly,
       id,
-      input
+      input,
+      placeholder
     } = this.props;
 
     const matches = this.matches(this.state.value);
@@ -173,8 +176,9 @@ class Select extends Component {
             type="text"
             style={this.inputStyle()}
             value={this.state.value}
-            placeholder="Select as you type..."
-            onBlur={val => input.onBlur(val)}
+            placeholder={placeholder}
+            onClick={e => this.inputClickHandler(e)}
+            onBlur={val =>inpur.onBlur(val)}
             onChange={e => this.changeHandler(e)}
             disabled={disabled}
             ref={(i) => { this.textInput = i; }}
@@ -195,12 +199,12 @@ class Select extends Component {
             dropdownOnly &&
             <a
               href={'undefined'}
-              onClick={e => this.showSelection(e)}
+              onClick={e => this.inputClickHandler(e)}
               style={styles.filter.dropdownBtn}
               className="__sw-filter-dropdown-btn__"
             >
               <DownwardArrow
-                backgroundColor={colors.aliceBlue}
+                backgroundColor={this.state.isOpen ? colors.white : colors.whiteSmoke}
                 arrowColor={colors.darkChalk}
               />
             </a>

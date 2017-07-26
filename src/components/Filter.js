@@ -109,6 +109,7 @@ export class Filter extends Component {
                         borderBottomLeftRadius: 3
                       }}
                       id={`type-${index}`}
+                      placeholder=""
                     />
                   </div>
                   <div style={styles.filter[`${deviceType}CategoryValue`]}>
@@ -126,6 +127,7 @@ export class Filter extends Component {
                         borderBottomLeftRadius: 0
                       }}
                       id={`value-${index}`}
+                      placeholder=""
                     />
                   </div>
 
@@ -165,7 +167,7 @@ export class Filter extends Component {
                   type="button"
                   disabled={fields.length === 0}
                 >
-                  Clear All
+                  Clear All Filters
                 </Button>
               </li>
             }
