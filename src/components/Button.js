@@ -20,7 +20,8 @@ const Button = props => (
 );
 
 Button.defaultProps = {
-  submitting: false
+  submitting: false,
+  disabled: false
 };
 
 Button.propTypes = {
@@ -31,6 +32,7 @@ Button.propTypes = {
   ]).isRequired,
   className: PropTypes.string.isRequired,
   clickHandler: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
   kind: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   submitting: PropTypes.bool

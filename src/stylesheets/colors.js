@@ -15,7 +15,10 @@ const colors = {
   darkChalk: '#7f7d71',
   red: '#a94442',
   errorRed: '#FF0000',
-  lightBlue: color('#007EFF').lighten(0.9).hexString()
+  lightBlue: color('#007EFF').lighten(0.9).hexString(),
+  green: '#5cb85c',
+  darkGreen: '#51b351',
+  borderGreen: '#4cae4c'
 };
 
 export default colors;

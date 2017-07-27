@@ -4,7 +4,7 @@ import assign from 'lodash/assign';
 import styles from '../stylesheets/styles';
 
 const DownwardArrow = props => (
-  <div style={{ position: 'relative' }}>
+  <div className='__sw-arrow__' style={{ position: 'relative' }}>
     <div
       style={
         assign(styles.arrow.visibleArrow, { borderTop: `7px solid ${props.arrowColor}` })

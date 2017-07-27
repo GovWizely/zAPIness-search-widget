@@ -104,29 +104,23 @@ export class Filter extends Component {
                 <div className="list-container" style={styles.filter.listContainer}>
                   <div style={styles.filter[`${deviceType}CategoryType`]}>
                     <Field
-                      name={`${member}.type`}
-                      list={keys(filters.get('categories'))}
-                      component={Select}
-                      className="select-type"
-                      clearable={false}
-                      dropdownOnly
                       additionalInputStyle={{
                         borderTopRightRadius: 0,
                         borderBottomRightRadius: 0,
                         borderTopLeftRadius: 3,
                         borderBottomLeftRadius: 3
                       }}
+                      className={`${deviceType}SelectType`}
+                      clearable={false}
+                      component={Select}
+                      dropdownOnly
                       id={`type-${index}`}
+                      list={keys(filters.get('categories'))}
+                      name={`${member}.type`}
                     />
                   </div>
                   <div style={styles.filter[`${deviceType}CategoryValue`]}>
                     <Field
-                      name={`${member}.value`}
-                      allowFormatted={false}
-                      list={this.getAvailableValues(index)}
-                      component={Select}
-                      disabled={!formFilters || !formFilters[index].type}
-                      clearable={isDesktop}
                       additionalInputStyle={{
                         borderTopRightRadius: 3,
                         borderBottomRightRadius: 3,
@@ -134,8 +128,15 @@ export class Filter extends Component {
                         borderBottomLeftRadius: 0,
                         boxShadow: 'inset 0 1px 2px rgba(27,31,35,0.075)'
                       }}
+                      allowFormatted={false}
+                      className={`${deviceType}SelectValue`}
+                      clearable={isDesktop}
+                      component={Select}
+                      disabled={!formFilters || !formFilters[index].type}
                       id={`value-${index}`}
-                      placeholder={formFilters[index].type ? `Filter By ${startCase(formFilters[index].type)}...` : "Select as you type"}
+                      list={this.getAvailableValues(index)}
+                      name={`${member}.value`}
+                      placeholder={formFilters[index].type ? `Filter By ${startCase(formFilters[index].type)}...` : 'Select as you type'}
                     />
                   </div>
 
@@ -201,7 +202,7 @@ export class Filter extends Component {
 
           {
             !isDesktop &&
-            <div className="actionBtn">
+            <div className="actionBtn" style={styles.filter.actionBtn}>
               <Button
                 className="add-filter"
                 clickHandler={() => this.addDefaultFilter(fields)}
@@ -285,7 +286,8 @@ function mapDispatchToProps(dispatch) {
 Filter.defaultProps = {
   form: undefined,
   deviceType: undefined,
-  formFilters: undefined
+  formFilters: undefined,
+  showSearchBar: true
 };
 
 Filter.propTypes = {
@@ -306,6 +308,7 @@ Filter.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   removeFilter: PropTypes.func.isRequired,
   removeAllFilters: PropTypes.func.isRequired,
+  showSearchBar: PropTypes.bool,
   submitHandler: PropTypes.func.isRequired
 };
 

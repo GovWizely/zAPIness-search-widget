@@ -15,6 +15,10 @@ const filter = {
     width: '100%'
   },
 
+  actionBtn: {
+    marginTop: '20px'
+  },
+
   mobileContainer: {
     borderBottom: `1px solid ${colors.mediumGrey}`,
     marginTop: '20px',
@@ -41,8 +45,8 @@ const filter = {
 
   mobileCategoryType: {
     display: 'inline-block',
-    marginRight: '1%',
-    width: '45%'
+    marginRight: '-1px',
+    width: '35%'
   },
 
   desktopCategoryValue: {
@@ -52,8 +56,7 @@ const filter = {
 
   mobileCategoryValue: {
     display: 'inline-block',
-    marginRight: '1%',
-    width: '45%'
+    width: '58%'
   },
 
   label: {
@@ -80,8 +83,8 @@ const filter = {
   },
 
   li: {
-    padding: '0 0 10px 0',
-    clear: 'both'
+    maxHeight: '48px',
+    padding: '0 0 10px 0'
   },
 
   span: {

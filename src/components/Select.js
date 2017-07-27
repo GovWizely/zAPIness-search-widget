@@ -5,6 +5,7 @@ import map from 'lodash/map';
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
+import assign from 'lodash/assign';
 
 import List from './List';
 import DownwardArrow from './DownwardArrow';
@@ -122,34 +123,36 @@ class Select extends Component {
   }
 
   inputStyle() {
-    let basic = [
+    const basic = [
       styles.select.input,
-      styles.select.placeholder,
       this.props.additionalInputStyle
     ];
+
+    let inputStyles;
+
     if (this.state.isOpen) {
-      basic = basic.concat([
+      inputStyles = basic.concat([
         styles.select.noSelect,
         styles.select.openSelectInputBorder
       ]);
     } else if (this.props.disabled) {
-      basic = basic.concat(
+      inputStyles = basic.concat(
         styles.select.disabled,
         styles.select.inputBorder
       );
     } else if (this.props.dropdownOnly) {
-      basic = basic.concat(
+      inputStyles = basic.concat(
         styles.select.hover,
         styles.select.dropdownOnly,
         styles.select.inputBorder
       );
     } else {
-      basic = basic.concat([
+      inputStyles = basic.concat([
         styles.select.inputBorder
       ]);
     }
 
-    return basic;
+    return inputStyles;
   }
 
   formatLabel(match) {
@@ -158,6 +161,7 @@ class Select extends Component {
 
   render() {
     const {
+      className,
       clearable,
       disabled,
       dropdownOnly,
@@ -169,7 +173,7 @@ class Select extends Component {
     const matches = this.matches(this.state.value);
 
     return (
-      <div className="__sw-select-box__" style={{ position: 'relative' }}>
+      <div className={className}>
         <div style={{ position: 'relative' }}>
           <input
             {...input}
@@ -203,16 +207,26 @@ class Select extends Component {
               style={styles.filter.dropdownBtn}
               className="__sw-filter-dropdown-btn__"
             >
-              <DownwardArrow
-                backgroundColor={this.state.isOpen ? colors.white : colors.whiteSmoke}
-                arrowColor={colors.darkChalk}
-              />
+              {
+                this.state.isOpen &&
+                <DownwardArrow
+                  backgroundColor={colors.white}
+                  arrowColor={colors.darkChalk}
+                />
+              }
+              {
+                !this.state.isOpen &&
+                <DownwardArrow
+                  backgroundColor={colors.whiteSmoke}
+                  arrowColor={colors.darkChalk}
+                />
+              }
             </a>
           }
         </div>
         {
           this.state.isOpen &&
-          <div className="__sw-open-options__" style={styles.select.options} ref={this.setWrapperRef}>
+          <div className="__sw-open-options__" style={assign(styles.select.options, styles.select[className])} ref={this.setWrapperRef}>
             <ul style={styles.select.ul}>
               {
                 matches === noResult &&
@@ -250,6 +264,7 @@ class Select extends Component {
 Select.defaultProps = {
   additionalInputStyle: {},
   allowFormatted: true,
+  className: '',
   clearable: true,
   disabled: false,
   dropdownOnly: false,
@@ -260,6 +275,7 @@ Select.defaultProps = {
 Select.propTypes = {
   additionalInputStyle: PropTypes.shape({}),
   allowFormatted: PropTypes.bool,
+  className: PropTypes.string,
   clearable: PropTypes.bool,
   disabled: PropTypes.bool,
   dropdownOnly: PropTypes.bool,

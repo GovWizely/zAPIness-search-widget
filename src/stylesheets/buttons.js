@@ -138,16 +138,16 @@ const buttons = {
   },
 
   desktopSubmit: {
-    background: '#5cb85c',
-    border: '1px solid #4cae4c',
+    background: colors.green,
+    border: `1px solid ${colors.borderGreen}`,
     fontSize: '15px',
     fontWeight: 600,
     color: colors.white,
     padding: '8px 40px',
 
     ':hover': {
-      background: '#51b351',
-      border: '1px solid #4cae4c',
+      background: colors.darkGreen,
+      border: `1px solid ${colors.borderGreen}`,
       cursor: 'pointer'
     },
 
@@ -159,14 +159,20 @@ const buttons = {
   },
 
   mobileSubmit: {
-    background: colors.darkChalk,
+    background: colors.green,
     color: colors.white,
     display: 'block',
     fontSize: '15px',
     fontWeight: 500,
     padding: '8px',
     width: '100%',
-    marginBottom: '10px'
+    marginBottom: '10px',
+
+    ':hover': {
+      background: colors.darkGreen,
+      border: `1px solid ${colors.borderGreen}`,
+      cursor: 'pointer'
+    }
   }
 };
 

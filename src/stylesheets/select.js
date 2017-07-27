@@ -3,12 +3,6 @@ import colors from './colors';
 const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const select = {
-  placeholder: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
-  },
-
   input: {
     boxSizing: 'border-box',
     display: 'inline-block',
@@ -16,7 +10,10 @@ const select = {
     fontSize: '15px',
     fontWeight: 400,
     lineHeight: '28px',
+    overflow: 'hidden',
     padding: '8px 10px',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     width: '100%',
     zIndex: 0
   },
@@ -38,6 +35,22 @@ const select = {
   disabled: {
     background: colors.lightGrey,
     color: colors.grey
+  },
+
+  desktopSelectType: {
+    width: '100%'
+  },
+
+  mobileSelectType: {
+    width: '35%'
+  },
+
+  desktopSelectValue: {
+    width: '100%'
+  },
+
+  mobileSelectValue: {
+    width: '58%'
   },
 
   options: {
@@ -71,7 +84,6 @@ const select = {
   noResult: {
     borderLeft: '1px solid #ccc',
     borderRight: '1px solid #ccc',
-    // padding: '10px',
 
     ':hover': {
       cursor: 'no-drop'

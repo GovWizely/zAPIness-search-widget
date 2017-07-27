@@ -23,6 +23,7 @@ describe('components/Select', () => {
         list={list}
         id="randomId"
         input={input}
+        className="__sw-select-box__"
       />
     );
 
