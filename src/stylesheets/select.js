@@ -38,7 +38,7 @@ const select = {
   },
 
   desktopSelectType: {
-    width: '100%'
+    width: '19.1%'
   },
 
   mobileSelectType: {
@@ -46,7 +46,7 @@ const select = {
   },
 
   desktopSelectValue: {
-    width: '100%'
+    width: '71.8%'
   },
 
   mobileSelectValue: {
@@ -61,7 +61,8 @@ const select = {
     marginTop: '-1px',
     maxHeight: '150px',
     position: 'absolute',
-    overflow: 'auto',
+    overflowY: 'auto',
+    overflowX: 'hidden',
     width: '100%',
     zIndex: 1
   },
@@ -98,7 +99,7 @@ const select = {
     padding: '10px',
     marginLeft: 0,
     textDecoration: 'none',
-    width: '100%',
+    width: 'auto',
 
     ':hover': {
       cursor: 'pointer'

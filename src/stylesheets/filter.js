@@ -40,7 +40,7 @@ const filter = {
   desktopCategoryType: {
     display: 'inline-block',
     marginRight: '-1px',
-    width: '15%'
+    width: '20%'
   },
 
   mobileCategoryType: {
@@ -51,7 +51,7 @@ const filter = {
 
   desktopCategoryValue: {
     display: 'inline-block',
-    width: '82%'
+    width: '75%'
   },
 
   mobileCategoryValue: {
@@ -83,7 +83,7 @@ const filter = {
   },
 
   li: {
-    maxHeight: '48px',
+    height: '48px',
     padding: '0 0 10px 0'
   },
 

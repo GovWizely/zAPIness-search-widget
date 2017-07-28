@@ -54,7 +54,7 @@ zAPIness-search-widget will be loaded in any webpage by embedding the following 
 | fields | - | false |By default, it will show all searchable fields from the endpoint. You may set the fields you want to show in the search result|
 | preview | false | false| perform a search during initialization and show all the details of the first result|
 | showAll | true | false| show all fields in the search results |
-
+| showSearchBar | true | false | show search bar |
 
 ---
 
