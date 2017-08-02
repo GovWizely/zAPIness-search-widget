@@ -10,6 +10,7 @@ import map from 'lodash/map';
 import keys from 'lodash/keys';
 import values from 'lodash/values';
 import remove from 'lodash/remove';
+import startCase from 'lodash/startCase';
 
 import Select from './Select';
 import Button from './Button';
@@ -80,87 +81,128 @@ export class Filter extends Component {
       isFetching,
       removeAllFilters,
       removeFilter,
+      showSearchBar,
       submitHandler
     } = this.props;
 
     const isDesktop = deviceType === 'desktop';
 
     return (
-      <div
-        className="__sw-filter__"
-        style={styles.filter[`${deviceType}Container`]}
-      >
+      <div className="__sw-filter__">
         {
-          isDesktop &&
-          <div style={styles.filter.searchLabel} className="__sw-search-label__">
-            <div style={{ marginBottom: '10px' }}>Filtered By:</div>
+          !showSearchBar &&
+          <div style={styles.filter.searchLabel}>
+            Filter By:
           </div>
         }
+        <div
+          style={styles.filter[`${deviceType}Container`]}
+        >
+          <ul style={styles.filter.ul}>
+            {fields.map((member, index) =>
+              <li key={`filter-${index + 1}`} style={styles.filter.li}>
+                <div className="list-container" style={styles.filter.listContainer}>
+                  <div style={styles.filter[`${deviceType}CategoryType`]}>
+                    <Field
+                      additionalInputStyle={{
+                        borderTopRightRadius: 0,
+                        borderBottomRightRadius: 0,
+                        borderTopLeftRadius: 3,
+                        borderBottomLeftRadius: 3
+                      }}
+                      className={`${deviceType}SelectType`}
+                      clearable={false}
+                      component={Select}
+                      dropdownOnly
+                      id={`type-${index}`}
+                      list={keys(filters.get('categories'))}
+                      name={`${member}.type`}
+                    />
+                  </div>
+                  <div style={styles.filter[`${deviceType}CategoryValue`]}>
+                    <Field
+                      additionalInputStyle={{
+                        borderTopRightRadius: 3,
+                        borderBottomRightRadius: 3,
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0,
+                        boxShadow: 'inset 0 1px 2px rgba(27,31,35,0.075)'
+                      }}
+                      allowFormatted={false}
+                      className={`${deviceType}SelectValue`}
+                      clearable={isDesktop}
+                      component={Select}
+                      disabled={!formFilters || !formFilters[index].type}
+                      id={`value-${index}`}
+                      list={this.getAvailableValues(index)}
+                      name={`${member}.value`}
+                      placeholder={formFilters[index].type ? `Filter By ${startCase(formFilters[index].type)}...` : 'Select as you type'}
+                    />
+                  </div>
 
-        <ul style={styles.filter.ul}>
-          <li style={styles.filter.label}>
-            <div style={styles.filter[`${deviceType}CategoryType`]}>Field:</div>
-            <div style={styles.filter[`${deviceType}CategoryValue`]}>Value:</div>
-          </li>
-          {fields.map((member, index) =>
-            <li key={`filter-${index + 1}`} style={styles.filter.li}>
-              <div className="list-container" style={styles.filter.listContainer}>
-                <div style={styles.filter[`${deviceType}CategoryType`]}>
-                  <Field
-                    name={`${member}.type`}
-                    list={keys(filters.get('categories'))}
-                    component={Select}
-                    className="select-type"
-                    clearable={isDesktop}
-                    id={`type-${index}`}
-                  />
+                  <div className="btn-container" style={styles.filter[`${deviceType}BtnContainer`]}>
+                    <Button
+                      className="remove-filter"
+                      clickHandler={() => removeFilter(fields, index)}
+                      kind={`${deviceType}DeleteLink`}
+                      type="button"
+                    >
+                      { isDesktop && <span>Delete</span> }
+                      { !isDesktop && <img src={trash} alt="Delete" style={styles.shallowImg} />}
+                    </Button>
+                  </div>
                 </div>
-                <div style={styles.filter[`${deviceType}CategoryValue`]}>
-                  <Field
-                    name={`${member}.value`}
-                    allowFormatted={false}
-                    list={this.getAvailableValues(index)}
-                    component={Select}
-                    disabled={!formFilters || !formFilters[index].type}
-                    clearable={isDesktop}
-                    id={`value-${index}`}
-                  />
-                </div>
+              </li>
+            )}
 
-                <div className="btn-container" style={styles.filter[`${deviceType}BtnContainer`]}>
-                  <Button
-                    className="remove-filter"
-                    clickHandler={() => removeFilter(fields, index)}
-                    kind={`${deviceType}DeleteLink`}
-                    type="button"
-                  >
-                    { isDesktop && <span>Delete</span> }
-                    { !isDesktop && <img src={trash} alt="Delete" style={styles.shallowImg} />}
-                  </Button>
-                </div>
-              </div>
-            </li>
-          )}
+            {
+              isDesktop &&
+              <li style={fields.length === 0 ? {} : { marginTop: '10px', position: 'relative' }}>
+                <Button
+                  className="add-filter"
+                  clickHandler={() => this.addDefaultFilter(fields)}
+                  kind={fields.length === 0 ? 'desktopSubmit' : 'sLink'}
+                  type="button"
+                >
+                  { fields.length === 0 ? 'Add New Filter' : 'Add Another Filter' }
+                </Button>
 
-          {
-            isDesktop &&
-            <li>
-              <Button
-                className="add-filter"
-                clickHandler={() => this.addDefaultFilter(fields)}
-                kind="sLink"
-                type="button"
-              >
-                { fields.length === 0 ? 'Add New Filter' : 'Add Another Filter' }
-              </Button>
-            </li>
-          }
-        </ul>
+                {
+                  fields.length > 0 &&
+                  <span>
+                    |
+                    <Button
+                      className="remove-all-filter"
+                      clickHandler={() => removeAllFilters(fields)}
+                      kind="sLink"
+                      type="button"
+                    >
+                      Clear All Filters
+                    </Button>
+                  </span>
+                }
 
-        <div className="action-btn" style={isDesktop ? styles.filter.actionBtn : {}}>
+                {
+                  !showSearchBar && fields.length > 0 &&
+                  <div style={styles.filter.filterableOnlySubmit}>
+                    <Button
+                      className="desktopSubmit"
+                      clickHandler={() => submitHandler(formFilters, fields)}
+                      kind="desktopSubmit"
+                      type="button"
+                      submitting={isFetching}
+                    >
+                      Search
+                    </Button>
+                  </div>
+                }
+              </li>
+            }
+          </ul>
+
           {
             !isDesktop &&
-            <div>
+            <div className="actionBtn" style={styles.filter.actionBtn}>
               <Button
                 className="add-filter"
                 clickHandler={() => this.addDefaultFilter(fields)}
@@ -169,37 +211,37 @@ export class Filter extends Component {
               >
                 <span>Add New Filter</span>
               </Button>
-            </div>
-          }
-          {
-            isDesktop &&
-            <span>
+
               {
                 fields.length > 0 &&
                 <Button
-                  className="remove-all-filter"
-                  clickHandler={() => removeAllFilters(fields)}
-                  kind="desktopSmall"
+                  className="mobileSubmit"
+                  clickHandler={() => submitHandler(formFilters, fields)}
+                  kind="mobileSubmit"
                   type="button"
+                  submitting={isFetching}
                 >
-                  Clear All
+                  Search
                 </Button>
               }
-            </span>
+            </div>
           }
-          {
-            fields.length > 0 &&
+        </div>
+
+        {
+          isDesktop && showSearchBar && fields.length > 0 &&
+          <div style={{ textAlign: 'right' }}>
             <Button
-              className={`${deviceType}Submit`}
+              className="desktopSubmit"
               clickHandler={() => submitHandler(formFilters, fields)}
-              kind={`${deviceType}Submit`}
+              kind="desktopSubmit"
               type="button"
               submitting={isFetching}
             >
               Search
             </Button>
-          }
-        </div>
+          </div>
+        }
       </div>
     );
   }
@@ -244,7 +286,8 @@ function mapDispatchToProps(dispatch) {
 Filter.defaultProps = {
   form: undefined,
   deviceType: undefined,
-  formFilters: undefined
+  formFilters: undefined,
+  showSearchBar: true
 };
 
 Filter.propTypes = {
@@ -265,6 +308,7 @@ Filter.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   removeFilter: PropTypes.func.isRequired,
   removeAllFilters: PropTypes.func.isRequired,
+  showSearchBar: PropTypes.bool,
   submitHandler: PropTypes.func.isRequired
 };
 

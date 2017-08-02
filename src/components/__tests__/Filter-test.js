@@ -99,10 +99,6 @@ describe('components/Filter', () => {
     it('renders submit button with desktop styles', () => {
       expect(connectedFilter.find('.desktopSubmit').exists()).toBe(true);
     });
-
-    it('renders search label', () => {
-      expect(connectedFilter.find('div.__sw-search-label__').exists()).toBe(true);
-    });
   });
 
   describe('In mobile view', () => {

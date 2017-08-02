@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 
 import { Provider } from 'react-redux';
 import { shallow } from 'enzyme';
-import ConnectedApp, { App } from '../App';
+import { App } from '../App';
 
 const { Map } = require('immutable');
 
@@ -72,19 +72,6 @@ describe('containers/App', () => {
       </Provider>
     ).toJSON();
     expect(tree).toMatchSnapshot();
-  });
-
-  it('dispatch actions to store', () => {
-    shallow(
-      <Provider store={store}>
-        <ConnectedApp
-          contentRect={contentRect}
-          innerRef={innerRef}
-        />
-      </Provider>
-    );
-
-    expect(store.getActions().length).toEqual(1);
   });
 
   it('renders no result during data fetching', () => {

@@ -3,12 +3,6 @@ import colors from './colors';
 const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const select = {
-  placeholder: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
-  },
-
   input: {
     boxSizing: 'border-box',
     display: 'inline-block',
@@ -16,7 +10,10 @@ const select = {
     fontSize: '15px',
     fontWeight: 400,
     lineHeight: '28px',
+    overflow: 'hidden',
     padding: '8px 10px',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     width: '100%',
     zIndex: 0
   },
@@ -24,7 +21,6 @@ const select = {
   inputBorder: {
     borderWidth: 1,
     borderColor: colors.grey,
-    borderRadius: 3,
     borderStyle: 'solid'
   },
 
@@ -41,6 +37,22 @@ const select = {
     color: colors.grey
   },
 
+  desktopSelectType: {
+    width: '19.1%'
+  },
+
+  mobileSelectType: {
+    width: '35%'
+  },
+
+  desktopSelectValue: {
+    width: '71.8%'
+  },
+
+  mobileSelectValue: {
+    width: '58%'
+  },
+
   options: {
     background: colors.white,
     borderBottom: `1px solid ${colors.grey}`,
@@ -49,7 +61,8 @@ const select = {
     marginTop: '-1px',
     maxHeight: '150px',
     position: 'absolute',
-    overflow: 'auto',
+    overflowY: 'auto',
+    overflowX: 'hidden',
     width: '100%',
     zIndex: 1
   },
@@ -72,7 +85,6 @@ const select = {
   noResult: {
     borderLeft: '1px solid #ccc',
     borderRight: '1px solid #ccc',
-    // padding: '10px',
 
     ':hover': {
       cursor: 'no-drop'
@@ -87,7 +99,7 @@ const select = {
     padding: '10px',
     marginLeft: 0,
     textDecoration: 'none',
-    width: '100%',
+    width: 'auto',
 
     ':hover': {
       cursor: 'pointer'
@@ -117,6 +129,16 @@ const select = {
     msUserSelect: 'none',
     userSelect: 'none',
     outline: 0
+  },
+
+  dropdownOnly: {
+    backgroundImage: `linear-gradient(-180deg, #fafbfc 0%, ${colors.aliceBlue} 90%)`
+  },
+
+  hover: {
+    ':hover': {
+      cursor: 'pointer'
+    }
   }
 };
 

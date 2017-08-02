@@ -4,7 +4,7 @@ const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const filter = {
   desktopContainer: {
-    backgroundColor: colors.lightGrey,
+    backgroundColor: colors.white,
     border: `1px solid ${colors.mediumGrey}`,
     borderRadius: 3,
     boxSizing: 'border-box',
@@ -15,6 +15,10 @@ const filter = {
     width: '100%'
   },
 
+  actionBtn: {
+    marginTop: '20px'
+  },
+
   mobileContainer: {
     borderBottom: `1px solid ${colors.mediumGrey}`,
     marginTop: '20px',
@@ -22,7 +26,8 @@ const filter = {
   },
 
   searchLabel: {
-    fontSize: '15px',
+    fontFamily,
+    fontSize: '16px',
     fontWeight: 500
   },
 
@@ -34,26 +39,24 @@ const filter = {
 
   desktopCategoryType: {
     display: 'inline-block',
-    marginRight: '1%',
-    width: '40%'
+    marginRight: '-1px',
+    width: '20%'
   },
 
   mobileCategoryType: {
     display: 'inline-block',
-    marginRight: '1%',
-    width: '45%'
+    marginRight: '-1px',
+    width: '35%'
   },
 
   desktopCategoryValue: {
     display: 'inline-block',
-    marginRight: '1%',
-    width: '50%'
+    width: '75%'
   },
 
   mobileCategoryValue: {
     display: 'inline-block',
-    marginRight: '1%',
-    width: '45%'
+    width: '58%'
   },
 
   label: {
@@ -75,11 +78,12 @@ const filter = {
   ul: {
     fontFamily,
     listStyle: 'none',
-    margin: '0 0 20px 0',
+    margin: 0,
     padding: 0
   },
 
   li: {
+    height: '48px',
     padding: '0 0 10px 0'
   },
 
@@ -109,12 +113,6 @@ const filter = {
     width: '2%'
   },
 
-  actionBtn: {
-    borderTop: `1px solid ${colors.darkGrey}`,
-    paddingTop: '20px',
-    textAlign: 'right'
-  },
-
   clearBtn: {
     color: '#999',
     fontSize: '20px',
@@ -122,6 +120,20 @@ const filter = {
     right: '15px',
     textDecoration: 'none',
     top: '9px'
+  },
+
+  dropdownBtn: {
+    borderBottomRightRadius: 0,
+    borderTopRightRadius: 0,
+    position: 'absolute',
+    right: '25px',
+    top: '20px'
+  },
+
+  filterableOnlySubmit: {
+    position: 'absolute',
+    right: '-3px',
+    top: '-5px'
   }
 };
 

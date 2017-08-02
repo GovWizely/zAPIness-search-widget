@@ -13,14 +13,15 @@ const Button = props => (
     className={props.className}
     onClick={props.clickHandler}
     type={props.type}
-    disabled={props.submitting}
+    disabled={props.submitting || props.disabled}
   >
     {props.children}
   </button>
 );
 
 Button.defaultProps = {
-  submitting: false
+  submitting: false,
+  disabled: false
 };
 
 Button.propTypes = {
@@ -31,6 +32,7 @@ Button.propTypes = {
   ]).isRequired,
   className: PropTypes.string.isRequired,
   clickHandler: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
   kind: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   submitting: PropTypes.bool

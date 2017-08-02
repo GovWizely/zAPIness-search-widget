@@ -5,10 +5,13 @@ import map from 'lodash/map';
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
+import assign from 'lodash/assign';
 
 import List from './List';
+import DownwardArrow from './DownwardArrow';
 
 import styles from '../stylesheets/styles';
+import colors from '../stylesheets/colors';
 
 const Radium = require('radium');
 
@@ -54,6 +57,16 @@ class Select extends Component {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       this.setState({
         isOpen: false
+      });
+    }
+  }
+
+  inputClickHandler(e) {
+    if (this.props.dropdownOnly) {
+      e.preventDefault();
+
+      this.setState({
+        isOpen: !this.state.isOpen
       });
     }
   }
@@ -110,27 +123,36 @@ class Select extends Component {
   }
 
   inputStyle() {
-    let basic = [
+    const basic = [
       styles.select.input,
-      styles.select.placeholder
+      this.props.additionalInputStyle
     ];
+
+    let inputStyles;
+
     if (this.state.isOpen) {
-      basic = basic.concat([
+      inputStyles = basic.concat([
         styles.select.noSelect,
         styles.select.openSelectInputBorder
       ]);
     } else if (this.props.disabled) {
-      basic = basic.concat(
+      inputStyles = basic.concat(
         styles.select.disabled,
         styles.select.inputBorder
       );
+    } else if (this.props.dropdownOnly) {
+      inputStyles = basic.concat(
+        styles.select.hover,
+        styles.select.dropdownOnly,
+        styles.select.inputBorder
+      );
     } else {
-      basic = basic.concat([
+      inputStyles = basic.concat([
         styles.select.inputBorder
       ]);
     }
 
-    return basic;
+    return inputStyles;
   }
 
   formatLabel(match) {
@@ -139,23 +161,27 @@ class Select extends Component {
 
   render() {
     const {
+      className,
       clearable,
       disabled,
+      dropdownOnly,
       id,
-      input
+      input,
+      placeholder
     } = this.props;
 
     const matches = this.matches(this.state.value);
 
     return (
-      <div className="__sw-select-box__" style={{ position: 'relative' }}>
+      <div className={className}>
         <div style={{ position: 'relative' }}>
           <input
             {...input}
             type="text"
             style={this.inputStyle()}
             value={this.state.value}
-            placeholder="Select as you type..."
+            placeholder={placeholder}
+            onClick={e => this.inputClickHandler(e)}
             onBlur={val => input.onBlur(val)}
             onChange={e => this.changeHandler(e)}
             disabled={disabled}
@@ -172,10 +198,35 @@ class Select extends Component {
               &times;
             </a>
           }
+
+          {
+            dropdownOnly &&
+            <a
+              href={'undefined'}
+              onClick={e => this.inputClickHandler(e)}
+              style={styles.filter.dropdownBtn}
+              className="__sw-filter-dropdown-btn__"
+            >
+              {
+                this.state.isOpen &&
+                <DownwardArrow
+                  backgroundColor={colors.white}
+                  arrowColor={colors.darkChalk}
+                />
+              }
+              {
+                !this.state.isOpen &&
+                <DownwardArrow
+                  backgroundColor={colors.whiteSmoke}
+                  arrowColor={colors.darkChalk}
+                />
+              }
+            </a>
+          }
         </div>
         {
           this.state.isOpen &&
-          <div className="__sw-open-options__" style={styles.select.options} ref={this.setWrapperRef}>
+          <div className="__sw-open-options__" style={assign(styles.select.options, styles.select[className])} ref={this.setWrapperRef}>
             <ul style={styles.select.ul}>
               {
                 matches === noResult &&
@@ -211,22 +262,30 @@ class Select extends Component {
 }
 
 Select.defaultProps = {
+  additionalInputStyle: {},
   allowFormatted: true,
+  className: '',
   clearable: true,
   disabled: false,
-  list: []
+  dropdownOnly: false,
+  list: [],
+  placeholder: ''
 };
 
 Select.propTypes = {
+  additionalInputStyle: PropTypes.shape({}),
   allowFormatted: PropTypes.bool,
+  className: PropTypes.string,
   clearable: PropTypes.bool,
   disabled: PropTypes.bool,
+  dropdownOnly: PropTypes.bool,
   id: PropTypes.string.isRequired,
   input: PropTypes.shape({
     value: PropTypes.string,
     onChange: PropTypes.func
   }).isRequired,
-  list: PropTypes.arrayOf(PropTypes.string)
+  list: PropTypes.arrayOf(PropTypes.string),
+  placeholder: PropTypes.string
 };
 
 export default Radium(Select);

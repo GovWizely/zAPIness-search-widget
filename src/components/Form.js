@@ -28,9 +28,17 @@ const settings = require('../settings.png');
 export class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showFilter: false
-    };
+
+    if (props.showSearchBar) {
+      this.state = {
+        showFilter: false
+      };
+    } else {
+      this.state = {
+        showFilter: true
+      };
+    }
+
     this.toggleFilter = this.toggleFilter.bind(this);
   }
 
@@ -49,29 +57,33 @@ export class Form extends Component {
       handleSubmit,
       isFetching,
       query,
+      showSearchBar,
       submitHandler
     } = this.props;
 
     return (
       <form className="__sw-input__" style={styles.form.container} onSubmit={handleSubmit}>
-        <div style={styles.form.inputWrapper}>
-          <Input
-            name="keyword"
-            placeholder="Search for keyword..."
-            changeHandler={submitHandler}
-            clearHandler={clearHandler}
-            value={query.get('keyword') || ''}
-          />
+        {
+          showSearchBar &&
+          <div style={styles.form.inputWrapper}>
+            <Input
+              name="keyword"
+              placeholder="Search for keyword..."
+              changeHandler={submitHandler}
+              clearHandler={clearHandler}
+              value={query.get('keyword') || ''}
+            />
 
-          <Fetcher
-            submitHandler={submitHandler}
-            fetching={isFetching}
-            keyword={query.get('keyword')}
-          />
-        </div>
+            <Fetcher
+              submitHandler={submitHandler}
+              fetching={isFetching}
+              keyword={query.get('keyword')}
+            />
+          </div>
+        }
 
         {
-          !isEmpty(filters.get('categories')) &&
+          !isEmpty(filters.get('categories')) && showSearchBar &&
           <div style={{ overflow: 'hidden' }}>
             <Button
               type="button"
@@ -94,11 +106,12 @@ export class Form extends Component {
         }
 
         {
-          this.state.showFilter &&
+          this.state.showFilter && !isEmpty(filters.get('categories')) &&
           <FieldArray
             name="filters"
             deviceType={deviceType}
             component={Filter}
+            showSearchBar={showSearchBar}
           />
         }
       </form>
@@ -141,6 +154,7 @@ function mapDispatchToProps(dispatch) {
 Form.defaultProps = {
   deviceType: '',
   handleSubmit: undefined,
+  showSearchBar: true,
   updateFilterStatus: undefined
 };
 
@@ -152,7 +166,8 @@ Form.propTypes = {
   updateFilterStatus: PropTypes.func,
   filters: PropTypes.shape({}).isRequired,
   query: PropTypes.shape({}).isRequired,
-  deviceType: PropTypes.string
+  deviceType: PropTypes.string,
+  showSearchBar: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({

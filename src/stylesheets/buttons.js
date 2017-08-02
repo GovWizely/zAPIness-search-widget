@@ -98,6 +98,7 @@ const buttons = {
   },
 
   desktopDeleteLink: {
+    background: 'none',
     color: colors.darkChalk,
     fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
     fontSize: '13px',
@@ -137,34 +138,41 @@ const buttons = {
   },
 
   desktopSubmit: {
-    background: colors.darkChalk,
-    display: 'inline-block',
+    background: colors.green,
+    border: `1px solid ${colors.borderGreen}`,
     fontSize: '15px',
-    fontWeight: 500,
+    fontWeight: 600,
     color: colors.white,
-    marginLeft: '5px',
-    padding: '5px 8px',
+    padding: '8px 40px',
 
     ':hover': {
-      background: colors.chalk,
+      background: colors.darkGreen,
+      border: `1px solid ${colors.borderGreen}`,
       cursor: 'pointer'
     },
 
     ':disabled': {
       background: colors.chalk,
+      border: colors.white,
       opacity: '0.5'
     }
   },
 
   mobileSubmit: {
-    background: colors.darkChalk,
+    background: colors.green,
     color: colors.white,
     display: 'block',
     fontSize: '15px',
     fontWeight: 500,
     padding: '8px',
     width: '100%',
-    marginBottom: '10px'
+    marginBottom: '10px',
+
+    ':hover': {
+      background: colors.darkGreen,
+      border: `1px solid ${colors.borderGreen}`,
+      cursor: 'pointer'
+    }
   }
 };
 

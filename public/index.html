@@ -285,8 +285,6 @@
         </code>
       </pre>
 
-      <div id="zAPI-sw-root-2"></div>
-
       <div class="example">
         <h3>Specific Label <span class="show-code" onclick="runExample3()">run code</span></h3>
         <div class="hint">
@@ -300,6 +298,34 @@
             host: "https://rrsoft.zapiness.com",
             endpoint: "books",
             label: "authors",
+            fields: [
+              "title",
+              "publisher",
+              "average_rating",
+              "rating_count",
+              "language",
+              "categories",
+              "authors",
+              "page_count"
+            ]
+          });
+        </code>
+      </pre>
+
+      <div class="example">
+        <h3>Hide Search Bar <span class="show-code" onclick="runExample4()">run code</span></h3>
+        <div class="hint">
+          Hide Search Bar and show advanced filters only.
+        </div>
+      </div>
+      <pre id="example-4">
+        <code>
+          zAPI.SearchWidget.new({
+            mountPoint: "#zAPI-sw-root",
+            host: "https://rrsoft.zapiness.com",
+            endpoint: "books",
+            label: "authors",
+            showSearchBar: false,
             fields: [
               "title",
               "publisher",
@@ -393,6 +419,28 @@
         endpoint: "books",
         label: "authors",
         preview: true,
+        fields: [
+          "title",
+          "publisher",
+          "average_rating",
+          "rating_count",
+          "language",
+          "categories",
+          "authors",
+          "page_count"
+        ]
+      });
+    }
+
+    function runExample4() {
+      removeNode();
+      zAPI.SearchWidget.new({
+        mountPoint: "#zAPI-sw-root",
+        host: "https://rrsoft.zapiness.com",
+        endpoint: "books",
+        label: "authors",
+        preview: "true",
+        showSearchBar: false,
         fields: [
           "title",
           "publisher",
