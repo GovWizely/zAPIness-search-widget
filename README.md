@@ -1,14 +1,14 @@
 # zAPIness-search-widget
 
-A search widget that allows users to search a given zAPIness endpoint.[See Demo](https://govwizely.github.io/zAPIness-search-widget)
+A search widget that allows users to search a given zAPIness endpoint set up in https://app.zapiness.com/. [See Demo](https://govwizely.github.io/zAPIness-search-widget)
 
 ##### Desktop
 
-<img width="1017" alt="screen shot 2017-06-13 at 10 42 40 am" src="https://user-images.githubusercontent.com/21019282/27063567-100797c0-5025-11e7-8db8-ba0edbb40957.png">
+<img width="1001" alt="screen shot 2017-08-03 at 8 53 25 am" src="https://user-images.githubusercontent.com/21019282/28901244-680582ee-7829-11e7-979a-bab65dda727f.png">
 
 ##### Mobile
 
-<img width="318" alt="screen shot 2017-06-13 at 10 42 17 am" src="https://user-images.githubusercontent.com/21019282/27063579-1f0d54e4-5025-11e7-909a-5ae9a8604749.png">
+<img width="455" alt="screen shot 2017-08-03 at 8 53 40 am" src="https://user-images.githubusercontent.com/21019282/28901258-6e2c8be0-7829-11e7-9468-145fc0ce4d8e.png">
 
 ____
 
@@ -61,11 +61,11 @@ zAPIness-search-widget will be loaded in any webpage by embedding the following 
 ### Features
 
 * __Search with Keyword__: Perform search when users type
-* __Additional Filters__: Allow user to add filterings on the search
+* __Additional Filters__: Allow user to add filters on the search
 * __Customization fields to be shown in the search results__
 * __Basic Pagination__
-* __Validation__
 * __Smart Select in Advanced Filter__: Search for the most relevant keyword while you type
+* __Customizable View__: Able to hide the search bar by setting ```showSearchBar``` flag to false
 
 ___
 
